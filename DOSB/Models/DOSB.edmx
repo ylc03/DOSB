@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DOSBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DOSBModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="DOSBModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WorkshopAssignment" EntityType="DOSBModel.Store.WorkshopAssignment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WorkshopDailyActivity" EntityType="DOSBModel.Store.WorkshopDailyActivity" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_WorkshopAssignment_Employee" Association="DOSBModel.Store.FK_WorkshopAssignment_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkshopAssignment_WorkshopDailyActivity" Association="DOSBModel.Store.FK_WorkshopAssignment_WorkshopDailyActivity">
+            <End Role="WorkshopDailyActivity" EntitySet="WorkshopDailyActivity" />
+            <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LDAP" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubSegment" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WorkshopAssignment">
+          <Key>
+            <PropertyRef Name="WorkshopAssignmentId" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="WorkshopDailyActivityId" />
+          </Key>
+          <Property Name="WorkshopAssignmentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="WorkshopDailyActivityId" Type="int" Nullable="false" />
+          <Property Name="AssignedAt" Type="datetime" Nullable="false" />
+          <Property Name="EndedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WorkshopDailyActivity">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Forklift" Type="int" Nullable="false" />
+          <Property Name="Torque" Type="int" Nullable="false" />
+          <Property Name="PressureTest" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="FinishedAt" Type="datetime" />
+          <Property Name="CanceledAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_WorkshopAssignment_Employee">
+          <End Role="Employee" Type="DOSBModel.Store.Employee" Multiplicity="1" />
+          <End Role="WorkshopAssignment" Type="DOSBModel.Store.WorkshopAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="WorkshopAssignment">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkshopAssignment_WorkshopDailyActivity">
+          <End Role="WorkshopDailyActivity" Type="DOSBModel.Store.WorkshopDailyActivity" Multiplicity="1" />
+          <End Role="WorkshopAssignment" Type="DOSBModel.Store.WorkshopAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkshopDailyActivity">
+              <PropertyRef Name="ActivityId" />
+            </Principal>
+            <Dependent Role="WorkshopAssignment">
+              <PropertyRef Name="WorkshopDailyActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DOSBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DOSBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employee" EntityType="DOSBModel.Employee" />
+          <EntitySet Name="WorkshopAssignment" EntityType="DOSBModel.WorkshopAssignment" />
+          <EntitySet Name="WorkshopDailyActivity" EntityType="DOSBModel.WorkshopDailyActivity" />
+          <AssociationSet Name="FK_WorkshopAssignment_Employee" Association="DOSBModel.FK_WorkshopAssignment_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkshopAssignment_WorkshopDailyActivity" Association="DOSBModel.FK_WorkshopAssignment_WorkshopDailyActivity">
+            <End Role="WorkshopDailyActivity" EntitySet="WorkshopDailyActivity" />
+            <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LDAP" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="WorkshopAssignment" Relationship="DOSBModel.FK_WorkshopAssignment_Employee" FromRole="Employee" ToRole="WorkshopAssignment" />
+          <Property Type="String" Name="SubSegment" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WorkshopAssignment">
+          <Key>
+            <PropertyRef Name="WorkshopAssignmentId" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="WorkshopDailyActivityId" />
+          </Key>
+          <Property Name="WorkshopAssignmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="WorkshopDailyActivityId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedAt" Type="DateTime" Nullable="false" />
+          <Property Name="EndedAt" Type="DateTime" />
+          <NavigationProperty Name="Employee" Relationship="DOSBModel.FK_WorkshopAssignment_Employee" FromRole="WorkshopAssignment" ToRole="Employee" />
+          <NavigationProperty Name="WorkshopDailyActivity" Relationship="DOSBModel.FK_WorkshopAssignment_WorkshopDailyActivity" FromRole="WorkshopAssignment" ToRole="WorkshopDailyActivity" />
+        </EntityType>
+        <EntityType Name="WorkshopDailyActivity">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Forklift" Type="Int32" Nullable="false" />
+          <Property Name="Torque" Type="Int32" Nullable="false" />
+          <Property Name="PressureTest" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="FinishedAt" Type="DateTime" />
+          <Property Name="CanceledAt" Type="DateTime" />
+          <NavigationProperty Name="WorkshopAssignment" Relationship="DOSBModel.FK_WorkshopAssignment_WorkshopDailyActivity" FromRole="WorkshopDailyActivity" ToRole="WorkshopAssignment" />
+        </EntityType>
+        <Association Name="FK_WorkshopAssignment_Employee">
+          <End Role="Employee" Type="DOSBModel.Employee" Multiplicity="1" />
+          <End Role="WorkshopAssignment" Type="DOSBModel.WorkshopAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="WorkshopAssignment">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkshopAssignment_WorkshopDailyActivity">
+          <End Role="WorkshopDailyActivity" Type="DOSBModel.WorkshopDailyActivity" Multiplicity="1" />
+          <End Role="WorkshopAssignment" Type="DOSBModel.WorkshopAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkshopDailyActivity">
+              <PropertyRef Name="ActivityId" />
+            </Principal>
+            <Dependent Role="WorkshopAssignment">
+              <PropertyRef Name="WorkshopDailyActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DOSBModelStoreContainer" CdmEntityContainer="DOSBEntities">
+          <EntitySetMapping Name="Employee"><EntityTypeMapping TypeName="DOSBModel.Employee"><MappingFragment StoreEntitySet="Employee">
+            <ScalarProperty Name="SubSegment" ColumnName="SubSegment" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+            <ScalarProperty Name="LDAP" ColumnName="LDAP" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WorkshopAssignment"><EntityTypeMapping TypeName="DOSBModel.WorkshopAssignment"><MappingFragment StoreEntitySet="WorkshopAssignment">
+            <ScalarProperty Name="WorkshopAssignmentId" ColumnName="WorkshopAssignmentId" />
+            <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+            <ScalarProperty Name="WorkshopDailyActivityId" ColumnName="WorkshopDailyActivityId" />
+            <ScalarProperty Name="AssignedAt" ColumnName="AssignedAt" />
+            <ScalarProperty Name="EndedAt" ColumnName="EndedAt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WorkshopDailyActivity"><EntityTypeMapping TypeName="DOSBModel.WorkshopDailyActivity"><MappingFragment StoreEntitySet="WorkshopDailyActivity">
+            <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Forklift" ColumnName="Forklift" />
+            <ScalarProperty Name="Torque" ColumnName="Torque" />
+            <ScalarProperty Name="PressureTest" ColumnName="PressureTest" />
+            <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+            <ScalarProperty Name="FinishedAt" ColumnName="FinishedAt" />
+            <ScalarProperty Name="CanceledAt" ColumnName="CanceledAt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DOSB" ZoomLevel="100">
+        <EntityTypeShape EntityType="DOSBModel.Employee" Width="1.5" PointX="0.5" PointY="0.5" Height="1.4535937500000002" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOSBModel.WorkshopAssignment" Width="2" PointX="2.75" PointY="0.5" Height="2.1280729166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOSBModel.WorkshopDailyActivity" Width="1.875" PointX="5.5" PointY="0.5" Height="2.4653124999999996" IsExpanded="true" />
+        <AssociationConnector Association="DOSBModel.FK_WorkshopAssignment_Employee" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="1.2267968750000002" />
+          <ConnectorPoint PointX="2.75" PointY="1.2267968750000002" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_WorkshopAssignment_WorkshopDailyActivity" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.5" PointY="1.5640364583333328" />
+          <ConnectorPoint PointX="4.75" PointY="1.5640364583333328" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
