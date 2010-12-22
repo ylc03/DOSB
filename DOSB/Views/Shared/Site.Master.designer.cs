@@ -13,13 +13,13 @@ namespace DOSB.Views.Shared {
     public partial class Site {
         
         /// <summary>
-        /// Header control.
+        /// TitleContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder Header;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder TitleContent;
         
         /// <summary>
         /// MainContent control.
