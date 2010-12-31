@@ -7,7 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+
 using DOSB.Models;
+using DOSB.viewModels;
 
 namespace DOSB.Controllers
 {
@@ -31,27 +33,35 @@ namespace DOSB.Controllers
         // **************************************
         // URL: /Account/AddEmployee
         // **************************************
-        [Authorize]
-        public ActionResult AddEmployee()
+        //[Authorize]
+        public ActionResult Add()
         {
-            return View();
+            var viewModel = new EmployeeManagerViewModel
+            {
+                Employee = new Employee(),
+                SubSegments = db.Segment.Where(s => s.ParentId == 4 ).ToList()
+            };
+            return View(viewModel);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
-        public ActionResult AddEmployee(AddEmployeeModel model)
+        public ActionResult Add(Employee employee)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var employee = db.Employee.First(e => e.LDAP == model.LDAP);
-            }
-            catch (InvalidOperationException ex)
-            {
-                Employee emp = new Employee { LDAP = model.LDAP, SubSegment = model.SubSegment };
-                db.AddToEmployee(emp);
+                db.AddToEmployee(employee);
+                db.SaveChanges();
+
+                RedirectToAction("index", "Home");
             }
 
-            return View(model);
+            var viewModel = new EmployeeManagerViewModel
+            {
+                Employee = employee,
+                SubSegments = db.Segment.Where(s => s.ParentId == 4 ).ToList()
+            };
+            return View(viewModel);
         }
         // **************************************
         // URL: /Account/LogOn

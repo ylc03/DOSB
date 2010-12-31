@@ -7,8 +7,17 @@
     <Schema Namespace="DOSBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DOSBModelStoreContainer">
           <EntitySet Name="Employee" EntityType="DOSBModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Segment" EntityType="DOSBModel.Store.Segment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkshopAssignment" EntityType="DOSBModel.Store.WorkshopAssignment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkshopDailyActivity" EntityType="DOSBModel.Store.WorkshopDailyActivity" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Employee_Segment" Association="DOSBModel.Store.FK_Employee_Segment">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Segment_Parent" Association="DOSBModel.Store.FK_Segment_Parent">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="Segment1" EntitySet="Segment" />
+          </AssociationSet>
           <AssociationSet Name="FK_WorkshopAssignment_Employee" Association="DOSBModel.Store.FK_WorkshopAssignment_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
@@ -24,7 +33,16 @@
           </Key>
           <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LDAP" Type="nvarchar" MaxLength="50" />
-          <Property Name="SubSegment" Type="nvarchar" MaxLength="50" />
+          <Property Name="SegmentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Segment">
+          <Key>
+            <PropertyRef Name="SegmentId" />
+          </Key>
+          <Property Name="SegmentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -51,6 +69,30 @@
           <Property Name="FinishedAt" Type="datetime" />
           <Property Name="CanceledAt" Type="datetime" />
         </EntityType>
+        <Association Name="FK_Employee_Segment">
+          <End Role="Segment" Type="DOSBModel.Store.Segment" Multiplicity="0..1" />
+          <End Role="Employee" Type="DOSBModel.Store.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segment">
+              <PropertyRef Name="SegmentId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SegmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Segment_Parent">
+          <End Role="Segment" Type="DOSBModel.Store.Segment" Multiplicity="1" />
+          <End Role="Segment1" Type="DOSBModel.Store.Segment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segment">
+              <PropertyRef Name="SegmentId" />
+            </Principal>
+            <Dependent Role="Segment1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WorkshopAssignment_Employee">
           <End Role="Employee" Type="DOSBModel.Store.Employee" Multiplicity="1" />
           <End Role="WorkshopAssignment" Type="DOSBModel.Store.WorkshopAssignment" Multiplicity="*" />
@@ -91,6 +133,15 @@
             <End Role="WorkshopDailyActivity" EntitySet="WorkshopDailyActivity" />
             <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
           </AssociationSet>
+          <EntitySet Name="Segment" EntityType="DOSBModel.Segment" />
+          <AssociationSet Name="FK_Employee_Segment" Association="DOSBModel.FK_Employee_Segment">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Segment_Parent" Association="DOSBModel.FK_Segment_Parent">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="Segment1" EntitySet="Segment" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -99,7 +150,8 @@
           <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LDAP" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="WorkshopAssignment" Relationship="DOSBModel.FK_WorkshopAssignment_Employee" FromRole="Employee" ToRole="WorkshopAssignment" />
-          <Property Type="String" Name="SubSegment" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SegmentId" />
+          <NavigationProperty Name="Segment" Relationship="DOSBModel.FK_Employee_Segment" FromRole="Employee" ToRole="Segment" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -153,6 +205,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Segment">
+          <Key>
+            <PropertyRef Name="SegmentId" />
+          </Key>
+          <Property Type="Int32" Name="SegmentId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FullName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ParentId" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="DOSBModel.FK_Employee_Segment" FromRole="Segment" ToRole="Employee" />
+          <NavigationProperty Name="Segment1" Relationship="DOSBModel.FK_Segment_Parent" FromRole="Segment" ToRole="Segment1" />
+          <NavigationProperty Name="Segment2" Relationship="DOSBModel.FK_Segment_Parent" FromRole="Segment1" ToRole="Segment" />
+        </EntityType>
+        <Association Name="FK_Employee_Segment">
+          <End Type="DOSBModel.Segment" Role="Segment" Multiplicity="0..1" />
+          <End Type="DOSBModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segment">
+              <PropertyRef Name="SegmentId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SegmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Segment_Parent">
+          <End Type="DOSBModel.Segment" Role="Segment" Multiplicity="1" />
+          <End Type="DOSBModel.Segment" Role="Segment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segment">
+              <PropertyRef Name="SegmentId" />
+            </Principal>
+            <Dependent Role="Segment1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -160,7 +248,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DOSBModelStoreContainer" CdmEntityContainer="DOSBEntities">
           <EntitySetMapping Name="Employee"><EntityTypeMapping TypeName="DOSBModel.Employee"><MappingFragment StoreEntitySet="Employee">
-            <ScalarProperty Name="SubSegment" ColumnName="SubSegment" />
+                <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
             <ScalarProperty Name="LDAP" ColumnName="LDAP" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
@@ -181,6 +269,16 @@
             <ScalarProperty Name="FinishedAt" ColumnName="FinishedAt" />
             <ScalarProperty Name="CanceledAt" ColumnName="CanceledAt" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Segment">
+            <EntityTypeMapping TypeName="DOSBModel.Segment">
+              <MappingFragment StoreEntitySet="Segment">
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -202,16 +300,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="DOSB" ZoomLevel="100">
-        <EntityTypeShape EntityType="DOSBModel.Employee" Width="1.5" PointX="0.5" PointY="0.5" Height="1.4535937500000002" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOSBModel.Employee" Width="1.5" PointX="0.5" PointY="0.5" Height="1.7908333333333335" IsExpanded="true" />
         <EntityTypeShape EntityType="DOSBModel.WorkshopAssignment" Width="2" PointX="2.75" PointY="0.5" Height="2.1280729166666656" IsExpanded="true" />
         <EntityTypeShape EntityType="DOSBModel.WorkshopDailyActivity" Width="1.875" PointX="5.5" PointY="0.5" Height="2.4653124999999996" IsExpanded="true" />
         <AssociationConnector Association="DOSBModel.FK_WorkshopAssignment_Employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="1.2267968750000002" />
-          <ConnectorPoint PointX="2.75" PointY="1.2267968750000002" />
+          <ConnectorPoint PointX="2" PointY="1.3954166666666668" />
+          <ConnectorPoint PointX="2.75" PointY="1.3954166666666668" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_WorkshopAssignment_WorkshopDailyActivity" ManuallyRouted="false">
           <ConnectorPoint PointX="5.5" PointY="1.5640364583333328" />
           <ConnectorPoint PointX="4.75" PointY="1.5640364583333328" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="0.5" PointY="3" Height="2.1280729166666656" />
+        <AssociationConnector Association="DOSBModel.FK_Employee_Segment" >
+          <ConnectorPoint PointX="1.25" PointY="3" />
+          <ConnectorPoint PointX="1.25" PointY="2.2908333333333335" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_Segment_Parent" >
+          <ConnectorPoint PointX="1.0319230769230769" PointY="5.1280729166666656" />
+          <ConnectorPoint PointX="1.0319230769230769" PointY="5.3780729166666656" />
+          <ConnectorPoint PointX="1.4784615384615383" PointY="5.3780729166666656" />
+          <ConnectorPoint PointX="1.4784615384615383" PointY="5.1280729166666656" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

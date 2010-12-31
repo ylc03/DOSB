@@ -12,16 +12,6 @@ namespace DOSB.Models
 {
 
     #region Models
-    public class AddEmployeeModel
-    {
-        [Required]
-        [DisplayName("LDAP Alias")]
-        public string LDAP { get; set; }
-
-        [Required]
-        [DisplayName("Sub Segment")]
-        public string SubSegment { get; set; }
-    }
 
     [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "The new password and confirmation password do not match.")]
     public class ChangePasswordModel

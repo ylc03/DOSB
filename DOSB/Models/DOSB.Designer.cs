@@ -20,6 +20,8 @@ using System.Runtime.Serialization;
 
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Employee), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopDailyActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.WorkshopDailyActivity), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Employee_Segment", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Segment), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Employee), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Segment_Parent", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Segment), "Segment1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Segment), true)]
 
 #endregion
 
@@ -118,6 +120,22 @@ namespace DOSB.Models
             }
         }
         private ObjectSet<WorkshopDailyActivity> _WorkshopDailyActivity;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Segment> Segment
+        {
+            get
+            {
+                if ((_Segment == null))
+                {
+                    _Segment = base.CreateObjectSet<Segment>("Segment");
+                }
+                return _Segment;
+            }
+        }
+        private ObjectSet<Segment> _Segment;
 
         #endregion
         #region AddTo Methods
@@ -144,6 +162,14 @@ namespace DOSB.Models
         public void AddToWorkshopDailyActivity(WorkshopDailyActivity workshopDailyActivity)
         {
             base.AddObject("WorkshopDailyActivity", workshopDailyActivity);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Segment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSegment(Segment segment)
+        {
+            base.AddObject("Segment", segment);
         }
 
         #endregion
@@ -234,24 +260,24 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String SubSegment
+        public Nullable<global::System.Int32> SegmentId
         {
             get
             {
-                return _SubSegment;
+                return _SegmentId;
             }
             set
             {
-                OnSubSegmentChanging(value);
-                ReportPropertyChanging("SubSegment");
-                _SubSegment = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("SubSegment");
-                OnSubSegmentChanged();
+                OnSegmentIdChanging(value);
+                ReportPropertyChanging("SegmentId");
+                _SegmentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SegmentId");
+                OnSegmentIdChanged();
             }
         }
-        private global::System.String _SubSegment;
-        partial void OnSubSegmentChanging(global::System.String value);
-        partial void OnSubSegmentChanged();
+        private Nullable<global::System.Int32> _SegmentId;
+        partial void OnSegmentIdChanging(Nullable<global::System.Int32> value);
+        partial void OnSegmentIdChanged();
 
         #endregion
     
@@ -275,6 +301,258 @@ namespace DOSB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WorkshopAssignment>("DOSBModel.FK_WorkshopAssignment_Employee", "WorkshopAssignment", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Employee_Segment", "Segment")]
+        public Segment Segment
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Segment>("DOSBModel.FK_Employee_Segment", "Segment").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Segment>("DOSBModel.FK_Employee_Segment", "Segment").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Segment> SegmentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Segment>("DOSBModel.FK_Employee_Segment", "Segment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Segment>("DOSBModel.FK_Employee_Segment", "Segment", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="Segment")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Segment : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Segment object.
+        /// </summary>
+        /// <param name="segmentId">Initial value of the SegmentId property.</param>
+        /// <param name="parentId">Initial value of the ParentId property.</param>
+        public static Segment CreateSegment(global::System.Int32 segmentId, global::System.Int32 parentId)
+        {
+            Segment segment = new Segment();
+            segment.SegmentId = segmentId;
+            segment.ParentId = parentId;
+            return segment;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SegmentId
+        {
+            get
+            {
+                return _SegmentId;
+            }
+            set
+            {
+                if (_SegmentId != value)
+                {
+                    OnSegmentIdChanging(value);
+                    ReportPropertyChanging("SegmentId");
+                    _SegmentId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("SegmentId");
+                    OnSegmentIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _SegmentId;
+        partial void OnSegmentIdChanging(global::System.Int32 value);
+        partial void OnSegmentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FullName
+        {
+            get
+            {
+                return _FullName;
+            }
+            set
+            {
+                OnFullNameChanging(value);
+                ReportPropertyChanging("FullName");
+                _FullName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FullName");
+                OnFullNameChanged();
+            }
+        }
+        private global::System.String _FullName;
+        partial void OnFullNameChanging(global::System.String value);
+        partial void OnFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ParentId
+        {
+            get
+            {
+                return _ParentId;
+            }
+            set
+            {
+                OnParentIdChanging(value);
+                ReportPropertyChanging("ParentId");
+                _ParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentId");
+                OnParentIdChanged();
+            }
+        }
+        private global::System.Int32 _ParentId;
+        partial void OnParentIdChanging(global::System.Int32 value);
+        partial void OnParentIdChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Employee_Segment", "Employee")]
+        public EntityCollection<Employee> Employee
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Employee>("DOSBModel.FK_Employee_Segment", "Employee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Employee>("DOSBModel.FK_Employee_Segment", "Employee", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Segment_Parent", "Segment1")]
+        public EntityCollection<Segment> Segment1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Segment>("DOSBModel.FK_Segment_Parent", "Segment1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Segment>("DOSBModel.FK_Segment_Parent", "Segment1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Segment_Parent", "Segment")]
+        public Segment Segment2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Segment>("DOSBModel.FK_Segment_Parent", "Segment").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Segment>("DOSBModel.FK_Segment_Parent", "Segment").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Segment> Segment2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Segment>("DOSBModel.FK_Segment_Parent", "Segment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Segment>("DOSBModel.FK_Segment_Parent", "Segment", value);
                 }
             }
         }
