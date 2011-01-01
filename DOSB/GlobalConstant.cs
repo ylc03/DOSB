@@ -14,5 +14,7 @@ namespace DOSB
         public static string RMCFullname = "Reservoir Monitoring & Control";
         public static string CCFullname = "Core Completions";
         public static string SMSFullname = "Sand Management System";
+
+        public static List<String> EMPLOYEE_STATUS = new List<string> { "B", "J", "O"};
     }
 }

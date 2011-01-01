@@ -17,7 +17,7 @@ namespace DOSB.Controllers
     [HandleError]
     public class AccountController : Controller
     {
-        private DOSBEntities db = new DOSBEntities();
+        private DOSBEntities storeDB = new DOSBEntities();
 
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
@@ -30,39 +30,6 @@ namespace DOSB.Controllers
             base.Initialize(requestContext);
         }
 
-        // **************************************
-        // URL: /Account/AddEmployee
-        // **************************************
-        //[Authorize]
-        public ActionResult Add()
-        {
-            var viewModel = new EmployeeManagerViewModel
-            {
-                Employee = new Employee(),
-                SubSegments = db.Segment.Where(s => s.ParentId == 4 ).ToList()
-            };
-            return View(viewModel);
-        }
-
-        //[Authorize]
-        [HttpPost]
-        public ActionResult Add(Employee employee)
-        {
-            if (ModelState.IsValid)
-            {
-                db.AddToEmployee(employee);
-                db.SaveChanges();
-
-                RedirectToAction("index", "Home");
-            }
-
-            var viewModel = new EmployeeManagerViewModel
-            {
-                Employee = employee,
-                SubSegments = db.Segment.Where(s => s.ParentId == 4 ).ToList()
-            };
-            return View(viewModel);
-        }
         // **************************************
         // URL: /Account/LogOn
         // **************************************

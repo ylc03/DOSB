@@ -8,6 +8,15 @@
     <asp:ContentPlaceHolder ID="TitleContent" runat="server">
     </asp:ContentPlaceHolder>
     </title>
+
+    <link href="/Content/flick/jquery-ui-1.8.7.css" rel="Stylesheet" type="text/css"/>
+    <link href="/Content/Site.css" rel="Stylesheet" type="text/css"/>
+
+    <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-1.8.7.min.js" type="text/javascript"></script>
+
+    <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <body>
     <div id="content">

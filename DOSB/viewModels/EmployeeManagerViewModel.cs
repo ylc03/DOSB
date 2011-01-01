@@ -11,5 +11,6 @@ namespace DOSB.viewModels
     {
         public Employee Employee {get; set;}
         public List<Segment> SubSegments { get; set; }
+        public List<String> Status { get; set; }
     }
 }

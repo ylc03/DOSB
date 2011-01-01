@@ -33,6 +33,7 @@
           </Key>
           <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LDAP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="SegmentId" Type="int" />
         </EntityType>
         <EntityType Name="Segment">
@@ -152,6 +153,7 @@
           <NavigationProperty Name="WorkshopAssignment" Relationship="DOSBModel.FK_WorkshopAssignment_Employee" FromRole="Employee" ToRole="WorkshopAssignment" />
           <Property Type="Int32" Name="SegmentId" />
           <NavigationProperty Name="Segment" Relationship="DOSBModel.FK_Employee_Segment" FromRole="Employee" ToRole="Segment" />
+          <Property Type="String" Name="Status" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -248,6 +250,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DOSBModelStoreContainer" CdmEntityContainer="DOSBEntities">
           <EntitySetMapping Name="Employee"><EntityTypeMapping TypeName="DOSBModel.Employee"><MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
             <ScalarProperty Name="LDAP" ColumnName="LDAP" />
