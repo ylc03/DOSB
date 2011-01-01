@@ -5,3 +5,5 @@
 *.suo
 *.pdb
 *.pidb
+
+/DOSB/DOSB.Publish.xml
