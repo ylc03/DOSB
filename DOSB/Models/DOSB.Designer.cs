@@ -302,6 +302,30 @@ namespace DOSB.Models
         private global::System.String _Status;
         partial void OnStatusChanging(global::System.String value);
         partial void OnStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Avatar
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Avatar);
+            }
+            set
+            {
+                OnAvatarChanging(value);
+                ReportPropertyChanging("Avatar");
+                _Avatar = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Avatar");
+                OnAvatarChanged();
+            }
+        }
+        private global::System.Byte[] _Avatar;
+        partial void OnAvatarChanging(global::System.Byte[] value);
+        partial void OnAvatarChanged();
 
         #endregion
     

@@ -13,6 +13,9 @@
 
         <fieldset>
             <legend>Add Employee</legend>
+            
+            <p><%: ViewData["message"] %></p>
+            <p><%: ViewData["ldap_message"] %></p>
 
             <%: Html.EditorFor(model => model.Employee, new {SubSegments = Model.SubSegments}) %>
 

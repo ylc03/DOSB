@@ -35,6 +35,7 @@
           <Property Name="LDAP" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="SegmentId" Type="int" />
+          <Property Name="Avatar" Type="image" />
         </EntityType>
         <EntityType Name="Segment">
           <Key>
@@ -154,6 +155,7 @@
           <Property Type="Int32" Name="SegmentId" />
           <NavigationProperty Name="Segment" Relationship="DOSBModel.FK_Employee_Segment" FromRole="Employee" ToRole="Segment" />
           <Property Type="String" Name="Status" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Avatar" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -250,6 +252,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DOSBModelStoreContainer" CdmEntityContainer="DOSBEntities">
           <EntitySetMapping Name="Employee"><EntityTypeMapping TypeName="DOSBModel.Employee"><MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
@@ -314,16 +317,16 @@
           <ConnectorPoint PointX="5.5" PointY="1.5640364583333328" />
           <ConnectorPoint PointX="4.75" PointY="1.5640364583333328" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="0.5" PointY="3" Height="2.1280729166666656" />
+        <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="0.5" PointY="3.125" Height="2.1280729166666656" />
         <AssociationConnector Association="DOSBModel.FK_Employee_Segment" >
-          <ConnectorPoint PointX="1.25" PointY="3" />
-          <ConnectorPoint PointX="1.25" PointY="2.2908333333333335" />
+          <ConnectorPoint PointX="1.25" PointY="3.125" />
+          <ConnectorPoint PointX="1.25" PointY="2.6280729166666665" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Segment_Parent" >
-          <ConnectorPoint PointX="1.0319230769230769" PointY="5.1280729166666656" />
-          <ConnectorPoint PointX="1.0319230769230769" PointY="5.3780729166666656" />
-          <ConnectorPoint PointX="1.4784615384615383" PointY="5.3780729166666656" />
-          <ConnectorPoint PointX="1.4784615384615383" PointY="5.1280729166666656" />
+          <ConnectorPoint PointX="1.0319230769230769" PointY="5.2530729166666656" />
+          <ConnectorPoint PointX="1.0319230769230769" PointY="5.5030729166666656" />
+          <ConnectorPoint PointX="1.4784615384615383" PointY="5.5030729166666656" />
+          <ConnectorPoint PointX="1.4784615384615383" PointY="5.2530729166666656" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
