@@ -121,6 +121,7 @@
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
+    <Content Include="Views\Employee\Update.ascx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Employee.ascx" />
     <Content Include="Web.config" />

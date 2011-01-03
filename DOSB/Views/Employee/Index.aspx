@@ -6,9 +6,19 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 	<script language="javascript" type="text/javascript">
-        $(function () {
+	    $(function () {
             $("#calendar").datepicker();
         });
+
+        function update(id) {
+            $("#row-" + id).load("/Employee/Update", { "id": id });
+        }
+
+        function del(id) {
+            $("#row-" + id).load("/Employee/Delete", { "id": id }, function () {
+                $("#row-" + id).fadeOut("normal");
+            });
+        }
     </script>
 </asp:Content>
 
@@ -18,6 +28,9 @@
     <table>
         <tr>
             <th></th>
+            <th>
+                Avatar
+            </th>
             <th>
                 LDAP
             </th>
@@ -30,12 +43,13 @@
         </tr>
 
     <% foreach (var item in Model) { %>
-    
-        <tr>
+        <tr id="row-<%: item.EmployeeId %>">
             <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) %> |
-                <%: Html.ActionLink("Details", "Details", new { id=item.EmployeeId })%> |
-                <%: Html.ActionLink("Delete", "Delete", new { id=item.EmployeeId })%>
+                <a href="#" onclick="update(<%: item.EmployeeId %>)">Update</a> |
+                <a href="#" onclick="del(<%: item.EmployeeId %>)">Delete</a> 
+            </td>
+            <td>
+                <img src="<%: Url.Action( "Avatar", "Employee", new { id = item.EmployeeId } ) %>" width="50" height="50"/>
             </td>
             <td>
                 <%: item.LDAP %>
