@@ -6,31 +6,42 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 	<script language="javascript" type="text/javascript">
-	    function updateAramcoId(id, text) {
-            alert(id + text);
-        }
+	    $(function () {
+	        $(".edit-aramco-id").editable("/Employee/UpdateAramcoId", {
+	            indicator: 'Saving...',
+	            tooltip: 'Click to edit...',
+	        });
 
-        $(function () {
-            $("#calendar").datepicker();
+	        $(".edit-status").editable("Employee/UpdateStatus", {
+	            data: "{'Job':'Job', 'Base':'Base', 'Days Off':'Days Off', 'Vacation':'Vacation'}",
+	            type: "select",
+	        });
 
-            <% foreach (var item in Model.AllEmployees) { %>
-            $("#aramco-id-<%: item.EmployeeId %>").editInPlace({
-                callback: function(unused, enteredText) { updateAramcoId(<%: item.EmployeeId %>, enteredText); return;}
-                show_buttons: true
-            });
-            <%} %>
-        });
+	        $(".edit-sub-segment").editable("Employee/UpdateSubSegment", {
+	            data: "{'5':'RMC', '6':'CC', '7':'SMS'}",
+	            type: "select",
+	        });
+
+
+	        $(".edit-aramco-id-expdate").editable("/Employee/UpdateAramcoIdExpireDate", {
+	            datepicker: "true",
+                onblur: "none"
+	        });
+
+            
+	        $(".edit-h2s-expdate").editable("/Employee/UpdateH2SExpireDate", {
+	            datepicker: "true",
+                onblur: "none"
+	        });
+
+            $(".edit-huet-expdate").editable("/Employee/UpdateHUETExpireDate", {
+	            datepicker: "true",
+                onblur: "none"
+	        });
+	    });
 
         function update(id) {
             $("#row-" + id).load("/Employee/Update", { "id": id });
-        }
-
-        function updateStatus(id) {
-            $.post("/Employee/UpdateStatus", { "id": id, "status": $("#status-"+id).val()})
-        }
-
-        function updateSubSegment(id) {
-            $.post("/Employee/UpdateSubSegment", { "id": id, "segmentId": $("#sub-segment-" + id).val() })
         }
 
         function del(id) {
@@ -91,7 +102,7 @@
                 <a href="#" onclick="del(<%: item.EmployeeId %>)">Delete</a> 
             </td>
             <td>
-                <img src="<%: Url.Action( "Avatar", "Employee", new { id = item.EmployeeId } ) %>" width="50" height="50"/>
+                <img src="<%: Url.Action( "Avatar", "Employee", new { id = item.EmployeeId } ) %>" width="50" height="50" alt="<%: item.LDAP %>"/>
             </td>
             <td>
                 <%: item.LDAP %>
@@ -103,19 +114,10 @@
                 <%: item.GIN %>
             </td>
             <td>
-                
-                <select id="sub-segment-<%: item.EmployeeId %>" name="sub-segment-<%: item.EmployeeId %>" onchange="updateSubSegment(<%: item.EmployeeId %>)">
-                    <% foreach( var s in Model.SubSegments){ %>
-                    <option value="<%: s.SegmentId %>" <% if (item.SegmentId == s.SegmentId){ %> selected <%} %> ><%: s.Name  %></option>
-                    <% } %>
-                </select>
+                <p id="sub-segment-<%: item.EmployeeId %>" class="edit-sub-segment" ><%: item.Segment.Name %></p>
             </td>
             <td>
-                <select id="status-<%: item.EmployeeId %>" name="status-<%: item.EmployeeId %>" onchange="updateStatus(<%: item.EmployeeId %>)">
-                    <% foreach( string s in Model.Status){ %>
-                    <option value="<%: s %>" <% if (item.Status.Equals(s)){ %> selected <%} %> ><%: s %></option>
-                    <% } %>
-                </select>
+                <p id="status-<%: item.EmployeeId %>" class="edit-status" ><%: item.Status %></p>
             </td>
             <td>
                 <%: item.Mobile %> <br /> 
@@ -123,19 +125,31 @@
             </td>
             
             <td>
-               <p id="aramco-id-<%: item.EmployeeId %>"><%: item.AramcoID %></p>
+               <p id="aramco-id-<%: item.EmployeeId %>" class="edit-aramco-id"><%: item.AramcoID %></p>
             </td>
             
             <td>
-                <%: item.AramcoIdExpDate %>
+                <p id="aramco-id-expdate-<%: item.EmployeeId %>" class="edit-aramco-id-expdate">
+                <% if (item.AramcoIdExpDate.HasValue) { %>
+                    <%: ((DateTime)item.AramcoIdExpDate).Date.ToShortDateString() %>
+                <% }%>
+                </p>
             </td>
             
             <td>
-                <%: item.H2SExpDate %>
+                <p id="h2s-expdate-<%: item.EmployeeId %>" class="edit-h2s-expdate">
+                <% if (item.H2SExpDate.HasValue) { %>
+                    <%: ((DateTime)item.H2SExpDate).Date.ToShortDateString() %>
+                <% }%>
+                </p>
             </td>
             
             <td>
-                <%: item.HUETExpDate %>
+                <p id="huet-expdate-<%: item.EmployeeId %>" class="edit-huet-expdate">
+                <% if (item.HUETExpDate.HasValue) { %>
+                    <%: ((DateTime)item.HUETExpDate).Date.ToShortDateString() %>
+                <% }%>
+                </p>
             </td>
         </tr>
     
@@ -146,7 +160,5 @@
     <p>
         <%: Html.ActionLink("Add Employee", "Add") %>
     </p>
-    
-    <%: Html.TextBox("calendar") %>
 </asp:Content>
 

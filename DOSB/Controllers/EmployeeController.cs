@@ -57,7 +57,7 @@ namespace DOSB.Controllers
                 if (count == 0)
                 {
                     // add LDAP information
-                    if (UpdateLDAPInfo(employee))
+                    if (updateLDAPInfo(employee))
                     {
                         // save to database
                         storeDB.AddToEmployee(employee);
@@ -93,28 +93,108 @@ namespace DOSB.Controllers
             Employee emp = storeDB.Employee.Single(e => e.EmployeeId == id);
             return File(emp.Avatar, "image/jpg");
         }
+        
+        //
+        // Ajax: /Employee/UpdateAramcoId/ :id, :value
+        [HttpPost]
+        public ActionResult UpdateAramcoId(string id, string value)
+        {
+            string[] elements = id.Split('-');
+            int empId = int.Parse(elements[elements.Length - 1]);
+            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
+            employee.AramcoID = value;
+            storeDB.SaveChanges();
+            return Content(value);
+        }
 
         //
         // Ajax: /Employee/UpdateStatus/ :id, :status
         [HttpPost]
-        public ActionResult UpdateStatus(int id, string status)
+        public ActionResult UpdateStatus(string id, string value)
         {
-
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
-            employee.Status = status;
+            string[] elements = id.Split('-');
+            int empId = int.Parse(elements[elements.Length - 1]);
+            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
+            employee.Status = value;
             storeDB.SaveChanges();
-            return null;
+            return Content(value);
         }
 
         // Ajax: /Employee/UpdateSubSegmant/ :id, :segmentId
         [HttpPost]
-        public ActionResult UpdateSubSegment(int id, int segmentId)
+        public ActionResult UpdateSubSegment(string id, string value)
         {
+            string[] elements = id.Split('-');
+            int empId = int.Parse(elements[elements.Length - 1]);
+            int segmentId = int.Parse(value);
 
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
+            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
             employee.SegmentId = segmentId;
             storeDB.SaveChanges();
-            return null;
+            return Content(employee.Segment.Name);
+        }
+
+        // Ajax: /Employee/UpdateAramcoIdExpireDate/ :id, :segmentId
+        [HttpPost]
+        public ActionResult UpdateAramcoIdExpireDate(string id, string value)
+        {
+            try
+            {
+                string[] elements = id.Split('-');
+                int empId = int.Parse(elements[elements.Length - 1]);
+                DateTime date = DateTime.Parse(value);
+
+                Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
+                employee.AramcoIdExpDate = date.Date;
+                storeDB.SaveChanges();
+                return Content(date.Date.ToShortDateString());
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        // Ajax: /Employee/UpdateH2SExpireDate/ :id, :segmentId
+        [HttpPost]
+        public ActionResult UpdateH2SExpireDate(string id, string value)
+        {
+            try
+            {
+                string[] elements = id.Split('-');
+                int empId = int.Parse(elements[elements.Length - 1]);
+                DateTime date = DateTime.Parse(value);
+
+                Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
+                employee.H2SExpDate = date.Date;
+                storeDB.SaveChanges();
+                return Content(date.Date.ToShortDateString());
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        // Ajax: /Employee/UpdateHUETExpireDate/ :id, :segmentId
+        [HttpPost]
+        public ActionResult UpdateHUETExpireDate(string id, string value)
+        {
+            try
+            {
+                string[] elements = id.Split('-');
+                int empId = int.Parse(elements[elements.Length - 1]);
+                DateTime date = DateTime.Parse(value);
+
+                Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
+                employee.HUETExpDate = date.Date;
+                storeDB.SaveChanges();
+                return Content(date.Date.ToShortDateString());
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         //
@@ -124,7 +204,7 @@ namespace DOSB.Controllers
         public ActionResult Update(int id)
         {
             Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
-            if (UpdateLDAPInfo(employee))
+            if (updateLDAPInfo(employee))
             {
                 storeDB.SaveChanges();
             }
@@ -145,7 +225,7 @@ namespace DOSB.Controllers
 
         //
         // update
-        private bool UpdateLDAPInfo(Employee employee)
+        private bool updateLDAPInfo(Employee employee)
         {
             try
             {

@@ -115,7 +115,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
-    <Content Include="Scripts\jquery.editinplace.js" />
+    <Content Include="Scripts\jquery.jeditable.js" />
     <Content Include="Views\Employee\Add.aspx" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
