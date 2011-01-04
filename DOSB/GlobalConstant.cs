@@ -15,6 +15,6 @@ namespace DOSB
         public static string CCFullname = "Core Completions";
         public static string SMSFullname = "Sand Management System";
 
-        public static List<String> EMPLOYEE_STATUS = new List<string> { "B", "J", "O"};
+        public static List<string> EMPLOYEE_STATUS = new List<string> { "Base", "Job", "Days Off", "Vacation"};
     }
 }

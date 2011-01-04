@@ -36,6 +36,15 @@
           <Property Name="Status" Type="nvarchar" MaxLength="10" />
           <Property Name="SegmentId" Type="int" />
           <Property Name="Avatar" Type="image" />
+          <Property Name="GivenName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SurName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonalMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="AramcoID" Type="nvarchar" MaxLength="15" />
+          <Property Name="AramcoIdExpDate" Type="date" />
+          <Property Name="H2SExpDate" Type="date" />
+          <Property Name="HUETExpDate" Type="date" />
+          <Property Name="GIN" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Segment">
           <Key>
@@ -45,6 +54,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="BusinessCategory" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -156,6 +166,15 @@
           <NavigationProperty Name="Segment" Relationship="DOSBModel.FK_Employee_Segment" FromRole="Employee" ToRole="Segment" />
           <Property Type="String" Name="Status" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="Binary" Name="Avatar" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="GivenName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SurName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PersonalMobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AramcoID" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="AramcoIdExpDate" />
+          <Property Type="DateTime" Name="H2SExpDate" />
+          <Property Type="DateTime" Name="HUETExpDate" />
+          <Property Type="String" Name="GIN" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -220,6 +239,7 @@
           <NavigationProperty Name="Employee" Relationship="DOSBModel.FK_Employee_Segment" FromRole="Segment" ToRole="Employee" />
           <NavigationProperty Name="Segment1" Relationship="DOSBModel.FK_Segment_Parent" FromRole="Segment" ToRole="Segment1" />
           <NavigationProperty Name="Segment2" Relationship="DOSBModel.FK_Segment_Parent" FromRole="Segment1" ToRole="Segment" />
+          <Property Type="String" Name="BusinessCategory" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Employee_Segment">
           <End Type="DOSBModel.Segment" Role="Segment" Multiplicity="0..1" />
@@ -252,6 +272,15 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DOSBModelStoreContainer" CdmEntityContainer="DOSBEntities">
           <EntitySetMapping Name="Employee"><EntityTypeMapping TypeName="DOSBModel.Employee"><MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="GIN" ColumnName="GIN" />
+                <ScalarProperty Name="HUETExpDate" ColumnName="HUETExpDate" />
+                <ScalarProperty Name="H2SExpDate" ColumnName="H2SExpDate" />
+                <ScalarProperty Name="AramcoIdExpDate" ColumnName="AramcoIdExpDate" />
+                <ScalarProperty Name="AramcoID" ColumnName="AramcoID" />
+                <ScalarProperty Name="PersonalMobile" ColumnName="PersonalMobile" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="GivenName" ColumnName="GivenName" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
@@ -278,6 +307,7 @@
           <EntitySetMapping Name="Segment">
             <EntityTypeMapping TypeName="DOSBModel.Segment">
               <MappingFragment StoreEntitySet="Segment">
+                <ScalarProperty Name="BusinessCategory" ColumnName="BusinessCategory" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -306,27 +336,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="DOSB" ZoomLevel="100">
-        <EntityTypeShape EntityType="DOSBModel.Employee" Width="1.5" PointX="0.5" PointY="0.5" Height="1.7908333333333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="DOSBModel.Employee" Width="1.5" PointX="0.5" PointY="0.5" Height="3.4001269531249996" IsExpanded="true" />
         <EntityTypeShape EntityType="DOSBModel.WorkshopAssignment" Width="2" PointX="2.75" PointY="0.5" Height="2.1280729166666656" IsExpanded="true" />
         <EntityTypeShape EntityType="DOSBModel.WorkshopDailyActivity" Width="1.875" PointX="5.5" PointY="0.5" Height="2.4653124999999996" IsExpanded="true" />
         <AssociationConnector Association="DOSBModel.FK_WorkshopAssignment_Employee" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="1.3954166666666668" />
-          <ConnectorPoint PointX="2.75" PointY="1.3954166666666668" />
+          <ConnectorPoint PointX="2" PointY="1.5426741536458333" />
+          <ConnectorPoint PointX="2.75" PointY="1.5426741536458333" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_WorkshopAssignment_WorkshopDailyActivity" ManuallyRouted="false">
           <ConnectorPoint PointX="5.5" PointY="1.5640364583333328" />
           <ConnectorPoint PointX="4.75" PointY="1.5640364583333328" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="0.5" PointY="3.125" Height="2.1280729166666656" />
+        <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="3.375" PointY="3" Height="2.2496956380208326" />
         <AssociationConnector Association="DOSBModel.FK_Employee_Segment" >
-          <ConnectorPoint PointX="1.25" PointY="3.125" />
-          <ConnectorPoint PointX="1.25" PointY="2.6280729166666665" />
+          <ConnectorPoint PointX="3.375" PointY="3.4500634765625" />
+          <ConnectorPoint PointX="2" PointY="3.4500634765625" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Segment_Parent" >
-          <ConnectorPoint PointX="1.0319230769230769" PointY="5.2530729166666656" />
-          <ConnectorPoint PointX="1.0319230769230769" PointY="5.5030729166666656" />
-          <ConnectorPoint PointX="1.4784615384615383" PointY="5.5030729166666656" />
-          <ConnectorPoint PointX="1.4784615384615383" PointY="5.2530729166666656" />
+          <ConnectorPoint PointX="3.9069230769230767" PointY="5.2496956380208326" />
+          <ConnectorPoint PointX="3.9069230769230767" PointY="5.4996956380208317" />
+          <ConnectorPoint PointX="4.3534615384615378" PointY="5.4996956380208317" />
+          <ConnectorPoint PointX="4.3534615384615378" PointY="5.2496956380208326" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

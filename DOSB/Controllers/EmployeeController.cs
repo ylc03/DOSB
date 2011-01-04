@@ -21,9 +21,13 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
-            var employeeList = storeDB.Employee.Include("Segment").ToList();
-
-            return View(employeeList);
+            var viewModel = new EmployeeManagerViewModel
+            {
+                AllEmployees = storeDB.Employee.Include("Segment").ToList(),
+                SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList(),
+                Status = GlobalConstant.EMPLOYEE_STATUS,
+            };
+            return View(viewModel);
         }
 
 
@@ -35,7 +39,7 @@ namespace DOSB.Controllers
         {
             var viewModel = new EmployeeManagerViewModel
             {
-                Employee = new Employee(),
+                CurrentEmployee = new Employee(),
                 SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList(),
                 Status = DOSB.GlobalConstant.EMPLOYEE_STATUS
             };
@@ -75,7 +79,7 @@ namespace DOSB.Controllers
 
             var viewModel = new EmployeeManagerViewModel
             {
-                Employee = employee,
+                CurrentEmployee = employee,
                 SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList()
             };
             return View(viewModel);
@@ -89,7 +93,30 @@ namespace DOSB.Controllers
             Employee emp = storeDB.Employee.Single(e => e.EmployeeId == id);
             return File(emp.Avatar, "image/jpg");
         }
-        
+
+        //
+        // Ajax: /Employee/UpdateStatus/ :id, :status
+        [HttpPost]
+        public ActionResult UpdateStatus(int id, string status)
+        {
+
+            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
+            employee.Status = status;
+            storeDB.SaveChanges();
+            return null;
+        }
+
+        // Ajax: /Employee/UpdateSubSegmant/ :id, :segmentId
+        [HttpPost]
+        public ActionResult UpdateSubSegment(int id, int segmentId)
+        {
+
+            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
+            employee.SegmentId = segmentId;
+            storeDB.SaveChanges();
+            return null;
+        }
+
         //
         // Ajax: /Employee/Update/id
 
@@ -97,7 +124,10 @@ namespace DOSB.Controllers
         public ActionResult Update(int id)
         {
             Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
-            UpdateLDAPInfo(employee);
+            if (UpdateLDAPInfo(employee))
+            {
+                storeDB.SaveChanges();
+            }
             return View(employee);
         }
 
@@ -119,32 +149,59 @@ namespace DOSB.Controllers
         {
             try
             {
-                //DirectoryEntry entry = new DirectoryEntry();
-                //entry.Path = "LDAP://ldap.slb.com/o=slb,c=an";
-                //entry.AuthenticationType = AuthenticationTypes.SecureSocketsLayer;
-                //DirectorySearcher searcher = new DirectorySearcher(entry);
-                //searcher.Filter = "(alias=" + alias + ")";
-                //searcher.SearchScope = SearchScope.Subtree;
-                //SearchResultCollection results = searcher.FindAll();
-                //if (results.Count == 0) return false;
-                //SearchResult res = results[0];
-
-                //DirectoryEntry employeeEntry = res.GetDirectoryEntry();
-
-                //var avatarEntry = employeeEntry.Properties["jpegPhoto"];
-                string fileName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\" + employee.LDAP + ".jpg";
-                if (System.IO.File.Exists(fileName))
+                DirectoryEntry entry = new DirectoryEntry();
+                entry.Path = "LDAP://ldap.slb.com/o=slb,c=an";
+                entry.AuthenticationType = AuthenticationTypes.SecureSocketsLayer;
+                DirectorySearcher searcher = new DirectorySearcher(entry);
+                searcher.Filter = "(alias=" + employee.LDAP + ")";
+                searcher.SearchScope = SearchScope.Subtree;
+                SearchResult result = searcher.FindOne();
+                if (result == null) return false;
+                DirectoryEntry employeeEntry = result.GetDirectoryEntry();
+                employee.Avatar = (byte[])employeeEntry.Properties["jpegPhoto"][0];
+                employee.SurName = (string)employeeEntry.Properties["surname"][0];
+                employee.GivenName = (string)employeeEntry.Properties["givenName"][0];
+                employee.GIN = (string)employeeEntry.Properties["employeeNumber"][0];
+                if (String.IsNullOrEmpty(employee.Status))
                 {
-                    FileStream fileStream = new FileStream(fileName, FileMode.Open);
-                    byte[] buff = new byte[2048];
-                    fileStream.Read(buff, 0, (int)fileStream.Length);
-                    employee.Avatar = buff;
-                    fileStream.Close();
+                    employee.Status = "Base";
                 }
-                else
+                if (employeeEntry.Properties.Contains("mobile"))
                 {
+                    employee.Mobile = (string)employeeEntry.Properties["mobile"][0];
+                }
+                if (employeeEntry.Properties.Contains("personalMobile"))
+                {
+                    employee.PersonalMobile = (string)employeeEntry.Properties["personalMobile"][0];
+                }
+                string businessCategory = (string)employeeEntry.Properties["businessCategory"][0];
+                try
+                {
+                    Segment subSegment = storeDB.Segment.Single(s => s.BusinessCategory == businessCategory);
+                    if (subSegment != null)
+                    {
+                        employee.Segment = subSegment;
+                    }
+                }
+                catch (Exception e)
+                {
+                    ViewData["ldap_message"] = "This LDAP is not RMC, CC or SMS";
                     return false;
                 }
+
+                //string fileName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\" + employee.LDAP + ".jpg";
+                //if (System.IO.File.Exists(fileName))
+                //{
+                //    FileStream fileStream = new FileStream(fileName, FileMode.Open);
+                //    byte[] buff = new byte[2048];
+                //    fileStream.Read(buff, 0, (int)fileStream.Length);
+                //    employee.Avatar = buff;
+                //    fileStream.Close();
+                //}
+                //else
+                //{
+                //    return false;
+                //}
             }
             catch (System.Runtime.InteropServices.COMException ne)
             {

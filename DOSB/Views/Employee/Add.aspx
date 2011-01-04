@@ -17,7 +17,7 @@
             <p><%: ViewData["message"] %></p>
             <p><%: ViewData["ldap_message"] %></p>
 
-            <%: Html.EditorFor(model => model.Employee, new {SubSegments = Model.SubSegments}) %>
+            <%: Html.EditorFor(model => model.CurrentEmployee, new {SubSegments = Model.SubSegments}) %>
 
             <p>
                 <input type="submit" value="Add Employee" />
