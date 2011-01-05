@@ -6,17 +6,28 @@
     <edmx:StorageModels>
     <Schema Namespace="DOSBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DOSBModelStoreContainer">
+          <EntitySet Name="Attachment" EntityType="DOSBModel.Store.Attachment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Employee" EntityType="DOSBModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PressureTest" EntityType="DOSBModel.Store.PressureTest" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Segment" EntityType="DOSBModel.Store.Segment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Torque" EntityType="DOSBModel.Store.Torque" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkshopAssignment" EntityType="DOSBModel.Store.WorkshopAssignment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkshopDailyActivity" EntityType="DOSBModel.Store.WorkshopDailyActivity" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Employee_Segment" Association="DOSBModel.Store.FK_Employee_Segment">
             <End Role="Segment" EntitySet="Segment" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_PressureTest_Employee" Association="DOSBModel.Store.FK_PressureTest_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="PressureTest" EntitySet="PressureTest" />
+          </AssociationSet>
           <AssociationSet Name="FK_Segment_Parent" Association="DOSBModel.Store.FK_Segment_Parent">
             <End Role="Segment" EntitySet="Segment" />
             <End Role="Segment1" EntitySet="Segment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Torque_Employee" Association="DOSBModel.Store.FK_Torque_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Torque" EntitySet="Torque" />
           </AssociationSet>
           <AssociationSet Name="FK_WorkshopAssignment_Employee" Association="DOSBModel.Store.FK_WorkshopAssignment_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -27,24 +38,44 @@
             <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AttachableType" Type="nvarchar" MaxLength="50" />
+          <Property Name="AttachableId" Type="int" />
+          <Property Name="Path" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeId" />
           </Key>
           <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LDAP" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="nvarchar" MaxLength="10" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="SegmentId" Type="int" />
           <Property Name="Avatar" Type="image" />
           <Property Name="GivenName" Type="nvarchar" MaxLength="50" />
           <Property Name="SurName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
-          <Property Name="PersonalMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="150" />
+          <Property Name="PersonalMobile" Type="nvarchar" MaxLength="150" />
           <Property Name="AramcoID" Type="nvarchar" MaxLength="15" />
           <Property Name="AramcoIdExpDate" Type="date" />
           <Property Name="H2SExpDate" Type="date" />
           <Property Name="HUETExpDate" Type="date" />
-          <Property Name="GIN" Type="nvarchar" MaxLength="15" />
+          <Property Name="GIN" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PressureTest">
+          <Key>
+            <PropertyRef Name="PressureTestId" />
+          </Key>
+          <Property Name="PressureTestId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PartNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="250" />
+          <Property Name="TestedAt" Type="datetime" />
+          <Property Name="TestedBy" Type="int" />
         </EntityType>
         <EntityType Name="Segment">
           <Key>
@@ -55,6 +86,17 @@
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="ParentId" Type="int" Nullable="false" />
           <Property Name="BusinessCategory" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Torque">
+          <Key>
+            <PropertyRef Name="TorqueId" />
+          </Key>
+          <Property Name="TorqueId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PartNumber" Type="varchar" MaxLength="50" />
+          <Property Name="SerailNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Memo" Type="varchar" MaxLength="250" />
+          <Property Name="TorquedBy" Type="int" />
+          <Property Name="TorquedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -93,6 +135,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PressureTest_Employee">
+          <End Role="Employee" Type="DOSBModel.Store.Employee" Multiplicity="0..1" />
+          <End Role="PressureTest" Type="DOSBModel.Store.PressureTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="PressureTest">
+              <PropertyRef Name="TestedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Segment_Parent">
           <End Role="Segment" Type="DOSBModel.Store.Segment" Multiplicity="1" />
           <End Role="Segment1" Type="DOSBModel.Store.Segment" Multiplicity="*" />
@@ -102,6 +156,18 @@
             </Principal>
             <Dependent Role="Segment1">
               <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Torque_Employee">
+          <End Role="Employee" Type="DOSBModel.Store.Employee" Multiplicity="0..1" />
+          <End Role="Torque" Type="DOSBModel.Store.Torque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Torque">
+              <PropertyRef Name="TorquedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -154,6 +220,17 @@
             <End Role="Segment" EntitySet="Segment" />
             <End Role="Segment1" EntitySet="Segment" />
           </AssociationSet>
+          <EntitySet Name="Attachment" EntityType="DOSBModel.Attachment" />
+          <EntitySet Name="PressureTest" EntityType="DOSBModel.PressureTest" />
+          <EntitySet Name="Torque" EntityType="DOSBModel.Torque" />
+          <AssociationSet Name="FK_PressureTest_Employee" Association="DOSBModel.FK_PressureTest_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="PressureTest" EntitySet="PressureTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Torque_Employee" Association="DOSBModel.FK_Torque_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Torque" EntitySet="Torque" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -175,6 +252,8 @@
           <Property Type="DateTime" Name="H2SExpDate" />
           <Property Type="DateTime" Name="HUETExpDate" />
           <Property Type="String" Name="GIN" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PressureTest" Relationship="DOSBModel.FK_PressureTest_Employee" FromRole="Employee" ToRole="PressureTest" />
+          <NavigationProperty Name="Torque" Relationship="DOSBModel.FK_Torque_Employee" FromRole="Employee" ToRole="Torque" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
@@ -265,6 +344,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Type="Int32" Name="AttachmentId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AttachableType" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="AttachableId" />
+          <Property Type="String" Name="Path" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PressureTest">
+          <Key>
+            <PropertyRef Name="PressureTestId" />
+          </Key>
+          <Property Type="Int32" Name="PressureTestId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PartNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SerialNumber" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Memo" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="TestedAt" />
+          <Property Type="Int32" Name="TestedBy" />
+          <NavigationProperty Name="Employee" Relationship="DOSBModel.FK_PressureTest_Employee" FromRole="PressureTest" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Torque">
+          <Key>
+            <PropertyRef Name="TorqueId" />
+          </Key>
+          <Property Type="Int32" Name="TorqueId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PartNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SerailNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Memo" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TorquedBy" />
+          <Property Type="DateTime" Name="TorquedAt" />
+          <NavigationProperty Name="Employee" Relationship="DOSBModel.FK_Torque_Employee" FromRole="Torque" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_PressureTest_Employee">
+          <End Type="DOSBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="DOSBModel.PressureTest" Role="PressureTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="PressureTest">
+              <PropertyRef Name="TestedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Torque_Employee">
+          <End Type="DOSBModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="DOSBModel.Torque" Role="Torque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Torque">
+              <PropertyRef Name="TorquedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -315,6 +451,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Attachment">
+            <EntityTypeMapping TypeName="DOSBModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="AttachableId" ColumnName="AttachableId" />
+                <ScalarProperty Name="AttachableType" ColumnName="AttachableType" />
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PressureTest">
+            <EntityTypeMapping TypeName="DOSBModel.PressureTest">
+              <MappingFragment StoreEntitySet="PressureTest">
+                <ScalarProperty Name="TestedBy" ColumnName="TestedBy" />
+                <ScalarProperty Name="TestedAt" ColumnName="TestedAt" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="PressureTestId" ColumnName="PressureTestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Torque">
+            <EntityTypeMapping TypeName="DOSBModel.Torque">
+              <MappingFragment StoreEntitySet="Torque">
+                <ScalarProperty Name="TorquedAt" ColumnName="TorquedAt" />
+                <ScalarProperty Name="TorquedBy" ColumnName="TorquedBy" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="SerailNumber" ColumnName="SerailNumber" />
+                <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+                <ScalarProperty Name="TorqueId" ColumnName="TorqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -349,14 +519,26 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="3.375" PointY="3" Height="2.2496956380208326" />
         <AssociationConnector Association="DOSBModel.FK_Employee_Segment" >
-          <ConnectorPoint PointX="3.375" PointY="3.4500634765625" />
-          <ConnectorPoint PointX="2" PointY="3.4500634765625" />
+          <ConnectorPoint PointX="3.375" PointY="3.69658447265625" />
+          <ConnectorPoint PointX="2" PointY="3.69658447265625" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Segment_Parent" >
           <ConnectorPoint PointX="3.9069230769230767" PointY="5.2496956380208326" />
           <ConnectorPoint PointX="3.9069230769230767" PointY="5.4996956380208317" />
           <ConnectorPoint PointX="4.3534615384615378" PointY="5.4996956380208317" />
           <ConnectorPoint PointX="4.3534615384615378" PointY="5.2496956380208326" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DOSBModel.Attachment" Width="1.5" PointX="3.875" PointY="7" Height="1.5923063151041674" />
+        <EntityTypeShape EntityType="DOSBModel.PressureTest" Width="1.5" PointX="1.625" PointY="5.5" Height="2.0853483072916674" />
+        <EntityTypeShape EntityType="DOSBModel.Torque" Width="1.5" PointX="1.625" PointY="7.875" Height="2.0853483072916674" />
+        <AssociationConnector Association="DOSBModel.FK_PressureTest_Employee" >
+          <ConnectorPoint PointX="1.8125" PointY="4.3931689453125" />
+          <ConnectorPoint PointX="1.8125" PointY="5.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_Torque_Employee" ManuallyRouted="false" >
+          <ConnectorPoint PointX="0.979536863158009" PointY="4.3931689453125" />
+          <ConnectorPoint PointX="0.979536863158009" PointY="8.9176741536458337" />
+          <ConnectorPoint PointX="1.625" PointY="8.9176741536458337" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

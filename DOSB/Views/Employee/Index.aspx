@@ -9,17 +9,17 @@
 	    $(function () {
 	        $(".edit-aramco-id").editable("/Employee/UpdateAramcoId", {
 	            indicator: 'Saving...',
-	            tooltip: 'Click to edit...',
+	            tooltip: 'Click to edit...'
 	        });
 
 	        $(".edit-status").editable("Employee/UpdateStatus", {
 	            data: "{'Job':'Job', 'Base':'Base', 'Days Off':'Days Off', 'Vacation':'Vacation'}",
-	            type: "select",
+	            type: "select"
 	        });
 
 	        $(".edit-sub-segment").editable("Employee/UpdateSubSegment", {
 	            data: "{'5':'RMC', '6':'CC', '7':'SMS'}",
-	            type: "select",
+	            type: "select"
 	        });
 
 

@@ -7,5 +7,3 @@
                 <%: Html.TextBoxFor(model => model.LDAP) %>
                 <%: Html.ValidationMessageFor(model => model.LDAP) %>
             </div>
-            
-           

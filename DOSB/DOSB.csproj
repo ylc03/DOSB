@@ -82,6 +82,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DOSB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DOSBEntities.cs" />
+    <Compile Include="Models\PressureTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\EmployeeProvider.cs" />
     <Compile Include="viewModels\EmployeeManagerViewModel.cs" />
