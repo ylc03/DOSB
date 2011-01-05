@@ -18,12 +18,12 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Employee), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopDailyActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.WorkshopDailyActivity), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Employee_Segment", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Segment), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Employee), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Segment_Parent", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Segment), "Segment1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Segment), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Torque_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "Torque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Torque), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Employee), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Segment_Parent", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Segment), "Segment1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Segment), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopDailyActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.WorkshopDailyActivity), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
 
 #endregion
 
@@ -94,6 +94,38 @@ namespace DOSB.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Segment> Segment
+        {
+            get
+            {
+                if ((_Segment == null))
+                {
+                    _Segment = base.CreateObjectSet<Segment>("Segment");
+                }
+                return _Segment;
+            }
+        }
+        private ObjectSet<Segment> _Segment;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Torque> Torque
+        {
+            get
+            {
+                if ((_Torque == null))
+                {
+                    _Torque = base.CreateObjectSet<Torque>("Torque");
+                }
+                return _Torque;
+            }
+        }
+        private ObjectSet<Torque> _Torque;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<WorkshopAssignment> WorkshopAssignment
         {
             get
@@ -126,22 +158,6 @@ namespace DOSB.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Segment> Segment
-        {
-            get
-            {
-                if ((_Segment == null))
-                {
-                    _Segment = base.CreateObjectSet<Segment>("Segment");
-                }
-                return _Segment;
-            }
-        }
-        private ObjectSet<Segment> _Segment;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Attachment> Attachment
         {
             get
@@ -170,22 +186,6 @@ namespace DOSB.Models
             }
         }
         private ObjectSet<PressureTest> _PressureTest;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Torque> Torque
-        {
-            get
-            {
-                if ((_Torque == null))
-                {
-                    _Torque = base.CreateObjectSet<Torque>("Torque");
-                }
-                return _Torque;
-            }
-        }
-        private ObjectSet<Torque> _Torque;
 
         #endregion
         #region AddTo Methods
@@ -196,6 +196,22 @@ namespace DOSB.Models
         public void AddToEmployee(Employee employee)
         {
             base.AddObject("Employee", employee);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Segment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSegment(Segment segment)
+        {
+            base.AddObject("Segment", segment);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Torque EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTorque(Torque torque)
+        {
+            base.AddObject("Torque", torque);
         }
     
         /// <summary>
@@ -215,14 +231,6 @@ namespace DOSB.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Segment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSegment(Segment segment)
-        {
-            base.AddObject("Segment", segment);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Attachment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToAttachment(Attachment attachment)
@@ -236,14 +244,6 @@ namespace DOSB.Models
         public void AddToPressureTest(PressureTest pressureTest)
         {
             base.AddObject("PressureTest", pressureTest);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Torque EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTorque(Torque torque)
-        {
-            base.AddObject("Torque", torque);
         }
 
         #endregion
@@ -461,30 +461,6 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> SegmentId
-        {
-            get
-            {
-                return _SegmentId;
-            }
-            set
-            {
-                OnSegmentIdChanging(value);
-                ReportPropertyChanging("SegmentId");
-                _SegmentId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("SegmentId");
-                OnSegmentIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _SegmentId;
-        partial void OnSegmentIdChanging(Nullable<global::System.Int32> value);
-        partial void OnSegmentIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public global::System.String Status
         {
             get
@@ -503,6 +479,30 @@ namespace DOSB.Models
         private global::System.String _Status;
         partial void OnStatusChanging(global::System.String value);
         partial void OnStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> SegmentId
+        {
+            get
+            {
+                return _SegmentId;
+            }
+            set
+            {
+                OnSegmentIdChanging(value);
+                ReportPropertyChanging("SegmentId");
+                _SegmentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SegmentId");
+                OnSegmentIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _SegmentId;
+        partial void OnSegmentIdChanging(Nullable<global::System.Int32> value);
+        partial void OnSegmentIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -754,28 +754,6 @@ namespace DOSB.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_WorkshopAssignment_Employee", "WorkshopAssignment")]
-        public EntityCollection<WorkshopAssignment> WorkshopAssignment
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<WorkshopAssignment>("DOSBModel.FK_WorkshopAssignment_Employee", "WorkshopAssignment");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WorkshopAssignment>("DOSBModel.FK_WorkshopAssignment_Employee", "WorkshopAssignment", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Employee_Segment", "Segment")]
         public Segment Segment
         {
@@ -814,28 +792,6 @@ namespace DOSB.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Employee", "PressureTest")]
-        public EntityCollection<PressureTest> PressureTest
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Employee", "PressureTest");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Employee", "PressureTest", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Torque_Employee", "Torque")]
         public EntityCollection<Torque> Torque
         {
@@ -848,6 +804,50 @@ namespace DOSB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Torque>("DOSBModel.FK_Torque_Employee", "Torque", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_WorkshopAssignment_Employee", "WorkshopAssignment")]
+        public EntityCollection<WorkshopAssignment> WorkshopAssignment
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<WorkshopAssignment>("DOSBModel.FK_WorkshopAssignment_Employee", "WorkshopAssignment");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WorkshopAssignment>("DOSBModel.FK_WorkshopAssignment_Employee", "WorkshopAssignment", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Employee", "PressureTest")]
+        public EntityCollection<PressureTest> PressureTest
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Employee", "PressureTest");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Employee", "PressureTest", value);
                 }
             }
         }
@@ -983,48 +983,48 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> TestedAt
+        public Nullable<global::System.DateTime> TestAt
         {
             get
             {
-                return _TestedAt;
+                return _TestAt;
             }
             set
             {
-                OnTestedAtChanging(value);
-                ReportPropertyChanging("TestedAt");
-                _TestedAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TestedAt");
-                OnTestedAtChanged();
+                OnTestAtChanging(value);
+                ReportPropertyChanging("TestAt");
+                _TestAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TestAt");
+                OnTestAtChanged();
             }
         }
-        private Nullable<global::System.DateTime> _TestedAt;
-        partial void OnTestedAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnTestedAtChanged();
+        private Nullable<global::System.DateTime> _TestAt;
+        partial void OnTestAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnTestAtChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> TestedBy
+        public Nullable<global::System.Int32> TestBy
         {
             get
             {
-                return _TestedBy;
+                return _TestBy;
             }
             set
             {
-                OnTestedByChanging(value);
-                ReportPropertyChanging("TestedBy");
-                _TestedBy = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TestedBy");
-                OnTestedByChanged();
+                OnTestByChanging(value);
+                ReportPropertyChanging("TestBy");
+                _TestBy = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TestBy");
+                OnTestByChanged();
             }
         }
-        private Nullable<global::System.Int32> _TestedBy;
-        partial void OnTestedByChanging(Nullable<global::System.Int32> value);
-        partial void OnTestedByChanged();
+        private Nullable<global::System.Int32> _TestBy;
+        partial void OnTestByChanging(Nullable<global::System.Int32> value);
+        partial void OnTestByChanged();
 
         #endregion
     
@@ -1323,10 +1323,12 @@ namespace DOSB.Models
         /// Create a new Torque object.
         /// </summary>
         /// <param name="torqueId">Initial value of the TorqueId property.</param>
-        public static Torque CreateTorque(global::System.Int32 torqueId)
+        /// <param name="serialNumber">Initial value of the SerialNumber property.</param>
+        public static Torque CreateTorque(global::System.Int32 torqueId, global::System.String serialNumber)
         {
             Torque torque = new Torque();
             torque.TorqueId = torqueId;
+            torque.SerialNumber = serialNumber;
             return torque;
         }
 
@@ -1387,26 +1389,26 @@ namespace DOSB.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String SerailNumber
+        public global::System.String SerialNumber
         {
             get
             {
-                return _SerailNumber;
+                return _SerialNumber;
             }
             set
             {
-                OnSerailNumberChanging(value);
-                ReportPropertyChanging("SerailNumber");
-                _SerailNumber = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("SerailNumber");
-                OnSerailNumberChanged();
+                OnSerialNumberChanging(value);
+                ReportPropertyChanging("SerialNumber");
+                _SerialNumber = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SerialNumber");
+                OnSerialNumberChanged();
             }
         }
-        private global::System.String _SerailNumber;
-        partial void OnSerailNumberChanging(global::System.String value);
-        partial void OnSerailNumberChanged();
+        private global::System.String _SerialNumber;
+        partial void OnSerialNumberChanging(global::System.String value);
+        partial void OnSerialNumberChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1437,48 +1439,48 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> TorquedBy
+        public Nullable<global::System.Int32> TorqueBy
         {
             get
             {
-                return _TorquedBy;
+                return _TorqueBy;
             }
             set
             {
-                OnTorquedByChanging(value);
-                ReportPropertyChanging("TorquedBy");
-                _TorquedBy = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TorquedBy");
-                OnTorquedByChanged();
+                OnTorqueByChanging(value);
+                ReportPropertyChanging("TorqueBy");
+                _TorqueBy = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TorqueBy");
+                OnTorqueByChanged();
             }
         }
-        private Nullable<global::System.Int32> _TorquedBy;
-        partial void OnTorquedByChanging(Nullable<global::System.Int32> value);
-        partial void OnTorquedByChanged();
+        private Nullable<global::System.Int32> _TorqueBy;
+        partial void OnTorqueByChanging(Nullable<global::System.Int32> value);
+        partial void OnTorqueByChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> TorquedAt
+        public Nullable<global::System.DateTime> TorqueAt
         {
             get
             {
-                return _TorquedAt;
+                return _TorqueAt;
             }
             set
             {
-                OnTorquedAtChanging(value);
-                ReportPropertyChanging("TorquedAt");
-                _TorquedAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TorquedAt");
-                OnTorquedAtChanged();
+                OnTorqueAtChanging(value);
+                ReportPropertyChanging("TorqueAt");
+                _TorqueAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TorqueAt");
+                OnTorqueAtChanged();
             }
         }
-        private Nullable<global::System.DateTime> _TorquedAt;
-        partial void OnTorquedAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnTorquedAtChanged();
+        private Nullable<global::System.DateTime> _TorqueAt;
+        partial void OnTorqueAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnTorqueAtChanged();
 
         #endregion
     

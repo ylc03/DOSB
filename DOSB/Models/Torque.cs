@@ -5,10 +5,10 @@ using System.Web;
 
 namespace DOSB.Models
 {
-    public partial class PressureTest
+    public partial class Torque
     {
         private List<Attachment> attachements = new List<Attachment>();
-        private DOSBEntities storeDB = new DOSBEntities(); 
+        private DOSBEntities storeDB = new DOSBEntities();
 
         public List<Attachment> Attachments
         {
@@ -17,8 +17,8 @@ namespace DOSB.Models
                 if (this.attachements == null)
                 {
                     this.attachements = storeDB.Attachment.Where(a => (
-                        a.AttachableType == typeof(PressureTest).ToString()
-                        && a.AttachableId == this.PressureTestId
+                        a.AttachableType == typeof(Torque).ToString()
+                        && a.AttachableId == this.TorqueId
                         )).ToList();
                 }
                 return attachements;
@@ -27,16 +27,16 @@ namespace DOSB.Models
 
         // 
         // Attachable: is this model can be attached.
-        public bool Attachable 
+        public bool Attachable
         {
-            get { return (this.PressureTestId > 0); }
+            get { return (this.TorqueId > 0); }
         }
 
         //
         // Attach a attachment to pressure test
         public void Attach(Attachment att)
         {
-            if (this.PressureTestId == 0)
+            if (this.TorqueId == 0)
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace DOSB.Models
         // Delete a attachment to pressure test
         public void Detach(Attachment att)
         {
-            if (this.PressureTestId == 0)
+            if (this.TorqueId == 0)
             {
                 return;
             }
