@@ -9,7 +9,7 @@ namespace DOSB.viewModels
 {
     public class EmployeeManagerViewModel
     {
-        public Employee CurrentEmployee {get; set;}
+        public Employee Employee {get; set;}
         public List<Employee> AllEmployees { get; set; }
         public List<Segment> SubSegments { get; set; }
         public List<String> Status { get; set; }

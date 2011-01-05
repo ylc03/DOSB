@@ -467,6 +467,7 @@
                     // add by ylc03
                     if (settings.datepicker == "true") {
                         input.datepicker({
+                            dateFormat: "dd/mm/yy",
                             onClose: function () {
                                $(this).submit();
                             }

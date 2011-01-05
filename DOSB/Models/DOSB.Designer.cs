@@ -22,6 +22,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopDailyActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.WorkshopDailyActivity), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Employee_Segment", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Segment), "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Employee), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Segment_Parent", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Segment), "Segment1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Segment), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Torque_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "Torque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Torque), true)]
 
 #endregion
 
@@ -136,6 +138,54 @@ namespace DOSB.Models
             }
         }
         private ObjectSet<Segment> _Segment;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Attachment> Attachment
+        {
+            get
+            {
+                if ((_Attachment == null))
+                {
+                    _Attachment = base.CreateObjectSet<Attachment>("Attachment");
+                }
+                return _Attachment;
+            }
+        }
+        private ObjectSet<Attachment> _Attachment;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PressureTest> PressureTest
+        {
+            get
+            {
+                if ((_PressureTest == null))
+                {
+                    _PressureTest = base.CreateObjectSet<PressureTest>("PressureTest");
+                }
+                return _PressureTest;
+            }
+        }
+        private ObjectSet<PressureTest> _PressureTest;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Torque> Torque
+        {
+            get
+            {
+                if ((_Torque == null))
+                {
+                    _Torque = base.CreateObjectSet<Torque>("Torque");
+                }
+                return _Torque;
+            }
+        }
+        private ObjectSet<Torque> _Torque;
 
         #endregion
         #region AddTo Methods
@@ -171,6 +221,30 @@ namespace DOSB.Models
         {
             base.AddObject("Segment", segment);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Attachment EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAttachment(Attachment attachment)
+        {
+            base.AddObject("Attachment", attachment);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PressureTest EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPressureTest(PressureTest pressureTest)
+        {
+            base.AddObject("PressureTest", pressureTest);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Torque EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTorque(Torque torque)
+        {
+            base.AddObject("Torque", torque);
+        }
 
         #endregion
     }
@@ -179,6 +253,133 @@ namespace DOSB.Models
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="Attachment")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Attachment : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Attachment object.
+        /// </summary>
+        /// <param name="attachmentId">Initial value of the AttachmentId property.</param>
+        public static Attachment CreateAttachment(global::System.Int32 attachmentId)
+        {
+            Attachment attachment = new Attachment();
+            attachment.AttachmentId = attachmentId;
+            return attachment;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AttachmentId
+        {
+            get
+            {
+                return _AttachmentId;
+            }
+            set
+            {
+                if (_AttachmentId != value)
+                {
+                    OnAttachmentIdChanging(value);
+                    ReportPropertyChanging("AttachmentId");
+                    _AttachmentId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("AttachmentId");
+                    OnAttachmentIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _AttachmentId;
+        partial void OnAttachmentIdChanging(global::System.Int32 value);
+        partial void OnAttachmentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttachableType
+        {
+            get
+            {
+                return _AttachableType;
+            }
+            set
+            {
+                OnAttachableTypeChanging(value);
+                ReportPropertyChanging("AttachableType");
+                _AttachableType = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttachableType");
+                OnAttachableTypeChanged();
+            }
+        }
+        private global::System.String _AttachableType;
+        partial void OnAttachableTypeChanging(global::System.String value);
+        partial void OnAttachableTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AttachableId
+        {
+            get
+            {
+                return _AttachableId;
+            }
+            set
+            {
+                OnAttachableIdChanging(value);
+                ReportPropertyChanging("AttachableId");
+                _AttachableId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AttachableId");
+                OnAttachableIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AttachableId;
+        partial void OnAttachableIdChanging(Nullable<global::System.Int32> value);
+        partial void OnAttachableIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Path
+        {
+            get
+            {
+                return _Path;
+            }
+            set
+            {
+                OnPathChanging(value);
+                ReportPropertyChanging("Path");
+                _Path = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Path");
+                OnPathChanged();
+            }
+        }
+        private global::System.String _Path;
+        partial void OnPathChanging(global::System.String value);
+        partial void OnPathChanged();
+
+        #endregion
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -606,6 +807,266 @@ namespace DOSB.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Employee", "PressureTest")]
+        public EntityCollection<PressureTest> PressureTest
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Employee", "PressureTest");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Employee", "PressureTest", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Torque_Employee", "Torque")]
+        public EntityCollection<Torque> Torque
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Torque>("DOSBModel.FK_Torque_Employee", "Torque");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Torque>("DOSBModel.FK_Torque_Employee", "Torque", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="PressureTest")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PressureTest : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PressureTest object.
+        /// </summary>
+        /// <param name="pressureTestId">Initial value of the PressureTestId property.</param>
+        public static PressureTest CreatePressureTest(global::System.Int32 pressureTestId)
+        {
+            PressureTest pressureTest = new PressureTest();
+            pressureTest.PressureTestId = pressureTestId;
+            return pressureTest;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PressureTestId
+        {
+            get
+            {
+                return _PressureTestId;
+            }
+            set
+            {
+                if (_PressureTestId != value)
+                {
+                    OnPressureTestIdChanging(value);
+                    ReportPropertyChanging("PressureTestId");
+                    _PressureTestId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("PressureTestId");
+                    OnPressureTestIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _PressureTestId;
+        partial void OnPressureTestIdChanging(global::System.Int32 value);
+        partial void OnPressureTestIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PartNumber
+        {
+            get
+            {
+                return _PartNumber;
+            }
+            set
+            {
+                OnPartNumberChanging(value);
+                ReportPropertyChanging("PartNumber");
+                _PartNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PartNumber");
+                OnPartNumberChanged();
+            }
+        }
+        private global::System.String _PartNumber;
+        partial void OnPartNumberChanging(global::System.String value);
+        partial void OnPartNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SerialNumber
+        {
+            get
+            {
+                return _SerialNumber;
+            }
+            set
+            {
+                OnSerialNumberChanging(value);
+                ReportPropertyChanging("SerialNumber");
+                _SerialNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SerialNumber");
+                OnSerialNumberChanged();
+            }
+        }
+        private global::System.String _SerialNumber;
+        partial void OnSerialNumberChanging(global::System.String value);
+        partial void OnSerialNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Memo
+        {
+            get
+            {
+                return _Memo;
+            }
+            set
+            {
+                OnMemoChanging(value);
+                ReportPropertyChanging("Memo");
+                _Memo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Memo");
+                OnMemoChanged();
+            }
+        }
+        private global::System.String _Memo;
+        partial void OnMemoChanging(global::System.String value);
+        partial void OnMemoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> TestedAt
+        {
+            get
+            {
+                return _TestedAt;
+            }
+            set
+            {
+                OnTestedAtChanging(value);
+                ReportPropertyChanging("TestedAt");
+                _TestedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TestedAt");
+                OnTestedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _TestedAt;
+        partial void OnTestedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnTestedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TestedBy
+        {
+            get
+            {
+                return _TestedBy;
+            }
+            set
+            {
+                OnTestedByChanging(value);
+                ReportPropertyChanging("TestedBy");
+                _TestedBy = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TestedBy");
+                OnTestedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TestedBy;
+        partial void OnTestedByChanging(Nullable<global::System.Int32> value);
+        partial void OnTestedByChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Employee", "Employee")]
+        public Employee Employee
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_PressureTest_Employee", "Employee").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_PressureTest_Employee", "Employee").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Employee> EmployeeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_PressureTest_Employee", "Employee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Employee>("DOSBModel.FK_PressureTest_Employee", "Employee", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -841,6 +1302,222 @@ namespace DOSB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Segment>("DOSBModel.FK_Segment_Parent", "Segment", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="Torque")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Torque : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Torque object.
+        /// </summary>
+        /// <param name="torqueId">Initial value of the TorqueId property.</param>
+        public static Torque CreateTorque(global::System.Int32 torqueId)
+        {
+            Torque torque = new Torque();
+            torque.TorqueId = torqueId;
+            return torque;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TorqueId
+        {
+            get
+            {
+                return _TorqueId;
+            }
+            set
+            {
+                if (_TorqueId != value)
+                {
+                    OnTorqueIdChanging(value);
+                    ReportPropertyChanging("TorqueId");
+                    _TorqueId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TorqueId");
+                    OnTorqueIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TorqueId;
+        partial void OnTorqueIdChanging(global::System.Int32 value);
+        partial void OnTorqueIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PartNumber
+        {
+            get
+            {
+                return _PartNumber;
+            }
+            set
+            {
+                OnPartNumberChanging(value);
+                ReportPropertyChanging("PartNumber");
+                _PartNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PartNumber");
+                OnPartNumberChanged();
+            }
+        }
+        private global::System.String _PartNumber;
+        partial void OnPartNumberChanging(global::System.String value);
+        partial void OnPartNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SerailNumber
+        {
+            get
+            {
+                return _SerailNumber;
+            }
+            set
+            {
+                OnSerailNumberChanging(value);
+                ReportPropertyChanging("SerailNumber");
+                _SerailNumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SerailNumber");
+                OnSerailNumberChanged();
+            }
+        }
+        private global::System.String _SerailNumber;
+        partial void OnSerailNumberChanging(global::System.String value);
+        partial void OnSerailNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Memo
+        {
+            get
+            {
+                return _Memo;
+            }
+            set
+            {
+                OnMemoChanging(value);
+                ReportPropertyChanging("Memo");
+                _Memo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Memo");
+                OnMemoChanged();
+            }
+        }
+        private global::System.String _Memo;
+        partial void OnMemoChanging(global::System.String value);
+        partial void OnMemoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TorquedBy
+        {
+            get
+            {
+                return _TorquedBy;
+            }
+            set
+            {
+                OnTorquedByChanging(value);
+                ReportPropertyChanging("TorquedBy");
+                _TorquedBy = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TorquedBy");
+                OnTorquedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TorquedBy;
+        partial void OnTorquedByChanging(Nullable<global::System.Int32> value);
+        partial void OnTorquedByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> TorquedAt
+        {
+            get
+            {
+                return _TorquedAt;
+            }
+            set
+            {
+                OnTorquedAtChanging(value);
+                ReportPropertyChanging("TorquedAt");
+                _TorquedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TorquedAt");
+                OnTorquedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _TorquedAt;
+        partial void OnTorquedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnTorquedAtChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Torque_Employee", "Employee")]
+        public Employee Employee
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_Torque_Employee", "Employee").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_Torque_Employee", "Employee").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Employee> EmployeeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_Torque_Employee", "Employee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Employee>("DOSBModel.FK_Torque_Employee", "Employee", value);
                 }
             }
         }

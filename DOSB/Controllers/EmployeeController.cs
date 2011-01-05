@@ -9,6 +9,7 @@ using DOSB.Models;
 using DOSB.viewModels;
 using System.Drawing;
 using System.IO;
+using System.Globalization;
 
 namespace DOSB.Controllers
 {
@@ -39,7 +40,7 @@ namespace DOSB.Controllers
         {
             var viewModel = new EmployeeManagerViewModel
             {
-                CurrentEmployee = new Employee(),
+                Employee = new Employee(),
                 SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList(),
                 Status = DOSB.GlobalConstant.EMPLOYEE_STATUS
             };
@@ -79,7 +80,7 @@ namespace DOSB.Controllers
 
             var viewModel = new EmployeeManagerViewModel
             {
-                CurrentEmployee = employee,
+                Employee = employee,
                 SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList()
             };
             return View(viewModel);
@@ -142,7 +143,7 @@ namespace DOSB.Controllers
             {
                 string[] elements = id.Split('-');
                 int empId = int.Parse(elements[elements.Length - 1]);
-                DateTime date = DateTime.Parse(value);
+                DateTime date = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
                 Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
                 employee.AramcoIdExpDate = date.Date;
@@ -151,7 +152,7 @@ namespace DOSB.Controllers
             }
             catch (Exception e)
             {
-                return null;
+                return Content(value);
             }
         }
 
@@ -163,7 +164,7 @@ namespace DOSB.Controllers
             {
                 string[] elements = id.Split('-');
                 int empId = int.Parse(elements[elements.Length - 1]);
-                DateTime date = DateTime.Parse(value);
+                DateTime date = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
                 Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
                 employee.H2SExpDate = date.Date;
@@ -172,7 +173,7 @@ namespace DOSB.Controllers
             }
             catch (Exception e)
             {
-                return null;
+                return Content(value);
             }
         }
 
@@ -184,7 +185,7 @@ namespace DOSB.Controllers
             {
                 string[] elements = id.Split('-');
                 int empId = int.Parse(elements[elements.Length - 1]);
-                DateTime date = DateTime.Parse(value);
+                DateTime date = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture); 
 
                 Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
                 employee.HUETExpDate = date.Date;
@@ -193,7 +194,7 @@ namespace DOSB.Controllers
             }
             catch (Exception e)
             {
-                return null;
+                return Content(value);
             }
         }
 
