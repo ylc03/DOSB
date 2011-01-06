@@ -983,30 +983,6 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> TestAt
-        {
-            get
-            {
-                return _TestAt;
-            }
-            set
-            {
-                OnTestAtChanging(value);
-                ReportPropertyChanging("TestAt");
-                _TestAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TestAt");
-                OnTestAtChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _TestAt;
-        partial void OnTestAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnTestAtChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> TestBy
         {
             get
@@ -1025,6 +1001,78 @@ namespace DOSB.Models
         private Nullable<global::System.Int32> _TestBy;
         partial void OnTestByChanging(Nullable<global::System.Int32> value);
         partial void OnTestByChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> StartAt
+        {
+            get
+            {
+                return _StartAt;
+            }
+            set
+            {
+                OnStartAtChanging(value);
+                ReportPropertyChanging("StartAt");
+                _StartAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartAt");
+                OnStartAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _StartAt;
+        partial void OnStartAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnStartAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FinishAt
+        {
+            get
+            {
+                return _FinishAt;
+            }
+            set
+            {
+                OnFinishAtChanging(value);
+                ReportPropertyChanging("FinishAt");
+                _FinishAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FinishAt");
+                OnFinishAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FinishAt;
+        partial void OnFinishAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnFinishAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Defect
+        {
+            get
+            {
+                return _Defect;
+            }
+            set
+            {
+                OnDefectChanging(value);
+                ReportPropertyChanging("Defect");
+                _Defect = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Defect");
+                OnDefectChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Defect;
+        partial void OnDefectChanging(Nullable<global::System.Int32> value);
+        partial void OnDefectChanged();
 
         #endregion
     
@@ -1463,24 +1511,72 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> TorqueAt
+        public Nullable<global::System.DateTime> StartAt
         {
             get
             {
-                return _TorqueAt;
+                return _StartAt;
             }
             set
             {
-                OnTorqueAtChanging(value);
-                ReportPropertyChanging("TorqueAt");
-                _TorqueAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TorqueAt");
-                OnTorqueAtChanged();
+                OnStartAtChanging(value);
+                ReportPropertyChanging("StartAt");
+                _StartAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartAt");
+                OnStartAtChanged();
             }
         }
-        private Nullable<global::System.DateTime> _TorqueAt;
-        partial void OnTorqueAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnTorqueAtChanged();
+        private Nullable<global::System.DateTime> _StartAt;
+        partial void OnStartAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnStartAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FinishAt
+        {
+            get
+            {
+                return _FinishAt;
+            }
+            set
+            {
+                OnFinishAtChanging(value);
+                ReportPropertyChanging("FinishAt");
+                _FinishAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FinishAt");
+                OnFinishAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FinishAt;
+        partial void OnFinishAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnFinishAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Defect
+        {
+            get
+            {
+                return _Defect;
+            }
+            set
+            {
+                OnDefectChanging(value);
+                ReportPropertyChanging("Defect");
+                _Defect = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Defect");
+                OnDefectChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Defect;
+        partial void OnDefectChanging(Nullable<global::System.Int32> value);
+        partial void OnDefectChanged();
 
         #endregion
     
