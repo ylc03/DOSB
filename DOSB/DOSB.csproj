@@ -116,6 +116,8 @@
     <Content Include="Content\flick\images\ui-icons_ff0084_256x240.png" />
     <Content Include="Content\flick\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\flick\jquery-ui-1.8.7.css" />
+    <Content Include="Content\Images\Header.gif" />
+    <Content Include="Content\Images\Menu.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
@@ -151,9 +153,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="Models\DOSB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

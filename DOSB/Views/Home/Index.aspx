@@ -6,7 +6,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>DOSB</h2>
+    <form id="form1" runat="server">
+     
     <p>This is the DOSB online management software</p>
-
+    
+    </form>
+    
 </asp:Content>

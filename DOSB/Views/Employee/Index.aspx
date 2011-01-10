@@ -50,14 +50,19 @@
             });
         }
     </script>
+    <style type="text/css">
+        .style1 {
+            text-align: center;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Employee Board</h2>
+    <h2 class="style1">Employee Board</h2>
 
-    <table>
+    <table border="1 px">
         <tr>
-            <th></th>
+            <th>Action</th>
             <th>
                 Avatar
             </th>

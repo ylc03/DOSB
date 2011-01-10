@@ -20,6 +20,37 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+<h2 id="center" align="center"  style="margin-bottom:0">
+        <asp:Image ID="Image1" runat="server" ImageUrl="~/Content/Images/Header.gif" 
+            Height="100px"  
+            Width="100%" />
+       </h2>
+        <table id="Menu" style=" border-color: #FFFFFF; background-color:#086984; text-align:center; 
+                font-size: medium; color: #FFFFFF " border="0 px"
+         width="100%">
+        <tr>
+        <th  onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
+        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        ">Home</th>
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
+        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        ">Employees</th>
+        <th>WorkShop</th>
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
+        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        ">RMC PVD</th>
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
+        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        ">CC PVD</th>
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
+        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        ">OpenHole PVD</th>
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
+        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        ">Contact us</th>
+        </tr>
+
+        </table>
     <div id="content">
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         
