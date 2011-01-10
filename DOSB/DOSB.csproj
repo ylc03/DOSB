@@ -117,12 +117,9 @@
     <Content Include="Content\flick\images\ui-icons_ff0084_256x240.png" />
     <Content Include="Content\flick\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\flick\jquery-ui-1.8.7.css" />
-<<<<<<< HEAD
     <Content Include="Content\Images\icon_plus.gif" />
-=======
     <Content Include="Content\Images\Header.gif" />
     <Content Include="Content\Images\Menu.gif" />
->>>>>>> origin/HEAD
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
