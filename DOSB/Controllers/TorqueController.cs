@@ -3,36 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 using DOSB.Models;
 
 namespace DOSB.Controllers
 {
-    public class PressureTestController : Controller
+    public class TorqueController : Controller
     {
         private DOSBEntities storeDB = new DOSBEntities();
 
         //
-        // GET: /PressureTest/
+        // GET: /Torque/
 
         public ActionResult Index()
         {
-            var model = storeDB.PressureTest.OrderByDescending(p => p.PressureTestId).ToList();
+            var model = storeDB.Torque.OrderByDescending(t => t.TorqueId ).ToList();
 
             return View(model);
         }
 
         //
-        // GET: /PressureTest/Details/5
+        // GET: /Torque/Details/5
 
         public ActionResult Details(int id)
         {
-            var pressure_test = storeDB.PressureTest.Single(p => p.PressureTestId == id);
-            return View(pressure_test);
+            return View();
         }
 
         //
-        // GET: /PressureTest/Create
+        // GET: /Torque/Create
 
         public ActionResult Create()
         {
@@ -40,7 +38,7 @@ namespace DOSB.Controllers
         } 
 
         //
-        // POST: /PressureTest/Create
+        // POST: /Torque/Create
 
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -58,7 +56,7 @@ namespace DOSB.Controllers
         }
         
         //
-        // GET: /PressureTest/Edit/5
+        // GET: /Torque/Edit/5
  
         public ActionResult Edit(int id)
         {
@@ -66,7 +64,7 @@ namespace DOSB.Controllers
         }
 
         //
-        // POST: /PressureTest/Edit/5
+        // POST: /Torque/Edit/5
 
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -84,7 +82,7 @@ namespace DOSB.Controllers
         }
 
         //
-        // GET: /PressureTest/Delete/5
+        // GET: /Torque/Delete/5
  
         public ActionResult Delete(int id)
         {
@@ -92,7 +90,7 @@ namespace DOSB.Controllers
         }
 
         //
-        // POST: /PressureTest/Delete/5
+        // POST: /Torque/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

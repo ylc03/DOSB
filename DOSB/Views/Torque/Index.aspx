@@ -1,17 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<DOSB.Models.PressureTest>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<DOSB.Models.Torque>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Pressure Test Log
+	Index
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Pressure Test Log</h2>
+    <h2>Torque Log</h2>
 
     
     <p>
-         <img src="/Content/Images/icon_plus.gif"/>
-         <%: Html.ActionLink("New", "Create") %>
+        <%: Html.ActionLink("Create New", "Create") %>
     </p>
     <table>
         <tr>
@@ -25,10 +24,13 @@
                 Serial Number
             </th>
             <th>
+                OneCat 
+            </th>
+            <th>
                 Memo
             </th>
             <th>
-                Test By
+                Torque By
             </th>
             <th>
                 Start Time
@@ -45,7 +47,7 @@
     
         <tr>
             <td>
-                <%: item.PressureTestId %>
+                <%: item.TorqueId %>
             </td>
             <td>
                 <%: item.PartNumber %>
@@ -54,10 +56,13 @@
                 <%: item.SerialNumber %>
             </td>
             <td>
+                info from onecat
+            </td>
+            <td>
                 <%: item.Memo %>
             </td>
             <td>
-                <%: item.Employee.GivenName + " " + item.Employee.SurName%>
+                <%: item.Employee.GivenName +" " + item.Employee.SurName%>
             </td>
             <td>
                 <%: String.Format("{0:g}", item.StartAt) %>
@@ -73,7 +78,6 @@
     <% } %>
 
     </table>
-
 
 </asp:Content>
 

@@ -73,6 +73,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PressureTestController.cs" />
+    <Compile Include="Controllers\TorqueController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -116,6 +117,7 @@
     <Content Include="Content\flick\images\ui-icons_ff0084_256x240.png" />
     <Content Include="Content\flick\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\flick\jquery-ui-1.8.7.css" />
+    <Content Include="Content\Images\icon_plus.gif" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
@@ -128,8 +130,10 @@
     <Content Include="Views\Employee\Index.aspx" />
     <Content Include="Views\Employee\Update.ascx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\PressureTest\Details.aspx" />
     <Content Include="Views\PressureTest\Index.aspx" />
     <Content Include="Views\Shared\EditorTemplates\Employee.ascx" />
+    <Content Include="Views\Torque\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -151,9 +155,7 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="Models\DOSB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
