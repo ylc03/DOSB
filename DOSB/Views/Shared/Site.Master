@@ -18,175 +18,75 @@
     <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
     <script src="/Scripts/jquery-ui-1.8.7.min.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.jeditable.js" type="text/javascript"></script>
-        <script type="text/javascript">
-
-            //Contents for menu 1
-            var menu1 = new Array()
-            menu1[0] = '<a href="WorkShop PVD">WorkShop PVD</a>'
-            menu1[1] = '<a href="Pressure Test">Pressure Test</a>'
-            menu1[2] = '<a href="Torque">Torque</a>'
-
-            var menuwidth = '165px' //default menu width
-            var menubgcolor = '#086984'  //menu bgcolor
-            var disappeardelay = 250  //menu disappear speed onMouseout (in miliseconds)
-            var hidemenu_onclick = "yes" //hide menu when user clicks within menu?
-
-            var ie4 = document.all
-            var ns6 = document.getElementById && !document.all
-
-            if (ie4 || ns6)
-                document.write('<div id="dropmenudiv" style="visibility:hidden ;width:' + menuwidth + ';background-color:' + menubgcolor + '" onMouseover="clearhidemenu()" onMouseout="dynamichide(event)"></div>')
-                
-            function getposOffset(what, offsettype) {
-                var totaloffset = (offsettype == "left") ? what.offsetLeft : what.offsetTop;
-                var parentEl = what.offsetParent;
-                while (parentEl != null) {
-                    totaloffset = (offsettype == "left") ? totaloffset + parentEl.offsetLeft : totaloffset + parentEl.offsetTop;
-                    parentEl = parentEl.offsetParent;
-                }
-                return totaloffset;
-            }
+    
+    <link href="/Content/Menu/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/Content/Menu/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
 
 
-            function showhide(obj, e, visible, hidden, menuwidth) {
-                if (ie4 || ns6)
-                    dropmenuobj.style.left = dropmenuobj.style.top = "-500px"
-                if (menuwidth != "") {
-                    dropmenuobj.widthobj = dropmenuobj.style
-                    dropmenuobj.widthobj.width = menuwidth
-                }
-                if (e.type == "click" && obj.visibility == hidden || e.type == "mouseover")
-                    obj.visibility = visible
-                else if (e.type == "click")
-                    obj.visibility = hidden
-            }
-
-            function iecompattest() {
-                return (document.compatMode && document.compatMode != "BackCompat") ? document.documentElement : document.body
-            }
-
-            function clearbrowseredge(obj, whichedge) {
-                var edgeoffset = 0
-                if (whichedge == "rightedge") {
-                    var windowedge = ie4 && !window.opera ? iecompattest().scrollLeft + iecompattest().clientWidth - 15 : window.pageXOffset + window.innerWidth - 15
-                    dropmenuobj.contentmeasure = dropmenuobj.offsetWidth
-                    if (windowedge - dropmenuobj.x < dropmenuobj.contentmeasure)
-                        edgeoffset = dropmenuobj.contentmeasure - obj.offsetWidth
-                }
-                else {
-                    var topedge = ie4 && !window.opera ? iecompattest().scrollTop : window.pageYOffset
-                    var windowedge = ie4 && !window.opera ? iecompattest().scrollTop + iecompattest().clientHeight - 15 : window.pageYOffset + window.innerHeight - 18
-                    dropmenuobj.contentmeasure = dropmenuobj.offsetHeight
-                    if (windowedge - dropmenuobj.y < dropmenuobj.contentmeasure) {
-                        edgeoffset = dropmenuobj.contentmeasure + obj.offsetHeight
-                        if ((dropmenuobj.y - topedge) < dropmenuobj.contentmeasure)
-                            edgeoffset = dropmenuobj.y + obj.offsetHeight - topedge
-                    }
-                }
-                return edgeoffset
-            }
-
-            function populatemenu(what) {
-                if (ie4 || ns6)
-                    dropmenuobj.innerHTML = what.join("")
-            }
-
-
-            function dropdownmenu(obj, e, menucontents, menuwidth) {
-                if (window.event) event.cancelBubble = true
-                else if (e.stopPropagation) e.stopPropagation()
-                clearhidemenu()
-                dropmenuobj = document.getElementById ? document.getElementById("dropmenudiv") : dropmenudiv
-                populatemenu(menucontents)
-
-                if (ie4 || ns6) {
-                    showhide(dropmenuobj.style, e, "visible", "hidden", menuwidth)
-                    dropmenuobj.x = getposOffset(obj, "left")
-                    dropmenuobj.y = getposOffset(obj, "top")
-                    dropmenuobj.style.left = dropmenuobj.x - clearbrowseredge(obj, "rightedge") + "px"
-                    dropmenuobj.style.top = dropmenuobj.y - clearbrowseredge(obj, "bottomedge") + obj.offsetHeight + "px"
-                }
-
-                return clickreturnvalue()
-            }
-
-            function clickreturnvalue() {
-                if (ie4 || ns6) return false
-                else return true
-            }
-
-            function contains_ns6(a, b) {
-                while (b.parentNode)
-                    if ((b = b.parentNode) == a)
-                        return true;
-                return false;
-            }
-
-            function dynamichide(e) {
-                if (ie4 && !dropmenuobj.contains(e.toElement))
-                    delayhidemenu()
-                else if (ns6 && e.currentTarget != e.relatedTarget && !contains_ns6(e.currentTarget, e.relatedTarget))
-                    delayhidemenu()
-            }
-
-            function hidemenu(e) {
-                if (typeof dropmenuobj != "undefined") {
-                    if (ie4 || ns6)
-                        dropmenuobj.style.visibility = "hidden"
-                    workshopid.bgColor = '#086984'
-                    
-                   
-                }
-            }
-
-            function delayhidemenu() {
-                if (ie4 || ns6)
-                    delayhide = setTimeout("hidemenu()", disappeardelay)
-            }
-
-            function clearhidemenu() {
-                if (typeof delayhide != "undefined")
-                    clearTimeout(delayhide)
-            }
-
-            if (hidemenu_onclick == "yes")
-                document.onclick = hidemenu
- 
-</script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-<h2 id="center" align="center"  style="margin-bottom:0">
-        <asp:Image ID="Image1" runat="server" ImageUrl="~/Content/Images/Header.gif" 
-            Height="100px"  
-            Width="100%" />
-       </h2>
-        <table id="Menu" style=" border-color: #FFFFFF; background-color:#086984; text-align:center; 
-                font-size: medium; color: #FFFFFF " border="0 px"
-         width="100%">
-        <tr>
-        <th  onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand';" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
-        ">Home</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
-        ">Employees</th>
-        <th id="workshopid" onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; dropdownmenu(this, event, menu1, '150px')" onmouseout="delayhidemenu()
-        ">WorkShop</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
-        ">RMC PVD</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
-        ">CC PVD</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
-        ">OpenHole PVD</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
-        ">Contact us</th>
-        </tr>
+<div class="body-overlay">
+<div class="content-container">
 
-        </table>
+<div class="header">
+    <div class="logo-box">
+        <a href="/">
+            <img width="190" height="88" border="0" alt="Schlumberger" src="/Content/Images/logo_slb_header.gif" />
+         </a>
+     </div>
+
+
+     <div class="header-menu">
+            <a href=".">Login</a> | 
+            <a href=".">About</a> | 
+            <a href=".">Contact us</a>
+     </div>
+</div>
+
+<div class="menu-top">
+<ul id="nav" class="dropdown dropdown-horizontal">
+	<li><a href="/">Home</a></li>
+	<li><span class="dir">Workshop</span>
+		<ul>
+			<li><a href="./">Daily Activities PVD</a></li>
+			<li><a href="./">Pressure Test Log</a></li>
+            <li><a href="./">Torque Log</a></li>
+			<li><span class="dir">KPI</span>
+				<ul>
+					<li><a href="./">KPI 1</a></li>
+					<li><a href="./">KPI 2</a></li>
+					<li><a href="./">KPI 3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li><span class="dir">Job</span>
+		<ul>
+			<li><a href="./">RMC PVD</a></li>
+			<li><a href="./">CC PVD</a></li>
+			<li><a href="./">OH PVD</a></li>
+			<li class="divider"><a href="./">More...</a></li>
+		</ul>
+	</li>
+	<li><span class="dir">Employee</span>
+		<ul>
+			<li><a href="./">RMC</a></li>
+			<li><a href="./">CC</a></li>
+			<li><a href="./">Operators</a></li>
+			<li class="divider"><a href="./">More...</a></li>
+		</ul>
+	</li>
+</ul>
+</div>
+
     <div id="content">
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         
         </asp:ContentPlaceHolder>
     </div>
+</div><!--content container-->
+</div>
 </body>
 </html>

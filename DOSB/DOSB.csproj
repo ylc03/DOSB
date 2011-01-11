@@ -117,9 +117,29 @@
     <Content Include="Content\flick\images\ui-icons_ff0084_256x240.png" />
     <Content Include="Content\flick\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\flick\jquery-ui-1.8.7.css" />
+    <Content Include="Content\Images\gradient_1120.jpg" />
     <Content Include="Content\Images\icon_plus.gif" />
-    <Content Include="Content\Images\Header.gif" />
-    <Content Include="Content\Images\Menu.gif" />
+    <Content Include="Content\Images\logo_slb_header.gif" />
+    <Content Include="Content\Menu\default.css" />
+    <Content Include="Content\Menu\default.ultimate.css" />
+    <Content Include="Content\Menu\dropdown.css" />
+    <Content Include="Content\Menu\images\favicon.ico" />
+    <Content Include="Content\Menu\images\icon.png" />
+    <Content Include="Content\Menu\images\nav-arrow-down-on.png" />
+    <Content Include="Content\Menu\images\nav-arrow-down-open.png" />
+    <Content Include="Content\Menu\images\nav-arrow-down.png" />
+    <Content Include="Content\Menu\images\nav-arrow-left-on.png" />
+    <Content Include="Content\Menu\images\nav-arrow-left-open.png" />
+    <Content Include="Content\Menu\images\nav-arrow-left.png" />
+    <Content Include="Content\Menu\images\nav-arrow-right-on.png" />
+    <Content Include="Content\Menu\images\nav-arrow-right-open.png" />
+    <Content Include="Content\Menu\images\nav-arrow-right.png" />
+    <Content Include="Content\Menu\images\nav-arrow-up-on.png" />
+    <Content Include="Content\Menu\images\nav-arrow-up-open.png" />
+    <Content Include="Content\Menu\images\nav-arrow-up.png" />
+    <Content Include="Content\Menu\images\pattern1.png" />
+    <Content Include="Content\Menu\images\pattern2.png" />
+    <Content Include="Content\Menu\images\pattern3.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
@@ -183,17 +203,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1038</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

@@ -1,5 +1,10 @@
 			/*demo style from jquery-ui css*/
-			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+body 
+{
+    font: 62.5% "Trebuchet MS", sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+}
 			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
 			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
 			ul#icons {margin: 0; padding: 0;}
@@ -35,28 +40,42 @@
     display: none;
 }
 
-#dropmenudiv
-{
-  
-position:absolute;
-border:2px solid black;
-font:normal 18px Verdana;
-color:White;
-line-height:18px;
-z-index:100;
+.body-overlay {
+    background-image: url("/Content/Images/gradient_1120.jpg");
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 100%;
 }
- 
-#dropmenudiv a
-{
-width:100%;
-display: block;
-text-indent: 3px;
-border-bottom: none;
-padding: 1px 0;
-text-decoration: none;
-font-weight:normal;
-color:White;
+
+.content-container {
+    background-color: #FFFFFF;
+    margin-left: auto;
+    margin-right: auto;
+    width: 980px;
 }
-#dropmenudiv a:hover{ /*hover background color*/
-background-color: #0099CC;
+
+.header {
+    height: 80px;
+    width: 980px;
+}
+
+.logo-box {
+    float: left;
+    height: 75px;
+    overflow: hidden;
+    width: 190px;
+}
+
+.header-menu
+{
+    float: right;
+    margin-right: 10px;    
+}
+
+.menu-top 
+{
+    border-top: 2px solid #003366;
+    height: 33px;
+    position: relative;
+    width: 980px;
 }
