@@ -134,7 +134,7 @@
                     if (ie4 || ns6)
                         dropmenuobj.style.visibility = "hidden"
                     workshopid.bgColor = '#086984'
-                    workshopid.style.border = 'None'
+                    
                    
                 }
             }
@@ -166,26 +166,19 @@
                 font-size: medium; color: #FFFFFF " border="0 px"
          width="100%">
         <tr>
-        <th  onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        <th  onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand';" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
         ">Home</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
         ">Employees</th>
-        <th id="workshopid" onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'; dropdownmenu(this, event, menu1, '150px')" onmouseout="delayhidemenu()
+        <th id="workshopid" onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; dropdownmenu(this, event, menu1, '150px')" onmouseout="delayhidemenu()
         ">WorkShop</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
         ">RMC PVD</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
         ">CC PVD</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
         ">OpenHole PVD</th>
-        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'; 
-        this.style.border='solid #FFFFFF'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
+        <th onmouseover="this.bgColor = '#0099CC'; this.style.cursor='hand'" onmouseout="this.bgColor = '#086984' ;this.style.border='None'
         ">Contact us</th>
         </tr>
 
