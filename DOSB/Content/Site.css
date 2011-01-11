@@ -10,7 +10,7 @@
 -----------------------------------------------------------*/
 .field-validation-error
 {
-    color: #ff0000;
+    color:#ff0000;
 }
 
 .field-validation-valid
@@ -27,10 +27,36 @@
 .validation-summary-errors
 {
     font-weight: bold;
-    color: #ff0000;
+    color:#ff0000;
 }
 
 .validation-summary-valid
 {
     display: none;
+}
+
+#dropmenudiv
+{
+  
+position:absolute;
+border:2px solid black;
+font:normal 18px Verdana;
+color:White;
+line-height:18px;
+z-index:100;
+}
+ 
+#dropmenudiv a
+{
+width:100%;
+display: block;
+text-indent: 3px;
+border-bottom: none;
+padding: 1px 0;
+text-decoration: none;
+font-weight:normal;
+color:White;
+}
+#dropmenudiv a:hover{ /*hover background color*/
+background-color: #0099CC;
 }
