@@ -24,6 +24,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Segment_Parent", "Segment", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Segment), "Segment1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Segment), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopDailyActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.WorkshopDailyActivity), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
 
 #endregion
 
@@ -851,6 +852,28 @@ namespace DOSB.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Approver", "PressureTest")]
+        public EntityCollection<PressureTest> PressureTest_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Approver", "PressureTest");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PressureTest>("DOSBModel.FK_PressureTest_Approver", "PressureTest", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -959,30 +982,6 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Memo
-        {
-            get
-            {
-                return _Memo;
-            }
-            set
-            {
-                OnMemoChanging(value);
-                ReportPropertyChanging("Memo");
-                _Memo = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Memo");
-                OnMemoChanged();
-            }
-        }
-        private global::System.String _Memo;
-        partial void OnMemoChanging(global::System.String value);
-        partial void OnMemoChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> TestBy
         {
             get
@@ -1073,6 +1072,78 @@ namespace DOSB.Models
         private Nullable<global::System.Int32> _Defect;
         partial void OnDefectChanging(Nullable<global::System.Int32> value);
         partial void OnDefectChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Comment
+        {
+            get
+            {
+                return _Comment;
+            }
+            set
+            {
+                OnCommentChanging(value);
+                ReportPropertyChanging("Comment");
+                _Comment = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Comment");
+                OnCommentChanged();
+            }
+        }
+        private global::System.String _Comment;
+        partial void OnCommentChanging(global::System.String value);
+        partial void OnCommentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AssemblyType
+        {
+            get
+            {
+                return _AssemblyType;
+            }
+            set
+            {
+                OnAssemblyTypeChanging(value);
+                ReportPropertyChanging("AssemblyType");
+                _AssemblyType = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AssemblyType");
+                OnAssemblyTypeChanged();
+            }
+        }
+        private global::System.String _AssemblyType;
+        partial void OnAssemblyTypeChanging(global::System.String value);
+        partial void OnAssemblyTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ApprovedBy
+        {
+            get
+            {
+                return _ApprovedBy;
+            }
+            set
+            {
+                OnApprovedByChanging(value);
+                ReportPropertyChanging("ApprovedBy");
+                _ApprovedBy = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ApprovedBy");
+                OnApprovedByChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ApprovedBy;
+        partial void OnApprovedByChanging(Nullable<global::System.Int32> value);
+        partial void OnApprovedByChanged();
 
         #endregion
     
@@ -1112,6 +1183,44 @@ namespace DOSB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Employee>("DOSBModel.FK_PressureTest_Employee", "Employee", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Approver", "Employee")]
+        public Employee Approver
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_PressureTest_Approver", "Employee").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_PressureTest_Approver", "Employee").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Employee> ApproverReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Employee>("DOSBModel.FK_PressureTest_Approver", "Employee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Employee>("DOSBModel.FK_PressureTest_Approver", "Employee", value);
                 }
             }
         }

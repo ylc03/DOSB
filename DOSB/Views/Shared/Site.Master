@@ -51,8 +51,9 @@
 	<li><span class="dir">Workshop</span>
 		<ul>
 			<li><a href="./">Daily Activities PVD</a></li>
-			<li><a href="./">Pressure Test Log</a></li>
-            <li><a href="./">Torque Log</a></li>
+			<li><a href="/PressureTest">Pressure Test Log</a></li>
+            <li><a href="/Torque">Torque Log</a></li>
+            <li><a href="./">Technical Reception</a></li>
 			<li><span class="dir">KPI</span>
 				<ul>
 					<li><a href="./">KPI 1</a></li>
@@ -75,7 +76,7 @@
 			<li><a href="./">RMC</a></li>
 			<li><a href="./">CC</a></li>
 			<li><a href="./">Operators</a></li>
-			<li class="divider"><a href="./">More...</a></li>
+			<li class="divider"><a href="/Employee">All...</a></li>
 		</ul>
 	</li>
 </ul>

@@ -75,7 +75,161 @@ body
 .menu-top 
 {
     border-top: 2px solid #003366;
+    padding-top: 1px;
     height: 33px;
     position: relative;
     width: 980px;
+}
+
+#content
+{
+    padding: 0px 5px;    
+}
+
+#searcharea {
+    background: none repeat scroll 0 0 #EEEEEE;
+    margin-bottom: 1em;
+    padding: 0.5em 1em;
+    position: relative;
+}
+
+#searcharea .searchForm {
+    float: right;
+    margin: 0;
+    position: relative;
+    text-align: left;
+}
+
+#searcharea .searchForm .search-input {
+    display: inline;
+}
+
+#searcharea .searchForm .searchinput {
+    border: 1px solid #444444;
+    color: #999999;
+    float: left;
+    font-size: 92%;
+    height: 14px;
+    margin-right: 4px;
+    padding: 3px 4px 1px 2px;
+    width: 20em;
+}
+
+#searcharea .searchForm .searchsubmit {
+    background: none repeat scroll 0 0 #3274D0;
+    border: 1px solid #444444;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: left;
+    font-weight: bold;
+    height: 20px;
+    padding: 2px 4px 1px;
+    margin-right: 5px;
+    position: relative;
+}
+
+#searcharea p 
+{
+    margin: 0px;
+    font-size: 130%;
+}
+
+#pressure-test-log ul
+{
+    padding: 0 10px;
+    border-top: 2px solid #3274D0;
+}
+
+#pressure-test-log li
+{
+    border-bottom: 1px solid #AAA;
+    padding-top: 5px;
+    list-style: none;
+    min-height: 70px;
+    margin-right: 200px;
+}
+
+#pressure-test-log .sequence-number
+{
+    background: none repeat scroll 0 0 #3274D0;
+    color: #FFFFFF;
+    float: left;
+    font-size: large;
+    text-align: center;
+    height: 20px;
+    padding: 2px 4px 1px;
+    position: relative;
+}
+
+#pressure-test-log .content
+{
+    margin-left: 50px;
+    width: 440px;
+    float: left;
+}
+
+#pressure-test-log .content .column1
+{
+    width: 180px;
+    float: left;
+}
+
+#pressure-test-log .content .column2
+{
+    width: 260px;
+    float: left;
+}
+
+#pressure-test-log .content p
+{
+    margin: 0 0 2px 0;
+    font-size: 1.2em;
+}
+
+#pressure-test-log .content .title
+{
+    background: #CCC;
+    color: #000;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+    float: left;
+    margin-right: 5px;
+}
+
+
+#pressure-test-log .content .time
+{
+    font-size: 1em;
+    font-weight: bold;
+    width: 70px;
+    text-align: center;
+    float: left;
+    margin-right: 5px;
+}
+
+
+#pressure-test-log .content .description
+{
+    color: #000; 
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 20px;
+    text-align: center;
+    float: left;
+    margin-right: 5px;
+}
+
+#pressure-test-log .action
+{
+    float: left;
+    padding: 0 10px;
+    min-width: 100px;
+}
+
+#pressure-test-log img
+{
+    padding:2px 2px;
+    border: 1px solid #CCC;
 }
