@@ -4,12 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.DirectoryServices;
-
-using DOSB.Models;
-using DOSB.viewModels;
 using System.Drawing;
 using System.IO;
 using System.Globalization;
+
+using Telerik.Web.Mvc.UI;
+using Telerik.Web.Mvc;
+
+using DOSB.viewModels;
+using DOSB.Models;
 
 namespace DOSB.Controllers
 {
@@ -31,6 +34,32 @@ namespace DOSB.Controllers
             return View(viewModel);
         }
 
+        /// <summary>
+        /// List All Employee
+        /// </summary>
+        /// <returns>view</returns>
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// List All Employee
+        /// </summary>
+        /// <returns>view</returns>
+        [GridAction]
+        public ActionResult _List()
+        {
+            var dataContext = new CPLDataContext();
+            var employees = from m in dataContext.Employees select new 
+            {  
+                m.GIN,
+                m.GivenName,
+                m.PersonalMobile,
+                m.AramcoIdExpDate
+            };
+            return View(new GridModel(employees));
+        }
 
         // **************************************
         // URL: /Employee/Add

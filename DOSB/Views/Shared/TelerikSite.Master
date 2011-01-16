@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head id="head" runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <%= Html.Telerik().StyleSheetRegistrar()
+            .DefaultGroup(group => group.Add("telerik.common.css")
+                                        .Add("telerik.vista.css")
+                                        .Add("telerik.rtl.css")
+                                        .Add("telerik.examples.css"))
+    %>
+
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <div id="page">
+        <div id="menu">
+        <% Html.Telerik().Menu()
+            .Name("Menu")
+            .Items(menu =>
+            {
+                menu.Add()
+                    .Text("Home")
+                    .Url("/");
+                    //.ImageUrl("~/Content/Common/Icons/Suites/mvc.png");
+                menu.Add()
+                    .Text("Employee")
+                    .Url("/Employee")
+                    //.ImageUrl("~/Content/Common/Icons/Suites/sl.png")
+                    .Items(item =>
+                        {
+                            item.Add().Text("RMC");//.ImageUrl("~/Content/Common/Icons/Sl/GridView.gif");
+                            item.Add().Text("CC");//.ImageUrl("~/Content/Common/Icons/Sl/Scheduler.gif");
+                            item.Add().Text("OH");//.ImageUrl("~/Content/Common/Icons/Sl/Docking.gif");
+                            item.Add().Text("Operators");//.ImageUrl("~/Content/Common/Icons/Sl/Docking.gif");
+                        });
+                menu.Add()
+                    .Text("Workshop")
+                    .Items(item =>
+                        {
+                            item.Add().Text("Task PVD");
+                            item.Add().Text("Pressure test log");
+                            item.Add().Text("Torque log");
+                            item.Add().Text("Technical Reception");
+                            item.Add()
+                                .Text("KPIs")
+                                .Items(subitem =>
+                                    {
+                                        subitem.Add().Text("KPI one");
+                                        subitem.Add().Text("KPI two");
+                                        subitem.Add().Text("KPI three");
+                                    });
+                        });
+            })
+            .Render();
+    %>
+        </div>
+        <div id="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </div>
+    <% Html.Telerik().ScriptRegistrar()
+                     .DefaultGroup(group => group
+                         .Compress(true))
+                     .Render(); %>
+</body>
+</html>
+
