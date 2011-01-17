@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOSB" Class="CPLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOSB" Class="CPLDataContext" Serialization="Unidirectional" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\DOSB.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DOSBConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Employee" Member="Employees">
     <Type Name="Employees">
@@ -20,7 +20,7 @@
       <Association Name="Employees_WorkshopAssignments" Member="WorkshopAssignments" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="WorkshopAssignments" />
       <Association Name="Employees_PressureTestLogs" Member="PressureTests" ThisKey="EmployeeId" OtherKey="ApprovedBy" Type="PressureTestLogs" />
       <Association Name="Employees_PressureTestLogs1" Member="PressureTestLogs" Storage="_PressureTests1" ThisKey="EmployeeId" OtherKey="TestBy" Type="PressureTestLogs" />
-      <Association Name="Segments_Employees" Member="Segments" Storage="_Segment" ThisKey="SegmentId" OtherKey="SegmentId" Type="Segments" IsForeignKey="true" />
+      <Association Name="Segments_Employees" Member="Segment" ThisKey="SegmentId" OtherKey="SegmentId" Type="Segments" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Segment" Member="Segments">
@@ -30,9 +30,7 @@
       <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ParentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BusinessCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Segments_Employees" Member="Employees" ThisKey="SegmentId" OtherKey="SegmentId" Type="Employees" />
-      <Association Name="Segments_Segments" Member="Segments1" Storage="_Segments" ThisKey="SegmentId" OtherKey="ParentId" Type="Segments" />
-      <Association Name="Segments_Segments" Member="Segment1" ThisKey="ParentId" OtherKey="SegmentId" Type="Segments" IsForeignKey="true" />
+      <Association Name="Segments_Employees" Member="Employees" AccessModifier="Internal" ThisKey="SegmentId" OtherKey="SegmentId" Type="Employees" />
     </Type>
   </Table>
   <Table Name="dbo.Torque" Member="TorqueLogs">

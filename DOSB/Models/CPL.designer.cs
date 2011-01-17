@@ -18,6 +18,7 @@ namespace DOSB.Models
 	using System.Reflection;
 	using System.Linq;
 	using System.Linq.Expressions;
+	using System.Runtime.Serialization;
 	using System.ComponentModel;
 	using System;
 	
@@ -141,6 +142,7 @@ namespace DOSB.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Employee")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Employees : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -184,6 +186,8 @@ namespace DOSB.Models
 		
 		private EntityRef<Segments> _Segment;
 		
+		private bool serializing;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -220,15 +224,11 @@ namespace DOSB.Models
 		
 		public Employees()
 		{
-			this._Torques = new EntitySet<TorqueLogs>(new Action<TorqueLogs>(this.attach_Torques), new Action<TorqueLogs>(this.detach_Torques));
-			this._WorkshopAssignments = new EntitySet<WorkshopAssignments>(new Action<WorkshopAssignments>(this.attach_WorkshopAssignments), new Action<WorkshopAssignments>(this.detach_WorkshopAssignments));
-			this._PressureTests = new EntitySet<PressureTestLogs>(new Action<PressureTestLogs>(this.attach_PressureTests), new Action<PressureTestLogs>(this.detach_PressureTests));
-			this._PressureTests1 = new EntitySet<PressureTestLogs>(new Action<PressureTestLogs>(this.attach_PressureTests1), new Action<PressureTestLogs>(this.detach_PressureTests1));
-			this._Segment = default(EntityRef<Segments>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int EmployeeId
 		{
 			get
@@ -249,6 +249,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LDAP", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string LDAP
 		{
 			get
@@ -269,6 +270,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string Status
 		{
 			get
@@ -289,6 +291,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentId", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.Nullable<int> SegmentId
 		{
 			get
@@ -313,6 +316,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Data.Linq.Binary Avatar
 		{
 			get
@@ -333,6 +337,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GivenName", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public string GivenName
 		{
 			get
@@ -353,6 +358,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SurName", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public string SurName
 		{
 			get
@@ -373,6 +379,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mobile", DbType="NVarChar(150)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public string Mobile
 		{
 			get
@@ -393,6 +400,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonalMobile", DbType="NVarChar(150)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
 		public string PersonalMobile
 		{
 			get
@@ -413,6 +421,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AramcoID", DbType="NVarChar(15)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
 		public string AramcoID
 		{
 			get
@@ -433,6 +442,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AramcoIdExpDate", DbType="Date")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
 		public System.Nullable<System.DateTime> AramcoIdExpDate
 		{
 			get
@@ -453,6 +463,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_H2SExpDate", DbType="Date")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
 		public System.Nullable<System.DateTime> H2SExpDate
 		{
 			get
@@ -473,6 +484,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HUETExpDate", DbType="Date")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
 		public System.Nullable<System.DateTime> HUETExpDate
 		{
 			get
@@ -493,6 +505,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GIN", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14)]
 		public string GIN
 		{
 			get
@@ -513,10 +526,16 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs", Storage="_Torques", ThisKey="EmployeeId", OtherKey="TorqueBy")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
 		public EntitySet<TorqueLogs> TorqueLogs
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._Torques.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._Torques;
 			}
 			set
@@ -526,10 +545,16 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_WorkshopAssignments", Storage="_WorkshopAssignments", ThisKey="EmployeeId", OtherKey="EmployeeId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
 		public EntitySet<WorkshopAssignments> WorkshopAssignments
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._WorkshopAssignments.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._WorkshopAssignments;
 			}
 			set
@@ -539,10 +564,16 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_PressureTestLogs", Storage="_PressureTests", ThisKey="EmployeeId", OtherKey="ApprovedBy")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
 		public EntitySet<PressureTestLogs> PressureTests
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._PressureTests.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._PressureTests;
 			}
 			set
@@ -552,10 +583,16 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_PressureTestLogs1", Storage="_PressureTests1", ThisKey="EmployeeId", OtherKey="TestBy")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=18, EmitDefaultValue=false)]
 		public EntitySet<PressureTestLogs> PressureTestLogs
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._PressureTests1.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._PressureTests1;
 			}
 			set
@@ -565,7 +602,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Segments_Employees", Storage="_Segment", ThisKey="SegmentId", OtherKey="SegmentId", IsForeignKey=true)]
-		public Segments Segments
+		public Segments Segment
 		{
 			get
 			{
@@ -593,7 +630,7 @@ namespace DOSB.Models
 					{
 						this._SegmentId = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("Segments");
+					this.SendPropertyChanged("Segment");
 				}
 			}
 		}
@@ -665,9 +702,41 @@ namespace DOSB.Models
 			this.SendPropertyChanging();
 			entity.Employees = null;
 		}
+		
+		private void Initialize()
+		{
+			this._Torques = new EntitySet<TorqueLogs>(new Action<TorqueLogs>(this.attach_Torques), new Action<TorqueLogs>(this.detach_Torques));
+			this._WorkshopAssignments = new EntitySet<WorkshopAssignments>(new Action<WorkshopAssignments>(this.attach_WorkshopAssignments), new Action<WorkshopAssignments>(this.detach_WorkshopAssignments));
+			this._PressureTests = new EntitySet<PressureTestLogs>(new Action<PressureTestLogs>(this.attach_PressureTests), new Action<PressureTestLogs>(this.detach_PressureTests));
+			this._PressureTests1 = new EntitySet<PressureTestLogs>(new Action<PressureTestLogs>(this.attach_PressureTests1), new Action<PressureTestLogs>(this.detach_PressureTests1));
+			this._Segment = default(EntityRef<Segments>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Segment")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Segments : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -684,10 +753,6 @@ namespace DOSB.Models
 		private string _BusinessCategory;
 		
 		private EntitySet<Employees> _Employees;
-		
-		private EntitySet<Segments> _Segments;
-		
-		private EntityRef<Segments> _Segment1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -707,13 +772,11 @@ namespace DOSB.Models
 		
 		public Segments()
 		{
-			this._Employees = new EntitySet<Employees>(new Action<Employees>(this.attach_Employees), new Action<Employees>(this.detach_Employees));
-			this._Segments = new EntitySet<Segments>(new Action<Segments>(this.attach_Segments), new Action<Segments>(this.detach_Segments));
-			this._Segment1 = default(EntityRef<Segments>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SegmentId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int SegmentId
 		{
 			get
@@ -734,6 +797,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Name
 		{
 			get
@@ -754,6 +818,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string FullName
 		{
 			get
@@ -774,6 +839,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentId", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public int ParentId
 		{
 			get
@@ -784,10 +850,6 @@ namespace DOSB.Models
 			{
 				if ((this._ParentId != value))
 				{
-					if (this._Segment1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnParentIdChanging(value);
 					this.SendPropertyChanging();
 					this._ParentId = value;
@@ -798,6 +860,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessCategory", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string BusinessCategory
 		{
 			get
@@ -818,7 +881,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Segments_Employees", Storage="_Employees", ThisKey="SegmentId", OtherKey="SegmentId")]
-		public EntitySet<Employees> Employees
+		internal EntitySet<Employees> Employees
 		{
 			get
 			{
@@ -827,53 +890,6 @@ namespace DOSB.Models
 			set
 			{
 				this._Employees.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Segments_Segments", Storage="_Segments", ThisKey="SegmentId", OtherKey="ParentId")]
-		public EntitySet<Segments> Segments1
-		{
-			get
-			{
-				return this._Segments;
-			}
-			set
-			{
-				this._Segments.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Segments_Segments", Storage="_Segment1", ThisKey="ParentId", OtherKey="SegmentId", IsForeignKey=true)]
-		public Segments Segment1
-		{
-			get
-			{
-				return this._Segment1.Entity;
-			}
-			set
-			{
-				Segments previousValue = this._Segment1.Entity;
-				if (((previousValue != value) 
-							|| (this._Segment1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Segment1.Entity = null;
-						previousValue.Segments1.Remove(this);
-					}
-					this._Segment1.Entity = value;
-					if ((value != null))
-					{
-						value.Segments1.Add(this);
-						this._ParentId = value.SegmentId;
-					}
-					else
-					{
-						this._ParentId = default(int);
-					}
-					this.SendPropertyChanged("Segment1");
-				}
 			}
 		}
 		
@@ -900,29 +916,31 @@ namespace DOSB.Models
 		private void attach_Employees(Employees entity)
 		{
 			this.SendPropertyChanging();
-			entity.Segments = this;
+			entity.Segment = this;
 		}
 		
 		private void detach_Employees(Employees entity)
 		{
 			this.SendPropertyChanging();
-			entity.Segments = null;
+			entity.Segment = null;
 		}
 		
-		private void attach_Segments(Segments entity)
+		private void Initialize()
 		{
-			this.SendPropertyChanging();
-			entity.Segment1 = this;
+			this._Employees = new EntitySet<Employees>(new Action<Employees>(this.attach_Employees), new Action<Employees>(this.detach_Employees));
+			OnCreated();
 		}
 		
-		private void detach_Segments(Segments entity)
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
 		{
-			this.SendPropertyChanging();
-			entity.Segment1 = null;
+			this.Initialize();
 		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Torque")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class TorqueLogs : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -970,11 +988,11 @@ namespace DOSB.Models
 		
 		public TorqueLogs()
 		{
-			this._Employee = default(EntityRef<Employees>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TorqueId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int TorqueId
 		{
 			get
@@ -995,6 +1013,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNumber", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string PartNumber
 		{
 			get
@@ -1015,6 +1034,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNumber", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string SerialNumber
 		{
 			get
@@ -1035,6 +1055,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Memo", DbType="NVarChar(250)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Memo
 		{
 			get
@@ -1055,6 +1076,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Nullable<System.DateTime> StartAt
 		{
 			get
@@ -1075,6 +1097,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Nullable<System.DateTime> FinishAt
 		{
 			get
@@ -1095,6 +1118,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TorqueBy", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Nullable<int> TorqueBy
 		{
 			get
@@ -1119,6 +1143,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Defect", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public System.Nullable<int> Defect
 		{
 			get
@@ -1191,9 +1216,23 @@ namespace DOSB.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Employee = default(EntityRef<Employees>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WorkshopAssignment")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class WorkshopAssignments : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1231,12 +1270,11 @@ namespace DOSB.Models
 		
 		public WorkshopAssignments()
 		{
-			this._Employee = default(EntityRef<Employees>);
-			this._WorkshopDailyActivity = default(EntityRef<WorkshopDailyActivities>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkshopAssignmentId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int WorkshopAssignmentId
 		{
 			get
@@ -1257,6 +1295,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmployeeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public int EmployeeId
 		{
 			get
@@ -1281,6 +1320,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkshopDailyActivityId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int WorkshopDailyActivityId
 		{
 			get
@@ -1305,6 +1345,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssignedAt", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public System.DateTime AssignedAt
 		{
 			get
@@ -1325,6 +1366,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndedAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public System.Nullable<System.DateTime> EndedAt
 		{
 			get
@@ -1431,9 +1473,24 @@ namespace DOSB.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Employee = default(EntityRef<Employees>);
+			this._WorkshopDailyActivity = default(EntityRef<WorkshopDailyActivities>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WorkshopDailyActivity")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class WorkshopDailyActivities : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1456,6 +1513,8 @@ namespace DOSB.Models
 		private System.Nullable<System.DateTime> _CanceledAt;
 		
 		private EntitySet<WorkshopAssignments> _WorkshopAssignments;
+		
+		private bool serializing;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1481,11 +1540,11 @@ namespace DOSB.Models
 		
 		public WorkshopDailyActivities()
 		{
-			this._WorkshopAssignments = new EntitySet<WorkshopAssignments>(new Action<WorkshopAssignments>(this.attach_WorkshopAssignments), new Action<WorkshopAssignments>(this.detach_WorkshopAssignments));
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int ActivityId
 		{
 			get
@@ -1506,6 +1565,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string Description
 		{
 			get
@@ -1526,6 +1586,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Forklift", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public int Forklift
 		{
 			get
@@ -1546,6 +1607,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Torque", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public int Torque
 		{
 			get
@@ -1566,6 +1628,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PressureTest", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public int PressureTest
 		{
 			get
@@ -1586,6 +1649,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.DateTime CreatedAt
 		{
 			get
@@ -1606,6 +1670,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishedAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Nullable<System.DateTime> FinishedAt
 		{
 			get
@@ -1626,6 +1691,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CanceledAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public System.Nullable<System.DateTime> CanceledAt
 		{
 			get
@@ -1646,10 +1712,16 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WorkshopDailyActivities_WorkshopAssignments", Storage="_WorkshopAssignments", ThisKey="ActivityId", OtherKey="WorkshopDailyActivityId")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9, EmitDefaultValue=false)]
 		public EntitySet<WorkshopAssignments> WorkshopAssignments
 		{
 			get
 			{
+				if ((this.serializing 
+							&& (this._WorkshopAssignments.HasLoadedOrAssignedValues == false)))
+				{
+					return null;
+				}
 				return this._WorkshopAssignments;
 			}
 			set
@@ -1689,9 +1761,37 @@ namespace DOSB.Models
 			this.SendPropertyChanging();
 			entity.WorkshopDailyActivities = null;
 		}
+		
+		private void Initialize()
+		{
+			this._WorkshopAssignments = new EntitySet<WorkshopAssignments>(new Action<WorkshopAssignments>(this.attach_WorkshopAssignments), new Action<WorkshopAssignments>(this.detach_WorkshopAssignments));
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerializing(StreamingContext context)
+		{
+			this.serializing = true;
+		}
+		
+		[global::System.Runtime.Serialization.OnSerializedAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnSerialized(StreamingContext context)
+		{
+			this.serializing = false;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PressureTest")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class PressureTestLogs : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -1749,12 +1849,11 @@ namespace DOSB.Models
 		
 		public PressureTestLogs()
 		{
-			this._Employee = default(EntityRef<Employees>);
-			this._Employee1 = default(EntityRef<Employees>);
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PressureTestId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int PressureTestId
 		{
 			get
@@ -1775,6 +1874,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNumber", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string PartNumber
 		{
 			get
@@ -1795,6 +1895,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNumber", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public string SerialNumber
 		{
 			get
@@ -1815,6 +1916,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(250)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Comment
 		{
 			get
@@ -1835,6 +1937,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyType", DbType="NVarChar(250)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
 		public string AssemblyType
 		{
 			get
@@ -1855,6 +1958,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
 		public System.Nullable<System.DateTime> StartAt
 		{
 			get
@@ -1875,6 +1979,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
 		public System.Nullable<System.DateTime> FinishAt
 		{
 			get
@@ -1895,6 +2000,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestBy", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
 		public System.Nullable<int> TestBy
 		{
 			get
@@ -1919,6 +2025,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
 		public System.Nullable<int> ApprovedBy
 		{
 			get
@@ -1943,6 +2050,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Defect", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
 		public System.Nullable<int> Defect
 		{
 			get
@@ -2049,9 +2157,24 @@ namespace DOSB.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void Initialize()
+		{
+			this._Employee = default(EntityRef<Employees>);
+			this._Employee1 = default(EntityRef<Employees>);
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Attachment")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class Attachments : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
@@ -2081,10 +2204,11 @@ namespace DOSB.Models
 		
 		public Attachments()
 		{
-			OnCreated();
+			this.Initialize();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachmentId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
 		public int AttachmentId
 		{
 			get
@@ -2105,6 +2229,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachableType", DbType="NVarChar(250)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
 		public string AttachableType
 		{
 			get
@@ -2125,6 +2250,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttachableId", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
 		public System.Nullable<int> AttachableId
 		{
 			get
@@ -2145,6 +2271,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Path", DbType="NVarChar(MAX)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
 		public string Path
 		{
 			get
@@ -2182,6 +2309,18 @@ namespace DOSB.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void Initialize()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
 		}
 	}
 }

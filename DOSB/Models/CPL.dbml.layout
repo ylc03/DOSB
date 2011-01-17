@@ -2,91 +2,84 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.625" name="CPL">
   <DataContextMoniker Name="/CPLDataContext" />
   <nestedChildShapes>
-    <classShape Id="840a9518-dff9-4764-b058-4f96aa021e88" absoluteBounds="0.5, 0.5, 2, 3.0683211263020831">
+    <classShape Id="840a9518-dff9-4764-b058-4f96aa021e88" absoluteBounds="0.5, 0.5, 2, 3.1345442708333331">
       <DataClassMoniker Name="/CPLDataContext/Employees" />
       <nestedChildShapes>
-        <elementListCompartment Id="1ed06400-4a49-4f8e-94ad-9078b070ba4d" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 2.508321126302083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="1ed06400-4a49-4f8e-94ad-9078b070ba4d" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 2.574544270833333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="82f16035-3cd8-4ffa-bdc1-b783fd4d7f3f" isExpanded="false" absoluteBounds="3, 0.5, 2, 0.45">
       <DataClassMoniker Name="/CPLDataContext/Segments" />
       <nestedChildShapes>
-        <elementListCompartment Id="17eb3828-b0db-4422-ade4-9ae90d856d0d" absoluteBounds="3.0149999999999997, 0.96, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="17eb3828-b0db-4422-ade4-9ae90d856d0d" absoluteBounds="3.0149999999999997, 0.96, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="3bb2fade-afa5-422a-9bbb-3bef167aeecf" absoluteBounds="3, 1.25, 2, 2.0822371419270831">
+    <classShape Id="3bb2fade-afa5-422a-9bbb-3bef167aeecf" absoluteBounds="3, 1.25, 2, 2.1228255208333335">
       <DataClassMoniker Name="/CPLDataContext/TorqueLogs" />
       <nestedChildShapes>
-        <elementListCompartment Id="b41711b3-be7b-443b-9b5b-1edfabfe1da4" absoluteBounds="3.0150000000000006, 1.71, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="b41711b3-be7b-443b-9b5b-1edfabfe1da4" absoluteBounds="3.0150000000000006, 1.71, 1.9700000000000002, 1.5628255208333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a534aa45-be89-4a61-806c-f183f8573b38" absoluteBounds="0.5, 4.75, 2, 1.5891951497395831">
+    <classShape Id="a534aa45-be89-4a61-806c-f183f8573b38" absoluteBounds="0.5, 4.75, 2, 1.6169661458333327">
       <DataClassMoniker Name="/CPLDataContext/WorkshopAssignments" />
       <nestedChildShapes>
-        <elementListCompartment Id="1a9d4b22-084b-46c0-889d-f9c24379b104" absoluteBounds="0.51500000000000012, 5.21, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="1a9d4b22-084b-46c0-889d-f9c24379b104" absoluteBounds="0.51500000000000012, 5.21, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a14b1830-08cb-4d8f-a0bc-e9a835860915" absoluteBounds="0.5, 7.25, 2, 2.0822371419270831">
+    <classShape Id="a14b1830-08cb-4d8f-a0bc-e9a835860915" absoluteBounds="0.5, 7.25, 2, 2.1228255208333326">
       <DataClassMoniker Name="/CPLDataContext/WorkshopDailyActivities" />
       <nestedChildShapes>
-        <elementListCompartment Id="2cbb8c36-bcd9-40ae-9a15-79ca2038e4d4" absoluteBounds="0.515, 7.7100000000000009, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2cbb8c36-bcd9-40ae-9a15-79ca2038e4d4" absoluteBounds="0.515, 7.7100000000000009, 1.9700000000000002, 1.5628255208333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="df187c1e-ee63-41e7-a61e-c28c32087c9c" absoluteBounds="3, 3.5, 2, 2.4109318033854166">
+    <classShape Id="df187c1e-ee63-41e7-a61e-c28c32087c9c" absoluteBounds="3, 3.5, 2, 2.4600651041666666">
       <DataClassMoniker Name="/CPLDataContext/PressureTestLogs" />
       <nestedChildShapes>
-        <elementListCompartment Id="f26a8f6e-f89f-42f1-88c2-c79370214441" absoluteBounds="3.0149999999999997, 3.96, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f26a8f6e-f89f-42f1-88c2-c79370214441" absoluteBounds="3.0149999999999997, 3.96, 1.9700000000000002, 1.9000651041666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="161d20f3-173d-45b0-8906-880445572680" absoluteBounds="5.75, 2.75, 2, 1.4248478190104168">
+    <classShape Id="161d20f3-173d-45b0-8906-880445572680" absoluteBounds="5.75, 2.75, 2, 1.4483463541666666">
       <DataClassMoniker Name="/CPLDataContext/Attachments" />
       <nestedChildShapes>
-        <elementListCompartment Id="820aa448-cd79-4b6d-a8a0-d21663368680" absoluteBounds="5.765, 3.21, 1.9700000000000002, 0.86484781901041674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="820aa448-cd79-4b6d-a8a0-d21663368680" absoluteBounds="5.765, 3.21, 1.9700000000000002, 0.88834635416666663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 0.725); (2.5 : 0.725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 0.725); (2.5 : 0.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Segments/Segments_Employees" />
       <nodes>
         <classShapeMoniker Id="82f16035-3cd8-4ffa-bdc1-b783fd4d7f3f" />
         <classShapeMoniker Id="840a9518-dff9-4764-b058-4f96aa021e88" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.68419230769231 : 0.95); (3.68419230769231 : 1.2); (4.33084615384615 : 1.2); (4.33084615384615 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/CPLDataContext/Segments/Segments_Segments" />
-      <nodes>
-        <classShapeMoniker Id="82f16035-3cd8-4ffa-bdc1-b783fd4d7f3f" />
-        <classShapeMoniker Id="82f16035-3cd8-4ffa-bdc1-b783fd4d7f3f" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 2.37591735839844); (3 : 2.37591735839844)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 2.31141276041667); (3 : 2.31141276041667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Employees/Employees_TorqueLogs" />
       <nodes>
         <classShapeMoniker Id="840a9518-dff9-4764-b058-4f96aa021e88" />
         <classShapeMoniker Id="3bb2fade-afa5-422a-9bbb-3bef167aeecf" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 3.56832112630208); (1.5 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 3.63454427083333); (1.5 : 4.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Employees/Employees_WorkshopAssignments" />
       <nodes>
         <classShapeMoniker Id="840a9518-dff9-4764-b058-4f96aa021e88" />
         <classShapeMoniker Id="a534aa45-be89-4a61-806c-f183f8573b38" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 7.25); (1.5 : 6.33919514973958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 7.25); (1.5 : 6.33919514973958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/WorkshopDailyActivities/WorkshopDailyActivities_WorkshopAssignments" />
       <nodes>
         <classShapeMoniker Id="a14b1830-08cb-4d8f-a0bc-e9a835860915" />
         <classShapeMoniker Id="a534aa45-be89-4a61-806c-f183f8573b38" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.031252 : 3.56832112630208); (2.031252 : 3.80832112630208); (2.76 : 3.80832112630208); (2.76 : 4.70546590169271); (3 : 4.70546590169271)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.031252 : 3.63454427083333); (2.031252 : 3.87454427083333); (2.76 : 3.87454427083333); (2.76 : 4.32150863260905); (3 : 4.32150863260905)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Employees/Employees_PressureTestLogs" />
       <nodes>
         <classShapeMoniker Id="840a9518-dff9-4764-b058-4f96aa021e88" />
         <classShapeMoniker Id="df187c1e-ee63-41e7-a61e-c28c32087c9c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(0.968748 : 3.56832112630208); (0.968748 : 4.05832112630208); (1.41666666666667 : 4.05832112630208 : JumpStart); (1.58333333333333 : 4.05832112630208 : JumpEnd); (2.635 : 4.05832112630208); (2.635 : 5.33945085253906); (3 : 5.33945085253906)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(0.968748 : 3.63454427083333); (0.968748 : 3.99954427083333); (1.41666666666667 : 3.99954427083333 : JumpStart); (1.58333333333333 : 3.99954427083333 : JumpEnd); (2.635 : 3.99954427083333); (2.635 : 5.17203886838786); (3 : 5.17203886838786)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Employees/Employees_PressureTestLogs1" />
       <nodes>
         <classShapeMoniker Id="840a9518-dff9-4764-b058-4f96aa021e88" />

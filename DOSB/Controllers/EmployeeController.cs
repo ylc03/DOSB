@@ -52,11 +52,16 @@ namespace DOSB.Controllers
         {
             var dataContext = new CPLDataContext();
             var employees = from m in dataContext.Employees select new 
-            {  
+            {
+                m.EmployeeId,
                 m.GIN,
+                m.LDAP,
+                m.SurName,
                 m.GivenName,
+                m.Mobile,
                 m.PersonalMobile,
-                m.AramcoIdExpDate
+                m.Status,
+                m.Segment
             };
             return View(new GridModel(employees));
         }
