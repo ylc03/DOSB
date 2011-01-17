@@ -25,21 +25,6 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
-            var viewModel = new EmployeeManagerViewModel
-            {
-                AllEmployees = storeDB.Employee.Include("Segment").ToList(),
-                SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList(),
-                Status = GlobalConstant.EMPLOYEE_STATUS,
-            };
-            return View(viewModel);
-        }
-
-        /// <summary>
-        /// List All Employee
-        /// </summary>
-        /// <returns>view</returns>
-        public ActionResult List()
-        {
             return View();
         }
 
@@ -48,7 +33,7 @@ namespace DOSB.Controllers
         /// </summary>
         /// <returns>view</returns>
         [GridAction]
-        public ActionResult _List()
+        public ActionResult _SelectAjaxEdit()
         {
             var dataContext = new CPLDataContext();
             var employees = from m in dataContext.Employees select new 

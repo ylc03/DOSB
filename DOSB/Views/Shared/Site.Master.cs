@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DOSB.Views.Shared
 {
-    public partial class Site : System.Web.UI.MasterPage
+    public partial class TelerikSite : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

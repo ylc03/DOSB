@@ -1,29 +1,22 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="DOSB.Views.Shared.Site" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
- 
-<head runat="server">
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head id="head" runat="server">
     <title>
-    <asp:ContentPlaceHolder ID="TitleContent" runat="server">
-
- 
-    </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
+    <%= Html.Telerik().StyleSheetRegistrar()
+            .DefaultGroup(group => group.Add("telerik.common.css")
+                                        .Add("telerik.vista.css")
+                                        .Add("telerik.examples.css"))
+    %>
 
-    <link href="/Content/flick/jquery-ui-1.8.7.css" rel="Stylesheet" type="text/css"/>
     <link href="/Content/Site.css" rel="Stylesheet" type="text/css"/>
-
-    <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery-ui-1.8.7.min.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.jeditable.js" type="text/javascript"></script>
-    
     <link href="/Content/Menu/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/Content/Menu/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
 
-    <asp:ContentPlaceHolder ID="ScriptContent" runat="server">
-    </asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
 </head>
 <body>
 <div class="body-overlay">
@@ -82,11 +75,15 @@
 </div>
 
     <div id="content">
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-        
-        </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </div>
 </div><!--content container-->
 </div>
+
+    <% Html.Telerik().ScriptRegistrar()
+                     .DefaultGroup(group => group
+                         .Compress(true))
+                     .Render(); %>
 </body>
 </html>
+
