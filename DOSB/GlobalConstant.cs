@@ -3,18 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using DOSB.Models;
+
 namespace DOSB
 {
     public static class GlobalConstant
     {
-        public static string RMC = "RMC";
-        public static string CC = "CC";
-        public static string SMS = "SMS";
+        /// <summary>
+        /// Employe Status List for the application
+        /// </summary>
+        /// <returns>Employe Status List</returns>
+        public static List<string> GetEmployeStatusList()
+        {
+            return new List<string> { "Base", "Job", "Days Off", "Vacation" };
+        }
 
-        public static string RMCFullname = "Reservoir Monitoring & Control";
-        public static string CCFullname = "Core Completions";
-        public static string SMSFullname = "Sand Management System";
+        /// <summary>
+        /// Segment list for the session
+        /// </summary>
+        /// <returns>segment list</returns>
+        public static List<Segment> GetSegments()
+        {
+            if (HttpContext.Current.Session["segments"] == null)
+            {
+                HttpContext.Current.Session["segments"] = (new DOSBEntities()).Segment.ToList();
+            }
 
-        public static List<string> EMPLOYEE_STATUS = new List<string> { "Base", "Job", "Days Off", "Vacation"};
+            return (List<Segment>)HttpContext.Current.Session["segments"];
+        }
     }
 }

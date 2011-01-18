@@ -22,27 +22,72 @@ namespace DOSB.Controllers
     {
         private DOSBEntities storeDB = new DOSBEntities();
 
-        //
-        // GET: /Employee/
-
+        /// <summary>
+        /// Show all employees
+        /// </summary>
+        /// <returns>Action Result</returns>
         public ActionResult Index()
         {
+            ViewData["segments"] = GlobalConstant.GetSegments();
+            ViewData["status"] = GlobalConstant.GetEmployeStatusList();
             return View();
         }
 
         /// <summary>
-        /// List All Employee
+        /// Ajax List All Employee
         /// </summary>
-        /// <returns>view</returns>
+        /// <returns>Action Result</returns>
         [GridAction]
         public ActionResult _SelectAjaxEdit()
         {
-            
+            ViewData["segments"] = GlobalConstant.GetSegments();
+            ViewData["status"] = GlobalConstant.GetEmployeStatusList();
             return View(new GridModel(EditableEmployeeRespository.All()));
         }
 
+        /// <summary>
+        /// Ajax Update Employee model
+        /// </summary>
+        /// <param name="id">employee id</param>
+        /// <returns>Action Result</returns>
         [HttpPost]
-        public ActionResult _Add(string LDAP)
+        [GridAction]
+        public ActionResult _UpdateAjaxEdit(int id)
+        {
+            EditableEmployee employee = EditableEmployeeRespository.One(e => e.EmployeeId == id);
+
+            if (TryUpdateModel(employee))
+            {
+                EditableEmployeeRespository.Update(employee);
+            }
+            return View(new GridModel(EditableEmployeeRespository.All()));
+        }
+
+        /// <summary>
+        /// Ajax delete employee
+        /// </summary>
+        /// <param name="id">employee id</param>
+        /// <returns>Actions Result</returns>
+        [HttpPost]
+        [GridAction]
+        public ActionResult _DeleteAjaxEdit(int id)
+        {
+            EditableEmployee employee = EditableEmployeeRespository.One(e => e.EmployeeId == id);
+
+            if (employee != null)
+            {
+                EditableEmployeeRespository.Delete(employee);
+            }
+            return View(new GridModel(EditableEmployeeRespository.All()));
+        }
+
+        /// <summary>
+        /// Ajax Add employee from LDAP Server, support Add button on Grid Toolbar
+        /// </summary>
+        /// <param name="LDAP">LDAP Alias</param>
+        /// <returns>Action Result</returns>
+        [HttpPost]
+        public ActionResult _AddFromLDAP(string LDAP)
         {
             // if employee already exists, use the employee in database to update data
             int count = storeDB.Employee.Count(s => s.LDAP == LDAP);
@@ -73,157 +118,37 @@ namespace DOSB.Controllers
             return Content((string)ViewData["message"]);
         }
 
-        [HttpPost]
-        [GridAction]
-        public ActionResult _UpdateAjaxEdit(int id)
-        {
-            EditableEmployee employee = EditableEmployeeRespository.One(e => e.EmployeeId == id);
-
-            TryUpdateModel(employee);
-            EditableEmployeeRespository.Update(employee);
-            return View(new GridModel(EditableEmployeeRespository.All()));
-        }
-
-        //
-        // GET: /Employee/Avatar/id
-
+        /// <summary>
+        /// Show avatar of Employee
+        /// </summary>
+        /// <param name="id">employee id</param>
+        /// <returns>Return jpeg image of employee</returns>
         public ActionResult Avatar(int id)
         {
             Employee emp = storeDB.Employee.Single(e => e.EmployeeId == id);
             return File(emp.Avatar, "image/jpg");
         }
         
-        //
-        // Ajax: /Employee/UpdateAramcoId/ :id, :value
-        [HttpPost]
-        public ActionResult UpdateAramcoId(string id, string value)
-        {
-            string[] elements = id.Split('-');
-            int empId = int.Parse(elements[elements.Length - 1]);
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
-            employee.AramcoID = value;
-            storeDB.SaveChanges();
-            return Content(value);
-        }
+        ////
+        //// Ajax: /Employee/Update/id
 
-        //
-        // Ajax: /Employee/UpdateStatus/ :id, :status
-        [HttpPost]
-        public ActionResult UpdateStatus(string id, string value)
-        {
-            string[] elements = id.Split('-');
-            int empId = int.Parse(elements[elements.Length - 1]);
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
-            employee.Status = value;
-            storeDB.SaveChanges();
-            return Content(value);
-        }
+        //[HttpPost]
+        //public ActionResult Update(int id)
+        //{
+        //    Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
+        //    if (updateLDAPInfo(employee))
+        //    {
+        //        storeDB.SaveChanges();
+        //    }
+        //    return View(employee);
+        //}
 
-        // Ajax: /Employee/UpdateSubSegmant/ :id, :segmentId
-        [HttpPost]
-        public ActionResult UpdateSubSegment(string id, string value)
-        {
-            string[] elements = id.Split('-');
-            int empId = int.Parse(elements[elements.Length - 1]);
-            int segmentId = int.Parse(value);
-
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
-            employee.SegmentId = segmentId;
-            storeDB.SaveChanges();
-            return Content(employee.Segment.Name);
-        }
-
-        // Ajax: /Employee/UpdateAramcoIdExpireDate/ :id, :segmentId
-        [HttpPost]
-        public ActionResult UpdateAramcoIdExpireDate(string id, string value)
-        {
-            try
-            {
-                string[] elements = id.Split('-');
-                int empId = int.Parse(elements[elements.Length - 1]);
-                DateTime date = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-                Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
-                employee.AramcoIdExpDate = date.Date;
-                storeDB.SaveChanges();
-                return Content(date.Date.ToShortDateString());
-            }
-            catch (Exception e)
-            {
-                return Content(value);
-            }
-        }
-
-        // Ajax: /Employee/UpdateH2SExpireDate/ :id, :segmentId
-        [HttpPost]
-        public ActionResult UpdateH2SExpireDate(string id, string value)
-        {
-            try
-            {
-                string[] elements = id.Split('-');
-                int empId = int.Parse(elements[elements.Length - 1]);
-                DateTime date = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-                Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
-                employee.H2SExpDate = date.Date;
-                storeDB.SaveChanges();
-                return Content(date.Date.ToShortDateString());
-            }
-            catch (Exception e)
-            {
-                return Content(value);
-            }
-        }
-
-        // Ajax: /Employee/UpdateHUETExpireDate/ :id, :segmentId
-        [HttpPost]
-        public ActionResult UpdateHUETExpireDate(string id, string value)
-        {
-            try
-            {
-                string[] elements = id.Split('-');
-                int empId = int.Parse(elements[elements.Length - 1]);
-                DateTime date = DateTime.ParseExact(value, "dd/MM/yyyy", CultureInfo.InvariantCulture); 
-
-                Employee employee = storeDB.Employee.Single(e => e.EmployeeId == empId);
-                employee.HUETExpDate = date.Date;
-                storeDB.SaveChanges();
-                return Content(date.Date.ToShortDateString());
-            }
-            catch (Exception e)
-            {
-                return Content(value);
-            }
-        }
-
-        //
-        // Ajax: /Employee/Update/id
-
-        [HttpPost]
-        public ActionResult Update(int id)
-        {
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
-            if (updateLDAPInfo(employee))
-            {
-                storeDB.SaveChanges();
-            }
-            return View(employee);
-        }
-
-        //
-        // Ajax: /Employee/Delete/id
-
-        [HttpPost]
-        public ActionResult Delete(int id)
-        {
-            Employee employee = storeDB.Employee.Single(e => e.EmployeeId == id);
-            storeDB.Employee.DeleteObject(employee);
-            storeDB.SaveChanges();
-            return Content("");
-        }
-
-        //
-        // update
+        /// <summary>
+        /// Update employee information from LDAP Server
+        /// should move to Employee model as static
+        /// </summary>
+        /// <param name="employee">employee</param>
+        /// <returns>If succeed, return true</returns>
         private bool updateLDAPInfo(Employee employee)
         {
             try
@@ -268,20 +193,6 @@ namespace DOSB.Controllers
                     ViewData["ldap_message"] = "This LDAP is not RMC, CC or SMS";
                     return false;
                 }
-
-                //string fileName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\" + employee.LDAP + ".jpg";
-                //if (System.IO.File.Exists(fileName))
-                //{
-                //    FileStream fileStream = new FileStream(fileName, FileMode.Open);
-                //    byte[] buff = new byte[2048];
-                //    fileStream.Read(buff, 0, (int)fileStream.Length);
-                //    employee.Avatar = buff;
-                //    fileStream.Close();
-                //}
-                //else
-                //{
-                //    return false;
-                //}
             }
             catch (System.Runtime.InteropServices.COMException ne)
             {

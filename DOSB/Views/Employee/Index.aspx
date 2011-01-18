@@ -4,7 +4,24 @@
 	Employee
 </asp:Content>
 
+<asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script type="text/javascript">
+        function onEdit(e) {
+            var dataItem = e.dataItem;
+            var mode = e.mode;
+            var form = e.form;
+
+            var segmentDropDownList = $(form).find('#Segment');
+            if (mode == 'edit') {
+                //Select the proper dropdown list item
+                segmentDropDownList.val(dataItem['Segment']);
+            }
+        }
+    </script>
+</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+
 	   <% Html.Telerik().Grid(Model)
         .Name("Grid")
         .ToolBar(toolbar => toolbar.Template(() => { %>
@@ -13,23 +30,25 @@
         .DataKeys(keys => keys.Add(e => e.EmployeeId))
         .DataBinding(dataBinding => dataBinding.Ajax()
                                                 .Select("_SelectAjaxEdit", "Employee")
-                                                .Insert("_InsertAjaxEdit", "Employee")
                                                 .Update("_UpdateAjaxEdit", "Employee")
                                                 .Delete("_DeleteAjaxEdit", "Employee"))
 
         .Columns(columns =>
         {
             columns.Bound(e => e.GIN).ClientTemplate("<img src='/Employee/Avatar?id=<#= EmployeeId #>' width='35' height='35' alt='<#= LDAP #>'/>")
-                .Width(40);
-            columns.Bound(e => e.LDAP).Width(60);
+                .Width(50);
+            columns.Bound(e => e.LDAP).Width(80);
             columns.Bound(e => e.GivenName).ClientTemplate("<#= GivenName #> <#= SurName #>").Title("Name").Width(200);
-            columns.Bound(e => e.Segment).Title("SEG").Width(40);
-            columns.Bound(e => e.Status).Width(50);
-            columns.Bound(e => e.Mobile);
-            columns.Command(commands => commands.Edit()).Title("Commands");
+            columns.Bound(e => e.Segment).Title("SEG").Width(80);
+            columns.Bound(e => e.Status).Width(80);
+            columns.Bound(e => e.Mobile).Width(300);
+            columns.Command(commands =>{
+                commands.Edit();
+                commands.Delete();
+            }).Title("Commands");
         })
-        .Editable(editing => editing.
-            Mode(GridEditMode.InLine))
+        .Editable(editing => editing.Mode(GridEditMode.InLine))
+        .ClientEvents(events => events.OnEdit("onEdit"))
         .Pageable()
         .Render();    
     %>
@@ -91,7 +110,7 @@
                     addWindowCancel.attr('disabled', 'true');
                     
                     $('.loading').show();
-                    $.post('/Employee/_Add', data, function(response) {
+                    $.post('/Employee/_AddFromLDAP', data, function(response) {
                         $('#message').html(response).addClass('validation-summary-errors');
                         setTimeout(function() {
                             $("#add-window").data("tWindow").close()

@@ -28,13 +28,12 @@ namespace DOSB.Models.EditableModels
         [ReadOnly(true)]
         public string Mobile { get; set; }
 
-        public int Segment { get; set; }
+        public int SegmentId { get; set; }
 
+        [UIHint("EmployeeSegment"), Required]
+        public string Segment { get; set; }
+
+        [UIHint("EmployeeStatus"), Required]
         public string Status { get; set; }
-        //[DataType(DataType.Date), Required]
-        //public DateTime OrderDate { get; set; }
-
-        //[DataType(DataType.Currency), Required]
-        //public decimal Freight { get; set; }
     }
 }
