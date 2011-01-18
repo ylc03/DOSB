@@ -51,58 +51,36 @@ namespace DOSB.Controllers
             return View(new GridModel(employees));
         }
 
-        // **************************************
-        // URL: /Employee/Add
-        // **************************************
-        //[Authorize]
-        public ActionResult Add()
-        {
-            var viewModel = new EmployeeManagerViewModel
-            {
-                Employee = new Employee(),
-                SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList(),
-                Status = DOSB.GlobalConstant.EMPLOYEE_STATUS
-            };
-            return View(viewModel);
-        }
-
-        //[Authorize]
         [HttpPost]
-        public ActionResult Add(Employee employee)
+        public ActionResult _Add(string LDAP)
         {
-            if (ModelState.IsValid)
+            // if employee already exists, use the employee in database to update data
+            int count = storeDB.Employee.Count(s => s.LDAP == LDAP);
+            if (count == 0)
             {
-                // if employee already exists, use the employee in database to update data
-                int count = storeDB.Employee.Count(s => s.LDAP == employee.LDAP);
-                if (count == 0)
+                Employee employee = new Employee();
+                employee.LDAP = LDAP;
+
+                // add LDAP information
+                if (updateLDAPInfo(employee))
                 {
-                    // add LDAP information
-                    if (updateLDAPInfo(employee))
-                    {
-                        // save to database
-                        storeDB.AddToEmployee(employee);
-                        storeDB.SaveChanges();
-                        ViewData["message"] = employee.LDAP + " has been added!";
-                    }
-                    else
-                    {
-                        ViewData["message"] = "Alias Not Found!";
-                    }
+                    // save to database
+                    storeDB.AddToEmployee(employee);
+                    storeDB.SaveChanges();
+                    ViewData["message"] = employee.LDAP + " has been added!";
                 }
                 else
                 {
-                    ViewData["message"] = "Alias already exist in DOSB system.";
+                    ViewData["message"] = "Alias Not Found!";
                 }
-
-                RedirectToAction("index", "Employee");
+            }
+            else
+            {
+                ViewData["message"] = "Alias already exist in DOSB system.";
             }
 
-            var viewModel = new EmployeeManagerViewModel
-            {
-                Employee = employee,
-                SubSegments = storeDB.Segment.Where(s => s.ParentId == 4).ToList()
-            };
-            return View(viewModel);
+            //RedirectToAction("index", "Employee");
+            return Content((string)ViewData["message"]);
         }
 
         //
@@ -258,6 +236,7 @@ namespace DOSB.Controllers
                 SearchResult result = searcher.FindOne();
                 if (result == null) return false;
                 DirectoryEntry employeeEntry = result.GetDirectoryEntry();
+                //NEEDTO Add if for empty properties
                 employee.Avatar = (byte[])employeeEntry.Properties["jpegPhoto"][0];
                 employee.SurName = (string)employeeEntry.Properties["surname"][0];
                 employee.GivenName = (string)employeeEntry.Properties["givenName"][0];

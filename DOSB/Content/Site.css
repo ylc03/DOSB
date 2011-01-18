@@ -40,6 +40,13 @@ body
     display: none;
 }
 
+.loading {
+    background:url(/Content/Images/ajax-loader.gif) no-repeat 1px;
+    height:28px;
+    width:28px;
+    display:none;
+}
+
 .body-overlay {
     background-image: url("/Content/Images/gradient_1120.jpg");
     background-position: center top;
