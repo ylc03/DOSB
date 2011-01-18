@@ -13,6 +13,8 @@ using Telerik.Web.Mvc;
 
 using DOSB.viewModels;
 using DOSB.Models;
+using DOSB.Models.EditableModels;
+using DOSB.Models.EditableRespositories;
 
 namespace DOSB.Controllers
 {
@@ -35,20 +37,8 @@ namespace DOSB.Controllers
         [GridAction]
         public ActionResult _SelectAjaxEdit()
         {
-            var dataContext = new CPLDataContext();
-            var employees = from m in dataContext.Employees select new 
-            {
-                m.EmployeeId,
-                m.GIN,
-                m.LDAP,
-                m.SurName,
-                m.GivenName,
-                m.Mobile,
-                m.PersonalMobile,
-                m.Status,
-                m.Segment
-            };
-            return View(new GridModel(employees));
+            
+            return View(new GridModel(EditableEmployeeRespository.All()));
         }
 
         [HttpPost]
@@ -81,6 +71,17 @@ namespace DOSB.Controllers
 
             //RedirectToAction("index", "Employee");
             return Content((string)ViewData["message"]);
+        }
+
+        [HttpPost]
+        [GridAction]
+        public ActionResult _UpdateAjaxEdit(int id)
+        {
+            EditableEmployee employee = EditableEmployeeRespository.One(e => e.EmployeeId == id);
+
+            TryUpdateModel(employee);
+            EditableEmployeeRespository.Update(employee);
+            return View(new GridModel(EditableEmployeeRespository.All()));
         }
 
         //

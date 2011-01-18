@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<DOSB.Models.Employees>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<DOSB.Models.EditableModels.EditableEmployee>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Employee
@@ -23,7 +23,7 @@
                 .Width(40);
             columns.Bound(e => e.LDAP).Width(60);
             columns.Bound(e => e.GivenName).ClientTemplate("<#= GivenName #> <#= SurName #>").Title("Name").Width(200);
-            columns.Bound(e => e.Segment.Name).Title("SEG").Width(40);
+            columns.Bound(e => e.Segment).Title("SEG").Width(40);
             columns.Bound(e => e.Status).Width(50);
             columns.Bound(e => e.Mobile);
             columns.Command(commands => commands.Edit()).Title("Commands");

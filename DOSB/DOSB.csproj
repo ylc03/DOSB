@@ -95,6 +95,8 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\DOSBEntities.cs" />
+    <Compile Include="Models\EditableModels\EditableEmployee.cs" />
+    <Compile Include="Models\EditableRespositories\EditableEmployeeRespository.cs" />
     <Compile Include="Models\PressureTest.cs" />
     <Compile Include="Models\Torque.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -175,28 +177,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
     <Content Include="Scripts\jquery.jeditable.js" />
-    <Content Include="Scripts\telerik.autocomplete.min.js" />
-    <Content Include="Scripts\telerik.calendar.min.js" />
-    <Content Include="Scripts\telerik.combobox.min.js" />
-    <Content Include="Scripts\telerik.common.min.js" />
-    <Content Include="Scripts\telerik.datepicker.min.js" />
-    <Content Include="Scripts\telerik.datetimepicker.min.js" />
-    <Content Include="Scripts\telerik.draganddrop.min.js" />
-    <Content Include="Scripts\telerik.editor.min.js" />
-    <Content Include="Scripts\telerik.grid.editing.min.js" />
-    <Content Include="Scripts\telerik.grid.filtering.min.js" />
-    <Content Include="Scripts\telerik.grid.grouping.min.js" />
-    <Content Include="Scripts\telerik.grid.min.js" />
-    <Content Include="Scripts\telerik.grid.reordering.min.js" />
-    <Content Include="Scripts\telerik.grid.resizing.min.js" />
-    <Content Include="Scripts\telerik.list.min.js" />
-    <Content Include="Scripts\telerik.menu.min.js" />
-    <Content Include="Scripts\telerik.panelbar.min.js" />
-    <Content Include="Scripts\telerik.tabstrip.min.js" />
-    <Content Include="Scripts\telerik.textbox.min.js" />
-    <Content Include="Scripts\telerik.timepicker.min.js" />
-    <Content Include="Scripts\telerik.treeview.min.js" />
-    <Content Include="Scripts\telerik.window.min.js" />
     <Content Include="Views\Employee\Add.aspx" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
