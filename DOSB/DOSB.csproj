@@ -78,7 +78,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PressureTestController.cs" />
-    <Compile Include="Controllers\TorqueController.cs" />
+    <Compile Include="Controllers\TorqueLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -95,7 +95,9 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\DOSBEntities.cs" />
+    <Compile Include="Models\EditableModels\EditableTorqueLog.cs" />
     <Compile Include="Models\EditableModels\EditableEmployee.cs" />
+    <Compile Include="Models\EditableRespositories\EditableTorqueLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableEmployeeRespository.cs" />
     <Compile Include="Models\PressureTest.cs" />
     <Compile Include="Models\Torque.cs" />
@@ -134,6 +136,7 @@
     <Content Include="Content\Images\gradient_1120.jpg" />
     <Content Include="Content\Images\icon_plus.gif" />
     <Content Include="Content\Images\logo_slb_header.gif" />
+    <Content Include="Content\Images\UnknownEmployee.jpg" />
     <Content Include="Content\Menu\default.css" />
     <Content Include="Content\Menu\default.ultimate.css" />
     <Content Include="Content\Menu\dropdown.css" />
@@ -185,9 +188,15 @@
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\PressureTest\Details.aspx" />
     <Content Include="Views\PressureTest\Index.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\Date.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Views\Shared\EditorTemplates\EmployeeStatus.ascx" />
     <Content Include="Views\Shared\EditorTemplates\EmployeeSegment.ascx" />
-    <Content Include="Views\Torque\Index.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\Number.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\Time.ascx" />
+    <Content Include="Views\TorqueLog\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -233,6 +242,7 @@
       <LastGenOutput>DOSB.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

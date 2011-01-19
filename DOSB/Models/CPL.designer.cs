@@ -37,9 +37,6 @@ namespace DOSB.Models
     partial void InsertSegments(Segments instance);
     partial void UpdateSegments(Segments instance);
     partial void DeleteSegments(Segments instance);
-    partial void InsertTorqueLogs(TorqueLogs instance);
-    partial void UpdateTorqueLogs(TorqueLogs instance);
-    partial void DeleteTorqueLogs(TorqueLogs instance);
     partial void InsertWorkshopAssignments(WorkshopAssignments instance);
     partial void UpdateWorkshopAssignments(WorkshopAssignments instance);
     partial void DeleteWorkshopAssignments(WorkshopAssignments instance);
@@ -52,6 +49,9 @@ namespace DOSB.Models
     partial void InsertAttachments(Attachments instance);
     partial void UpdateAttachments(Attachments instance);
     partial void DeleteAttachments(Attachments instance);
+    partial void InsertTorqueLogs(TorqueLogs instance);
+    partial void UpdateTorqueLogs(TorqueLogs instance);
+    partial void DeleteTorqueLogs(TorqueLogs instance);
     #endregion
 		
 		public CPLDataContext() : 
@@ -100,14 +100,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TorqueLogs> TorqueLogs
-		{
-			get
-			{
-				return this.GetTable<TorqueLogs>();
-			}
-		}
-		
 		public System.Data.Linq.Table<WorkshopAssignments> WorkshopAssignments
 		{
 			get
@@ -137,6 +129,14 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<Attachments>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TorqueLogs> TorqueLogs
+		{
+			get
+			{
+				return this.GetTable<TorqueLogs>();
 			}
 		}
 	}
@@ -176,13 +176,15 @@ namespace DOSB.Models
 		
 		private string _GIN;
 		
-		private EntitySet<TorqueLogs> _Torques;
-		
 		private EntitySet<WorkshopAssignments> _WorkshopAssignments;
 		
 		private EntitySet<PressureTestLogs> _PressureTests;
 		
 		private EntitySet<PressureTestLogs> _PressureTests1;
+		
+		private EntityRef<TorqueLogs> _ApprovedTorques;
+		
+		private EntitySet<TorqueLogs> _PerfomedTorques;
 		
 		private EntityRef<Segments> _Segment;
 		
@@ -525,27 +527,8 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs", Storage="_Torques", ThisKey="EmployeeId", OtherKey="TorqueBy")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
-		public EntitySet<TorqueLogs> TorqueLogs
-		{
-			get
-			{
-				if ((this.serializing 
-							&& (this._Torques.HasLoadedOrAssignedValues == false)))
-				{
-					return null;
-				}
-				return this._Torques;
-			}
-			set
-			{
-				this._Torques.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_WorkshopAssignments", Storage="_WorkshopAssignments", ThisKey="EmployeeId", OtherKey="EmployeeId")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15, EmitDefaultValue=false)]
 		public EntitySet<WorkshopAssignments> WorkshopAssignments
 		{
 			get
@@ -564,7 +547,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_PressureTestLogs", Storage="_PressureTests", ThisKey="EmployeeId", OtherKey="ApprovedBy")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16, EmitDefaultValue=false)]
 		public EntitySet<PressureTestLogs> PressureTests
 		{
 			get
@@ -583,7 +566,7 @@ namespace DOSB.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_PressureTestLogs1", Storage="_PressureTests1", ThisKey="EmployeeId", OtherKey="TestBy")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=18, EmitDefaultValue=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17, EmitDefaultValue=false)]
 		public EntitySet<PressureTestLogs> PressureTestLogs
 		{
 			get
@@ -598,6 +581,48 @@ namespace DOSB.Models
 			set
 			{
 				this._PressureTests1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque", Storage="_ApprovedTorques", ThisKey="EmployeeId", OtherKey="TorqueId", IsUnique=true, IsForeignKey=false)]
+		internal TorqueLogs ApprovedTorques
+		{
+			get
+			{
+				return this._ApprovedTorques.Entity;
+			}
+			set
+			{
+				TorqueLogs previousValue = this._ApprovedTorques.Entity;
+				if (((previousValue != value) 
+							|| (this._ApprovedTorques.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ApprovedTorques.Entity = null;
+						previousValue.EmployeeApprover = null;
+					}
+					this._ApprovedTorques.Entity = value;
+					if ((value != null))
+					{
+						value.EmployeeApprover = this;
+					}
+					this.SendPropertyChanged("ApprovedTorques");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque1", Storage="_PerfomedTorques", ThisKey="EmployeeId", OtherKey="TorqueBy")]
+		internal EntitySet<TorqueLogs> PerfomedTorques
+		{
+			get
+			{
+				return this._PerfomedTorques;
+			}
+			set
+			{
+				this._PerfomedTorques.Assign(value);
 			}
 		}
 		
@@ -655,18 +680,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		private void attach_Torques(TorqueLogs entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = this;
-		}
-		
-		private void detach_Torques(TorqueLogs entity)
-		{
-			this.SendPropertyChanging();
-			entity.Employees = null;
-		}
-		
 		private void attach_WorkshopAssignments(WorkshopAssignments entity)
 		{
 			this.SendPropertyChanging();
@@ -703,12 +716,25 @@ namespace DOSB.Models
 			entity.Employees = null;
 		}
 		
+		private void attach_PerfomedTorques(TorqueLogs entity)
+		{
+			this.SendPropertyChanging();
+			entity.EmployeePerfomer = this;
+		}
+		
+		private void detach_PerfomedTorques(TorqueLogs entity)
+		{
+			this.SendPropertyChanging();
+			entity.EmployeePerfomer = null;
+		}
+		
 		private void Initialize()
 		{
-			this._Torques = new EntitySet<TorqueLogs>(new Action<TorqueLogs>(this.attach_Torques), new Action<TorqueLogs>(this.detach_Torques));
 			this._WorkshopAssignments = new EntitySet<WorkshopAssignments>(new Action<WorkshopAssignments>(this.attach_WorkshopAssignments), new Action<WorkshopAssignments>(this.detach_WorkshopAssignments));
 			this._PressureTests = new EntitySet<PressureTestLogs>(new Action<PressureTestLogs>(this.attach_PressureTests), new Action<PressureTestLogs>(this.detach_PressureTests));
 			this._PressureTests1 = new EntitySet<PressureTestLogs>(new Action<PressureTestLogs>(this.attach_PressureTests1), new Action<PressureTestLogs>(this.detach_PressureTests1));
+			this._ApprovedTorques = default(EntityRef<TorqueLogs>);
+			this._PerfomedTorques = new EntitySet<TorqueLogs>(new Action<TorqueLogs>(this.attach_PerfomedTorques), new Action<TorqueLogs>(this.detach_PerfomedTorques));
 			this._Segment = default(EntityRef<Segments>);
 			OnCreated();
 		}
@@ -928,298 +954,6 @@ namespace DOSB.Models
 		private void Initialize()
 		{
 			this._Employees = new EntitySet<Employees>(new Action<Employees>(this.attach_Employees), new Action<Employees>(this.detach_Employees));
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Torque")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class TorqueLogs : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _TorqueId;
-		
-		private string _PartNumber;
-		
-		private string _SerialNumber;
-		
-		private string _Memo;
-		
-		private System.Nullable<System.DateTime> _StartAt;
-		
-		private System.Nullable<System.DateTime> _FinishAt;
-		
-		private System.Nullable<int> _TorqueBy;
-		
-		private System.Nullable<int> _Defect;
-		
-		private EntityRef<Employees> _Employee;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTorqueIdChanging(int value);
-    partial void OnTorqueIdChanged();
-    partial void OnPartNumberChanging(string value);
-    partial void OnPartNumberChanged();
-    partial void OnSerialNumberChanging(string value);
-    partial void OnSerialNumberChanged();
-    partial void OnMemoChanging(string value);
-    partial void OnMemoChanged();
-    partial void OnStartAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartAtChanged();
-    partial void OnFinishAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnFinishAtChanged();
-    partial void OnTorqueByChanging(System.Nullable<int> value);
-    partial void OnTorqueByChanged();
-    partial void OnDefectChanging(System.Nullable<int> value);
-    partial void OnDefectChanged();
-    #endregion
-		
-		public TorqueLogs()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TorqueId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public int TorqueId
-		{
-			get
-			{
-				return this._TorqueId;
-			}
-			set
-			{
-				if ((this._TorqueId != value))
-				{
-					this.OnTorqueIdChanging(value);
-					this.SendPropertyChanging();
-					this._TorqueId = value;
-					this.SendPropertyChanged("TorqueId");
-					this.OnTorqueIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNumber", DbType="NVarChar(50)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string PartNumber
-		{
-			get
-			{
-				return this._PartNumber;
-			}
-			set
-			{
-				if ((this._PartNumber != value))
-				{
-					this.OnPartNumberChanging(value);
-					this.SendPropertyChanging();
-					this._PartNumber = value;
-					this.SendPropertyChanged("PartNumber");
-					this.OnPartNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNumber", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string SerialNumber
-		{
-			get
-			{
-				return this._SerialNumber;
-			}
-			set
-			{
-				if ((this._SerialNumber != value))
-				{
-					this.OnSerialNumberChanging(value);
-					this.SendPropertyChanging();
-					this._SerialNumber = value;
-					this.SendPropertyChanged("SerialNumber");
-					this.OnSerialNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Memo", DbType="NVarChar(250)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Memo
-		{
-			get
-			{
-				return this._Memo;
-			}
-			set
-			{
-				if ((this._Memo != value))
-				{
-					this.OnMemoChanging(value);
-					this.SendPropertyChanging();
-					this._Memo = value;
-					this.SendPropertyChanged("Memo");
-					this.OnMemoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="DateTime")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.Nullable<System.DateTime> StartAt
-		{
-			get
-			{
-				return this._StartAt;
-			}
-			set
-			{
-				if ((this._StartAt != value))
-				{
-					this.OnStartAtChanging(value);
-					this.SendPropertyChanging();
-					this._StartAt = value;
-					this.SendPropertyChanged("StartAt");
-					this.OnStartAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="DateTime")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public System.Nullable<System.DateTime> FinishAt
-		{
-			get
-			{
-				return this._FinishAt;
-			}
-			set
-			{
-				if ((this._FinishAt != value))
-				{
-					this.OnFinishAtChanging(value);
-					this.SendPropertyChanging();
-					this._FinishAt = value;
-					this.SendPropertyChanged("FinishAt");
-					this.OnFinishAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TorqueBy", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public System.Nullable<int> TorqueBy
-		{
-			get
-			{
-				return this._TorqueBy;
-			}
-			set
-			{
-				if ((this._TorqueBy != value))
-				{
-					if (this._Employee.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTorqueByChanging(value);
-					this.SendPropertyChanging();
-					this._TorqueBy = value;
-					this.SendPropertyChanged("TorqueBy");
-					this.OnTorqueByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Defect", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-		public System.Nullable<int> Defect
-		{
-			get
-			{
-				return this._Defect;
-			}
-			set
-			{
-				if ((this._Defect != value))
-				{
-					this.OnDefectChanging(value);
-					this.SendPropertyChanging();
-					this._Defect = value;
-					this.SendPropertyChanged("Defect");
-					this.OnDefectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs", Storage="_Employee", ThisKey="TorqueBy", OtherKey="EmployeeId", IsForeignKey=true)]
-		public Employees Employees
-		{
-			get
-			{
-				return this._Employee.Entity;
-			}
-			set
-			{
-				Employees previousValue = this._Employee.Entity;
-				if (((previousValue != value) 
-							|| (this._Employee.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Employee.Entity = null;
-						previousValue.TorqueLogs.Remove(this);
-					}
-					this._Employee.Entity = value;
-					if ((value != null))
-					{
-						value.TorqueLogs.Add(this);
-						this._TorqueBy = value.EmployeeId;
-					}
-					else
-					{
-						this._TorqueBy = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Employees");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			this._Employee = default(EntityRef<Employees>);
 			OnCreated();
 		}
 		
@@ -2313,6 +2047,389 @@ namespace DOSB.Models
 		
 		private void Initialize()
 		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Torque")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class TorqueLogs : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _TorqueId;
+		
+		private string _PartNumber;
+		
+		private string _SerialNumber;
+		
+		private string _Comment;
+		
+		private string _AssemblyType;
+		
+		private System.Nullable<System.DateTime> _StartAt;
+		
+		private System.Nullable<System.DateTime> _FinishAt;
+		
+		private System.Nullable<int> _TorqueBy;
+		
+		private System.Nullable<int> _ApprovedBy;
+		
+		private System.Nullable<int> _Defect;
+		
+		private EntityRef<Employees> _EmployeeApprover;
+		
+		private EntityRef<Employees> _EmployeePerfomer;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTorqueIdChanging(int value);
+    partial void OnTorqueIdChanged();
+    partial void OnPartNumberChanging(string value);
+    partial void OnPartNumberChanged();
+    partial void OnSerialNumberChanging(string value);
+    partial void OnSerialNumberChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnAssemblyTypeChanging(string value);
+    partial void OnAssemblyTypeChanged();
+    partial void OnStartAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartAtChanged();
+    partial void OnFinishAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnFinishAtChanged();
+    partial void OnTorqueByChanging(System.Nullable<int> value);
+    partial void OnTorqueByChanged();
+    partial void OnApprovedByChanging(System.Nullable<int> value);
+    partial void OnApprovedByChanged();
+    partial void OnDefectChanging(System.Nullable<int> value);
+    partial void OnDefectChanged();
+    #endregion
+		
+		public TorqueLogs()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TorqueId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public int TorqueId
+		{
+			get
+			{
+				return this._TorqueId;
+			}
+			set
+			{
+				if ((this._TorqueId != value))
+				{
+					if (this._EmployeeApprover.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTorqueIdChanging(value);
+					this.SendPropertyChanging();
+					this._TorqueId = value;
+					this.SendPropertyChanged("TorqueId");
+					this.OnTorqueIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PartNumber", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string PartNumber
+		{
+			get
+			{
+				return this._PartNumber;
+			}
+			set
+			{
+				if ((this._PartNumber != value))
+				{
+					this.OnPartNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PartNumber = value;
+					this.SendPropertyChanged("PartNumber");
+					this.OnPartNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNumber", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string SerialNumber
+		{
+			get
+			{
+				return this._SerialNumber;
+			}
+			set
+			{
+				if ((this._SerialNumber != value))
+				{
+					this.OnSerialNumberChanging(value);
+					this.SendPropertyChanging();
+					this._SerialNumber = value;
+					this.SendPropertyChanged("SerialNumber");
+					this.OnSerialNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(250)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyType", DbType="NVarChar(250)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public string AssemblyType
+		{
+			get
+			{
+				return this._AssemblyType;
+			}
+			set
+			{
+				if ((this._AssemblyType != value))
+				{
+					this.OnAssemblyTypeChanging(value);
+					this.SendPropertyChanging();
+					this._AssemblyType = value;
+					this.SendPropertyChanged("AssemblyType");
+					this.OnAssemblyTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Nullable<System.DateTime> StartAt
+		{
+			get
+			{
+				return this._StartAt;
+			}
+			set
+			{
+				if ((this._StartAt != value))
+				{
+					this.OnStartAtChanging(value);
+					this.SendPropertyChanging();
+					this._StartAt = value;
+					this.SendPropertyChanged("StartAt");
+					this.OnStartAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="DateTime")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Nullable<System.DateTime> FinishAt
+		{
+			get
+			{
+				return this._FinishAt;
+			}
+			set
+			{
+				if ((this._FinishAt != value))
+				{
+					this.OnFinishAtChanging(value);
+					this.SendPropertyChanging();
+					this._FinishAt = value;
+					this.SendPropertyChanged("FinishAt");
+					this.OnFinishAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TorqueBy", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public System.Nullable<int> TorqueBy
+		{
+			get
+			{
+				return this._TorqueBy;
+			}
+			set
+			{
+				if ((this._TorqueBy != value))
+				{
+					if (this._EmployeePerfomer.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTorqueByChanging(value);
+					this.SendPropertyChanging();
+					this._TorqueBy = value;
+					this.SendPropertyChanged("TorqueBy");
+					this.OnTorqueByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public System.Nullable<int> ApprovedBy
+		{
+			get
+			{
+				return this._ApprovedBy;
+			}
+			set
+			{
+				if ((this._ApprovedBy != value))
+				{
+					this.OnApprovedByChanging(value);
+					this.SendPropertyChanging();
+					this._ApprovedBy = value;
+					this.SendPropertyChanged("ApprovedBy");
+					this.OnApprovedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Defect", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		public System.Nullable<int> Defect
+		{
+			get
+			{
+				return this._Defect;
+			}
+			set
+			{
+				if ((this._Defect != value))
+				{
+					this.OnDefectChanging(value);
+					this.SendPropertyChanging();
+					this._Defect = value;
+					this.SendPropertyChanged("Defect");
+					this.OnDefectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque", Storage="_EmployeeApprover", ThisKey="TorqueId", OtherKey="EmployeeId", IsForeignKey=true)]
+		public Employees EmployeeApprover
+		{
+			get
+			{
+				return this._EmployeeApprover.Entity;
+			}
+			set
+			{
+				Employees previousValue = this._EmployeeApprover.Entity;
+				if (((previousValue != value) 
+							|| (this._EmployeeApprover.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._EmployeeApprover.Entity = null;
+						previousValue.ApprovedTorques = null;
+					}
+					this._EmployeeApprover.Entity = value;
+					if ((value != null))
+					{
+						value.ApprovedTorques = this;
+						this._TorqueId = value.EmployeeId;
+					}
+					else
+					{
+						this._TorqueId = default(int);
+					}
+					this.SendPropertyChanged("EmployeeApprover");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque1", Storage="_EmployeePerfomer", ThisKey="TorqueBy", OtherKey="EmployeeId", IsForeignKey=true)]
+		public Employees EmployeePerfomer
+		{
+			get
+			{
+				return this._EmployeePerfomer.Entity;
+			}
+			set
+			{
+				Employees previousValue = this._EmployeePerfomer.Entity;
+				if (((previousValue != value) 
+							|| (this._EmployeePerfomer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._EmployeePerfomer.Entity = null;
+						previousValue.PerfomedTorques.Remove(this);
+					}
+					this._EmployeePerfomer.Entity = value;
+					if ((value != null))
+					{
+						value.PerfomedTorques.Add(this);
+						this._TorqueBy = value.EmployeeId;
+					}
+					else
+					{
+						this._TorqueBy = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("EmployeePerfomer");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			this._EmployeeApprover = default(EntityRef<Employees>);
+			this._EmployeePerfomer = default(EntityRef<Employees>);
 			OnCreated();
 		}
 		

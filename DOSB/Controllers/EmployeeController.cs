@@ -125,6 +125,11 @@ namespace DOSB.Controllers
         /// <returns>Return jpeg image of employee</returns>
         public ActionResult Avatar(int id)
         {
+            if (id == 0)
+            { 
+                return File("/Content/Images/UnknownEmployee.jpg" ,"image/jpg");
+            }
+
             Employee emp = storeDB.Employee.Single(e => e.EmployeeId == id);
             return File(emp.Avatar, "image/jpg");
         }
@@ -145,7 +150,8 @@ namespace DOSB.Controllers
 
         /// <summary>
         /// Update employee information from LDAP Server
-        /// should move to Employee model as static
+        /// Should move to Employee model as static
+        /// Should update editable employee respository as well
         /// </summary>
         /// <param name="employee">employee</param>
         /// <returns>If succeed, return true</returns>

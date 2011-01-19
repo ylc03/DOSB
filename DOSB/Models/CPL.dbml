@@ -16,10 +16,11 @@
       <Column Name="H2SExpDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="HUETExpDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="GIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Employees_TorqueLogs" Member="TorqueLogs" Storage="_Torques" ThisKey="EmployeeId" OtherKey="TorqueBy" Type="TorqueLogs" />
       <Association Name="Employees_WorkshopAssignments" Member="WorkshopAssignments" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="WorkshopAssignments" />
       <Association Name="Employees_PressureTestLogs" Member="PressureTests" ThisKey="EmployeeId" OtherKey="ApprovedBy" Type="PressureTestLogs" />
       <Association Name="Employees_PressureTestLogs1" Member="PressureTestLogs" Storage="_PressureTests1" ThisKey="EmployeeId" OtherKey="TestBy" Type="PressureTestLogs" />
+      <Association Name="Employees_Torque" Member="ApprovedTorques" AccessModifier="Internal" ThisKey="EmployeeId" OtherKey="TorqueId" Type="TorqueLogs" Cardinality="One" />
+      <Association Name="Employees_Torque1" Member="PerfomedTorques" AccessModifier="Internal" ThisKey="EmployeeId" OtherKey="TorqueBy" Type="TorqueLogs" />
       <Association Name="Segments_Employees" Member="Segment" ThisKey="SegmentId" OtherKey="SegmentId" Type="Segments" IsForeignKey="true" />
     </Type>
   </Table>
@@ -31,19 +32,6 @@
       <Column Name="ParentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BusinessCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Segments_Employees" Member="Employees" AccessModifier="Internal" ThisKey="SegmentId" OtherKey="SegmentId" Type="Employees" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Torque" Member="TorqueLogs">
-    <Type Name="TorqueLogs">
-      <Column Name="TorqueId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PartNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="SerialNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Memo" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Column Name="StartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FinishAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="TorqueBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Defect" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Employees_TorqueLogs" Member="Employees" Storage="_Employee" ThisKey="TorqueBy" OtherKey="EmployeeId" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.WorkshopAssignment" Member="WorkshopAssignments">
@@ -92,6 +80,22 @@
       <Column Name="AttachableType" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Column Name="AttachableId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Path" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Torque" Member="TorqueLogs">
+    <Type Name="TorqueLogs">
+      <Column Name="TorqueId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PartNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SerialNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="AssemblyType" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TorqueBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Defect" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Employees_Torque" Member="EmployeeApprover" ThisKey="TorqueId" OtherKey="EmployeeId" Type="Employees" IsForeignKey="true" />
+      <Association Name="Employees_Torque1" Member="EmployeePerfomer" ThisKey="TorqueBy" OtherKey="EmployeeId" Type="Employees" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

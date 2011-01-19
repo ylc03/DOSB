@@ -43,8 +43,8 @@
 	<li><span class="dir">Workshop</span>
 		<ul>
 			<li><a href="./">Daily Activities PVD</a></li>
-			<li><a href="/PressureTest">Pressure Test Log</a></li>
-            <li><a href="/Torque">Torque Log</a></li>
+			<li><a href="/PressureTestLog">Pressure Test Log</a></li>
+            <li><a href="/TorqueLog">Torque Log</a></li>
             <li><a href="./">Technical Reception</a></li>
 			<li><span class="dir">KPI</span>
 				<ul>
