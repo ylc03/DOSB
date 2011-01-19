@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.DirectoryServices;
+using System.Drawing;
+using System.IO;
+using System.Globalization;
 
+using Telerik.Web.Mvc.UI;
+using Telerik.Web.Mvc;
+
+using DOSB.viewModels;
 using DOSB.Models;
+using DOSB.Models.EditableModels;
+using DOSB.Models.EditableRespositories;
 
 namespace DOSB.Controllers
 {
-    public class PressureTestController : Controller
+    public class PressureTestLogController : Controller
     {
         private DOSBEntities storeDB = new DOSBEntities();
 
@@ -17,11 +27,16 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
-            var model = storeDB.PressureTest.OrderByDescending(p => p.PressureTestId).ToList();
-
-            return View(model);
+            return View();
         }
 
+        //
+        // GET: /PressureTest/
+        [GridAction]
+        public ActionResult _SelectAjaxEdit()
+        {
+            return View(new GridModel(EditablePressureTestLogRespository.All()));
+        }
         //
         // GET: /PressureTest/Details/5
 

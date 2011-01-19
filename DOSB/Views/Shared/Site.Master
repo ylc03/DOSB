@@ -71,6 +71,12 @@
 			<li class="divider"><a href="/Employee">All...</a></li>
 		</ul>
 	</li>
+
+    <li><span class="dir">Material</span>
+		<ul>
+			<li><a href="/Material">Request</a></li>
+		</ul>
+	</li>
 </ul>
 </div>
 
