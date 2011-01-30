@@ -19,20 +19,40 @@ namespace DOSB.Models.EditableRespositories
         {
             IList<EditableTorqueLog> result =
                 (IList<EditableTorqueLog>)HttpContext.Current.Session["torques"];
+
             if (result == null)
             {
-                HttpContext.Current.Session["torques"] = result =
-                    (from torque in new CPLDataContext().TorqueLogs
-                     select new EditableTorqueLog
-                     {
-                         TorqueId = torque.TorqueId,
-                         PartNumber = torque.PartNumber,
-                         SerialNumber = torque.SerialNumber,
-                         StartAt = torque.StartAt.HasValue ? torque.StartAt.Value : DateTime.Now,
-                         FinishAt = torque.FinishAt,
-                         TorqueBy = torque.TorqueBy.HasValue ? torque.TorqueBy.Value : 0,
-                         ApprovedBy = torque.ApprovedBy.HasValue ? torque.ApprovedBy.Value : 0,
-                     }).ToList();
+                DOSBEntities storeDB = new DOSBEntities();
+                string attachableType = typeof(Torque).ToString();
+                result = new List<EditableTorqueLog>();
+
+                foreach (var torque in storeDB.Torque.ToList())
+                {
+                    EditableTorqueLog editableTorque = new EditableTorqueLog();
+                    editableTorque.TorqueId = torque.TorqueId;
+                    editableTorque.PartNumber = torque.PartNumber;
+                    editableTorque.SerialNumber = torque.SerialNumber;
+                    editableTorque.StartAt = torque.StartAt.HasValue ? torque.StartAt.Value : DateTime.Now;
+                    editableTorque.FinishAt = torque.FinishAt;
+                    editableTorque.TorqueBy = torque.TorqueBy.HasValue ? torque.TorqueBy.Value : 0;
+                    editableTorque.ApprovedBy = torque.ApprovedBy.HasValue ? torque.ApprovedBy.Value : 0;
+                    editableTorque.Defect = torque.Defect > 0;
+                    editableTorque.AssemblyType = torque.AssemblyType;
+                    editableTorque.Comment = torque.Comment;
+
+                    if (storeDB.Attachment.Count(a => a.AttachableType == attachableType
+                                              && a.AttachableId == torque.TorqueId) > 0)
+                    {
+                        Attachment attachment = storeDB.Attachment.FirstOrDefault(a => a.AttachableType == attachableType
+                                                                               && a.AttachableId == torque.TorqueId);
+                        editableTorque.Attachment = attachment.FileName;
+                        editableTorque.AttachmentGuid = attachment.Guid;
+                    }
+
+                    result.Add(editableTorque);
+                }
+
+                HttpContext.Current.Session["torques"] = result;
             }
 
             return result;
@@ -56,6 +76,24 @@ namespace DOSB.Models.EditableRespositories
         {
             torque.TorqueId = All().OrderByDescending(t => t.TorqueId).First().TorqueId + 1;
             All().Insert(0, torque);
+
+            DOSBEntities storeDB = new DOSBEntities();
+
+            Torque target = new Torque();
+            target.TorqueId = torque.TorqueId;
+            target.PartNumber = torque.PartNumber;
+            target.SerialNumber = torque.SerialNumber;
+            target.StartAt = torque.StartAt;
+            target.FinishAt = torque.FinishAt;
+            target.TorqueBy = torque.TorqueBy;
+            target.ApprovedBy = torque.ApprovedBy;
+            target.Defect = torque.Defect ? 1 : 0;
+            target.AssemblyType = torque.AssemblyType;
+            target.Comment = torque.Comment;
+            target.ApprovedBy = null;
+
+            storeDB.Torque.AddObject(target);
+            storeDB.SaveChanges();
         }
 
         /// <summary>
@@ -66,7 +104,7 @@ namespace DOSB.Models.EditableRespositories
         {
             DOSBEntities storeDB = new DOSBEntities();
             Torque target = storeDB.Torque.First(e => e.TorqueId == torque.TorqueId);
-
+            
             if (target != null)
             {
                 target.TorqueId = torque.TorqueId;
@@ -76,6 +114,9 @@ namespace DOSB.Models.EditableRespositories
                 target.FinishAt = torque.FinishAt;
                 target.TorqueBy = torque.TorqueBy;
                 target.ApprovedBy = torque.ApprovedBy;
+                target.Defect = torque.Defect ? 1 : 0;
+                target.AssemblyType = torque.AssemblyType;
+                target.Comment = torque.Comment;
             }
 
             storeDB.SaveChanges();

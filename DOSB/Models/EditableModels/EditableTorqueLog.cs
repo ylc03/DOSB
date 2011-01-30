@@ -9,20 +9,32 @@ namespace DOSB.Models.EditableModels
 {
     public class EditableTorqueLog
     {
-        [ReadOnly(true)]
+        //[ReadOnly(true)]
         public int TorqueId { get; set; }
 
-        [ReadOnly(true)]
+        //[ReadOnly(true)]
         public string PartNumber { get; set; }
 
-        [ReadOnly(true)]
+        //[ReadOnly(true)]
         public string SerialNumber { get; set; }
 
-        [DataType("DateTime")]
+        [DataType(DataType.DateTime)]
         public DateTime? StartAt { get; set; }
 
-        [DataType("DateTime")]
+        [DataType(DataType.DateTime)]
         public DateTime? FinishAt { get; set; }
+
+        //[ReadOnly(true)]
+        public string Attachment { get; set; }
+
+        //[ReadOnly(true)]
+        public string AttachmentGuid { get; set; }
+
+        public string AssemblyType { get; set; }
+
+        public string Comment { get; set; }
+
+        public bool Defect { get; set; }
 
         public int TorqueBy { get; set; }
 

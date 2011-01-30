@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace DOSB.Models
+{
+    public partial class Employee
+    {
+        public static bool AuthenticateID(int id, string password)
+        { 
+            Employee employee = (new DOSBEntities()).Employee.FirstOrDefault(e => e.EmployeeId == id);
+            return AuthenticateLDAP(employee.LDAP, password);
+        }
+
+        public static bool AuthenticateLDAP(string LDAP, string password)
+        {
+            return string.Equals(password, "ok");
+        }
+    }
+}

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 
 using DOSB.Models;
+using DOSB.Models.EditableRespositories;
+using DOSB.Models.EditableModels;
 
 namespace DOSB
 {
@@ -22,7 +24,7 @@ namespace DOSB
         /// Segment list for the session
         /// </summary>
         /// <returns>segment list</returns>
-        public static List<Segment> GetSegments()
+        public static List<Segment> GetAllSegments()
         {
             if (HttpContext.Current.Session["segments"] == null)
             {
@@ -30,6 +32,20 @@ namespace DOSB
             }
 
             return (List<Segment>)HttpContext.Current.Session["segments"];
+        }
+
+        /// <summary>
+        /// Segment list for the session
+        /// </summary>
+        /// <returns>segment list</returns>
+        public static List<EditableEmployee> GetAllEmployees()
+        {
+            if (HttpContext.Current.Session["employees"] == null)
+            {
+                EditableEmployeeRespository.All();
+            }
+
+            return (List<EditableEmployee>)HttpContext.Current.Session["employees"];
         }
     }
 }

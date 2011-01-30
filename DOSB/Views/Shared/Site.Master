@@ -6,17 +6,17 @@
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
-    <%= Html.Telerik().StyleSheetRegistrar()
+    <%: Html.Telerik().StyleSheetRegistrar()
             .DefaultGroup(group => group.Add("telerik.common.css")
                                         .Add("telerik.vista.css")
                                         .Add("telerik.examples.css"))
     %>
 
+    <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
+
     <link href="/Content/Site.css" rel="Stylesheet" type="text/css"/>
     <link href="/Content/Menu/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/Content/Menu/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
-
-    <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
 </head>
 <body>
 <div class="body-overlay">
@@ -88,6 +88,15 @@
 
     <% Html.Telerik().ScriptRegistrar()
                      .DefaultGroup(group => group
+                         .Add("telerik.common.js")
+                         .Add("telerik.list.js")
+                         .Add("telerik.combobox.js")
+                         .Add("telerik.calendar.js")
+                         .Add("telerik.datepicker.js")
+                         .Add("telerik.timepicker.js")
+                         .Add("telerik.datetimepicker.js")
+                         .Add("swfupload.js")
+                         .Add("jquery-asyncUpload-0.1.js")
                          .Compress(true))
                      .Render(); %>
 </body>

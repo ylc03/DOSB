@@ -28,7 +28,7 @@ namespace DOSB.Controllers
         /// <returns>Action Result</returns>
         public ActionResult Index()
         {
-            ViewData["segments"] = GlobalConstant.GetSegments();
+            ViewData["segments"] = GlobalConstant.GetAllSegments();
             ViewData["status"] = GlobalConstant.GetEmployeStatusList();
             return View();
         }
@@ -40,7 +40,7 @@ namespace DOSB.Controllers
         [GridAction]
         public ActionResult _SelectAjaxEdit()
         {
-            ViewData["segments"] = GlobalConstant.GetSegments();
+            ViewData["segments"] = GlobalConstant.GetAllSegments();
             ViewData["status"] = GlobalConstant.GetEmployeStatusList();
             return View(new GridModel(EditableEmployeeRespository.All()));
         }

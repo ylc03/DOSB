@@ -3,4 +3,5 @@
 <%= Html.Telerik().DateTimePicker()
         .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
         .Value(Model > DateTime.MinValue? Model : DateTime.Today)
+        .Format("yyyy-MMM-dd hh:mm")
 %>

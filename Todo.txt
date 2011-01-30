@@ -1,0 +1,13 @@
+
+1. Attachment download
+2. Copy Torque Log to Pressuretest log, 
+
+
+-----------Torque Log ( 27 - 30th Jan ) -----------
+done 1. approve by 
+done 2. Time issue
+done 3. Add new record 
+done 4. Defect Icon
+done 5. Approved disable edit, delete
+6. form validation
+done 7. hover color for row

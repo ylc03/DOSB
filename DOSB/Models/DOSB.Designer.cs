@@ -360,24 +360,48 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Path
+        public global::System.String Guid
         {
             get
             {
-                return _Path;
+                return _Guid;
             }
             set
             {
-                OnPathChanging(value);
-                ReportPropertyChanging("Path");
-                _Path = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Path");
-                OnPathChanged();
+                OnGuidChanging(value);
+                ReportPropertyChanging("Guid");
+                _Guid = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Guid");
+                OnGuidChanged();
             }
         }
-        private global::System.String _Path;
-        partial void OnPathChanging(global::System.String value);
-        partial void OnPathChanged();
+        private global::System.String _Guid;
+        partial void OnGuidChanging(global::System.String value);
+        partial void OnGuidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FileName
+        {
+            get
+            {
+                return _FileName;
+            }
+            set
+            {
+                OnFileNameChanging(value);
+                ReportPropertyChanging("FileName");
+                _FileName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FileName");
+                OnFileNameChanged();
+            }
+        }
+        private global::System.String _FileName;
+        partial void OnFileNameChanging(global::System.String value);
+        partial void OnFileNameChanged();
 
         #endregion
     

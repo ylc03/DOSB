@@ -23,7 +23,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
 	   <% Html.Telerik().Grid(Model)
-        .Name("Grid")
+        .Name("EmployeeGrid")
         .ToolBar(toolbar => toolbar.Template(() => { %>
             <span id="add-button" class="t-grid-action t-button t-state-default" >Add</span>
        <% }))

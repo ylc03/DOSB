@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
@@ -85,6 +86,7 @@
     </Compile>
     <Compile Include="GlobalConstant.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\CPL.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,8 +104,7 @@
     <Compile Include="Models\EditableRespositories\EditablePressureTestLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableTorqueLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableEmployeeRespository.cs" />
-    <Compile Include="Models\PressureTest.cs" />
-    <Compile Include="Models\Torque.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\EmployeeProvider.cs" />
     <Compile Include="viewModels\EmployeeManagerViewModel.cs" />
@@ -203,7 +204,10 @@
     <Content Include="Views\Shared\EditorTemplates\Integer.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Number.ascx" />
     <Content Include="Views\Shared\EditorTemplates\Time.ascx" />
+    <Content Include="Views\TorqueLog\_ApproveAjax.ascx" />
+    <Content Include="Views\TorqueLog\_DeleteAjax.ascx" />
     <Content Include="Views\TorqueLog\Index.aspx" />
+    <Content Include="Views\TorqueLog\_EditAjax.ascx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -50,10 +50,11 @@
           <Key>
             <PropertyRef Name="AttachmentId" />
           </Key>
-          <Property Name="AttachmentId" Type="int" Nullable="false" />
+          <Property Name="AttachmentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AttachableType" Type="nvarchar" MaxLength="250" />
           <Property Name="AttachableId" Type="int" />
-          <Property Name="Path" Type="nvarchar(max)" />
+          <Property Name="Guid" Type="nvarchar" MaxLength="250" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -111,7 +112,7 @@
           <Property Name="StartAt" Type="datetime" />
           <Property Name="FinishAt" Type="datetime" />
           <Property Name="TorqueBy" Type="int" />
-          <Property Name="ApprovedBy" Type="int" />
+          <Property Name="ApprovedBy" Type="money" />
           <Property Name="Defect" Type="int" />
         </EntityType>
         <EntityType Name="WorkshopAssignment">
@@ -430,7 +431,8 @@
           <Property Type="Int32" Name="AttachmentId" Nullable="false" />
           <Property Type="String" Name="AttachableType" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="AttachableId" />
-          <Property Type="String" Name="Path" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Guid" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FileName" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PressureTest">
           <Key>
@@ -546,7 +548,8 @@
           <EntitySetMapping Name="Attachment">
             <EntityTypeMapping TypeName="DOSBModel.Attachment">
               <MappingFragment StoreEntitySet="Attachment">
-                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="AttachableId" ColumnName="AttachableId" />
                 <ScalarProperty Name="AttachableType" ColumnName="AttachableType" />
                 <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
@@ -617,7 +620,7 @@
           <ConnectorPoint PointX="8.25" PointY="0.7" />
           <ConnectorPoint PointX="7.625" PointY="0.7" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="DOSBModel.Attachment" Width="1.5" PointX="2.25" PointY="5" Height="1.5923063151041665" />
+        <EntityTypeShape EntityType="DOSBModel.Attachment" Width="1.5" PointX="2.375" PointY="5" Height="1.7908333333333326" />
         <EntityTypeShape EntityType="DOSBModel.PressureTest" Width="1.5" PointX="3.25" PointY="1.625" Height="2.9070849609374996" />
         <AssociationConnector Association="DOSBModel.FK_PressureTest_Employee" >
           <ConnectorPoint PointX="3.51171875" PointY="0.9" />

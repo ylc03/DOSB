@@ -10,10 +10,3 @@ body
 {
     font-size: .75em;
 }
-
-body, input, select, textarea, button
-{
-    font-family: Tahoma, sans-serif;
-}
-
-
