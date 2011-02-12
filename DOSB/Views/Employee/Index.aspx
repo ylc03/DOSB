@@ -40,8 +40,9 @@
             columns.Bound(e => e.LDAP).Width(80);
             columns.Bound(e => e.GivenName).ClientTemplate("<#= GivenName #> <#= SurName #>").Title("Name").Width(200);
             columns.Bound(e => e.Segment).Title("SEG").Width(80);
+            columns.Bound(e => e.Role).Title("Role").Width(80);
             columns.Bound(e => e.Status).Width(80);
-            columns.Bound(e => e.Mobile).Width(300);
+            columns.Bound(e => e.Mobile).Width(200);
             columns.Command(commands =>{
                 commands.Edit();
                 commands.Delete();

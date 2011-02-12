@@ -11,7 +11,6 @@ using System.Globalization;
 using Telerik.Web.Mvc.UI;
 using Telerik.Web.Mvc;
 
-using DOSB.viewModels;
 using DOSB.Models;
 using DOSB.Models.EditableModels;
 using DOSB.Models.EditableRespositories;
@@ -29,6 +28,7 @@ namespace DOSB.Controllers
         public ActionResult Index()
         {
             ViewData["segments"] = GlobalConstant.GetAllSegments();
+            ViewData["roles"] = GlobalConstant.GetAllRoles();
             ViewData["status"] = GlobalConstant.GetEmployeStatusList();
             return View();
         }
@@ -41,6 +41,7 @@ namespace DOSB.Controllers
         public ActionResult _SelectAjaxEdit()
         {
             ViewData["segments"] = GlobalConstant.GetAllSegments();
+            ViewData["roles"] = GlobalConstant.GetAllRoles();
             ViewData["status"] = GlobalConstant.GetEmployeStatusList();
             return View(new GridModel(EditableEmployeeRespository.All()));
         }

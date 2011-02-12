@@ -28,10 +28,13 @@ namespace DOSB.Models.EditableModels
         [ReadOnly(true)]
         public string Mobile { get; set; }
 
-        public int SegmentId { get; set; }
-
         [UIHint("EmployeeSegment"), Required]
         public string Segment { get; set; }
+        public int SegmentId { get; set; }
+
+        [UIHint("EmployeeRole")]
+        public string Role { get; set; }
+        public int RoleId { get; set; }
 
         [UIHint("EmployeeStatus"), Required]
         public string Status { get; set; }

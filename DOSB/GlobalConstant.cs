@@ -35,6 +35,20 @@ namespace DOSB
         }
 
         /// <summary>
+        /// Role list for the session
+        /// </summary>
+        /// <returns>segment list</returns>
+        public static List<Role> GetAllRoles()
+        {
+            if (HttpContext.Current.Session["roles"] == null)
+            {
+                HttpContext.Current.Session["roles"] = (new DOSBEntities()).Role.ToList();
+            }
+
+            return (List<Role>)HttpContext.Current.Session["roles"];
+        }
+
+        /// <summary>
         /// Segment list for the session
         /// </summary>
         /// <returns>segment list</returns>

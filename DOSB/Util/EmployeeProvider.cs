@@ -55,12 +55,12 @@ namespace DOSB.Util
 
         public override bool EnablePasswordReset
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public override bool EnablePasswordRetrieval
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public override MembershipUserCollection FindUsersByEmail(string emailToMatch, int pageIndex, int pageSize, out int totalRecords)
@@ -174,9 +174,6 @@ namespace DOSB.Util
             {
                 return false;
             }
-
-
-
             return true;
         }
     }

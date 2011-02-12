@@ -168,14 +168,16 @@ SPAN.asyncUploader OBJECT { position: relative; top: 5px; left: 10px;}
 {
     width: 24px;
     height: 24px;
-    background-image: url("/Content/Images/Icon/001_06.png");        
+    background-image: url("/Content/Images/Icon/001_06.png");
+    background-repeat: no-repeat;
 }
 
 .defect-true
 {
     width: 24px;
     height: 24px;
-    background-image: url("/Content/Images/Icon/001_05.png");    
+    background-image: url("/Content/Images/Icon/001_05.png");
+    background-repeat: no-repeat;
 }
 
 tr:hover

@@ -19,6 +19,7 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
+            ViewData["employees"] = GlobalConstant.GetAllEmployees();
             return View();
         }
 
@@ -34,9 +35,8 @@ namespace DOSB.Controllers
 
         public ActionResult _ApproveAjax(int id)
         {
-            EditableTorqueLog torque = EditableTorqueLogRespository.One(t => t.TorqueId == id);
-
             ViewData["employees"] = GlobalConstant.GetAllEmployees();
+            EditableTorqueLog torque = EditableTorqueLogRespository.One(t => t.TorqueId == id);
             return View(torque);
         }
 
