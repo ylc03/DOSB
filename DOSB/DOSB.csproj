@@ -195,7 +195,6 @@
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
-    <Content Include="Views\Employee\test.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Material\Index.aspx" />
     <Content Include="Views\PressureTestLog\Details.aspx" />

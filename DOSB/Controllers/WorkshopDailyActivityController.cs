@@ -42,5 +42,17 @@ namespace DOSB.Controllers
 
             return View(new GridModel(activities));
         }
+
+        [HttpPost]
+        public ActionResult _AssignEmployeeAjax(int id, int employeeId)
+        {
+            return Content("");
+        }
+
+        [HttpPost]
+        public ActionResult _RemoveEmployeeAjax(int id, int employeeId)
+        {
+            return Content("");
+        }
     }
 }

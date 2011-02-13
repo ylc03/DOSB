@@ -17,13 +17,15 @@
     }
 
     function AddToTask(employeeWidget, taskWidget) {
-        $Id = employeeWidget.data("Id");
-        $Exist = false;
-        $.each($("li", taskWidget), function (i, item) {
-            if ($(item).data("Id") == $Id) $Exist = true;
-        });
-        if ($Exist) return;
+        // add to server
+        var employeeId = employeeWidget.data("Id");
+        var tr = $(taskWidget).closest('tr')[0];
+        var dataItem = $('#PVD').data('tGrid').dataItem(tr);
+        var data = "id=" + dataItem.ActivityId + "&employeeId=" + employeeId;
+        $.post("/WorkshopDailyActivity/_AssignEmployeeAjax", data);
 
+        // add to UI
+        var $Id = employeeWidget.data("Id");
         var $newWidget = $("<li class='ui-widget-content ui-corner-tr ui-draggable'>"
                     + "<img src=/Employee/Avatar?id=" + $Id + " />"
                     + "</li>");
@@ -36,10 +38,15 @@
     }
 
     function RemoveFromTask(employeeWidget, taskWidget) {
+        // remove from server
+        var employeeId = employeeWidget.data("Id");
+        var tr = $(taskWidget).closest('tr')[0];
+        var dataItem = $('#PVD').data('tGrid').dataItem(tr);
+        var data = "id=" + dataItem.ActivityId + "&employeeId=" + employeeId;
+        $.post("/WorkshopDailyActivity/_RemoveEmployeeAjax", data);
+
+        // remover from UI
         employeeWidget.remove();
-        if (taskWidget != null) { 
-            
-        }
     }
 
     function OnDataBound(e) {
@@ -47,11 +54,24 @@
             accept: ".ui-draggable",
             activeClass: "custom-state-active",
             drop: function (event, ui) {
+                // prevent drop on the same place
+                if ($(ui.draggable).closest("ul")[0] == this) return;
+
+                // prevent duplicate drop
+                var Exist = false;
+                var $Id = $(ui.draggable).data("Id");
+                $.each($("li", this), function (i, item) {
+                    if ($(item).data("Id") == $Id) Exist = true;
+                });
+                if (Exist) return;
+
+                // add to destination
                 AddToTask($(ui.draggable), this);
 
+                // delete from the source
                 if ($(ui.draggable).closest("ul").attr("id") != "employee-list") {
-                    RemoveFromTask($(ui.draggable), $(ui.draggable).closest("ul"));
                     $(ui.helper).remove();
+                    RemoveFromTask($(ui.draggable), $(ui.draggable).closest("ul"));
                 }
             }
         });
@@ -184,6 +204,14 @@
         var Subseg = $('input[name=employee-subseg]:checked', form);
         
         var filter = "Status~eq~'" + Status.val() + "'";
+        var counter = 0;
+        $.each(Subseg, function(i, item){
+            if (item.checked){
+                if (counter++ == 0) filter = filter + "~and~Segment~eq~'" + item.value + "'";
+                else filter = filter + "~or~Segment~eq~'" + item.value + "'";
+            }
+        });
+
         var data = "page=1&size=10&orderBy=&groupBy=&filter=" + filter;
 
         $.post('/Employee/_SelectAjaxEdit', data, function(response) {
@@ -191,7 +219,7 @@
                 $.each(response.data, function(i, employee){
                     var $item = $("<li class='ui-widget-content ui-corner-tr ui-draggable'>"
                         + "<h5 class='ui-widget-header'>" + employee.LDAP + "</h5>"
-                        + "<img src=/Employee/Avatar?id=" + employee.EmployeeId + " />"
+                        + "<img src='/Employee/Avatar?id=" + employee.EmployeeId + "' />"
                         +"</li>");
                     $item.draggable({
                             revert: "invalid",
@@ -208,7 +236,14 @@
     $( "input[name=employee-subseg]" ).bind("click", SubmitForm);
     SubmitForm();
 
-    // drag and drop
-
+    // drop 
+    $("#employee-list").droppable({
+        accept: ".assignment li",
+        activeClass: "custom-state-active",
+        drop: function(event, ui){
+            $(ui.helper).remove();
+            RemoveFromTask($(ui.draggable), $(ui.draggable).closest('ul'));
+        }
+    });
 <%}); %> 
 </asp:Content>
