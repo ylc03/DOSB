@@ -15,13 +15,92 @@
             date: value
         });
     }
+
+    function AddToTask(employeeWidget, taskWidget) {
+        $Id = employeeWidget.data("Id");
+        $Exist = false;
+        $.each($("li", taskWidget), function (i, item) {
+            if ($(item).data("Id") == $Id) $Exist = true;
+        });
+        if ($Exist) return;
+
+        var $newWidget = $("<li class='ui-widget-content ui-corner-tr ui-draggable'>"
+                    + "<img src=/Employee/Avatar?id=" + $Id + " />"
+                    + "</li>");
+        $newWidget.draggable({
+            revert: "invalid",
+            helper: "clone",
+            cursor: "move"
+        }).data("Id", $Id);
+        $newWidget.appendTo(taskWidget);
+    }
+
+    function RemoveFromTask(employeeWidget, taskWidget) {
+        employeeWidget.remove();
+        if (taskWidget != null) { 
+            
+        }
+    }
+
+    function OnDataBound(e) {
+        $("#PVD .assignment").droppable({
+            accept: ".ui-draggable",
+            activeClass: "custom-state-active",
+            drop: function (event, ui) {
+                AddToTask($(ui.draggable), this);
+
+                if ($(ui.draggable).closest("ul").attr("id") != "employee-list") {
+                    RemoveFromTask($(ui.draggable), $(ui.draggable).closest("ul"));
+                    $(ui.helper).remove();
+                }
+            }
+        });
+    }
 </script>
 
 <style type="text/css">
+    .custom-state-active { background: #eee; }
     .assignment
     {
+        min-height: 45px;
+        width: 100%;  
+    }
+    
+    .assignment li {
+        float: left;
+        margin: 0 2px 2px 0;
+        padding: 1px;
+        text-align: center;
+        width: 40px;
+    }
+    
+    .assignment li img {
+        cursor: move;
+        width: 35px;
         height: 35px;
-        width: 140px;     
+    }
+
+    .employee-list 
+    {
+        padding: 5px;    
+    }
+    
+    .employee-list li {
+        float: left;
+        margin: 0 0.4em 0.4em 0;
+        padding: 0.4em;
+        text-align: center;
+        width: 70px;
+    }
+    
+    .employee-list li h5 {
+        cursor: move;
+        margin: 0 0 0.4em;
+    }
+    .employee-list li img {
+        cursor: move;
+        width: 45px;
+        height: 45px;
     }
 </style>
 
@@ -53,7 +132,7 @@
 
         .Columns(columns =>
         {
-            columns.Bound(a => a.ActivityId).ClientTemplate("<ul class='assignment'></ul>").Width(200);
+            columns.Bound(a => a.ActivityId).ClientTemplate("<ul class='assignment ui-helper-reset ui-helper-clearfix ui-droppable'></ul>").Width(210);
             columns.Bound(a => a.Description).Width(200);
             columns.Bound(a => a.Forklift).Title("FL").Width(40);
             columns.Bound(a => a.PressureTest).Title("PT").Width(40);
@@ -67,6 +146,7 @@
             }).Title("Commands");
         })
         .Editable(editing => editing.Mode(GridEditMode.InLine))
+        .ClientEvents(events => events.OnDataBound("OnDataBound"))
         .Pageable()
         .Render(); 
     %>
@@ -87,11 +167,11 @@
 	            <input type="checkbox" id="check3" name="employee-subseg" checked="checked" value="SMS"/><label for="check3">SMS</label>
             </span>
         </div>
+        </form>
         <div>
-            <ul id="employee-list">
+            <ul id="employee-list" class="employee-list ui-helper-reset ui-helper-clearfix ui-droppable">
             </ul>
         </div>
-        </form>
     </div>
 
 <% Html.Telerik().ScriptRegistrar()
@@ -109,7 +189,15 @@
         $.post('/Employee/_SelectAjaxEdit', data, function(response) {
                 $("#employee-list").html("");
                 $.each(response.data, function(i, employee){
-                    $("#employee-list").append("<li>"+employee.LDAP+"</li>");
+                    var $item = $("<li class='ui-widget-content ui-corner-tr ui-draggable'>"
+                        + "<h5 class='ui-widget-header'>" + employee.LDAP + "</h5>"
+                        + "<img src=/Employee/Avatar?id=" + employee.EmployeeId + " />"
+                        +"</li>");
+                    $item.draggable({
+                            revert: "invalid",
+                            helper: "clone",
+                            cursor: "move",}).data("Id", employee.EmployeeId);
+                    $item.appendTo($("#employee-list"));
                 });
             })
     }
@@ -118,6 +206,9 @@
     $( "#employee-subseg" ).buttonset();
     $( "input[name=employee-status]" ).bind("click", SubmitForm);
     $( "input[name=employee-subseg]" ).bind("click", SubmitForm);
+    SubmitForm();
+
+    // drag and drop
 
 <%}); %> 
 </asp:Content>
