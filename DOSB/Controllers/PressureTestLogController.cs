@@ -11,7 +11,6 @@ using System.Globalization;
 using Telerik.Web.Mvc.UI;
 using Telerik.Web.Mvc;
 
-using DOSB.viewModels;
 using DOSB.Models;
 using DOSB.Models.EditableModels;
 using DOSB.Models.EditableRespositories;

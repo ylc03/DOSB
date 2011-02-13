@@ -25,7 +25,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopDailyActivity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.WorkshopDailyActivity), "WorkshopAssignment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.WorkshopAssignment), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Employee", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Torque_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Employee), "Torque", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Torque), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "EmployeeRoles", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Employee), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Role))]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_Torque_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "Torque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Torque), true)]
 
 #endregion
 
@@ -188,6 +189,22 @@ namespace DOSB.Models
             }
         }
         private ObjectSet<PressureTest> _PressureTest;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Role> Role
+        {
+            get
+            {
+                if ((_Role == null))
+                {
+                    _Role = base.CreateObjectSet<Role>("Role");
+                }
+                return _Role;
+            }
+        }
+        private ObjectSet<Role> _Role;
 
         #endregion
         #region AddTo Methods
@@ -246,6 +263,14 @@ namespace DOSB.Models
         public void AddToPressureTest(PressureTest pressureTest)
         {
             base.AddObject("PressureTest", pressureTest);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Role EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRole(Role role)
+        {
+            base.AddObject("Role", role);
         }
 
         #endregion
@@ -819,7 +844,7 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Torque_Employee", "Torque")]
-        public EntityCollection<Torque> Torque
+        public EntityCollection<Torque> Torques
         {
             get
             {
@@ -841,7 +866,7 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_WorkshopAssignment_Employee", "WorkshopAssignment")]
-        public EntityCollection<WorkshopAssignment> WorkshopAssignment
+        public EntityCollection<WorkshopAssignment> WorkshopAssignments
         {
             get
             {
@@ -863,7 +888,7 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Employee", "PressureTest")]
-        public EntityCollection<PressureTest> PressureTest
+        public EntityCollection<PressureTest> PressureTests
         {
             get
             {
@@ -885,7 +910,7 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_PressureTest_Approver", "PressureTest")]
-        public EntityCollection<PressureTest> PressureTest_1
+        public EntityCollection<PressureTest> ApprovedPressureTests
         {
             get
             {
@@ -906,34 +931,40 @@ namespace DOSB.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Torque_Approver", "Torque")]
-        public Torque Torque_1
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "EmployeeRoles", "Role")]
+        public EntityCollection<Role> Roles
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Torque>("DOSBModel.FK_Torque_Approver", "Torque").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Torque>("DOSBModel.FK_Torque_Approver", "Torque").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Torque> Torque_1Reference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Torque>("DOSBModel.FK_Torque_Approver", "Torque");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Role>("DOSBModel.EmployeeRoles", "Role");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Torque>("DOSBModel.FK_Torque_Approver", "Torque", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Role>("DOSBModel.EmployeeRoles", "Role", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_Torque_Approver", "Torque")]
+        public EntityCollection<Torque> ApprovedTorques
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Torque>("DOSBModel.FK_Torque_Approver", "Torque");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Torque>("DOSBModel.FK_Torque_Approver", "Torque", value);
                 }
             }
         }
@@ -1284,6 +1315,158 @@ namespace DOSB.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Employee>("DOSBModel.FK_PressureTest_Approver", "Employee", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="Role")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Role : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Role object.
+        /// </summary>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
+        public static Role CreateRole(global::System.Int32 roleId)
+        {
+            Role role = new Role();
+            role.RoleId = roleId;
+            return role;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                if (_RoleId != value)
+                {
+                    OnRoleIdChanging(value);
+                    ReportPropertyChanging("RoleId");
+                    _RoleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RoleId");
+                    OnRoleIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FullName
+        {
+            get
+            {
+                return _FullName;
+            }
+            set
+            {
+                OnFullNameChanging(value);
+                ReportPropertyChanging("FullName");
+                _FullName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("FullName");
+                OnFullNameChanged();
+            }
+        }
+        private global::System.String _FullName;
+        partial void OnFullNameChanging(global::System.String value);
+        partial void OnFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LDAPJobCode
+        {
+            get
+            {
+                return _LDAPJobCode;
+            }
+            set
+            {
+                OnLDAPJobCodeChanging(value);
+                ReportPropertyChanging("LDAPJobCode");
+                _LDAPJobCode = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("LDAPJobCode");
+                OnLDAPJobCodeChanged();
+            }
+        }
+        private global::System.String _LDAPJobCode;
+        partial void OnLDAPJobCodeChanging(global::System.String value);
+        partial void OnLDAPJobCodeChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "EmployeeRoles", "Employee")]
+        public EntityCollection<Employee> Employees
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Employee>("DOSBModel.EmployeeRoles", "Employee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Employee>("DOSBModel.EmployeeRoles", "Employee", value);
                 }
             }
         }
@@ -1894,14 +2077,12 @@ namespace DOSB.Models
         /// <summary>
         /// Create a new WorkshopAssignment object.
         /// </summary>
-        /// <param name="workshopAssignmentId">Initial value of the WorkshopAssignmentId property.</param>
         /// <param name="employeeId">Initial value of the EmployeeId property.</param>
         /// <param name="workshopDailyActivityId">Initial value of the WorkshopDailyActivityId property.</param>
         /// <param name="assignedAt">Initial value of the AssignedAt property.</param>
-        public static WorkshopAssignment CreateWorkshopAssignment(global::System.Int32 workshopAssignmentId, global::System.Int32 employeeId, global::System.Int32 workshopDailyActivityId, global::System.DateTime assignedAt)
+        public static WorkshopAssignment CreateWorkshopAssignment(global::System.Int32 employeeId, global::System.Int32 workshopDailyActivityId, global::System.DateTime assignedAt)
         {
             WorkshopAssignment workshopAssignment = new WorkshopAssignment();
-            workshopAssignment.WorkshopAssignmentId = workshopAssignmentId;
             workshopAssignment.EmployeeId = employeeId;
             workshopAssignment.WorkshopDailyActivityId = workshopDailyActivityId;
             workshopAssignment.AssignedAt = assignedAt;
@@ -1910,33 +2091,6 @@ namespace DOSB.Models
 
         #endregion
         #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 WorkshopAssignmentId
-        {
-            get
-            {
-                return _WorkshopAssignmentId;
-            }
-            set
-            {
-                if (_WorkshopAssignmentId != value)
-                {
-                    OnWorkshopAssignmentIdChanging(value);
-                    ReportPropertyChanging("WorkshopAssignmentId");
-                    _WorkshopAssignmentId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("WorkshopAssignmentId");
-                    OnWorkshopAssignmentIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _WorkshopAssignmentId;
-        partial void OnWorkshopAssignmentIdChanging(global::System.Int32 value);
-        partial void OnWorkshopAssignmentIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2363,7 +2517,7 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_WorkshopAssignment_WorkshopDailyActivity", "WorkshopAssignment")]
-        public EntityCollection<WorkshopAssignment> WorkshopAssignment
+        public EntityCollection<WorkshopAssignment> WorkshopAssignments
         {
             get
             {

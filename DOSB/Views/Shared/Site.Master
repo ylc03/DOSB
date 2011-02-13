@@ -9,7 +9,8 @@
     <%: Html.Telerik().StyleSheetRegistrar()
             .DefaultGroup(group => group.Add("telerik.common.css")
                                         .Add("telerik.vista.css")
-                                        .Add("telerik.examples.css"))
+                                        .Add("telerik.examples.css")
+                                        .Add("flick/jquery-ui-1.8.7.css"))
     %>
 
     <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
@@ -42,7 +43,7 @@
 	<li><a href="/">Home</a></li>
 	<li><span class="dir">Workshop</span>
 		<ul>
-			<li><a href="./">Daily Activities PVD</a></li>
+			<li><a href="/WorkshopDailyActivity">Daily Activities PVD</a></li>
 			<li><a href="/PressureTestLog">Pressure Test Log</a></li>
             <li><a href="/TorqueLog">Torque Log</a></li>
             <li><a href="./">Technical Reception</a></li>
@@ -97,6 +98,7 @@
                          .Add("telerik.datetimepicker.js")
                          .Add("swfupload.js")
                          .Add("jquery-asyncUpload-0.1.js")
+                         .Add("jquery-ui-1.8.7.min.js")
                          .Compress(true))
                      .Render(); %>
 </body>
