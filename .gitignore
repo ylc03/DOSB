@@ -6,5 +6,6 @@
 *.pdb
 *.pidb
 
+DOSB/App_Data/Attachments
 /DOSB/DOSB.Publish.xml
 Thumbs.db

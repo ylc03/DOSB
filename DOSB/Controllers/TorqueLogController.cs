@@ -43,7 +43,7 @@ namespace DOSB.Controllers
         [HttpPost]
         public ActionResult _ApproveAjax(int id, int approvedBy, string password)
         {
-            if (!Employee.AuthenticateID(approvedBy, password))
+            if (!Employee.AuthenticateByID(approvedBy, password))
             {
                 return Content("Password Wrong!");
             }
@@ -88,6 +88,7 @@ namespace DOSB.Controllers
                     {
                         Attachment newatt = storeDB.Attachment.First(a => a.Guid == guid);
                         torque.AttachmentGuid = newatt.Guid;
+                        torque.Attachment = newatt.FileName;
                         newatt.AttachTo(typeof(Torque), torque.TorqueId);
                     }
 

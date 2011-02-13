@@ -7,13 +7,13 @@ namespace DOSB.Models
 {
     public partial class Employee
     {
-        public static bool AuthenticateID(int id, string password)
+        public static bool AuthenticateByID(int id, string password)
         { 
             Employee employee = (new DOSBEntities()).Employee.FirstOrDefault(e => e.EmployeeId == id);
-            return AuthenticateLDAP(employee.LDAP, password);
+            return AuthenticateByLDAP(employee.LDAP, password);
         }
 
-        public static bool AuthenticateLDAP(string LDAP, string password)
+        public static bool AuthenticateByLDAP(string LDAP, string password)
         {
             return string.Equals(password, "ok");
         }
