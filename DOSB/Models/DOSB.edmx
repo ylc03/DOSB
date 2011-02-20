@@ -6,15 +6,54 @@
     <edmx:StorageModels>
     <Schema Namespace="DOSBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="DOSBModelStoreContainer">
+          <EntitySet Name="AssemblyType" EntityType="DOSBModel.Store.AssemblyType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Attachment" EntityType="DOSBModel.Store.Attachment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Clients" EntityType="DOSBModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Companies" EntityType="DOSBModel.Store.Companies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompletionActivities" EntityType="DOSBModel.Store.CompletionActivities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompletionActivityRelations" EntityType="DOSBModel.Store.CompletionActivityRelations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompletionTypes" EntityType="DOSBModel.Store.CompletionTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Countries" EntityType="DOSBModel.Store.Countries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Employee" EntityType="DOSBModel.Store.Employee" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="EmployeeRoles" EntityType="DOSBModel.Store.EmployeeRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Fields" EntityType="DOSBModel.Store.Fields" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PressureTest" EntityType="DOSBModel.Store.PressureTest" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rigs" EntityType="DOSBModel.Store.Rigs" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Role" EntityType="DOSBModel.Store.Role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Segment" EntityType="DOSBModel.Store.Segment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Torque" EntityType="DOSBModel.Store.Torque" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Wells" EntityType="DOSBModel.Store.Wells" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WellTypes" EntityType="DOSBModel.Store.WellTypes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkshopAssignment" EntityType="DOSBModel.Store.WorkshopAssignment" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="WorkshopDailyActivity" EntityType="DOSBModel.Store.WorkshopDailyActivity" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Clients_Countries" Association="DOSBModel.Store.FK_Clients_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivities_CompletionTypes" Association="DOSBModel.Store.FK_CompletionActivities_CompletionTypes">
+            <End Role="CompletionTypes" EntitySet="CompletionTypes" />
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivities_Rigs" Association="DOSBModel.Store.FK_CompletionActivities_Rigs">
+            <End Role="Rigs" EntitySet="Rigs" />
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivities_Wells" Association="DOSBModel.Store.FK_CompletionActivities_Wells">
+            <End Role="Wells" EntitySet="Wells" />
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivityRelations_AssemblyType" Association="DOSBModel.Store.FK_CompletionActivityRelations_AssemblyType">
+            <End Role="AssemblyType" EntitySet="AssemblyType" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivityRelations_Companies" Association="DOSBModel.Store.FK_CompletionActivityRelations_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivityRelations_CompletionActivities" Association="DOSBModel.Store.FK_CompletionActivityRelations_CompletionActivities">
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employee_Segment" Association="DOSBModel.Store.FK_Employee_Segment">
             <End Role="Segment" EntitySet="Segment" />
             <End Role="Employee" EntitySet="Employee" />
@@ -26,6 +65,10 @@
           <AssociationSet Name="FK_EmployeeRoles_Role" Association="DOSBModel.Store.FK_EmployeeRoles_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="EmployeeRoles" EntitySet="EmployeeRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_Clients" Association="DOSBModel.Store.FK_Fields_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Fields" EntitySet="Fields" />
           </AssociationSet>
           <AssociationSet Name="FK_PressureTest_Approver" Association="DOSBModel.Store.FK_PressureTest_Approver">
             <End Role="Employee" EntitySet="Employee" />
@@ -47,6 +90,14 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Torque" EntitySet="Torque" />
           </AssociationSet>
+          <AssociationSet Name="FK_Wells_Fields" Association="DOSBModel.Store.FK_Wells_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="Wells" EntitySet="Wells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wells_WellTypes" Association="DOSBModel.Store.FK_Wells_WellTypes">
+            <End Role="WellTypes" EntitySet="WellTypes" />
+            <End Role="Wells" EntitySet="Wells" />
+          </AssociationSet>
           <AssociationSet Name="FK_WorkshopAssignment_Employee" Association="DOSBModel.Store.FK_WorkshopAssignment_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
@@ -56,6 +107,14 @@
             <End Role="WorkshopAssignment" EntitySet="WorkshopAssignment" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AssemblyType">
+          <Key>
+            <PropertyRef Name="AssemblyTypeId" />
+          </Key>
+          <Property Name="AssemblyTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AssemblyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ComletionType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Attachment">
           <Key>
             <PropertyRef Name="AttachmentId" />
@@ -65,6 +124,62 @@
           <Property Name="AttachableId" Type="int" />
           <Property Name="Guid" Type="nvarchar" MaxLength="250" />
           <Property Name="FileName" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryId" Type="int" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ShortName" Type="varchar" MaxLength="50" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CompletionActivities">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Name="ActivityId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RigId" Type="int" />
+          <Property Name="WellId" Type="int" />
+          <Property Name="CompletionTypeId" Type="int" />
+          <Property Name="StartAt" Type="date" />
+          <Property Name="FinishAt" Type="date" />
+          <Property Name="ShowAt" Type="date" />
+          <Property Name="Comment" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CompletionActivityRelations">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="AssemblyTypeId" />
+          </Key>
+          <Property Name="ActivityId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="AssemblyTypeId" Type="int" Nullable="false" />
+          <Property Name="StartAt" Type="date" />
+          <Property Name="FinishAt" Type="date" />
+          <Property Name="Comment" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CompletionTypes">
+          <Key>
+            <PropertyRef Name="CompletionTypeId" />
+          </Key>
+          <Property Name="CompletionTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -93,6 +208,14 @@
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Fields">
+          <Key>
+            <PropertyRef Name="FieldId" />
+          </Key>
+          <Property Name="FieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
         <EntityType Name="PressureTest">
           <Key>
             <PropertyRef Name="PressureTestId" />
@@ -107,6 +230,14 @@
           <Property Name="TestBy" Type="int" />
           <Property Name="ApprovedBy" Type="int" />
           <Property Name="Defect" Type="int" />
+        </EntityType>
+        <EntityType Name="Rigs">
+          <Key>
+            <PropertyRef Name="RigId" />
+          </Key>
+          <Property Name="RigId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -142,6 +273,23 @@
           <Property Name="ApprovedBy" Type="int" />
           <Property Name="Defect" Type="int" />
         </EntityType>
+        <EntityType Name="Wells">
+          <Key>
+            <PropertyRef Name="WellId" />
+          </Key>
+          <Property Name="WellId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="FieldId" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="TypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="WellTypes">
+          <Key>
+            <PropertyRef Name="WellTypeId" />
+          </Key>
+          <Property Name="WellTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="WorkshopAssignment">
           <Key>
             <PropertyRef Name="EmployeeId" />
@@ -165,6 +313,90 @@
           <Property Name="FinishedAt" Type="datetime" />
           <Property Name="CanceledAt" Type="datetime" />
         </EntityType>
+        <Association Name="FK_Clients_Countries">
+          <End Role="Countries" Type="DOSBModel.Store.Countries" Multiplicity="0..1" />
+          <End Role="Clients" Type="DOSBModel.Store.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivities_CompletionTypes">
+          <End Role="CompletionTypes" Type="DOSBModel.Store.CompletionTypes" Multiplicity="0..1" />
+          <End Role="CompletionActivities" Type="DOSBModel.Store.CompletionActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompletionTypes">
+              <PropertyRef Name="CompletionTypeId" />
+            </Principal>
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="CompletionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivities_Rigs">
+          <End Role="Rigs" Type="DOSBModel.Store.Rigs" Multiplicity="0..1" />
+          <End Role="CompletionActivities" Type="DOSBModel.Store.CompletionActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rigs">
+              <PropertyRef Name="RigId" />
+            </Principal>
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="RigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivities_Wells">
+          <End Role="Wells" Type="DOSBModel.Store.Wells" Multiplicity="0..1" />
+          <End Role="CompletionActivities" Type="DOSBModel.Store.CompletionActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wells">
+              <PropertyRef Name="WellId" />
+            </Principal>
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="WellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivityRelations_AssemblyType">
+          <End Role="AssemblyType" Type="DOSBModel.Store.AssemblyType" Multiplicity="1" />
+          <End Role="CompletionActivityRelations" Type="DOSBModel.Store.CompletionActivityRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssemblyType">
+              <PropertyRef Name="AssemblyTypeId" />
+            </Principal>
+            <Dependent Role="CompletionActivityRelations">
+              <PropertyRef Name="AssemblyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivityRelations_Companies">
+          <End Role="Companies" Type="DOSBModel.Store.Companies" Multiplicity="1" />
+          <End Role="CompletionActivityRelations" Type="DOSBModel.Store.CompletionActivityRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="CompletionActivityRelations">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivityRelations_CompletionActivities">
+          <End Role="CompletionActivities" Type="DOSBModel.Store.CompletionActivities" Multiplicity="1" />
+          <End Role="CompletionActivityRelations" Type="DOSBModel.Store.CompletionActivityRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompletionActivities">
+              <PropertyRef Name="ActivityId" />
+            </Principal>
+            <Dependent Role="CompletionActivityRelations">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employee_Segment">
           <End Role="Segment" Type="DOSBModel.Store.Segment" Multiplicity="0..1" />
           <End Role="Employee" Type="DOSBModel.Store.Employee" Multiplicity="*" />
@@ -200,6 +432,18 @@
             </Principal>
             <Dependent Role="EmployeeRoles">
               <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_Clients">
+          <End Role="Clients" Type="DOSBModel.Store.Clients" Multiplicity="0..1" />
+          <End Role="Fields" Type="DOSBModel.Store.Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -260,6 +504,30 @@
             </Principal>
             <Dependent Role="Torque">
               <PropertyRef Name="TorqueBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wells_Fields">
+          <End Role="Fields" Type="DOSBModel.Store.Fields" Multiplicity="0..1" />
+          <End Role="Wells" Type="DOSBModel.Store.Wells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="FieldId" />
+            </Principal>
+            <Dependent Role="Wells">
+              <PropertyRef Name="FieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wells_WellTypes">
+          <End Role="WellTypes" Type="DOSBModel.Store.WellTypes" Multiplicity="0..1" />
+          <End Role="Wells" Type="DOSBModel.Store.Wells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WellTypes">
+              <PropertyRef Name="WellTypeId" />
+            </Principal>
+            <Dependent Role="Wells">
+              <PropertyRef Name="TypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -335,6 +603,57 @@
           <AssociationSet Name="FK_Torque_Approver" Association="DOSBModel.FK_Torque_Approver">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Torque" EntitySet="Torque" />
+          </AssociationSet>
+          <EntitySet Name="AssemblyType" EntityType="DOSBModel.AssemblyType" />
+          <EntitySet Name="Clients" EntityType="DOSBModel.Clients" />
+          <EntitySet Name="Companies" EntityType="DOSBModel.Companies" />
+          <EntitySet Name="CompletionActivities" EntityType="DOSBModel.CompletionActivities" />
+          <EntitySet Name="CompletionActivityRelations" EntityType="DOSBModel.CompletionActivityRelations" />
+          <EntitySet Name="CompletionTypes" EntityType="DOSBModel.CompletionTypes" />
+          <EntitySet Name="Countries" EntityType="DOSBModel.Countries" />
+          <EntitySet Name="Fields" EntityType="DOSBModel.Fields" />
+          <EntitySet Name="Rigs" EntityType="DOSBModel.Rigs" />
+          <EntitySet Name="Wells" EntityType="DOSBModel.Wells" />
+          <EntitySet Name="WellTypes" EntityType="DOSBModel.WellTypes" />
+          <AssociationSet Name="FK_CompletionActivityRelations_AssemblyType" Association="DOSBModel.FK_CompletionActivityRelations_AssemblyType">
+            <End Role="AssemblyType" EntitySet="AssemblyType" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clients_Countries" Association="DOSBModel.FK_Clients_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_Clients" Association="DOSBModel.FK_Fields_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivityRelations_Companies" Association="DOSBModel.FK_CompletionActivityRelations_Companies">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivities_CompletionTypes" Association="DOSBModel.FK_CompletionActivities_CompletionTypes">
+            <End Role="CompletionTypes" EntitySet="CompletionTypes" />
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivities_Rigs" Association="DOSBModel.FK_CompletionActivities_Rigs">
+            <End Role="Rigs" EntitySet="Rigs" />
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivities_Wells" Association="DOSBModel.FK_CompletionActivities_Wells">
+            <End Role="Wells" EntitySet="Wells" />
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompletionActivityRelations_CompletionActivities" Association="DOSBModel.FK_CompletionActivityRelations_CompletionActivities">
+            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wells_Fields" Association="DOSBModel.FK_Wells_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="Wells" EntitySet="Wells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wells_WellTypes" Association="DOSBModel.FK_Wells_WellTypes">
+            <End Role="WellTypes" EntitySet="WellTypes" />
+            <End Role="Wells" EntitySet="Wells" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
@@ -556,6 +875,243 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AssemblyType">
+          <Key>
+            <PropertyRef Name="AssemblyTypeId" />
+          </Key>
+          <Property Type="Int32" Name="AssemblyTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AssemblyName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ComletionType" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CompletionActivityRelations" Relationship="DOSBModel.FK_CompletionActivityRelations_AssemblyType" FromRole="AssemblyType" ToRole="CompletionActivityRelations" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Type="Int32" Name="ClientId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CountryId" />
+          <NavigationProperty Name="Country" Relationship="DOSBModel.FK_Clients_Countries" FromRole="Clients" ToRole="Countries" />
+          <NavigationProperty Name="Fields" Relationship="DOSBModel.FK_Fields_Clients" FromRole="Clients" ToRole="Fields" />
+        </EntityType>
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Type="Int32" Name="CompanyId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ShortName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FullName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompletionActivityRelations" Relationship="DOSBModel.FK_CompletionActivityRelations_Companies" FromRole="Companies" ToRole="CompletionActivityRelations" />
+        </EntityType>
+        <EntityType Name="CompletionActivities">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+          </Key>
+          <Property Type="Int32" Name="ActivityId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RigId" />
+          <Property Type="Int32" Name="WellId" />
+          <Property Type="Int32" Name="CompletionTypeId" />
+          <Property Type="String" Name="Comment" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompletionType" Relationship="DOSBModel.FK_CompletionActivities_CompletionTypes" FromRole="CompletionActivities" ToRole="CompletionTypes" />
+          <NavigationProperty Name="Rig" Relationship="DOSBModel.FK_CompletionActivities_Rigs" FromRole="CompletionActivities" ToRole="Rigs" />
+          <NavigationProperty Name="Well" Relationship="DOSBModel.FK_CompletionActivities_Wells" FromRole="CompletionActivities" ToRole="Wells" />
+          <NavigationProperty Name="CompletionActivityRelations" Relationship="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" FromRole="CompletionActivities" ToRole="CompletionActivityRelations" />
+          <Property Type="DateTime" Name="StartAt" />
+          <Property Type="DateTime" Name="FinishAt" />
+          <Property Type="DateTime" Name="ShowAt" />
+        </EntityType>
+        <EntityType Name="CompletionActivityRelations">
+          <Key>
+            <PropertyRef Name="ActivityId" />
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="AssemblyTypeId" />
+          </Key>
+          <Property Type="Int32" Name="ActivityId" Nullable="false" />
+          <Property Type="Int32" Name="CompanyId" Nullable="false" />
+          <Property Type="Int32" Name="AssemblyTypeId" Nullable="false" />
+          <Property Type="DateTime" Name="StartAt" />
+          <Property Type="DateTime" Name="FinishAt" />
+          <Property Type="String" Name="Comment" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AssemblyType" Relationship="DOSBModel.FK_CompletionActivityRelations_AssemblyType" FromRole="CompletionActivityRelations" ToRole="AssemblyType" />
+          <NavigationProperty Name="Company" Relationship="DOSBModel.FK_CompletionActivityRelations_Companies" FromRole="CompletionActivityRelations" ToRole="Companies" />
+          <NavigationProperty Name="CompletionActivity" Relationship="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" FromRole="CompletionActivityRelations" ToRole="CompletionActivities" />
+        </EntityType>
+        <EntityType Name="CompletionTypes">
+          <Key>
+            <PropertyRef Name="CompletionTypeId" />
+          </Key>
+          <Property Type="Int32" Name="CompletionTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompletionActivities" Relationship="DOSBModel.FK_CompletionActivities_CompletionTypes" FromRole="CompletionTypes" ToRole="CompletionActivities" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Type="Int32" Name="CountryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clients" Relationship="DOSBModel.FK_Clients_Countries" FromRole="Countries" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Fields">
+          <Key>
+            <PropertyRef Name="FieldId" />
+          </Key>
+          <Property Type="Int32" Name="FieldId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ClientId" />
+          <NavigationProperty Name="Client" Relationship="DOSBModel.FK_Fields_Clients" FromRole="Fields" ToRole="Clients" />
+          <NavigationProperty Name="Wells" Relationship="DOSBModel.FK_Wells_Fields" FromRole="Fields" ToRole="Wells" />
+        </EntityType>
+        <EntityType Name="Rigs">
+          <Key>
+            <PropertyRef Name="RigId" />
+          </Key>
+          <Property Type="Int32" Name="RigId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Type" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompletionActivities" Relationship="DOSBModel.FK_CompletionActivities_Rigs" FromRole="Rigs" ToRole="CompletionActivities" />
+        </EntityType>
+        <EntityType Name="Wells">
+          <Key>
+            <PropertyRef Name="WellId" />
+          </Key>
+          <Property Type="Int32" Name="WellId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="FieldId" />
+          <Property Type="String" Name="Status" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="TypeId" />
+          <NavigationProperty Name="CompletionActivities" Relationship="DOSBModel.FK_CompletionActivities_Wells" FromRole="Wells" ToRole="CompletionActivities" />
+          <NavigationProperty Name="Field" Relationship="DOSBModel.FK_Wells_Fields" FromRole="Wells" ToRole="Fields" />
+          <NavigationProperty Name="WellType" Relationship="DOSBModel.FK_Wells_WellTypes" FromRole="Wells" ToRole="WellTypes" />
+        </EntityType>
+        <EntityType Name="WellTypes">
+          <Key>
+            <PropertyRef Name="WellTypeId" />
+          </Key>
+          <Property Type="Int32" Name="WellTypeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Wells" Relationship="DOSBModel.FK_Wells_WellTypes" FromRole="WellTypes" ToRole="Wells" />
+        </EntityType>
+        <Association Name="FK_CompletionActivityRelations_AssemblyType">
+          <End Type="DOSBModel.AssemblyType" Role="AssemblyType" Multiplicity="1" />
+          <End Type="DOSBModel.CompletionActivityRelations" Role="CompletionActivityRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssemblyType">
+              <PropertyRef Name="AssemblyTypeId" />
+            </Principal>
+            <Dependent Role="CompletionActivityRelations">
+              <PropertyRef Name="AssemblyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clients_Countries">
+          <End Type="DOSBModel.Countries" Role="Countries" Multiplicity="0..1" />
+          <End Type="DOSBModel.Clients" Role="Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_Clients">
+          <End Type="DOSBModel.Clients" Role="Clients" Multiplicity="0..1" />
+          <End Type="DOSBModel.Fields" Role="Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivityRelations_Companies">
+          <End Type="DOSBModel.Companies" Role="Companies" Multiplicity="1" />
+          <End Type="DOSBModel.CompletionActivityRelations" Role="CompletionActivityRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="CompletionActivityRelations">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivities_CompletionTypes">
+          <End Type="DOSBModel.CompletionTypes" Role="CompletionTypes" Multiplicity="0..1" />
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompletionTypes">
+              <PropertyRef Name="CompletionTypeId" />
+            </Principal>
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="CompletionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivities_Rigs">
+          <End Type="DOSBModel.Rigs" Role="Rigs" Multiplicity="0..1" />
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rigs">
+              <PropertyRef Name="RigId" />
+            </Principal>
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="RigId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivities_Wells">
+          <End Type="DOSBModel.Wells" Role="Wells" Multiplicity="0..1" />
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wells">
+              <PropertyRef Name="WellId" />
+            </Principal>
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="WellId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompletionActivityRelations_CompletionActivities">
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="1" />
+          <End Type="DOSBModel.CompletionActivityRelations" Role="CompletionActivityRelations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompletionActivities">
+              <PropertyRef Name="ActivityId" />
+            </Principal>
+            <Dependent Role="CompletionActivityRelations">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wells_Fields">
+          <End Type="DOSBModel.Fields" Role="Fields" Multiplicity="0..1" />
+          <End Type="DOSBModel.Wells" Role="Wells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="FieldId" />
+            </Principal>
+            <Dependent Role="Wells">
+              <PropertyRef Name="FieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wells_WellTypes">
+          <End Type="DOSBModel.WellTypes" Role="WellTypes" Multiplicity="0..1" />
+          <End Type="DOSBModel.Wells" Role="Wells" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WellTypes">
+              <PropertyRef Name="WellTypeId" />
+            </Principal>
+            <Dependent Role="Wells">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -658,6 +1214,112 @@
               <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="AssemblyType">
+            <EntityTypeMapping TypeName="DOSBModel.AssemblyType">
+              <MappingFragment StoreEntitySet="AssemblyType">
+                <ScalarProperty Name="ComletionType" ColumnName="ComletionType" />
+                <ScalarProperty Name="AssemblyName" ColumnName="AssemblyName" />
+                <ScalarProperty Name="AssemblyTypeId" ColumnName="AssemblyTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="DOSBModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="DOSBModel.Companies">
+              <MappingFragment StoreEntitySet="Companies">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompletionActivities">
+            <EntityTypeMapping TypeName="DOSBModel.CompletionActivities">
+              <MappingFragment StoreEntitySet="CompletionActivities">
+                <ScalarProperty Name="ShowAt" ColumnName="ShowAt" />
+                <ScalarProperty Name="FinishAt" ColumnName="FinishAt" />
+                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="CompletionTypeId" ColumnName="CompletionTypeId" />
+                <ScalarProperty Name="WellId" ColumnName="WellId" />
+                <ScalarProperty Name="RigId" ColumnName="RigId" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompletionActivityRelations">
+            <EntityTypeMapping TypeName="DOSBModel.CompletionActivityRelations">
+              <MappingFragment StoreEntitySet="CompletionActivityRelations">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="FinishAt" ColumnName="FinishAt" />
+                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+                <ScalarProperty Name="AssemblyTypeId" ColumnName="AssemblyTypeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompletionTypes">
+            <EntityTypeMapping TypeName="DOSBModel.CompletionTypes">
+              <MappingFragment StoreEntitySet="CompletionTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CompletionTypeId" ColumnName="CompletionTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="DOSBModel.Countries">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fields">
+            <EntityTypeMapping TypeName="DOSBModel.Fields">
+              <MappingFragment StoreEntitySet="Fields">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rigs">
+            <EntityTypeMapping TypeName="DOSBModel.Rigs">
+              <MappingFragment StoreEntitySet="Rigs">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RigId" ColumnName="RigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wells">
+            <EntityTypeMapping TypeName="DOSBModel.Wells">
+              <MappingFragment StoreEntitySet="Wells">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WellId" ColumnName="WellId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WellTypes">
+            <EntityTypeMapping TypeName="DOSBModel.WellTypes">
+              <MappingFragment StoreEntitySet="WellTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WellTypeId" ColumnName="WellTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -678,7 +1340,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="DOSB" ZoomLevel="100">
+      <Diagram Name="DOSB" ZoomLevel="89">
         <EntityTypeShape EntityType="DOSBModel.Employee" Width="1.5" PointX="2.625" PointY="1.25" Height="4.48875" IsExpanded="true" />
         <EntityTypeShape EntityType="DOSBModel.Segment" Width="1.5" PointX="0.5" PointY="1.25" Height="0.4" IsExpanded="false" />
         <EntityTypeShape EntityType="DOSBModel.Torque" Width="1.5" PointX="0.5" PointY="2.375" Height="2.9711718749999996" IsExpanded="true" />
@@ -724,6 +1386,57 @@
         <AssociationConnector Association="DOSBModel.FK_Torque_Approver" >
           <ConnectorPoint PointX="2.625" PointY="4.7852361778846149" />
           <ConnectorPoint PointX="2" PointY="4.7852361778846149" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="DOSBModel.AssemblyType" Width="1.5" PointX="5.375" PointY="8.625" Height="1.5923063151041674" />
+        <EntityTypeShape EntityType="DOSBModel.Clients" Width="1.5" PointX="7.625" PointY="14.25" Height="1.7566536458333317" />
+        <EntityTypeShape EntityType="DOSBModel.Companies" Width="1.5" PointX="7.625" PointY="10.875" Height="1.592306315104171" />
+        <EntityTypeShape EntityType="DOSBModel.CompletionActivities" Width="1.5" PointX="3.125" PointY="10.875" Height="2.4140429687500031" />
+        <EntityTypeShape EntityType="DOSBModel.CompletionActivityRelations" Width="1.5" PointX="5.375" PointY="10.875" Height="2.4140429687500031" />
+        <EntityTypeShape EntityType="DOSBModel.CompletionTypes" Width="1.5" PointX="3.125" PointY="8.625" Height="1.4279589843750031" />
+        <EntityTypeShape EntityType="DOSBModel.Countries" Width="1.5" PointX="9.875" PointY="14.25" Height="1.4279589843750031" />
+        <EntityTypeShape EntityType="DOSBModel.Fields" Width="1.5" PointX="5.375" PointY="14.25" Height="1.7566536458333388" />
+        <EntityTypeShape EntityType="DOSBModel.Rigs" Width="1.5" PointX="0.75" PointY="10.875" Height="1.5923063151041674" />
+        <EntityTypeShape EntityType="DOSBModel.Wells" Width="1.5" PointX="3.125" PointY="14.25" Height="2.2496956380208388" />
+        <EntityTypeShape EntityType="DOSBModel.WellTypes" Width="1.5" PointX="0.875" PointY="14.25" Height="1.4279589843750031" />
+        <AssociationConnector Association="DOSBModel.FK_CompletionActivityRelations_AssemblyType" >
+          <ConnectorPoint PointX="6.125" PointY="10.217306315104167" />
+          <ConnectorPoint PointX="6.125" PointY="10.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_Clients_Countries" >
+          <ConnectorPoint PointX="9.875" PointY="14.963979492187502" />
+          <ConnectorPoint PointX="9.125" PointY="14.963979492187502" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_Fields_Clients" >
+          <ConnectorPoint PointX="7.625" PointY="15.128326822916666" />
+          <ConnectorPoint PointX="6.875" PointY="15.128326822916666" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_CompletionActivityRelations_Companies" >
+          <ConnectorPoint PointX="7.625" PointY="11.671153157552086" />
+          <ConnectorPoint PointX="6.875" PointY="11.671153157552086" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_CompletionActivities_CompletionTypes" >
+          <ConnectorPoint PointX="3.875" PointY="10.052958984375003" />
+          <ConnectorPoint PointX="3.875" PointY="10.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_CompletionActivities_Rigs" >
+          <ConnectorPoint PointX="2.25" PointY="11.671153157552084" />
+          <ConnectorPoint PointX="3.125" PointY="11.671153157552084" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_CompletionActivities_Wells" >
+          <ConnectorPoint PointX="3.875" PointY="14.25" />
+          <ConnectorPoint PointX="3.875" PointY="13.7820849609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" >
+          <ConnectorPoint PointX="4.625" PointY="12.082021484375002" />
+          <ConnectorPoint PointX="5.375" PointY="12.082021484375002" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_Wells_Fields" >
+          <ConnectorPoint PointX="5.375" PointY="15.128326822916669" />
+          <ConnectorPoint PointX="4.625" PointY="15.128326822916669" />
+        </AssociationConnector>
+        <AssociationConnector Association="DOSBModel.FK_Wells_WellTypes" >
+          <ConnectorPoint PointX="2.375" PointY="14.963979492187502" />
+          <ConnectorPoint PointX="3.125" PointY="14.963979492187502" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

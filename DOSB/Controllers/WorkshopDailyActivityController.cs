@@ -29,15 +29,15 @@ namespace DOSB.Controllers
         [GridAction]
         public ActionResult _SelectAjax(DateTime date)
         {
-            IList<EditableActivity> activities;
+            IList<EditableWorkshopActivity> activities;
 
             if (date.Date == DateTime.Today)
             {
-                activities = EditableActivityRespository.Today();
+                activities = EditableWorkshopActivityRespository.Today();
             }
             else
             {
-                activities = EditableActivityRespository.ActivitiesOn(date);
+                activities = EditableWorkshopActivityRespository.ActivitiesOn(date);
             }
 
             return View(new GridModel(activities));

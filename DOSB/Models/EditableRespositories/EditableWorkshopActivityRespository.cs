@@ -8,17 +8,17 @@ using DOSB.Models;
 
 namespace DOSB.Models.EditableRespositories
 {
-    public class EditableActivityRespository
+    public class EditableWorkshopActivityRespository
     {
         /// <summary>
         /// All activities on one day. not cached.
         /// </summary>
         /// <param name="date">date</param>
         /// <returns>list of activities</returns>
-        public static IList<EditableActivity> ActivitiesOn(DateTime date)
+        public static IList<EditableWorkshopActivity> ActivitiesOn(DateTime date)
         {
             DOSBEntities storeDB = new DOSBEntities();
-            List<EditableActivity> result = new List<EditableActivity>();
+            List<EditableWorkshopActivity> result = new List<EditableWorkshopActivity>();
 
             DateTime startTime = new DateTime(date.Year, date.Month, date.Day);
             DateTime endTime = new DateTime(date.Year, date.Month, date.Day + 1);
@@ -27,7 +27,7 @@ namespace DOSB.Models.EditableRespositories
                                                                          && (!a.FinishedAt.HasValue || a.FinishedAt.Value >= startTime)
                                                                          && (!a.CanceledAt.HasValue || a.CanceledAt.Value >= startTime)))
             {
-                EditableActivity editableActivity = new EditableActivity();
+                EditableWorkshopActivity editableActivity = new EditableWorkshopActivity();
                 editableActivity.ActivityId = activity.ActivityId;
                 editableActivity.Description = activity.Description;
                 editableActivity.Forklift = activity.Forklift > 0;
@@ -48,21 +48,21 @@ namespace DOSB.Models.EditableRespositories
         /// Activities for today. Cached.
         /// </summary>
         /// <returns>List of editable activities</returns>
-        public static IList<EditableActivity> Today()
+        public static IList<EditableWorkshopActivity> Today()
         {
             if (HttpContext.Current.Session["activities"] == null)
             {
-                HttpContext.Current.Session["activities"] = EditableActivityRespository.ActivitiesOn(DateTime.Today);
+                HttpContext.Current.Session["activities"] = EditableWorkshopActivityRespository.ActivitiesOn(DateTime.Today);
             }
 
-            return (IList<EditableActivity>)HttpContext.Current.Session["activities"];
+            return (IList<EditableWorkshopActivity>)HttpContext.Current.Session["activities"];
         }
 
         /// <summary>
         /// Insert new activity
         /// </summary>
         /// <param name="activity">Editable Activity</param>
-        public static void Insert(EditableActivity activity)
+        public static void Insert(EditableWorkshopActivity activity)
         {
             WorkshopDailyActivity target = new WorkshopDailyActivity();
             target.Description = activity.Description;
@@ -83,7 +83,7 @@ namespace DOSB.Models.EditableRespositories
         /// Update Activity
         /// </summary>
         /// <param name="activity">Editable activity</param>
-        public static void Update(EditableActivity activity)
+        public static void Update(EditableWorkshopActivity activity)
         {
             DOSBEntities storeDB = new DOSBEntities();
             WorkshopDailyActivity target = storeDB.WorkshopDailyActivity.First(a => a.ActivityId == activity.ActivityId);
@@ -114,9 +114,9 @@ namespace DOSB.Models.EditableRespositories
         /// Currently not deleted from database.
         /// </summary>
         /// <param name="activity">Editable activity</param>
-        public static void Delete(EditableActivity activity)
+        public static void Delete(EditableWorkshopActivity activity)
         {
-            EditableActivity target = Today().FirstOrDefault(a => a.ActivityId == activity.ActivityId);
+            EditableWorkshopActivity target = Today().FirstOrDefault(a => a.ActivityId == activity.ActivityId);
             if (target != null)
             {
                 Today().Remove(target);

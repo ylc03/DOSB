@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DOSB.Models.EditableModels
 {
-    public class EditableActivity
+    public class EditableWorkshopActivity
     {
         [ReadOnly(true)]
         [ScaffoldColumn(false)]
