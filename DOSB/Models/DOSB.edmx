@@ -166,6 +166,7 @@
           <Property Name="StartAt" Type="date" />
           <Property Name="FinishAt" Type="date" />
           <Property Name="Comment" Type="varchar" MaxLength="50" />
+          <Property Name="ShowAt" Type="date" />
         </EntityType>
         <EntityType Name="CompletionTypes">
           <Key>
@@ -607,8 +608,8 @@
           <EntitySet Name="AssemblyType" EntityType="DOSBModel.AssemblyType" />
           <EntitySet Name="Clients" EntityType="DOSBModel.Clients" />
           <EntitySet Name="Companies" EntityType="DOSBModel.Companies" />
+          <EntitySet Name="RigActivities" EntityType="DOSBModel.RigActivities" />
           <EntitySet Name="CompletionActivities" EntityType="DOSBModel.CompletionActivities" />
-          <EntitySet Name="CompletionActivityRelations" EntityType="DOSBModel.CompletionActivityRelations" />
           <EntitySet Name="CompletionTypes" EntityType="DOSBModel.CompletionTypes" />
           <EntitySet Name="Countries" EntityType="DOSBModel.Countries" />
           <EntitySet Name="Fields" EntityType="DOSBModel.Fields" />
@@ -617,7 +618,7 @@
           <EntitySet Name="WellTypes" EntityType="DOSBModel.WellTypes" />
           <AssociationSet Name="FK_CompletionActivityRelations_AssemblyType" Association="DOSBModel.FK_CompletionActivityRelations_AssemblyType">
             <End Role="AssemblyType" EntitySet="AssemblyType" />
-            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivities" />
           </AssociationSet>
           <AssociationSet Name="FK_Clients_Countries" Association="DOSBModel.FK_Clients_Countries">
             <End Role="Countries" EntitySet="Countries" />
@@ -629,23 +630,23 @@
           </AssociationSet>
           <AssociationSet Name="FK_CompletionActivityRelations_Companies" Association="DOSBModel.FK_CompletionActivityRelations_Companies">
             <End Role="Companies" EntitySet="Companies" />
-            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
+            <End Role="CompletionActivityRelations" EntitySet="CompletionActivities" />
           </AssociationSet>
           <AssociationSet Name="FK_CompletionActivities_CompletionTypes" Association="DOSBModel.FK_CompletionActivities_CompletionTypes">
             <End Role="CompletionTypes" EntitySet="CompletionTypes" />
-            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+            <End Role="CompletionActivities" EntitySet="RigActivities" />
           </AssociationSet>
           <AssociationSet Name="FK_CompletionActivities_Rigs" Association="DOSBModel.FK_CompletionActivities_Rigs">
             <End Role="Rigs" EntitySet="Rigs" />
-            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+            <End Role="CompletionActivities" EntitySet="RigActivities" />
           </AssociationSet>
           <AssociationSet Name="FK_CompletionActivities_Wells" Association="DOSBModel.FK_CompletionActivities_Wells">
             <End Role="Wells" EntitySet="Wells" />
-            <End Role="CompletionActivities" EntitySet="CompletionActivities" />
+            <End Role="CompletionActivities" EntitySet="RigActivities" />
           </AssociationSet>
           <AssociationSet Name="FK_CompletionActivityRelations_CompletionActivities" Association="DOSBModel.FK_CompletionActivityRelations_CompletionActivities">
+            <End Role="RigActivities" EntitySet="RigActivities" />
             <End Role="CompletionActivities" EntitySet="CompletionActivities" />
-            <End Role="CompletionActivityRelations" EntitySet="CompletionActivityRelations" />
           </AssociationSet>
           <AssociationSet Name="FK_Wells_Fields" Association="DOSBModel.FK_Wells_Fields">
             <End Role="Fields" EntitySet="Fields" />
@@ -903,7 +904,7 @@
           <Property Type="String" Name="FullName" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CompletionActivityRelations" Relationship="DOSBModel.FK_CompletionActivityRelations_Companies" FromRole="Companies" ToRole="CompletionActivityRelations" />
         </EntityType>
-        <EntityType Name="CompletionActivities">
+        <EntityType Name="RigActivities">
           <Key>
             <PropertyRef Name="ActivityId" />
           </Key>
@@ -915,18 +916,18 @@
           <NavigationProperty Name="CompletionType" Relationship="DOSBModel.FK_CompletionActivities_CompletionTypes" FromRole="CompletionActivities" ToRole="CompletionTypes" />
           <NavigationProperty Name="Rig" Relationship="DOSBModel.FK_CompletionActivities_Rigs" FromRole="CompletionActivities" ToRole="Rigs" />
           <NavigationProperty Name="Well" Relationship="DOSBModel.FK_CompletionActivities_Wells" FromRole="CompletionActivities" ToRole="Wells" />
-          <NavigationProperty Name="CompletionActivityRelations" Relationship="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" FromRole="CompletionActivities" ToRole="CompletionActivityRelations" />
+          <NavigationProperty Name="CompletionActivities" Relationship="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" FromRole="RigActivities" ToRole="CompletionActivities" />
           <Property Type="DateTime" Name="StartAt" />
           <Property Type="DateTime" Name="FinishAt" />
           <Property Type="DateTime" Name="ShowAt" />
         </EntityType>
-        <EntityType Name="CompletionActivityRelations">
+        <EntityType Name="CompletionActivities">
           <Key>
-            <PropertyRef Name="ActivityId" />
+            <PropertyRef Name="RigActivityId" />
             <PropertyRef Name="CompanyId" />
             <PropertyRef Name="AssemblyTypeId" />
           </Key>
-          <Property Type="Int32" Name="ActivityId" Nullable="false" />
+          <Property Type="Int32" Name="RigActivityId" Nullable="false" />
           <Property Type="Int32" Name="CompanyId" Nullable="false" />
           <Property Type="Int32" Name="AssemblyTypeId" Nullable="false" />
           <Property Type="DateTime" Name="StartAt" />
@@ -934,7 +935,8 @@
           <Property Type="String" Name="Comment" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AssemblyType" Relationship="DOSBModel.FK_CompletionActivityRelations_AssemblyType" FromRole="CompletionActivityRelations" ToRole="AssemblyType" />
           <NavigationProperty Name="Company" Relationship="DOSBModel.FK_CompletionActivityRelations_Companies" FromRole="CompletionActivityRelations" ToRole="Companies" />
-          <NavigationProperty Name="CompletionActivity" Relationship="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" FromRole="CompletionActivityRelations" ToRole="CompletionActivities" />
+          <NavigationProperty Name="RigActivity" Relationship="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" FromRole="CompletionActivities" ToRole="RigActivities" />
+          <Property Type="DateTime" Name="ShowAt" />
         </EntityType>
         <EntityType Name="CompletionTypes">
           <Key>
@@ -994,7 +996,7 @@
         </EntityType>
         <Association Name="FK_CompletionActivityRelations_AssemblyType">
           <End Type="DOSBModel.AssemblyType" Role="AssemblyType" Multiplicity="1" />
-          <End Type="DOSBModel.CompletionActivityRelations" Role="CompletionActivityRelations" Multiplicity="*" />
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivityRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AssemblyType">
               <PropertyRef Name="AssemblyTypeId" />
@@ -1030,7 +1032,7 @@
         </Association>
         <Association Name="FK_CompletionActivityRelations_Companies">
           <End Type="DOSBModel.Companies" Role="Companies" Multiplicity="1" />
-          <End Type="DOSBModel.CompletionActivityRelations" Role="CompletionActivityRelations" Multiplicity="*" />
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivityRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Companies">
               <PropertyRef Name="CompanyId" />
@@ -1042,7 +1044,7 @@
         </Association>
         <Association Name="FK_CompletionActivities_CompletionTypes">
           <End Type="DOSBModel.CompletionTypes" Role="CompletionTypes" Multiplicity="0..1" />
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <End Type="DOSBModel.RigActivities" Role="CompletionActivities" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CompletionTypes">
               <PropertyRef Name="CompletionTypeId" />
@@ -1054,7 +1056,7 @@
         </Association>
         <Association Name="FK_CompletionActivities_Rigs">
           <End Type="DOSBModel.Rigs" Role="Rigs" Multiplicity="0..1" />
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <End Type="DOSBModel.RigActivities" Role="CompletionActivities" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rigs">
               <PropertyRef Name="RigId" />
@@ -1066,7 +1068,7 @@
         </Association>
         <Association Name="FK_CompletionActivities_Wells">
           <End Type="DOSBModel.Wells" Role="Wells" Multiplicity="0..1" />
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <End Type="DOSBModel.RigActivities" Role="CompletionActivities" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Wells">
               <PropertyRef Name="WellId" />
@@ -1077,14 +1079,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CompletionActivityRelations_CompletionActivities">
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="1" />
-          <End Type="DOSBModel.CompletionActivityRelations" Role="CompletionActivityRelations" Multiplicity="*" />
+          <End Type="DOSBModel.RigActivities" Role="RigActivities" Multiplicity="1" />
+          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompletionActivities">
+            <Principal Role="RigActivities">
               <PropertyRef Name="ActivityId" />
             </Principal>
-            <Dependent Role="CompletionActivityRelations">
-              <PropertyRef Name="ActivityId" />
+            <Dependent Role="CompletionActivities">
+              <PropertyRef Name="RigActivityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1241,8 +1243,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CompletionActivities">
-            <EntityTypeMapping TypeName="DOSBModel.CompletionActivities">
+          <EntitySetMapping Name="RigActivities">
+            <EntityTypeMapping TypeName="DOSBModel.RigActivities">
               <MappingFragment StoreEntitySet="CompletionActivities">
                 <ScalarProperty Name="ShowAt" ColumnName="ShowAt" />
                 <ScalarProperty Name="FinishAt" ColumnName="FinishAt" />
@@ -1255,15 +1257,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CompletionActivityRelations">
-            <EntityTypeMapping TypeName="DOSBModel.CompletionActivityRelations">
+          <EntitySetMapping Name="CompletionActivities">
+            <EntityTypeMapping TypeName="DOSBModel.CompletionActivities">
               <MappingFragment StoreEntitySet="CompletionActivityRelations">
+                <ScalarProperty Name="ShowAt" ColumnName="ShowAt" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="FinishAt" ColumnName="FinishAt" />
                 <ScalarProperty Name="StartAt" ColumnName="StartAt" />
                 <ScalarProperty Name="AssemblyTypeId" ColumnName="AssemblyTypeId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+                <ScalarProperty Name="RigActivityId" ColumnName="ActivityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1390,11 +1393,11 @@
         <EntityTypeShape EntityType="DOSBModel.AssemblyType" Width="1.5" PointX="5.375" PointY="8.625" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="DOSBModel.Clients" Width="1.5" PointX="7.625" PointY="14.25" Height="1.7566536458333317" />
         <EntityTypeShape EntityType="DOSBModel.Companies" Width="1.5" PointX="7.625" PointY="10.875" Height="1.592306315104171" />
-        <EntityTypeShape EntityType="DOSBModel.CompletionActivities" Width="1.5" PointX="3.125" PointY="10.875" Height="2.4140429687500031" />
-        <EntityTypeShape EntityType="DOSBModel.CompletionActivityRelations" Width="1.5" PointX="5.375" PointY="10.875" Height="2.4140429687500031" />
+        <EntityTypeShape EntityType="DOSBModel.RigActivities" Width="1.5" PointX="3.125" PointY="10.875" Height="2.4140429687500031" />
+        <EntityTypeShape EntityType="DOSBModel.CompletionActivities" Width="1.5" PointX="5.375" PointY="10.875" Height="2.4140429687500031" />
         <EntityTypeShape EntityType="DOSBModel.CompletionTypes" Width="1.5" PointX="3.125" PointY="8.625" Height="1.4279589843750031" />
         <EntityTypeShape EntityType="DOSBModel.Countries" Width="1.5" PointX="9.875" PointY="14.25" Height="1.4279589843750031" />
-        <EntityTypeShape EntityType="DOSBModel.Fields" Width="1.5" PointX="5.375" PointY="14.25" Height="1.7566536458333388" />
+        <EntityTypeShape EntityType="DOSBModel.Fields" Width="1.5" PointX="5.375" PointY="14.25" Height="1.7566536458333353" IsExpanded="true" />
         <EntityTypeShape EntityType="DOSBModel.Rigs" Width="1.5" PointX="0.75" PointY="10.875" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="DOSBModel.Wells" Width="1.5" PointX="3.125" PointY="14.25" Height="2.2496956380208388" />
         <EntityTypeShape EntityType="DOSBModel.WellTypes" Width="1.5" PointX="0.875" PointY="14.25" Height="1.4279589843750031" />
@@ -1431,8 +1434,8 @@
           <ConnectorPoint PointX="5.375" PointY="12.082021484375002" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Wells_Fields" >
-          <ConnectorPoint PointX="5.375" PointY="15.128326822916669" />
-          <ConnectorPoint PointX="4.625" PointY="15.128326822916669" />
+          <ConnectorPoint PointX="5.375" PointY="15.128326822916668" />
+          <ConnectorPoint PointX="4.625" PointY="15.128326822916668" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Wells_WellTypes" >
           <ConnectorPoint PointX="2.375" PointY="14.963979492187502" />

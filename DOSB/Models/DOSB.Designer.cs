@@ -27,14 +27,14 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "EmployeeRoles", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Employee), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Role))]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Torque_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "Torque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Torque), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_AssemblyType", "AssemblyType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.AssemblyType), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivityRelations), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_AssemblyType", "AssemblyType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.AssemblyType), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Clients_Countries", "Countries", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Countries), "Clients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Clients), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Fields_Clients", "Clients", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Clients), "Fields", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Fields), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_Companies", "Companies", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Companies), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivityRelations), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_CompletionTypes", "CompletionTypes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.CompletionTypes), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_Rigs", "Rigs", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Rigs), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_Wells", "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Wells), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.CompletionActivities), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivityRelations), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_Companies", "Companies", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Companies), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_CompletionTypes", "CompletionTypes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.CompletionTypes), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.RigActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_Rigs", "Rigs", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Rigs), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.RigActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_Wells", "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Wells), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.RigActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "RigActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.RigActivities), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Wells_Fields", "Fields", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Fields), "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Wells), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Wells_WellTypes", "WellTypes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.WellTypes), "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Wells), true)]
 
@@ -267,6 +267,22 @@ namespace DOSB.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<RigActivities> RigActivities
+        {
+            get
+            {
+                if ((_RigActivities == null))
+                {
+                    _RigActivities = base.CreateObjectSet<RigActivities>("RigActivities");
+                }
+                return _RigActivities;
+            }
+        }
+        private ObjectSet<RigActivities> _RigActivities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<CompletionActivities> CompletionActivities
         {
             get
@@ -279,22 +295,6 @@ namespace DOSB.Models
             }
         }
         private ObjectSet<CompletionActivities> _CompletionActivities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<CompletionActivityRelations> CompletionActivityRelations
-        {
-            get
-            {
-                if ((_CompletionActivityRelations == null))
-                {
-                    _CompletionActivityRelations = base.CreateObjectSet<CompletionActivityRelations>("CompletionActivityRelations");
-                }
-                return _CompletionActivityRelations;
-            }
-        }
-        private ObjectSet<CompletionActivityRelations> _CompletionActivityRelations;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -484,19 +484,19 @@ namespace DOSB.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the RigActivities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRigActivities(RigActivities rigActivities)
+        {
+            base.AddObject("RigActivities", rigActivities);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the CompletionActivities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToCompletionActivities(CompletionActivities completionActivities)
         {
             base.AddObject("CompletionActivities", completionActivities);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the CompletionActivityRelations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCompletionActivityRelations(CompletionActivityRelations completionActivityRelations)
-        {
-            base.AddObject("CompletionActivityRelations", completionActivityRelations);
         }
     
         /// <summary>
@@ -665,17 +665,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations")]
-        public EntityCollection<CompletionActivityRelations> CompletionActivityRelations
+        public EntityCollection<CompletionActivities> CompletionActivityRelations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivityRelations>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivityRelations>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations", value);
                 }
             }
         }
@@ -1110,17 +1110,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_Companies", "CompletionActivityRelations")]
-        public EntityCollection<CompletionActivityRelations> CompletionActivityRelations
+        public EntityCollection<CompletionActivities> CompletionActivityRelations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivityRelations>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivityRelations>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations", value);
                 }
             }
         }
@@ -1141,11 +1141,15 @@ namespace DOSB.Models
         /// <summary>
         /// Create a new CompletionActivities object.
         /// </summary>
-        /// <param name="activityId">Initial value of the ActivityId property.</param>
-        public static CompletionActivities CreateCompletionActivities(global::System.Int32 activityId)
+        /// <param name="rigActivityId">Initial value of the RigActivityId property.</param>
+        /// <param name="companyId">Initial value of the CompanyId property.</param>
+        /// <param name="assemblyTypeId">Initial value of the AssemblyTypeId property.</param>
+        public static CompletionActivities CreateCompletionActivities(global::System.Int32 rigActivityId, global::System.Int32 companyId, global::System.Int32 assemblyTypeId)
         {
             CompletionActivities completionActivities = new CompletionActivities();
-            completionActivities.ActivityId = activityId;
+            completionActivities.RigActivityId = rigActivityId;
+            completionActivities.CompanyId = companyId;
+            completionActivities.AssemblyTypeId = assemblyTypeId;
             return completionActivities;
         }
 
@@ -1157,393 +1161,27 @@ namespace DOSB.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 ActivityId
+        public global::System.Int32 RigActivityId
         {
             get
             {
-                return _ActivityId;
+                return _RigActivityId;
             }
             set
             {
-                if (_ActivityId != value)
+                if (_RigActivityId != value)
                 {
-                    OnActivityIdChanging(value);
-                    ReportPropertyChanging("ActivityId");
-                    _ActivityId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ActivityId");
-                    OnActivityIdChanged();
+                    OnRigActivityIdChanging(value);
+                    ReportPropertyChanging("RigActivityId");
+                    _RigActivityId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RigActivityId");
+                    OnRigActivityIdChanged();
                 }
             }
         }
-        private global::System.Int32 _ActivityId;
-        partial void OnActivityIdChanging(global::System.Int32 value);
-        partial void OnActivityIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> RigId
-        {
-            get
-            {
-                return _RigId;
-            }
-            set
-            {
-                OnRigIdChanging(value);
-                ReportPropertyChanging("RigId");
-                _RigId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("RigId");
-                OnRigIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _RigId;
-        partial void OnRigIdChanging(Nullable<global::System.Int32> value);
-        partial void OnRigIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> WellId
-        {
-            get
-            {
-                return _WellId;
-            }
-            set
-            {
-                OnWellIdChanging(value);
-                ReportPropertyChanging("WellId");
-                _WellId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("WellId");
-                OnWellIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _WellId;
-        partial void OnWellIdChanging(Nullable<global::System.Int32> value);
-        partial void OnWellIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> CompletionTypeId
-        {
-            get
-            {
-                return _CompletionTypeId;
-            }
-            set
-            {
-                OnCompletionTypeIdChanging(value);
-                ReportPropertyChanging("CompletionTypeId");
-                _CompletionTypeId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CompletionTypeId");
-                OnCompletionTypeIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _CompletionTypeId;
-        partial void OnCompletionTypeIdChanging(Nullable<global::System.Int32> value);
-        partial void OnCompletionTypeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Comment
-        {
-            get
-            {
-                return _Comment;
-            }
-            set
-            {
-                OnCommentChanging(value);
-                ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Comment");
-                OnCommentChanged();
-            }
-        }
-        private global::System.String _Comment;
-        partial void OnCommentChanging(global::System.String value);
-        partial void OnCommentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> StartAt
-        {
-            get
-            {
-                return _StartAt;
-            }
-            set
-            {
-                OnStartAtChanging(value);
-                ReportPropertyChanging("StartAt");
-                _StartAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("StartAt");
-                OnStartAtChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _StartAt;
-        partial void OnStartAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnStartAtChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> FinishAt
-        {
-            get
-            {
-                return _FinishAt;
-            }
-            set
-            {
-                OnFinishAtChanging(value);
-                ReportPropertyChanging("FinishAt");
-                _FinishAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("FinishAt");
-                OnFinishAtChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _FinishAt;
-        partial void OnFinishAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnFinishAtChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> ShowAt
-        {
-            get
-            {
-                return _ShowAt;
-            }
-            set
-            {
-                OnShowAtChanging(value);
-                ReportPropertyChanging("ShowAt");
-                _ShowAt = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ShowAt");
-                OnShowAtChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _ShowAt;
-        partial void OnShowAtChanging(Nullable<global::System.DateTime> value);
-        partial void OnShowAtChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_CompletionTypes", "CompletionTypes")]
-        public CompletionTypes CompletionType
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<CompletionTypes> CompletionTypeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_Rigs", "Rigs")]
-        public Rigs Rig
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Rigs> RigReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_Wells", "Wells")]
-        public Wells Well
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Wells> WellReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "CompletionActivityRelations")]
-        public EntityCollection<CompletionActivityRelations> CompletionActivityRelations
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivityRelations>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivityRelations");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivityRelations>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivityRelations", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="CompletionActivityRelations")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class CompletionActivityRelations : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new CompletionActivityRelations object.
-        /// </summary>
-        /// <param name="activityId">Initial value of the ActivityId property.</param>
-        /// <param name="companyId">Initial value of the CompanyId property.</param>
-        /// <param name="assemblyTypeId">Initial value of the AssemblyTypeId property.</param>
-        public static CompletionActivityRelations CreateCompletionActivityRelations(global::System.Int32 activityId, global::System.Int32 companyId, global::System.Int32 assemblyTypeId)
-        {
-            CompletionActivityRelations completionActivityRelations = new CompletionActivityRelations();
-            completionActivityRelations.ActivityId = activityId;
-            completionActivityRelations.CompanyId = companyId;
-            completionActivityRelations.AssemblyTypeId = assemblyTypeId;
-            return completionActivityRelations;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ActivityId
-        {
-            get
-            {
-                return _ActivityId;
-            }
-            set
-            {
-                if (_ActivityId != value)
-                {
-                    OnActivityIdChanging(value);
-                    ReportPropertyChanging("ActivityId");
-                    _ActivityId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ActivityId");
-                    OnActivityIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ActivityId;
-        partial void OnActivityIdChanging(global::System.Int32 value);
-        partial void OnActivityIdChanged();
+        private global::System.Int32 _RigActivityId;
+        partial void OnRigActivityIdChanging(global::System.Int32 value);
+        partial void OnRigActivityIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1670,6 +1308,30 @@ namespace DOSB.Models
         private global::System.String _Comment;
         partial void OnCommentChanging(global::System.String value);
         partial void OnCommentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ShowAt
+        {
+            get
+            {
+                return _ShowAt;
+            }
+            set
+            {
+                OnShowAtChanging(value);
+                ReportPropertyChanging("ShowAt");
+                _ShowAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ShowAt");
+                OnShowAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ShowAt;
+        partial void OnShowAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnShowAtChanged();
 
         #endregion
     
@@ -1757,16 +1419,16 @@ namespace DOSB.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities")]
-        public CompletionActivities CompletionActivity
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "RigActivities")]
+        public RigActivities RigActivity
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RigActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "RigActivities").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RigActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "RigActivities").Value = value;
             }
         }
         /// <summary>
@@ -1774,17 +1436,17 @@ namespace DOSB.Models
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<CompletionActivities> CompletionActivityReference
+        public EntityReference<RigActivities> RigActivityReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<RigActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "RigActivities");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<RigActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "RigActivities", value);
                 }
             }
         }
@@ -1878,17 +1540,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_CompletionTypes", "CompletionActivities")]
-        public EntityCollection<CompletionActivities> CompletionActivities
+        public EntityCollection<RigActivities> CompletionActivities
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionActivities");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RigActivities>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionActivities");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionActivities", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RigActivities>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionActivities", value);
                 }
             }
         }
@@ -3059,6 +2721,368 @@ namespace DOSB.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="RigActivities")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class RigActivities : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new RigActivities object.
+        /// </summary>
+        /// <param name="activityId">Initial value of the ActivityId property.</param>
+        public static RigActivities CreateRigActivities(global::System.Int32 activityId)
+        {
+            RigActivities rigActivities = new RigActivities();
+            rigActivities.ActivityId = activityId;
+            return rigActivities;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ActivityId
+        {
+            get
+            {
+                return _ActivityId;
+            }
+            set
+            {
+                if (_ActivityId != value)
+                {
+                    OnActivityIdChanging(value);
+                    ReportPropertyChanging("ActivityId");
+                    _ActivityId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ActivityId");
+                    OnActivityIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ActivityId;
+        partial void OnActivityIdChanging(global::System.Int32 value);
+        partial void OnActivityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> RigId
+        {
+            get
+            {
+                return _RigId;
+            }
+            set
+            {
+                OnRigIdChanging(value);
+                ReportPropertyChanging("RigId");
+                _RigId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RigId");
+                OnRigIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _RigId;
+        partial void OnRigIdChanging(Nullable<global::System.Int32> value);
+        partial void OnRigIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WellId
+        {
+            get
+            {
+                return _WellId;
+            }
+            set
+            {
+                OnWellIdChanging(value);
+                ReportPropertyChanging("WellId");
+                _WellId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WellId");
+                OnWellIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WellId;
+        partial void OnWellIdChanging(Nullable<global::System.Int32> value);
+        partial void OnWellIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CompletionTypeId
+        {
+            get
+            {
+                return _CompletionTypeId;
+            }
+            set
+            {
+                OnCompletionTypeIdChanging(value);
+                ReportPropertyChanging("CompletionTypeId");
+                _CompletionTypeId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CompletionTypeId");
+                OnCompletionTypeIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CompletionTypeId;
+        partial void OnCompletionTypeIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCompletionTypeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Comment
+        {
+            get
+            {
+                return _Comment;
+            }
+            set
+            {
+                OnCommentChanging(value);
+                ReportPropertyChanging("Comment");
+                _Comment = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Comment");
+                OnCommentChanged();
+            }
+        }
+        private global::System.String _Comment;
+        partial void OnCommentChanging(global::System.String value);
+        partial void OnCommentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> StartAt
+        {
+            get
+            {
+                return _StartAt;
+            }
+            set
+            {
+                OnStartAtChanging(value);
+                ReportPropertyChanging("StartAt");
+                _StartAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartAt");
+                OnStartAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _StartAt;
+        partial void OnStartAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnStartAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> FinishAt
+        {
+            get
+            {
+                return _FinishAt;
+            }
+            set
+            {
+                OnFinishAtChanging(value);
+                ReportPropertyChanging("FinishAt");
+                _FinishAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FinishAt");
+                OnFinishAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _FinishAt;
+        partial void OnFinishAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnFinishAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> ShowAt
+        {
+            get
+            {
+                return _ShowAt;
+            }
+            set
+            {
+                OnShowAtChanging(value);
+                ReportPropertyChanging("ShowAt");
+                _ShowAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ShowAt");
+                OnShowAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _ShowAt;
+        partial void OnShowAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnShowAtChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_CompletionTypes", "CompletionTypes")]
+        public CompletionTypes CompletionType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CompletionTypes> CompletionTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CompletionTypes>("DOSBModel.FK_CompletionActivities_CompletionTypes", "CompletionTypes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_Rigs", "Rigs")]
+        public Rigs Rig
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Rigs> RigReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Rigs>("DOSBModel.FK_CompletionActivities_Rigs", "Rigs", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_Wells", "Wells")]
+        public Wells Well
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Wells> WellReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Wells>("DOSBModel.FK_CompletionActivities_Wells", "Wells", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities")]
+        public EntityCollection<CompletionActivities> CompletionActivities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="Rigs")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -3166,17 +3190,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_Rigs", "CompletionActivities")]
-        public EntityCollection<CompletionActivities> CompletionActivities
+        public EntityCollection<RigActivities> CompletionActivities
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivities_Rigs", "CompletionActivities");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RigActivities>("DOSBModel.FK_CompletionActivities_Rigs", "CompletionActivities");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivities_Rigs", "CompletionActivities", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RigActivities>("DOSBModel.FK_CompletionActivities_Rigs", "CompletionActivities", value);
                 }
             }
         }
@@ -4084,17 +4108,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivities_Wells", "CompletionActivities")]
-        public EntityCollection<CompletionActivities> CompletionActivities
+        public EntityCollection<RigActivities> CompletionActivities
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivities_Wells", "CompletionActivities");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RigActivities>("DOSBModel.FK_CompletionActivities_Wells", "CompletionActivities");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivities_Wells", "CompletionActivities", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RigActivities>("DOSBModel.FK_CompletionActivities_Wells", "CompletionActivities", value);
                 }
             }
         }

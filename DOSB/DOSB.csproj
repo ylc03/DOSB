@@ -100,13 +100,13 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\DOSBEntities.cs" />
-    <Compile Include="Models\EditableModels\EditableCompletionActivity.cs" />
+    <Compile Include="Models\EditableModels\EditableRigActivity.cs" />
     <Compile Include="Models\EditableModels\EditableWorkshopActivity.cs" />
     <Compile Include="Models\EditableModels\EditablePressureTestLog.cs" />
     <Compile Include="Models\EditableModels\EditableTorqueLog.cs" />
     <Compile Include="Models\EditableModels\EditableEmployee.cs" />
     <Compile Include="Models\EditableRespositories\EditableWorkshopActivityRespository.cs" />
-    <Compile Include="Models\EditableRespositories\EditableCompletionActivityRespository.cs" />
+    <Compile Include="Models\EditableRespositories\EditableRigActivityRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditablePressureTestLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableTorqueLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableEmployeeRespository.cs" />

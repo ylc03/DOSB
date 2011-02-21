@@ -23,6 +23,8 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
+            EditableRigActivityRespository.ActivitiesOnMonth(new DateTime(2010, 12, 5));
+
             return View();
         }
 
@@ -33,7 +35,7 @@ namespace DOSB.Controllers
         [GridAction]
         public ActionResult _SelectAjax()
         { 
-            return View(new GridModel(EditableCompletionActivityRespository.ActivitiesOnMonth(DateTime.Now)));
+            return View(new GridModel(EditableRigActivityRespository.ActivitiesOnMonth(DateTime.Now)));
         }
     }
 }

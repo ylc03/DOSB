@@ -9,7 +9,7 @@ using DOSB.Models;
 
 namespace DOSB.Models.EditableModels
 {
-    public class EditableCompletionActivity
+    public class EditableRigActivity
     {
         [ReadOnly(true)]
         [ScaffoldColumn(false)]
@@ -21,10 +21,12 @@ namespace DOSB.Models.EditableModels
 
         public CompletionTypes CompletionType {get; set;}
 
-        public IList<CompletionActivityRelations> Jobs { get; set; }
+        public IList<CompletionActivities> CompletionActivities { get; set; }
 
         public string Comment { get; set; }
 
-        public DateTime? ShowAt { get; set; }
+        public DateTime? StartAt { get; set; }
+
+        public DateTime? FinishAt { get; set; }
     }
 }
