@@ -1,0 +1,76 @@
+﻿			/*demo style from jquery-ui css*/
+body 
+{
+    font: 70% "Trebuchet MS", sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+}
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color:#ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color:#ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+.content-container {
+    background-color: #FFFFFF;
+    margin-left: auto;
+    margin-right: auto;
+    width:1800px;
+    
+}
+
+.header {
+    height: 80px;
+    
+}
+
+.logo-box {
+    float: left;
+    height: 75px;
+    overflow: hidden;
+    width: 190px;
+}
+
+.header-menu
+{
+    float: right;
+    margin-right: 10px;    
+}
+
+.menu-top 
+{
+    border-top: 2px solid #003366;
+    padding-top: 1px;
+    height: 33px;
+    position: relative;
+}
+

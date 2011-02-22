@@ -1,0 +1,98 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head id="head" runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <%: Html.Telerik().StyleSheetRegistrar()
+                    .DefaultGroup(group => group.Add("datatables_ui.css")
+                                                .Add("flick/jquery-ui-1.8.7.css"))
+    %>
+    
+    <link href="/Content/CompletionActivity.css" rel="Stylesheet" type="text/css"/>
+    <link href="/Content/Menu/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/Content/Menu/default.ultimate.css" media="screen" rel="stylesheet" type="text/css" />
+
+        <% Html.Telerik().ScriptRegistrar()
+                     .DefaultGroup(group => group
+                         .Add("jquery-1.4.3.min.js")
+                         .Add("jquery-ui-1.8.7.min.js")
+                         .Add("jquery.dataTables.min.js")
+                         .Compress(true))
+                     .Render(); %>
+    
+    <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
+
+</head>
+<body>
+<div class="body-overlay">
+<div class="content-container">
+
+<div class="header">
+    <div class="logo-box">
+        <a href="/">
+            <img width="190" height="88" border="0" alt="Schlumberger" src="/Content/Images/logo_slb_header.gif" /> 
+        </a>
+    </div>
+     
+     <h1 style="margin-left: 350px; float: left; ">Completion Activity</h1>
+
+     <div class="header-menu">
+            <a href=".">Login</a> | 
+            <a href=".">About</a> | 
+            <a href=".">Contact us</a>
+     </div>
+</div>
+
+<div class="menu-top">
+<ul id="nav" class="dropdown dropdown-horizontal">
+	<li><a href="/">Home</a></li>
+	<li><span class="dir">Workshop</span>
+		<ul>
+			<li><a href="/WorkshopDailyActivity">Daily Activities PVD</a></li>
+			<li><a href="/PressureTestLog">Pressure Test Log</a></li>
+            <li><a href="/TorqueLog">Torque Log</a></li>
+            <li><a href="./">Technical Reception</a></li>
+			<li><span class="dir">KPI</span>
+				<ul>
+					<li><a href="./">KPI 1</a></li>
+					<li><a href="./">KPI 2</a></li>
+					<li><a href="./">KPI 3</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li><span class="dir">Job</span>
+		<ul>
+			<li><a href="./">RMC PVD</a></li>
+			<li><a href="./">CC PVD</a></li>
+			<li><a href="./">OH PVD</a></li>
+			<li class="divider"><a href="./">More...</a></li>
+		</ul>
+	</li>
+	<li><span class="dir">Employee</span>
+		<ul>
+			<li><a href="./">RMC</a></li>
+			<li><a href="./">CC</a></li>
+			<li><a href="./">Operators</a></li>
+			<li class="divider"><a href="/Employee">All...</a></li>
+		</ul>
+	</li>
+
+    <li><span class="dir">Material</span>
+		<ul>
+			<li><a href="/Material">Request</a></li>
+		</ul>
+	</li>
+</ul>
+</div>
+    <div id="content">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+</div><!--content container-->
+</div>
+</body>
+</html>
+
