@@ -89,6 +89,14 @@
     <Compile Include="GlobalConstant.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\CActivity.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CActivity.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CActivity\EditableAssemblyType.cs" />
+    <Compile Include="Models\CActivity\EditableCActivity.cs" />
+    <Compile Include="Models\CActivity\EditableCompletionRelation.cs" />
     <Compile Include="Models\CPL.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -257,6 +265,14 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Models\CActivity.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>CActivity.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Models\CActivity.dbml.layout">
+      <DependentUpon>CActivity.dbml</DependentUpon>
+    </None>
     <None Include="Models\CPL.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>CPL.designer.cs</LastGenOutput>
@@ -283,6 +299,7 @@
   <ItemGroup>
     <WebReferences Include="Web References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/CompletionActivity.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Index
+	Completion Activity
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -10,7 +10,7 @@
         $('#example').dataTable({
 		    "bJQueryUI": true,
 		    "sPaginationType": "full_numbers",
-	        "bProcessing": true,
+	        "bProcessing": false,
 		    "bServerSide": true,
 		    "sAjaxSource": "/CompletionActivity/_SelectAjax"
 	    } );
@@ -24,6 +24,7 @@
 <table cellspacing="0" cellpadding="0" border="0" id="example" class="display">
 	<thead>
 		<tr>
+            <th rowspan="2" >Id</th>
             <th rowspan="2" >Clinet</th>
 			<th rowspan="2" >Country</th>
 			<th rowspan="2" >Rigs</th>
@@ -32,89 +33,81 @@
             <th rowspan="2" >Well Type</th>
             <th rowspan="2" >Completion Type</th>
             <th rowspan="2" >Status</th>
-            <th colspan="6" class="ui-state-default">Upper Completions</th>        
-            <th colspan="10" class="ui-state-default" >Lower Completions</th>
+            <% IList<DOSB.Models.EditableModels.EditableAssemblyType> ls1 = DOSB.Models.EditableRespositories.AssemblyTypeRespository.ListUpper();
+                 %>
+            <th colspan="<%=ls1.Count %>" class="ui-state-default">Upper Completions</th>        
+            <% IList<DOSB.Models.EditableModels.EditableAssemblyType> ls2 = DOSB.Models.EditableRespositories.AssemblyTypeRespository.ListLower();
+                 %>
+            <th colspan="<%=ls2.Count %>" class="ui-state-default" >Lower Completions</th>
             <th rowspan="2" >Comments</th>         
             <th rowspan="2" >DESC Engineer</th>
         </tr>
+
+
         <tr>
-			<th class="bl">TRSV</th>
-			<th>WRSV</th>
-            <th>Packers</th>
-            <th>PDHMS</th>
-            <th>SSD</th>
-            <th class="br">MFIV</th>
-            
-            <th class="bl">LH</th>
-			<th>Packers</th>
-            <th>ICD</th>
-            <th>PDHMS</th>
-            <th>SSD</th>
-            <th>MFIV</th>
-            <th>Flow Control</th>
-            <th>Screens</th>
-            <th>DTS</th>
-            <th class="br">LBFIV</th>
+
+        <%  foreach (DOSB.Models.EditableModels.EditableAssemblyType item in ls1)
+            { %>
+        <th><%=item.Assembly_Name %></th>
+        <% } %>
+
+        <%  foreach (DOSB.Models.EditableModels.EditableAssemblyType item in ls2 )
+            { %>
+        <th><%=item.Assembly_Name %></th>
+        <% } %>
             
 	    </tr>
 	</thead>
 	
     <tbody>
+		<% bool alterRow = false;
+		    foreach (var row in Model )
+     {
+         string backColor = "#FFFFFF";
+         if (alterRow) backColor = "#00FF00";
+         alterRow = !alterRow;
+                %>
+
         <tr class="gradeA">
-			<td class="center">SA</td>
-			<td class="center">Saudi</td>
-			<td class="center">ENSCO-95</td>
-			<td class="center">SFNY-601</td>
-			<td class="center">SFNY</td>
-            <td class="center">Oil</td>
-            <td class="center">OH ICD</td>
-            <td class="center">Develop</td>
-            <td class="center" style=" background-color:#0099FF">BHI</td>
-            <td class="center"></td>
-            <td class="center" style=" background-color:#0099FF">BHI</td>
-            <td class="center" style=" background-color:#0099FF">BHI</td>
-            <td></td>
-            <td></td>
-            <td class="center" style=" background-color:#0099FF">BHI</td>
-            <td class="center" style=" background-color:Red">HLS</td>
-            <td class="center" style=" background-color:#0099FF">BHI</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="center" style=" background-color:#0099FF">BHI</td>
-            <td>BHI TTR for 350 um ICD</td>
-            <td>AAA</td>
+			<td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.ActivityId%></td>
+            <td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.ClientName%></td>
+			<td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.CountryName%></td>
+			<td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.RigName%></td>
+			<td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.WellName%></td>
+			<td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.FieldName%></td>
+            <td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.WellTypeName%></td>
+            <td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.CompTypeName%></td>
+            <td rowspan="2" class="center" style="background-color:<%=backColor%>"><%=row.WellStatus%></td>
+
+            <%IList<DOSB.Models.EditableModels.EditableCompletionRelation> ls3 = DOSB.Models.EditableRespositories.EditableCompletionRelationRespository.ListAllUpper(row.ActivityId);
+              foreach (var subRow1 in ls3)
+              { %>
+            <td class="center" style='background-color:<%=subRow1.CoColor%>;color:<%=subRow1.CoTxtColor%>'><%=subRow1.CoName%></td>
+            <%} %>
+
+            <%IList<DOSB.Models.EditableModels.EditableCompletionRelation> ls4 = DOSB.Models.EditableRespositories.EditableCompletionRelationRespository.ListAllLower(row.ActivityId);
+              foreach (var subRow2 in ls4)
+              { %>
+            <td class="center" style='background-color:<%=subRow2.CoColor%>;color:<%=subRow2.CoTxtColor%>'><%=subRow2.CoName%></td>
+            <%} %>
+
+
+            <td rowspan="2" style="background-color:<%=backColor%>"><%=row.Comment%></td>
+            <td rowspan="2" style="background-color:<%=backColor%>">AAA</td>
 		</tr>
-		
-        <tr class="gradeA">
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="center">4.5TE-5</td>
-            <td></td>
-            <td class="center">Premier</td>
-            <td class="center">PDHMS</td>
-            <td></td>
-            <td></td>
-            <td class="center">SLZXP</td>
-            <td class="center">Constrivtor</td>
-            <td class="center">5 EQUALIZER</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="center">BFLCV</td>
-		</tr>
+
+        <tr>
+            <%foreach (var subRow1 in ls3)  { %>
+            <td><%=subRow1.RComment%></td>
+            <%} %>
+
+            <%foreach (var subRow2 in ls4) { %>
+            <td><%=subRow2.RComment%></td>
+            <%} %>
+        </tr>
+
+         <% } %>
+       
     </tbody> 
 </table>
 </asp:Content>

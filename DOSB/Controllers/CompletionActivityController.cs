@@ -23,9 +23,8 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
-            EditableRigActivityRespository.ActivitiesOnMonth(new DateTime(2010, 12, 5));
-
-            return View();
+         //   EditableRigActivityRespository.ActivitiesOnMonth(new DateTime(2010, 12, 5));
+            return View(EditableCActivityRespository.ListAll());
         }
 
         /// <summary>

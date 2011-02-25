@@ -584,7 +584,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque", Storage="_ApprovedTorques", ThisKey="EmployeeId", OtherKey="TorqueId", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs", Storage="_ApprovedTorques", ThisKey="EmployeeId", OtherKey="TorqueId", IsUnique=true, IsForeignKey=false)]
 		internal TorqueLogs ApprovedTorques
 		{
 			get
@@ -613,7 +613,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque1", Storage="_PerfomedTorques", ThisKey="EmployeeId", OtherKey="TorqueBy")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs1", Storage="_PerfomedTorques", ThisKey="EmployeeId", OtherKey="TorqueBy")]
 		internal EntitySet<TorqueLogs> PerfomedTorques
 		{
 			get
@@ -2338,7 +2338,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque", Storage="_EmployeeApprover", ThisKey="TorqueId", OtherKey="EmployeeId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs", Storage="_EmployeeApprover", ThisKey="TorqueId", OtherKey="EmployeeId", IsForeignKey=true)]
 		public Employees EmployeeApprover
 		{
 			get
@@ -2372,7 +2372,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_Torque1", Storage="_EmployeePerfomer", ThisKey="TorqueBy", OtherKey="EmployeeId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employees_TorqueLogs1", Storage="_EmployeePerfomer", ThisKey="TorqueBy", OtherKey="EmployeeId", IsForeignKey=true)]
 		public Employees EmployeePerfomer
 		{
 			get

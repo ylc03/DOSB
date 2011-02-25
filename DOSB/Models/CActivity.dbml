@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOSB" Class="CActivityDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\DOSB.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DOSBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CompletionActivityRelations" Member="CompletionActivityRelations">
+    <Type Name="CompletionActivityRelation">
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AssemblyTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="CompletionActivity_CompletionActivityRelation" Member="CompletionActivity" ThisKey="ActivityId" OtherKey="ActivityId" Type="CompletionActivity" IsForeignKey="true" />
+      <Association Name="Assembly_Type_CompletionActivityRelation" Member="Assembly_Type" ThisKey="AssemblyTypeId" OtherKey="AssemblyType_Id" Type="Assembly_Type" IsForeignKey="true" />
+      <Association Name="Company_CompletionActivityRelation" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Type="Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Clients" Member="Clients">
+    <Type Name="Client">
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Client_Field" Member="Fields" ThisKey="ClientId" OtherKey="ClientId" Type="Field" />
+      <Association Name="Country_Client" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Countries" Member="Countries">
+    <Type Name="Country">
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Country_Client" Member="Clients" ThisKey="CountryId" OtherKey="CountryId" Type="Client" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Fields" Member="Fields">
+    <Type Name="Field">
+      <Column Name="FieldId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Field_Well" Member="Wells" ThisKey="FieldId" OtherKey="FieldId" Type="Well" />
+      <Association Name="Client_Field" Member="Client" ThisKey="ClientId" OtherKey="ClientId" Type="Client" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wells" Member="Wells">
+    <Type Name="Well">
+      <Column Name="WellId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FieldId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Well_CompletionActivity" Member="CompletionActivities" ThisKey="WellId" OtherKey="WellId" Type="CompletionActivity" />
+      <Association Name="Field_Well" Member="Field" ThisKey="FieldId" OtherKey="FieldId" Type="Field" IsForeignKey="true" />
+      <Association Name="WellType_Well" Member="WellType" ThisKey="TypeId" OtherKey="WellTypeId" Type="WellType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WellTypes" Member="WellTypes">
+    <Type Name="WellType">
+      <Column Name="WellTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="WellType_Well" Member="Wells" ThisKey="WellTypeId" OtherKey="TypeId" Type="Well" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CompletionActivities" Member="CompletionActivities">
+    <Type Name="CompletionActivity">
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RigId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WellId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="CompletionActivity_CompletionActivityRelation" Member="CompletionActivityRelations" ThisKey="ActivityId" OtherKey="ActivityId" Type="CompletionActivityRelation" />
+      <Association Name="Well_CompletionActivity" Member="Well" ThisKey="WellId" OtherKey="WellId" Type="Well" IsForeignKey="true" />
+      <Association Name="CompletionType_CompletionActivity" Member="CompletionType" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="CompletionType" IsForeignKey="true" />
+      <Association Name="Rig_CompletionActivity" Member="Rig" ThisKey="RigId" OtherKey="RigId" Type="Rig" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CompletionTypes" Member="CompletionTypes">
+    <Type Name="CompletionType">
+      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="CompletionType_CompletionActivity" Member="CompletionActivities" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="CompletionActivity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rigs" Member="Rigs">
+    <Type Name="Rig">
+      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Rig_CompletionActivity" Member="CompletionActivities" ThisKey="RigId" OtherKey="RigId" Type="CompletionActivity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwCompActivity" Member="vwCompActivities">
+    <Type Name="vwCompActivity">
+      <Column Name="FieldName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClientName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WellStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CompTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwLowerCompletionAssembly" Member="vwLowerCompletionAssemblies">
+    <Type Name="vwLowerCompletionAssembly">
+      <Column Name="AssemblyTypeId" Member="AssemblyType_Id" Storage="_AssemblyTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AssemblyName" Member="Assembly_Name" Storage="_AssemblyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComletionType" Member="Comletion_Type" Storage="_ComletionType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwUpperCompletionAssembly" Member="vwUpperCompletionAssemblies">
+    <Type Name="vwUpperCompletionAssembly">
+      <Column Name="AssemblyTypeId" Member="AssemblyType_Id" Storage="_AssemblyTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AssemblyName" Member="Assembly_Name" Storage="_AssemblyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComletionType" Member="Comletion_Type" Storage="_ComletionType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AssemblyType" Member="Assembly_Types">
+    <Type Name="Assembly_Type">
+      <Column Name="AssemblyTypeId" Member="AssemblyType_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AssemblyName" Member="Assembly_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ComletionType" Member="Comletion_Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Assembly_Type_CompletionActivityRelation" Member="CompletionActivityRelations" ThisKey="AssemblyType_Id" OtherKey="AssemblyTypeId" Type="CompletionActivityRelation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Companies" Member="Companies">
+    <Type Name="Company">
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CompaneColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="TextColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Association Name="Company_CompletionActivityRelation" Member="CompletionActivityRelations" ThisKey="CompanyId" OtherKey="CompanyId" Type="CompletionActivityRelation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwCompletionActivityRelations" Member="vwCompletionActivityRelations">
+    <Type Name="vwCompletionActivityRelation">
+      <Column Name="ComletionType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CoName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CoColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="CoTxtColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="RComment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AssemblyTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
