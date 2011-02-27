@@ -63,7 +63,7 @@
 		<% bool alterRow = false;
 		    foreach (var row in Model )
      {
-         string backColor = "#FFFFFF";
+          string backColor = "#FFFFFF";
          if (alterRow) backColor = "#00FF00";
          alterRow = !alterRow;
                 %>

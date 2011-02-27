@@ -28,7 +28,7 @@ namespace DOSB.Models.EditableModels
         public string CoColor { get; set; }
         public string CoTxtColor { get; set; }
         public string RComment { get; set; }
-       
+      
     }
 }
 
@@ -53,14 +53,14 @@ namespace DOSB.Models.EditableRespositories
                               where tbl.ActivityId == ActivityID && tbl.ComletionType == "Upper Completions"
                               orderby tbl.AssemblyTypeId
                               select tbl;
-
+             string backColor;
             foreach (var row in dataResults)
             {
                 EditableCompletionRelation entityData = new EditableCompletionRelation();
 
                 entityData.ActivityId = row.ActivityId;
                 entityData.AssemblyTypeId = row.AssemblyTypeId;
-                entityData.CoColor = row.CoColor;
+                entityData.CoColor = row.CoColor == null ? backColor : row.CoColor;
                 entityData.ComletionType = row.ComletionType;
                 entityData.RComment = row.RComment == null ? "" : row.RComment;
                 entityData.CoName = row.CoName;
