@@ -28,16 +28,16 @@ namespace DOSB.Models.EditableModels
         public string CoColor { get; set; }
         public string CoTxtColor { get; set; }
         public string RComment { get; set; }
-      
+        
     }
 }
 
 namespace DOSB.Models.EditableRespositories
 {
 
-
     public class EditableCompletionRelationRespository
     {
+       
         /// <summary>
         /// Rig Activity in one month
         /// </summary>
@@ -53,7 +53,7 @@ namespace DOSB.Models.EditableRespositories
                               where tbl.ActivityId == ActivityID && tbl.ComletionType == "Upper Completions"
                               orderby tbl.AssemblyTypeId
                               select tbl;
-             string backColor;
+            
             foreach (var row in dataResults)
             {
                 EditableCompletionRelation entityData = new EditableCompletionRelation();
@@ -94,7 +94,7 @@ namespace DOSB.Models.EditableRespositories
 
                 entityData.ActivityId = row.ActivityId;
                 entityData.AssemblyTypeId = row.AssemblyTypeId;
-                entityData.CoColor = row.CoColor;
+                entityData.CoColor = row.CoColor == null ? backColor : row.CoColor;
                 entityData.ComletionType = row.ComletionType;
                 entityData.RComment = row.RComment == null ? "" : row.RComment;
                 entityData.CoName = row.CoName;
@@ -106,8 +106,10 @@ namespace DOSB.Models.EditableRespositories
             return result;
         }
 
-          
 
+
+
+        public static string backColor { get; set; }
     }
 }
 

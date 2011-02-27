@@ -63,9 +63,11 @@
 		<% bool alterRow = false;
 		    foreach (var row in Model )
      {
-          string backColor = "#FFFFFF";
-         if (alterRow) backColor = "#00FF00";
+         string backColor = "#DDFFDD";
+
+         if (alterRow) backColor = "#EEFFEE";
          alterRow = !alterRow;
+         DOSB.Models.EditableRespositories.EditableCompletionRelationRespository.backColor = backColor;
                 %>
 
         <tr class="gradeA">
@@ -81,10 +83,10 @@
 
             <%IList<DOSB.Models.EditableModels.EditableCompletionRelation> ls3 = DOSB.Models.EditableRespositories.EditableCompletionRelationRespository.ListAllUpper(row.ActivityId);
               foreach (var subRow1 in ls3)
-              { %>
+              {%>
             <td class="center" style='background-color:<%=subRow1.CoColor%>;color:<%=subRow1.CoTxtColor%>'><%=subRow1.CoName%></td>
             <%} %>
-
+            
             <%IList<DOSB.Models.EditableModels.EditableCompletionRelation> ls4 = DOSB.Models.EditableRespositories.EditableCompletionRelationRespository.ListAllLower(row.ActivityId);
               foreach (var subRow2 in ls4)
               { %>
@@ -98,11 +100,11 @@
 
         <tr>
             <%foreach (var subRow1 in ls3)  { %>
-            <td><%=subRow1.RComment%></td>
+            <td style="background-color:<%=backColor%>"><%=subRow1.RComment%></td>
             <%} %>
 
             <%foreach (var subRow2 in ls4) { %>
-            <td><%=subRow2.RComment%></td>
+            <td style="background-color:<%=backColor%>"><%=subRow2.RComment%></td>
             <%} %>
         </tr>
 
