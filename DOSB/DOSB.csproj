@@ -219,6 +219,8 @@
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\CompletionActivity\Index.aspx" />
+    <Content Include="Views\CompletionActivity\_DeleteAjax.ascx" />
+    <Content Include="Views\CompletionActivity\_EditAjax.ascx" />
     <Content Include="Views\Employee\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Material\Index.aspx" />

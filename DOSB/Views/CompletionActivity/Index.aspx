@@ -4,6 +4,7 @@
 	Completion Activity
 </asp:Content>
 
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
 <script language="javascript">
     $(document).ready(function () {
@@ -16,10 +17,216 @@
 	    } );
 } );
 
+function windowClose() {
+    $('.window-content').html("");
+    $('.message').html("");
+}
 </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+
+ <%: Html.Telerik().Grid<DOSB.Models.EditableModels.EditableCActivity>()
+                   .Name("CActivityGrid")
+        .ToolBar(toolbar => toolbar.Template(
+            "<span id='insert-button' class='ca-grid-action ca-button ca-state-default ca-grid-select' >Insert</span>"
+        ))
+      .DataKeys(keys => keys.Add(ca => ca.ActivityId))
+                   .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectAjax","CompletionActivity"))
+        .Columns(columns =>
+        {
+            columns.Bound(ca => ca.ActivityId).Title("ID").Filterable(false).Width(40);
+            columns.Bound(ca => ca.ClientName).Width(100);
+            columns.Bound(ca => ca.ActivityId).ClientTemplate("" +
+                "<span id='edit-button' class='ca-grid-action ca-button ca-state-default ca-grid-select' >Edit</span>" +
+                "<span id='delete-button' class='ca-grid-action ca-button ca-state-default ca-grid-select' >Delete</span>"
+            ).Title("Commands").Filterable(false);
+        }) // columns end
+    /*    .DetailView(detailView => detailView.ClientTemplate("<div class='torque-details'>" +
+            "<ul>" +
+                "<li><label>Torque ID:</label> <#=  ActivityId #> </li>" +
+                "<li><label>Part Number:</label> <#=  PartNumber #> </li>" +
+                "<li><label>Serial Number:</label> <#=  SerialNumber #> </li>" +
+                "<li><label>AssemblyType:</label> <#=  AssemblyType #> </li>" +
+                "<li><label>Attachment:</label> <a href='/Attachment/Download?guid=<#= AttachmentGuid #>'><#= Attachment #></a> </li>" +
+                "<li><label>Comment:</label> <#=  Comment #> </li>" +
+            "</ul>" +
+            "</div>")) 
+        .CellAction(cell => {
+            if (cell.Column.Member == "Defect")
+            {
+                cell.HtmlAttributes["style"] = "color: red;";
+            }
+        }) */
+        .Editable(editing => editing.Mode(GridEditMode.PopUp))
+        .Filterable()
+        .Pageable()
+    %>   
+
+    <% Html.Telerik().Window()
+           .Name("insert-window")
+           .Title("Insert Completion Activity")
+           .Visible(false)
+           .Draggable(false)
+           .Resizable(resizing => resizing.Enabled(false))
+           .Modal(true)
+           .Buttons(b => b.Close())
+           .Content(() =>
+           {%>
+           <div class="window-content">
+                
+           </div>
+           <div class="loading"></div>
+           <div class="message"></div>
+           <%})
+           .Width(400)
+           .Height(400)
+           .ClientEvents(events => events.OnClose("windowClose"))
+           .Render();
+    %>
+
+    <% Html.Telerik().Window()
+           .Name("edit-window")
+           .Title("Edit Completion Activity")
+           .Visible(false)
+           .Draggable(false)
+           .Resizable(resizing => resizing.Enabled(false))
+           .Modal(true)
+           .Buttons(b => b.Close())
+           .Content(() =>
+           {%>
+           <div class="window-content">
+                
+           </div>
+           <div class="loading"></div>
+           <div class="message"></div>
+           <%})
+           .Width(400)
+           .Height(400)
+           .ClientEvents(events => events.OnClose("windowClose"))
+           .Render();
+    %>
+
+    <% Html.Telerik().Window()
+           .Name("delete-window")
+           .Title("Delete Completion Activity")
+           .Visible(false)
+           .Draggable(false)
+           .Resizable(resizing => resizing.Enabled(false))
+           .Modal(true)
+           .Buttons(b => b.Close())
+           .Content(() =>
+           {%>
+           <div class="window-content">
+                
+           </div>
+           <div class="loading"></div>
+           <div class="message"></div>
+           <%})
+           .Width(400)
+           .Height(130)
+           .ClientEvents(events => events.OnClose("windowClose"))
+           .Render();
+    %>
+
+   
+<% Html.Telerik().ScriptRegistrar()
+    .OnDocumentReady(() => {%>
+        
+
+        // insert action
+        var insertWindow = $('#insert-window');
+        $('#insert-button').live('click', function (e) {
+            insertWindow.data('caWindow').center().open();
+            $('.loading', insertWindow).show();
+
+            $.get('/CompletionActivity/_EditAjax', {id: 0}, function (data){
+                $('.window-content', insertWindow).html(data);
+                $('.loading', insertWindow).hide();
+            })
+        })
+
+        $('.ca-grid-cancel', insertWindow).live('click', function(e){
+            insertWindow.data('caWindow').close();
+        })
+
+        $('.ca-grid-submit', insertWindow).live('click', function(e){
+            var Comment = $('textarea[name=Comment]');
+            var data =  'Comment=' + Comment.val());
+
+            $('.loading', insertWindow).show();
+            $.post('/CompletionActivity/_InsertAjax', data, function(response) {
+                $('.loading', insertWindow).hide();
+                $('.message', insertWindow).html(response);
+                $('#CActivityGrid').data('caGrid').rebind();
+            })
+        })
+
+        // edit action
+        var editWindow = $('#edit-window');
+        $('#edit-button').live('click', function (e) {
+            var tr = $(this).closest('tr')[0];
+            var dataItem = $('#CActivityGrid').data('caGrid').dataItem(tr);
+
+            editWindow.data('caWindow').center().open();
+            $('.loading', editWindow).show();
+
+            $.get('/CompletionActivity/_EditAjax', {id: dataItem.ActivityId}, function (data){
+                $('.window-content', editWindow).html(data);
+                $('.loading', editWindow).hide();
+            })
+        })
+
+        $('.ca-grid-cancel', editWindow).live('click', function(e){
+            editWindow.data('caWindow').close();
+        })
+
+        $('.ca-grid-submit', editWindow).live('click', function(e){
+            var ActivityId = $('input[name=ActivityId]');
+            var Comment = $('textarea[name=Comment]');;
+
+            var data = 'id=' + ActivityId.val()
+               + '&' + 'Comment=' + Comment.val();
+
+            $('.loading', editWindow).show();
+            $.post('/CompletionActivity/_EditAjax', data, function(response) {
+                $('.loading', editWindow).hide();
+                $('.message', editWindow).html(response);
+                $('#CActivityGrid').data('caGrid').rebind();
+            })
+        })
+        // delete action
+        var deleteWindow = $('#delete-window');
+        $('#delete-button').live('click', function(e){
+            var tr = $(this).closest('tr')[0];
+            var dataItem = $('#CActivityGrid').data('caGrid').dataItem(tr);
+
+            deleteWindow.data('caWindow').center().open();
+            $('.loading', deleteWindow).show();
+
+            $.get('/CompletionActivity/_DeleteAjax', {id: dataItem.ActivityId}, function (data){
+                $('.window-content', deleteWindow).html(data);
+                $('.loading', deleteWindow).hide();
+            })
+        })
+
+        $('.ca-grid-delete', deleteWindow).live('click', function(e){
+            var ActivityId = $('input[name=ActivityId]');
+            var data = 'id=' + ActivityId.val();
+            $('.loading', deleteWindow).show();
+            $.post('/CompletionActivity/_ConfirmDeleteAjax', data, function(response) {
+                $('.loading', deleteWindow).hide();
+                $('.message', deleteWindow).html(response);
+                deleteWindow.data('caWindow').close();
+                $('#CActivityGrid').data('caGrid').rebind();
+            })
+        })
+
+        $('.ca-grid-cancel', deleteWindow).live('click', function(e){
+            deleteWindow.data('caWindow').close();
+        })
+  <%}); %>
 
 <table cellspacing="0" cellpadding="0" border="0" id="example" class="display">
 	<thead>
@@ -83,7 +290,8 @@
 
             <%IList<DOSB.Models.EditableModels.EditableCompletionRelation> ls3 = DOSB.Models.EditableRespositories.EditableCompletionRelationRespository.ListAllUpper(row.ActivityId);
               foreach (var subRow1 in ls3)
-              {%>
+              {
+                  %>
             <td class="center" style='background-color:<%=subRow1.CoColor%>;color:<%=subRow1.CoTxtColor%>'><%=subRow1.CoName%></td>
             <%} %>
             
@@ -112,4 +320,10 @@
        
     </tbody> 
 </table>
+
+<hr /> <% //---------------------------------------- %>
+
+	   
+
+  
 </asp:Content>

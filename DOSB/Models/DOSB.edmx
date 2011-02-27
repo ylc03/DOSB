@@ -609,7 +609,7 @@
           <EntitySet Name="Clients" EntityType="DOSBModel.Clients" />
           <EntitySet Name="Companies" EntityType="DOSBModel.Companies" />
           <EntitySet Name="RigActivities" EntityType="DOSBModel.RigActivities" />
-          <EntitySet Name="CompletionActivities" EntityType="DOSBModel.CompletionActivities" />
+          <EntitySet Name="CompletionActivities" EntityType="DOSBModel.Completion_Activities" />
           <EntitySet Name="CompletionTypes" EntityType="DOSBModel.CompletionTypes" />
           <EntitySet Name="Countries" EntityType="DOSBModel.Countries" />
           <EntitySet Name="Fields" EntityType="DOSBModel.Fields" />
@@ -921,7 +921,7 @@
           <Property Type="DateTime" Name="FinishAt" />
           <Property Type="DateTime" Name="ShowAt" />
         </EntityType>
-        <EntityType Name="CompletionActivities">
+        <EntityType Name="Completion_Activities">
           <Key>
             <PropertyRef Name="RigActivityId" />
             <PropertyRef Name="CompanyId" />
@@ -996,7 +996,7 @@
         </EntityType>
         <Association Name="FK_CompletionActivityRelations_AssemblyType">
           <End Type="DOSBModel.AssemblyType" Role="AssemblyType" Multiplicity="1" />
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivityRelations" Multiplicity="*" />
+          <End Type="DOSBModel.Completion_Activities" Role="CompletionActivityRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AssemblyType">
               <PropertyRef Name="AssemblyTypeId" />
@@ -1032,7 +1032,7 @@
         </Association>
         <Association Name="FK_CompletionActivityRelations_Companies">
           <End Type="DOSBModel.Companies" Role="Companies" Multiplicity="1" />
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivityRelations" Multiplicity="*" />
+          <End Type="DOSBModel.Completion_Activities" Role="CompletionActivityRelations" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Companies">
               <PropertyRef Name="CompanyId" />
@@ -1080,7 +1080,7 @@
         </Association>
         <Association Name="FK_CompletionActivityRelations_CompletionActivities">
           <End Type="DOSBModel.RigActivities" Role="RigActivities" Multiplicity="1" />
-          <End Type="DOSBModel.CompletionActivities" Role="CompletionActivities" Multiplicity="*" />
+          <End Type="DOSBModel.Completion_Activities" Role="CompletionActivities" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RigActivities">
               <PropertyRef Name="ActivityId" />
@@ -1258,7 +1258,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CompletionActivities">
-            <EntityTypeMapping TypeName="DOSBModel.CompletionActivities">
+            <EntityTypeMapping TypeName="DOSBModel.Completion_Activities">
               <MappingFragment StoreEntitySet="CompletionActivityRelations">
                 <ScalarProperty Name="ShowAt" ColumnName="ShowAt" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -1392,9 +1392,9 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="DOSBModel.AssemblyType" Width="1.5" PointX="5.375" PointY="8.625" Height="1.5923063151041674" />
         <EntityTypeShape EntityType="DOSBModel.Clients" Width="1.5" PointX="7.625" PointY="14.25" Height="1.7566536458333317" />
-        <EntityTypeShape EntityType="DOSBModel.Companies" Width="1.5" PointX="7.625" PointY="10.875" Height="1.592306315104171" />
+        <EntityTypeShape EntityType="DOSBModel.Companies" Width="1.5" PointX="8.875" PointY="10.875" Height="1.7879850260416657" />
         <EntityTypeShape EntityType="DOSBModel.RigActivities" Width="1.5" PointX="3.125" PointY="10.875" Height="2.4140429687500031" />
-        <EntityTypeShape EntityType="DOSBModel.CompletionActivities" Width="1.5" PointX="5.375" PointY="10.875" Height="2.4140429687500031" />
+        <EntityTypeShape EntityType="DOSBModel.Completion_Activities" Width="2.5" PointX="5.375" PointY="10.875" Height="2.9417936197916656" />
         <EntityTypeShape EntityType="DOSBModel.CompletionTypes" Width="1.5" PointX="3.125" PointY="8.625" Height="1.4279589843750031" />
         <EntityTypeShape EntityType="DOSBModel.Countries" Width="1.5" PointX="9.875" PointY="14.25" Height="1.4279589843750031" />
         <EntityTypeShape EntityType="DOSBModel.Fields" Width="1.5" PointX="5.375" PointY="14.25" Height="1.7566536458333353" IsExpanded="true" />
@@ -1402,7 +1402,7 @@
         <EntityTypeShape EntityType="DOSBModel.Wells" Width="1.5" PointX="3.125" PointY="14.25" Height="2.2496956380208388" />
         <EntityTypeShape EntityType="DOSBModel.WellTypes" Width="1.5" PointX="0.875" PointY="14.25" Height="1.4279589843750031" />
         <AssociationConnector Association="DOSBModel.FK_CompletionActivityRelations_AssemblyType" >
-          <ConnectorPoint PointX="6.125" PointY="10.217306315104167" />
+          <ConnectorPoint PointX="6.125" PointY="10.412985026041666" />
           <ConnectorPoint PointX="6.125" PointY="10.875" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Clients_Countries" >
@@ -1414,8 +1414,8 @@
           <ConnectorPoint PointX="6.875" PointY="15.128326822916666" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_CompletionActivityRelations_Companies" >
-          <ConnectorPoint PointX="7.625" PointY="11.671153157552086" />
-          <ConnectorPoint PointX="6.875" PointY="11.671153157552086" />
+          <ConnectorPoint PointX="8.875" PointY="11.768992513020834" />
+          <ConnectorPoint PointX="7.875" PointY="11.768992513020834" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_CompletionActivities_CompletionTypes" >
           <ConnectorPoint PointX="3.875" PointY="10.052958984375003" />
@@ -1430,8 +1430,8 @@
           <ConnectorPoint PointX="3.875" PointY="13.7820849609375" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_CompletionActivityRelations_CompletionActivities" >
-          <ConnectorPoint PointX="4.625" PointY="12.082021484375002" />
-          <ConnectorPoint PointX="5.375" PointY="12.082021484375002" />
+          <ConnectorPoint PointX="4.625" PointY="12.345896809895834" />
+          <ConnectorPoint PointX="5.375" PointY="12.345896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="DOSBModel.FK_Wells_Fields" >
           <ConnectorPoint PointX="5.375" PointY="15.128326822916668" />

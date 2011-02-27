@@ -21,7 +21,7 @@ namespace DOSB.Models.EditableModels
 
         public CompletionTypes CompletionType {get; set;}
 
-        public IList<CompletionActivities> CompletionActivities { get; set; }
+        public IList<Completion_Activities> CompletionActivities { get; set; }
 
         public string Comment { get; set; }
 

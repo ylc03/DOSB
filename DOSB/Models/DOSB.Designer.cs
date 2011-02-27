@@ -27,14 +27,14 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_PressureTest_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "PressureTest", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.PressureTest), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "EmployeeRoles", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Employee), "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Role))]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Torque_Approver", "Employee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Employee), "Torque", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Torque), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_AssemblyType", "AssemblyType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.AssemblyType), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_AssemblyType", "AssemblyType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.AssemblyType), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Completion_Activities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Clients_Countries", "Countries", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Countries), "Clients", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Clients), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Fields_Clients", "Clients", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Clients), "Fields", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Fields), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_Companies", "Companies", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Companies), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_Companies", "Companies", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.Companies), "CompletionActivityRelations", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Completion_Activities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_CompletionTypes", "CompletionTypes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.CompletionTypes), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.RigActivities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_Rigs", "Rigs", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Rigs), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.RigActivities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivities_Wells", "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Wells), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.RigActivities), true)]
-[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "RigActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.RigActivities), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.CompletionActivities), true)]
+[assembly: EdmRelationshipAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "RigActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DOSB.Models.RigActivities), "CompletionActivities", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Completion_Activities), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Wells_Fields", "Fields", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.Fields), "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Wells), true)]
 [assembly: EdmRelationshipAttribute("DOSBModel", "FK_Wells_WellTypes", "WellTypes", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(DOSB.Models.WellTypes), "Wells", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DOSB.Models.Wells), true)]
 
@@ -283,18 +283,18 @@ namespace DOSB.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<CompletionActivities> CompletionActivities
+        public ObjectSet<Completion_Activities> CompletionActivities
         {
             get
             {
                 if ((_CompletionActivities == null))
                 {
-                    _CompletionActivities = base.CreateObjectSet<CompletionActivities>("CompletionActivities");
+                    _CompletionActivities = base.CreateObjectSet<Completion_Activities>("CompletionActivities");
                 }
                 return _CompletionActivities;
             }
         }
-        private ObjectSet<CompletionActivities> _CompletionActivities;
+        private ObjectSet<Completion_Activities> _CompletionActivities;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -494,9 +494,9 @@ namespace DOSB.Models
         /// <summary>
         /// Deprecated Method for adding a new object to the CompletionActivities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToCompletionActivities(CompletionActivities completionActivities)
+        public void AddToCompletionActivities(Completion_Activities completion_Activities)
         {
-            base.AddObject("CompletionActivities", completionActivities);
+            base.AddObject("CompletionActivities", completion_Activities);
         }
     
         /// <summary>
@@ -665,17 +665,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations")]
-        public EntityCollection<CompletionActivities> CompletionActivityRelations
+        public EntityCollection<Completion_Activities> CompletionActivityRelations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Completion_Activities>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Completion_Activities>("DOSBModel.FK_CompletionActivityRelations_AssemblyType", "CompletionActivityRelations", value);
                 }
             }
         }
@@ -1110,17 +1110,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_Companies", "CompletionActivityRelations")]
-        public EntityCollection<CompletionActivities> CompletionActivityRelations
+        public EntityCollection<Completion_Activities> CompletionActivityRelations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Completion_Activities>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Completion_Activities>("DOSBModel.FK_CompletionActivityRelations_Companies", "CompletionActivityRelations", value);
                 }
             }
         }
@@ -1131,26 +1131,26 @@ namespace DOSB.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="CompletionActivities")]
+    [EdmEntityTypeAttribute(NamespaceName="DOSBModel", Name="Completion_Activities")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class CompletionActivities : EntityObject
+    public partial class Completion_Activities : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new CompletionActivities object.
+        /// Create a new Completion_Activities object.
         /// </summary>
         /// <param name="rigActivityId">Initial value of the RigActivityId property.</param>
         /// <param name="companyId">Initial value of the CompanyId property.</param>
         /// <param name="assemblyTypeId">Initial value of the AssemblyTypeId property.</param>
-        public static CompletionActivities CreateCompletionActivities(global::System.Int32 rigActivityId, global::System.Int32 companyId, global::System.Int32 assemblyTypeId)
+        public static Completion_Activities CreateCompletion_Activities(global::System.Int32 rigActivityId, global::System.Int32 companyId, global::System.Int32 assemblyTypeId)
         {
-            CompletionActivities completionActivities = new CompletionActivities();
-            completionActivities.RigActivityId = rigActivityId;
-            completionActivities.CompanyId = companyId;
-            completionActivities.AssemblyTypeId = assemblyTypeId;
-            return completionActivities;
+            Completion_Activities completion_Activities = new Completion_Activities();
+            completion_Activities.RigActivityId = rigActivityId;
+            completion_Activities.CompanyId = companyId;
+            completion_Activities.AssemblyTypeId = assemblyTypeId;
+            return completion_Activities;
         }
 
         #endregion
@@ -3062,17 +3062,17 @@ namespace DOSB.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("DOSBModel", "FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities")]
-        public EntityCollection<CompletionActivities> CompletionActivities
+        public EntityCollection<Completion_Activities> CompletionActivities
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Completion_Activities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CompletionActivities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Completion_Activities>("DOSBModel.FK_CompletionActivityRelations_CompletionActivities", "CompletionActivities", value);
                 }
             }
         }
