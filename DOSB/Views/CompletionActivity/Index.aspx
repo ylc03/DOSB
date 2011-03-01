@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/CompletionActivity.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/CompletionActivity.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<DOSB.Models.EditableModels.EditableCActivity>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Completion Activity
@@ -6,7 +6,7 @@
 
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
-<script language="javascript">
+<script language="javascript" type="text/javascript">
     $(document).ready(function () {
         $('#example').dataTable({
 		    "bJQueryUI": true,
@@ -27,10 +27,10 @@ function windowClose() {
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
 
- <%: Html.Telerik().Grid<DOSB.Models.EditableModels.EditableCActivity>()
-                   .Name("CActivityGrid")
+ <%: Html.Telerik().Grid(Model)
+                        .Name("CompletionActivityGrid")
         .ToolBar(toolbar => toolbar.Template(
-            "<span id='insert-button' class='ca-grid-action ca-button ca-state-default ca-grid-select' >Insert</span>"
+                  "<span id='insert-button' class='t-grid-action t-button t-state-default t-grid-select' >Insert</span>"
         ))
       .DataKeys(keys => keys.Add(ca => ca.ActivityId))
                    .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectAjax","CompletionActivity"))
@@ -39,26 +39,10 @@ function windowClose() {
             columns.Bound(ca => ca.ActivityId).Title("ID").Filterable(false).Width(40);
             columns.Bound(ca => ca.ClientName).Width(100);
             columns.Bound(ca => ca.ActivityId).ClientTemplate("" +
-                "<span id='edit-button' class='ca-grid-action ca-button ca-state-default ca-grid-select' >Edit</span>" +
-                "<span id='delete-button' class='ca-grid-action ca-button ca-state-default ca-grid-select' >Delete</span>"
+                "<span id='edit-button' class='t-grid-action t-button t-state-default t-grid-select' >Edit</span>" +
+                "<span id='delete-button' class='t-grid-action t-button t-state-default t-grid-select' >Delete</span>"
             ).Title("Commands").Filterable(false);
-        }) // columns end
-    /*    .DetailView(detailView => detailView.ClientTemplate("<div class='torque-details'>" +
-            "<ul>" +
-                "<li><label>Torque ID:</label> <#=  ActivityId #> </li>" +
-                "<li><label>Part Number:</label> <#=  PartNumber #> </li>" +
-                "<li><label>Serial Number:</label> <#=  SerialNumber #> </li>" +
-                "<li><label>AssemblyType:</label> <#=  AssemblyType #> </li>" +
-                "<li><label>Attachment:</label> <a href='/Attachment/Download?guid=<#= AttachmentGuid #>'><#= Attachment #></a> </li>" +
-                "<li><label>Comment:</label> <#=  Comment #> </li>" +
-            "</ul>" +
-            "</div>")) 
-        .CellAction(cell => {
-            if (cell.Column.Member == "Defect")
-            {
-                cell.HtmlAttributes["style"] = "color: red;";
-            }
-        }) */
+        }) 
         .Editable(editing => editing.Mode(GridEditMode.PopUp))
         .Filterable()
         .Pageable()
@@ -138,7 +122,7 @@ function windowClose() {
         // insert action
         var insertWindow = $('#insert-window');
         $('#insert-button').live('click', function (e) {
-            insertWindow.data('caWindow').center().open();
+            insertWindow.data('tWindow').center().open();
             $('.loading', insertWindow).show();
 
             $.get('/CompletionActivity/_EditAjax', {id: 0}, function (data){
@@ -147,11 +131,11 @@ function windowClose() {
             })
         })
 
-        $('.ca-grid-cancel', insertWindow).live('click', function(e){
-            insertWindow.data('caWindow').close();
+        $('.t-grid-cancel', insertWindow).live('click', function(e){
+            insertWindow.data('tWindow').close();
         })
 
-        $('.ca-grid-submit', insertWindow).live('click', function(e){
+        $('.t-grid-submit', insertWindow).live('click', function(e){
             var Comment = $('textarea[name=Comment]');
             var data =  'Comment=' + Comment.val());
 
@@ -159,7 +143,7 @@ function windowClose() {
             $.post('/CompletionActivity/_InsertAjax', data, function(response) {
                 $('.loading', insertWindow).hide();
                 $('.message', insertWindow).html(response);
-                $('#CActivityGrid').data('caGrid').rebind();
+                $('#CompletionActivityGrid').data('tGrid').rebind();
             })
         })
 
@@ -167,9 +151,9 @@ function windowClose() {
         var editWindow = $('#edit-window');
         $('#edit-button').live('click', function (e) {
             var tr = $(this).closest('tr')[0];
-            var dataItem = $('#CActivityGrid').data('caGrid').dataItem(tr);
+            var dataItem = $('#CompletionActivityCActivityGrid').data('tGrid').dataItem(tr);
 
-            editWindow.data('caWindow').center().open();
+            editWindow.data('tWindow').center().open();
             $('.loading', editWindow).show();
 
             $.get('/CompletionActivity/_EditAjax', {id: dataItem.ActivityId}, function (data){
@@ -178,11 +162,11 @@ function windowClose() {
             })
         })
 
-        $('.ca-grid-cancel', editWindow).live('click', function(e){
+        $('.t-grid-cancel', editWindow).live('click', function(e){
             editWindow.data('caWindow').close();
         })
 
-        $('.ca-grid-submit', editWindow).live('click', function(e){
+        $('.t-grid-submit', editWindow).live('click', function(e){
             var ActivityId = $('input[name=ActivityId]');
             var Comment = $('textarea[name=Comment]');;
 
@@ -193,16 +177,16 @@ function windowClose() {
             $.post('/CompletionActivity/_EditAjax', data, function(response) {
                 $('.loading', editWindow).hide();
                 $('.message', editWindow).html(response);
-                $('#CActivityGrid').data('caGrid').rebind();
+                $('#CompletionActivityGrid').data('tGrid').rebind();
             })
         })
         // delete action
         var deleteWindow = $('#delete-window');
         $('#delete-button').live('click', function(e){
             var tr = $(this).closest('tr')[0];
-            var dataItem = $('#CActivityGrid').data('caGrid').dataItem(tr);
+            var dataItem = $('#CompletionActivityGrid').data('tGrid').dataItem(tr);
 
-            deleteWindow.data('caWindow').center().open();
+            deleteWindow.data('tWindow').center().open();
             $('.loading', deleteWindow).show();
 
             $.get('/CompletionActivity/_DeleteAjax', {id: dataItem.ActivityId}, function (data){
@@ -211,20 +195,20 @@ function windowClose() {
             })
         })
 
-        $('.ca-grid-delete', deleteWindow).live('click', function(e){
+        $('.t-grid-delete', deleteWindow).live('click', function(e){
             var ActivityId = $('input[name=ActivityId]');
             var data = 'id=' + ActivityId.val();
             $('.loading', deleteWindow).show();
             $.post('/CompletionActivity/_ConfirmDeleteAjax', data, function(response) {
                 $('.loading', deleteWindow).hide();
                 $('.message', deleteWindow).html(response);
-                deleteWindow.data('caWindow').close();
-                $('#CActivityGrid').data('caGrid').rebind();
+                deleteWindow.data('tWindow').close();
+                $('#CompletionActivityGrid').data('tGrid').rebind();
             })
         })
 
-        $('.ca-grid-cancel', deleteWindow).live('click', function(e){
-            deleteWindow.data('caWindow').close();
+        $('.t-grid-cancel', deleteWindow).live('click', function(e){
+            deleteWindow.data('tWindow').close();
         })
   <%}); %>
 

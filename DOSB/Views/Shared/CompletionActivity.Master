@@ -20,7 +20,7 @@
 
         <% Html.Telerik().ScriptRegistrar()
                      .DefaultGroup(group => group
-                         .Add("jquery-1.4.3.min.js")
+                         
                          .Add("jquery-ui-1.8.7.min.js")
                          .Add("jquery.dataTables.min.js")
                          .Add("jquery.jeditable.js")

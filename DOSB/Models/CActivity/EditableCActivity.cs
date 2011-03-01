@@ -13,8 +13,8 @@ namespace DOSB.Models.EditableModels
 {
     public class EditableCActivity
     {
-        [ReadOnly(true)]
-        [ScaffoldColumn(false)]
+       // [ReadOnly(true)]
+        //[ScaffoldColumn(false)]
         public int ActivityId { get; set; }
 
         public string  FieldName { get; set; }
