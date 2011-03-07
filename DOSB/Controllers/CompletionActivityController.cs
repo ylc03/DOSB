@@ -24,7 +24,7 @@ namespace DOSB.Controllers
         public ActionResult Index()
         {
          //   EditableRigActivityRespository.ActivitiesOnMonth(new DateTime(2010, 12, 5));
-            return View(EditableCActivityRespository.All());
+            return View(EditableRigActivityRespository.All());
         }
 
 
@@ -35,7 +35,7 @@ namespace DOSB.Controllers
         [GridAction]
         public ActionResult _SelectAjax()
         {
-            Telerik.Web.Mvc.GridModel grid = new GridModel(EditableCActivityRespository.All());
+            Telerik.Web.Mvc.GridModel grid = new GridModel(EditableRigActivityRespository.All());
 
             return View(grid);
         }
@@ -43,69 +43,18 @@ namespace DOSB.Controllers
      
         public ActionResult _EditAjax(int id)
         {
-            EditableCActivity target;
+            EditableRigActivity target;
             if (id == 0)
             {
-                target = new EditableCActivity();
+                target = new EditableRigActivity();
             }
             else
             {
-                target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
+                target = EditableRigActivityRespository.One(ra => ra.RigActivityId == id);
             }
 
            ///?????? ViewData["employees"] = GlobalConstant.GetAllEmployees();
             return View(target);
-        }
-
-        //[HttpPost]
-        //public ActionResult _EditAjax(int id)
-        //{
-        //    EditableCActivity target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
-
-        //    if (TryUpdateModel(target))
-        //    {
-
-        //        EditableCActivityRespository.Update(target);
-
-        //        storeDB.SaveChanges();
-
-        //        return Content("update succeeded!");
-        //    }
-
-        //    return Content("update failed!");
-        //}
-
-        [HttpPost]
-        public ActionResult _InsertAjax()
-        {
-            EditableCActivity target = new EditableCActivity();
-
-            if (TryUpdateModel(target))
-            {
-                EditableCActivityRespository.Insert(target);
-
-
-
-                    storeDB.SaveChanges();
-
-                return Content("insert succeeded!");
-            }
-
-            return Content("insert failed!");
-        }
-
-        public ActionResult _DeleteAjax(int id)
-        {
-            EditableCActivity target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
-            return View(target);
-        }
-
-        [HttpPost]
-        public ActionResult _ConfirmDeleteAjax(int id)
-        {
-            EditableCActivity target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
-            EditableCActivityRespository.Delete(target);
-            return Content("delete succeeded!");
         }
     }
 }

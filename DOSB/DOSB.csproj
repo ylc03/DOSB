@@ -94,27 +94,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CActivity.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\CActivity\EditableAssemblyType.cs" />
-    <Compile Include="Models\CActivity\EditableCActivity.cs" />
-    <Compile Include="Models\CActivity\EditableCompletionRelation.cs" />
-    <Compile Include="Models\CPL.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CPL.dbml</DependentUpon>
-    </Compile>
+    <Compile Include="Models\CActivity\AssemblyRespository.cs" />
+    <Compile Include="Models\CActivity\EditableRigActivity.cs" />
+    <Compile Include="Models\CActivity\EditableCompletionActivity.cs" />
     <Compile Include="Models\DOSB.Designer.cs">
       <DependentUpon>DOSB.edmx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\DOSBEntities.cs" />
-    <Compile Include="Models\EditableModels\EditableRigActivity.cs" />
     <Compile Include="Models\EditableModels\EditableWorkshopActivity.cs" />
     <Compile Include="Models\EditableModels\EditablePressureTestLog.cs" />
     <Compile Include="Models\EditableModels\EditableTorqueLog.cs" />
     <Compile Include="Models\EditableModels\EditableEmployee.cs" />
     <Compile Include="Models\EditableRespositories\EditableWorkshopActivityRespository.cs" />
-    <Compile Include="Models\EditableRespositories\EditableRigActivityRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditablePressureTestLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableTorqueLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableEmployeeRespository.cs" />
@@ -274,14 +267,6 @@
     </None>
     <None Include="Models\CActivity.dbml.layout">
       <DependentUpon>CActivity.dbml</DependentUpon>
-    </None>
-    <None Include="Models\CPL.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>CPL.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Models\CPL.dbml.layout">
-      <DependentUpon>CPL.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

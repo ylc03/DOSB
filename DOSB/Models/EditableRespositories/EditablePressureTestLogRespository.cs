@@ -17,7 +17,7 @@ namespace DOSB.Models.EditableRespositories
             if (result == null)
             {
                 HttpContext.Current.Session["PressureLogs"] = result =
-                    (from pressureTest in new CPLDataContext().PressureTestLogs
+                    (from pressureTest in new CActivityDataContext().PressureTestLogs
                      select new EditablePressureTestLog
                      {
                          PerssureTestId = pressureTest.PressureTestId,
