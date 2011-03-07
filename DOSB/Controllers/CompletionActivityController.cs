@@ -19,8 +19,6 @@ namespace DOSB.Controllers
 
         //
         // GET: /CompletionActivity/
-
-
         public ActionResult Index()
         {
          //   EditableRigActivityRespository.ActivitiesOnMonth(new DateTime(2010, 12, 5));
@@ -57,55 +55,19 @@ namespace DOSB.Controllers
             return View(target);
         }
 
-        //[HttpPost]
-        //public ActionResult _EditAjax(int id)
-        //{
-        //    EditableCActivity target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
-
-        //    if (TryUpdateModel(target))
-        //    {
-
-        //        EditableCActivityRespository.Update(target);
-
-        //        storeDB.SaveChanges();
-
-        //        return Content("update succeeded!");
-        //    }
-
-        //    return Content("update failed!");
-        //}
-
-        [HttpPost]
-        public ActionResult _InsertAjax()
+        /// <summary>
+        /// Month View Ext UI dynamic script
+        /// </summary>
+        /// <returns>JS file for month view</returns>
+        public ActionResult MonthViewJS()
         {
-            EditableCActivity target = new EditableCActivity();
+            CActivityDataContext storeDB = new CActivityDataContext();
+            ViewData["upper"] = storeDB.vwUpperCompletionAssemblies.ToList();
+            ViewData["upperCount"] = storeDB.vwUpperCompletionAssemblies.Count();
+            ViewData["lower"] = storeDB.vwLowerCompletionAssemblies.ToList();
+            ViewData["lowerCount"] = storeDB.vwLowerCompletionAssemblies.Count();
 
-            if (TryUpdateModel(target))
-            {
-                EditableCActivityRespository.Insert(target);
-
-
-
-                    storeDB.SaveChanges();
-
-                return Content("insert succeeded!");
-            }
-
-            return Content("insert failed!");
-        }
-
-        public ActionResult _DeleteAjax(int id)
-        {
-            EditableCActivity target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
-            return View(target);
-        }
-
-        [HttpPost]
-        public ActionResult _ConfirmDeleteAjax(int id)
-        {
-            EditableCActivity target = EditableCActivityRespository.One(ca => ca.ActivityId == id);
-            EditableCActivityRespository.Delete(target);
-            return Content("delete succeeded!");
+            return View();
         }
     }
 }

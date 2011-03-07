@@ -8,9 +8,6 @@
     </title>
     <%: Html.Telerik().StyleSheetRegistrar()
                     .DefaultGroup(group => group.Add("datatables_ui.css")
-                                                .Add("telerik.common.css")
-                                                .Add("telerik.vista.css")
-                                                .Add("telerik.examples.css")
                                                 .Add("flick/jquery-ui-1.8.7.css"))
     %>
     
@@ -24,16 +21,6 @@
                          .Add("jquery-ui-1.8.7.min.js")
                          .Add("jquery.dataTables.min.js")
                          .Add("jquery.jeditable.js")
-                         .Add("telerik.common.js")
-                         .Add("telerik.list.js")
-                         .Add("telerik.combobox.js")
-                         .Add("telerik.calendar.js")
-                         .Add("telerik.datepicker.js")
-                         .Add("telerik.timepicker.js")
-                         .Add("telerik.datetimepicker.js")
-                         .Add("swfupload.js")
-                         .Add("jquery-asyncUpload-0.1.js")
-                         
                          .Compress(true))
                      .Render(); %>
     

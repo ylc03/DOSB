@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.75" name="CActivity">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.25" name="CActivity">
   <DataContextMoniker Name="/CActivityDataContext" />
   <nestedChildShapes>
     <classShape Id="fee72b57-2b8e-426b-9caf-052c96547458" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/CompletionActivityRelation" />
       <nestedChildShapes>
-        <elementListCompartment Id="582c7866-9a46-4f78-8a1e-1459fba20659" absoluteBounds="4.765, 0.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="582c7866-9a46-4f78-8a1e-1459fba20659" absoluteBounds="4.765, 0.96, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="f933b822-e6b3-4851-b768-8b217a17a295" isExpanded="false" absoluteBounds="2.875, 2.5, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Client" />
       <nestedChildShapes>
-        <elementListCompartment Id="5583c4ed-9cae-49e3-a52e-4f216db42bde" absoluteBounds="2.89, 2.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5583c4ed-9cae-49e3-a52e-4f216db42bde" absoluteBounds="2.89, 2.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="f52dc13a-27ae-48a2-be60-9a64eefefc11" isExpanded="false" absoluteBounds="6.125, 1.75, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Country" />
       <nestedChildShapes>
-        <elementListCompartment Id="d3914372-de81-425b-9d03-e84da3cdbc96" absoluteBounds="6.14, 2.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d3914372-de81-425b-9d03-e84da3cdbc96" absoluteBounds="6.14, 2.21, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.125 : 1.975); (5.52083333333333 : 1.975 : JumpStart); (5.35416666666667 : 1.975 : JumpEnd); (3.875 : 1.975); (3.875 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.125 : 1.975); (5.52083333333333 : 1.975 : JumpStart); (5.35416666666667 : 1.975 : JumpEnd); (3.875 : 1.975); (3.875 : 2.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CActivityDataContext/Country/Country_Client" />
       <nodes>
         <classShapeMoniker Id="f52dc13a-27ae-48a2-be60-9a64eefefc11" />
@@ -30,10 +30,10 @@
     <classShape Id="327d68e7-2525-4a27-b16d-1b5cd77e86bf" isExpanded="false" absoluteBounds="5.625, 3.25, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Field" />
       <nestedChildShapes>
-        <elementListCompartment Id="3b9900da-b789-452c-a535-30b53a065a94" absoluteBounds="5.64, 3.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3b9900da-b789-452c-a535-30b53a065a94" absoluteBounds="5.64, 3.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.875 : 2.95); (5.07887444242623 : 3.03154977697049 : JumpStart); (5.23362055757377 : 3.09344822302951 : JumpEnd); (5.36012694242623 : 3.14405077697049 : JumpStart); (5.51487305757377 : 3.20594922302951 : JumpEnd); (5.625 : 3.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.875 : 2.95); (5.36012694242623 : 3.14405077697049 : JumpStart); (5.51487305757377 : 3.20594922302951 : JumpEnd); (5.625 : 3.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CActivityDataContext/Client/Client_Field" />
       <nodes>
         <classShapeMoniker Id="f933b822-e6b3-4851-b768-8b217a17a295" />
@@ -43,7 +43,7 @@
     <classShape Id="30ee244d-f96e-42d1-92c8-b612e93e540b" isExpanded="false" absoluteBounds="1.375, 4.75, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Well" />
       <nestedChildShapes>
-        <elementListCompartment Id="7bb40ea6-ce3d-4d54-b552-aa2abe749e70" absoluteBounds="1.3900000000000001, 5.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7bb40ea6-ce3d-4d54-b552-aa2abe749e70" absoluteBounds="1.3900000000000001, 5.21, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(5.625 : 3.4375025); (5.52083333333333 : 3.4375025 : JumpStart); (5.35416666666667 : 3.4375025 : JumpEnd); (5.23958083333333 : 3.4375025 : JumpStart); (5.07291416666667 : 3.4375025 : JumpEnd); (2.96875 : 3.4375025); (2.96875 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
@@ -56,7 +56,7 @@
     <classShape Id="ab767b9d-5ac2-458a-ae5d-72ea7123afe0" isExpanded="false" absoluteBounds="0.5, 3.625, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/WellType" />
       <nestedChildShapes>
-        <elementListCompartment Id="369a7b3b-b891-4353-bcb5-4234e5439d5d" absoluteBounds="0.515, 4.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="369a7b3b-b891-4353-bcb5-4234e5439d5d" absoluteBounds="0.515, 4.085, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <associationConnector edgePoints="[(1.9375 : 4.075); (1.9375 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
@@ -66,33 +66,33 @@
         <classShapeMoniker Id="30ee244d-f96e-42d1-92c8-b612e93e540b" />
       </nodes>
     </associationConnector>
-    <classShape Id="23d13398-ee4b-4b1e-a84d-6d971e375ad3" absoluteBounds="4.5, 4, 2, 2.3478011067708326">
+    <classShape Id="23d13398-ee4b-4b1e-a84d-6d971e375ad3" absoluteBounds="4.5, 4, 2, 2.0822371419270826">
       <DataClassMoniker Name="/CActivityDataContext/CompletionActivity" />
       <nestedChildShapes>
-        <elementListCompartment Id="ee144fee-251a-466f-bf75-5185896ecbf7" absoluteBounds="4.515, 4.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ee144fee-251a-466f-bf75-5185896ecbf7" absoluteBounds="4.515, 4.46, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5.4375 : 4); (5.4375 : 0.95)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.4375 : 4); (5.4375 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CActivityDataContext/CompletionActivity/CompletionActivity_CompletionActivityRelation" />
       <nodes>
         <classShapeMoniker Id="23d13398-ee4b-4b1e-a84d-6d971e375ad3" />
         <classShapeMoniker Id="fee72b57-2b8e-426b-9caf-052c96547458" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.375 : 4.84375); (4.5 : 4.84375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.375 : 4.975); (4.5 : 4.975)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CActivityDataContext/Well/Well_CompletionActivity" />
       <nodes>
         <classShapeMoniker Id="30ee244d-f96e-42d1-92c8-b612e93e540b" />
         <classShapeMoniker Id="23d13398-ee4b-4b1e-a84d-6d971e375ad3" />
       </nodes>
     </associationConnector>
-    <classShape Id="983d9126-1199-4a06-84d0-dfc900f4577c" isExpanded="false" absoluteBounds="6.5, 4.625, 2, 0.45">
+    <classShape Id="983d9126-1199-4a06-84d0-dfc900f4577c" isExpanded="false" absoluteBounds="7, 4.625, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/CompletionType" />
       <nestedChildShapes>
-        <elementListCompartment Id="dc7e443a-a63e-4b2f-b4f0-558216055214" absoluteBounds="6.5150000000000006, 5.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dc7e443a-a63e-4b2f-b4f0-558216055214" absoluteBounds="7.0150000000000006, 5.085, 1.9700000000000002, 0.53615315755208326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.53125 : 5.075); (7.53125 : 5.71140105338542); (6.5 : 5.71140105338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 4.85); (6.5 : 4.85)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/CActivityDataContext/CompletionType/CompletionType_CompletionActivity" />
       <nodes>
         <classShapeMoniker Id="983d9126-1199-4a06-84d0-dfc900f4577c" />
@@ -102,64 +102,64 @@
     <classShape Id="d7501164-6350-4e4a-9c7a-4676f2f816c6" isExpanded="false" absoluteBounds="6.25, 2.375, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Rig" />
       <nestedChildShapes>
-        <elementListCompartment Id="fe522b3e-822d-4b61-abf1-ed3e329da4b3" absoluteBounds="6.2650000000000006, 2.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fe522b3e-822d-4b61-abf1-ed3e329da4b3" absoluteBounds="6.2650000000000006, 2.835, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.25 : 2.40625); (5.52083333333333 : 2.40625 : JumpStart); (5.35416666666667 : 2.40625 : JumpEnd); (5.1562475 : 2.40625); (5.1562475 : 4)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.25 : 2.40625); (5.52083333333333 : 2.40625 : JumpStart); (5.35416666666667 : 2.40625 : JumpEnd); (5.1562475 : 2.40625); (5.1562475 : 4)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CActivityDataContext/Rig/Rig_CompletionActivity" />
       <nodes>
         <classShapeMoniker Id="d7501164-6350-4e4a-9c7a-4676f2f816c6" />
         <classShapeMoniker Id="23d13398-ee4b-4b1e-a84d-6d971e375ad3" />
       </nodes>
     </associationConnector>
-    <classShape Id="c7796bf0-20f5-4f5d-b7f9-0e6d934cdec4" absoluteBounds="1.375, 5.75, 2, 2.7324039713541666">
+    <classShape Id="c7796bf0-20f5-4f5d-b7f9-0e6d934cdec4" absoluteBounds="0.625, 6.625, 2, 2.4109318033854166">
       <DataClassMoniker Name="/CActivityDataContext/vwCompActivity" />
       <nestedChildShapes>
-        <elementListCompartment Id="d7673c5a-c895-45e1-a3b6-4276ca559b54" absoluteBounds="1.3900000000000001, 6.21, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d7673c5a-c895-45e1-a3b6-4276ca559b54" absoluteBounds="0.64000000000000012, 7.085, 1.9700000000000002, 1.8509318033854165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="d0efa12a-11be-44db-9c38-7167f83e5933" isExpanded="false" absoluteBounds="0.5, 1.25, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/vwLowerCompletionAssembly" />
       <nestedChildShapes>
-        <elementListCompartment Id="30e94a44-0a97-4b80-b6c0-992e2817a69d" absoluteBounds="0.51500000000000012, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="30e94a44-0a97-4b80-b6c0-992e2817a69d" absoluteBounds="0.51500000000000012, 1.71, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="644085ea-7608-4eba-a4a7-1659ad20f006" isExpanded="false" absoluteBounds="0.5, 1.875, 2, 0.45">
+    <classShape Id="644085ea-7608-4eba-a4a7-1659ad20f006" absoluteBounds="0.5, 1.875, 2, 1.26050048828125">
       <DataClassMoniker Name="/CActivityDataContext/vwUpperCompletionAssembly" />
       <nestedChildShapes>
-        <elementListCompartment Id="db1bd0d1-81cd-4dc0-b370-913d86f019ad" absoluteBounds="0.51500000000000012, 2.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="db1bd0d1-81cd-4dc0-b370-913d86f019ad" absoluteBounds="0.51500000000000012, 2.335, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="f59bad5f-e1c8-4acb-a9ca-88f6fed28569" isExpanded="false" absoluteBounds="0.5, 0.5, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Assembly_Type" />
       <nestedChildShapes>
-        <elementListCompartment Id="58377217-9ffe-4781-b18d-8c5c1cb87a1a" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="58377217-9ffe-4781-b18d-8c5c1cb87a1a" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 0.70050048828125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="5f89f422-d608-44e4-9aaf-0544b602b146" isExpanded="false" absoluteBounds="3.25, 1.25, 2, 0.45">
       <DataClassMoniker Name="/CActivityDataContext/Company" />
       <nestedChildShapes>
-        <elementListCompartment Id="9b69f10e-82ea-465d-9d06-a57145700af6" absoluteBounds="3.2649999999999997, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9b69f10e-82ea-465d-9d06-a57145700af6" absoluteBounds="3.2649999999999997, 1.71, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(5 : 1.25); (5 : 0.95)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5 : 1.25); (5 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CActivityDataContext/Company/Company_CompletionActivityRelation" />
       <nodes>
         <classShapeMoniker Id="5f89f422-d608-44e4-9aaf-0544b602b146" />
         <classShapeMoniker Id="fee72b57-2b8e-426b-9caf-052c96547458" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 0.725); (4.75 : 0.725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 0.725); (4.75 : 0.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CActivityDataContext/Assembly_Type/Assembly_Type_CompletionActivityRelation" />
       <nodes>
         <classShapeMoniker Id="f59bad5f-e1c8-4acb-a9ca-88f6fed28569" />
         <classShapeMoniker Id="fee72b57-2b8e-426b-9caf-052c96547458" />
       </nodes>
     </associationConnector>
-    <classShape Id="78f23f87-b810-4d75-b8f3-011685d17a5d" absoluteBounds="2.25, 5, 2, 2.1554996744791666">
+    <classShape Id="78f23f87-b810-4d75-b8f3-011685d17a5d" absoluteBounds="3, 6.625, 2, 1.9178898111979166">
       <DataClassMoniker Name="/CActivityDataContext/vwCompletionActivityRelation" />
       <nestedChildShapes>
-        <elementListCompartment Id="9f50f245-fba5-455f-90a4-af6a1da493ca" absoluteBounds="2.265, 5.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9f50f245-fba5-455f-90a4-af6a1da493ca" absoluteBounds="3.015, 7.085, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
