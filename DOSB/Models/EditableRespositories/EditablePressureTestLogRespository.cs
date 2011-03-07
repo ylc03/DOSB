@@ -17,7 +17,7 @@ namespace DOSB.Models.EditableRespositories
             if (result == null)
             {
                 HttpContext.Current.Session["PressureLogs"] = result =
-                    (from pressureTest in new CActivityDataContext().PressureTestLogs
+                    (from pressureTest in new CPLDataContext().PressureTests
                      select new EditablePressureTestLog
                      {
                          PerssureTestId = pressureTest.PressureTestId,
@@ -45,8 +45,8 @@ namespace DOSB.Models.EditableRespositories
         }
         public static void Update(EditablePressureTestLog pressureTest)
         {
-            DOSBEntities storeDB = new DOSBEntities();
-            PressureTest target = storeDB.PressureTest.First(e => e.PressureTestId == pressureTest.PerssureTestId);
+            CPLDataContext storeDB = new CPLDataContext();
+            PressureTest target = storeDB.PressureTests.First(e => e.PressureTestId == pressureTest.PerssureTestId);
             if (target != null)
             {
                 target.PressureTestId = pressureTest.PerssureTestId;
@@ -61,7 +61,7 @@ namespace DOSB.Models.EditableRespositories
                 target.Defect = pressureTest.Defect;
             }
 
-            storeDB.SaveChanges();
+            storeDB.SubmitChanges();
         }
         public static void Delete(EditablePressureTestLog pressureTest)
         {

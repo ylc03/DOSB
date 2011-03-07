@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 15.875" name="CActivity">
+  <DataContextMoniker Name="/CPLDataContext" />
+  <nestedChildShapes>
+    <classShape Id="77724315-c0cc-4f5d-b56a-2dd302bcabac" isExpanded="false" absoluteBounds="0.5, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/Client" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9769774c-90eb-4caa-abe5-f58013438397" absoluteBounds="0.51500000000000012, 1.71, 1.9700000000000002, 0.7197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bbbd5305-beaf-4073-a09a-d736745bef07" absoluteBounds="0.5, 4.5, 2, 1.6169661458333327">
+      <DataClassMoniker Name="/CPLDataContext/Company" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0bb1a093-38a8-437a-8a87-c4650a593ece" absoluteBounds="0.51500000000000012, 4.96, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4923fd3a-65e3-4084-9214-5a1b4a885a43" absoluteBounds="6.5, 0.5, 2, 1.1111067708333327">
+      <DataClassMoniker Name="/CPLDataContext/CompletionType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5ae11a38-25b5-4d8a-bc8e-2f7fcedf8132" absoluteBounds="6.5150000000000006, 0.96, 1.9700000000000002, 0.55110677083333326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8f07a89c-31f7-4572-b608-6ab88ca69656" isExpanded="false" absoluteBounds="0.5, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/Country" />
+      <nestedChildShapes>
+        <elementListCompartment Id="017790cc-de08-4c3d-bf02-6a9c4f391fe7" absoluteBounds="0.515, 0.96, 1.9700000000000002, 0.55110677083333326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ba95ed93-0640-4c35-b4c2-e67a411b653b" isExpanded="false" absoluteBounds="0.5, 2, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/Field" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2b9d618d-60c9-4342-a4fb-ab28eead6b74" absoluteBounds="0.51499999999999968, 2.46, 1.9700000000000002, 0.7197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9c3aa42b-692a-48ec-8880-20d21717c9c2" absoluteBounds="6.5, 2, 2, 1.2797265625000005">
+      <DataClassMoniker Name="/CPLDataContext/Rig" />
+      <nestedChildShapes>
+        <elementListCompartment Id="644b35a5-3a43-4bbb-8e2e-fa9d94f2d952" absoluteBounds="6.5150000000000006, 2.46, 1.9700000000000002, 0.7197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cb569cf8-f299-4f73-b4c6-2e80ff0fcdfc" isExpanded="false" absoluteBounds="0.5, 2.75, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/Well" />
+      <nestedChildShapes>
+        <elementListCompartment Id="56db7ddd-2650-4733-bf3d-03a459ef6a39" absoluteBounds="0.51500000000000057, 3.21, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d2f26f99-2d5d-4592-b2e2-ba19ea317343" isExpanded="false" absoluteBounds="0.5, 3.5, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/WellType" />
+      <nestedChildShapes>
+        <elementListCompartment Id="15c2ee5a-b4c9-485b-8deb-060dc350b820" absoluteBounds="0.51499999999999968, 3.96, 1.9700000000000002, 0.55110677083333326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.5 : 0.95); (1.5 : 1.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Country/Country_Client" />
+      <nodes>
+        <classShapeMoniker Id="8f07a89c-31f7-4572-b608-6ab88ca69656" />
+        <classShapeMoniker Id="77724315-c0cc-4f5d-b56a-2dd302bcabac" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.5 : 1.7); (1.5 : 2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Client/Client_Field" />
+      <nodes>
+        <classShapeMoniker Id="77724315-c0cc-4f5d-b56a-2dd302bcabac" />
+        <classShapeMoniker Id="ba95ed93-0640-4c35-b4c2-e67a411b653b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.5 : 2.45); (1.5 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Field/Field_Well" />
+      <nodes>
+        <classShapeMoniker Id="ba95ed93-0640-4c35-b4c2-e67a411b653b" />
+        <classShapeMoniker Id="cb569cf8-f299-4f73-b4c6-2e80ff0fcdfc" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.5 : 3.5); (1.5 : 3.2)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/WellType/WellType_Well" />
+      <nodes>
+        <classShapeMoniker Id="d2f26f99-2d5d-4592-b2e2-ba19ea317343" />
+        <classShapeMoniker Id="cb569cf8-f299-4f73-b4c6-2e80ff0fcdfc" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="11a7ebbd-b65a-42bd-ab25-d14abb950796" absoluteBounds="3, 7.375, 2, 2.4600651041666666">
+      <DataClassMoniker Name="/CPLDataContext/vwRigActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="39052d05-e2aa-4f51-853c-322b236cadef" absoluteBounds="3.015, 7.8350000000000009, 1.9700000000000002, 1.9000651041666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2063d4a6-6e8e-4a24-81b5-212bfbc57938" absoluteBounds="6.625, 4.5, 2, 1.2797265625">
+      <DataClassMoniker Name="/CPLDataContext/Assembly" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d4e3758e-751b-436e-a597-95f499067424" absoluteBounds="6.64, 4.96, 1.9700000000000002, 0.7197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b949e05c-11f9-473c-bd47-a70ee3b39a67" absoluteBounds="3.5, 4.5, 2, 1.9542057291666666">
+      <DataClassMoniker Name="/CPLDataContext/CompletionActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e3850f86-ce23-404f-a952-b4e0eee5f411" absoluteBounds="3.5149999999999997, 4.96, 1.9700000000000002, 1.3942057291666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.625 : 5.13986328125); (5.5 : 5.13986328125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Assembly/Assembly_CompletionActivity" />
+      <nodes>
+        <classShapeMoniker Id="2063d4a6-6e8e-4a24-81b5-212bfbc57938" />
+        <classShapeMoniker Id="b949e05c-11f9-473c-bd47-a70ee3b39a67" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 5.30848307291667); (3.5 : 5.30848307291667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Company/Company_CompletionActivity" />
+      <nodes>
+        <classShapeMoniker Id="bbbd5305-beaf-4073-a09a-d736745bef07" />
+        <classShapeMoniker Id="b949e05c-11f9-473c-bd47-a70ee3b39a67" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="75c0b63a-333c-44b0-88ae-4423617e48e4" absoluteBounds="3.5, 1, 2, 2.1228255208333335">
+      <DataClassMoniker Name="/CPLDataContext/RigActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d1738cae-1636-4c07-b179-f81997de9bcf" absoluteBounds="3.5149999999999997, 1.46, 1.9700000000000002, 1.5628255208333335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.5 : 3.12282552083333); (4.5 : 4.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/RigActivity/RigActivity_CompletionActivity" />
+      <nodes>
+        <classShapeMoniker Id="75c0b63a-333c-44b0-88ae-4423617e48e4" />
+        <classShapeMoniker Id="b949e05c-11f9-473c-bd47-a70ee3b39a67" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.5 : 1.30555338541667); (5.5 : 1.30555338541667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/CompletionType/CompletionType_RigActivity" />
+      <nodes>
+        <classShapeMoniker Id="4923fd3a-65e3-4084-9214-5a1b4a885a43" />
+        <classShapeMoniker Id="75c0b63a-333c-44b0-88ae-4423617e48e4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.5 : 2.56141276041667); (5.5 : 2.56141276041667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Rig/Rig_RigActivity" />
+      <nodes>
+        <classShapeMoniker Id="9c3aa42b-692a-48ec-8880-20d21717c9c2" />
+        <classShapeMoniker Id="75c0b63a-333c-44b0-88ae-4423617e48e4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 2.93641276041667); (3.5 : 2.93641276041667)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Well/Well_RigActivity" />
+      <nodes>
+        <classShapeMoniker Id="cb569cf8-f299-4f73-b4c6-2e80ff0fcdfc" />
+        <classShapeMoniker Id="75c0b63a-333c-44b0-88ae-4423617e48e4" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f8b84975-a856-48f3-8b84-d8979228738f" absoluteBounds="5.625, 7.375, 2, 1.2797265624999996">
+      <DataClassMoniker Name="/CPLDataContext/vwLowerCompletionAssembly" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f0c6f2b2-388b-48b2-a7ca-009bf8b5ceba" absoluteBounds="5.64, 7.8350000000000009, 1.9700000000000002, 0.7197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4d82ce62-37d8-4141-95af-b9767b3d394b" absoluteBounds="8.375, 7.375, 2, 1.2797265625000003">
+      <DataClassMoniker Name="/CPLDataContext/vwUpperCompletionAssembly" />
+      <nestedChildShapes>
+        <elementListCompartment Id="19e4074b-b3f4-4d05-b7c3-810c2c9cc36a" absoluteBounds="8.39, 7.8350000000000009, 1.9700000000000002, 0.7197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="70afcf35-7ac7-44bf-9100-c3a7f7a852c4" absoluteBounds="0.5, 7.375, 2, 2.1228255208333335">
+      <DataClassMoniker Name="/CPLDataContext/vwCompletionActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a602d0fd-cfb0-4ea0-8e40-499d6b22bf25" absoluteBounds="0.515, 7.8350000000000009, 1.9700000000000002, 1.5628255208333335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="534ec817-3f96-4b1f-b397-9ca49e8230d4" absoluteBounds="0.5, 10.75, 2, 1.4483463541666666">
+      <DataClassMoniker Name="/CPLDataContext/Role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6d8fb43f-c70f-421d-8354-9eab8b0f3642" absoluteBounds="0.51500000000000057, 11.21, 1.9700000000000002, 0.88834635416666674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cbe65be0-b772-458f-84c2-e2175addc836" isExpanded="false" absoluteBounds="0.5, 12.5, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/Segment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2ec0df4a-7ff7-44ab-acad-4ed6a0d5d12b" absoluteBounds="0.51500000000000012, 12.96, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7f2ef8bf-b5a0-4338-9dc2-603b97333a3c" absoluteBounds="5.75, 13.375, 2, 1.4483463541666666">
+      <DataClassMoniker Name="/CPLDataContext/WorkshopAssignment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="03b02103-5bb6-4882-8766-3ce34866cb0a" absoluteBounds="5.7650000000000006, 13.835, 1.9700000000000002, 0.88834635416666674" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="391c384a-788a-4f92-982e-27b1cd57f67c" absoluteBounds="5.75, 10.75, 2, 2.1228255208333309">
+      <DataClassMoniker Name="/CPLDataContext/WorkshopDailyActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9b2a37a3-8ae7-4f82-bedc-ea0d21218f3a" absoluteBounds="5.765, 11.21, 1.9700000000000002, 1.5628255208333335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" absoluteBounds="3, 12.5, 2, 3.1345442708333309">
+      <DataClassMoniker Name="/CPLDataContext/Employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="663e1792-f0f4-40d7-951a-2f44dad807f8" absoluteBounds="3.0149999999999997, 12.96, 1.9700000000000002, 2.574544270833333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="af593006-a773-4c9c-ac14-b4e3a3f87a24" absoluteBounds="8.375, 9, 2, 1.6169661458333327">
+      <DataClassMoniker Name="/CPLDataContext/Attachment" />
+      <nestedChildShapes>
+        <elementListCompartment Id="df472f43-24db-443b-a001-dbbc25a4daef" absoluteBounds="8.39, 9.46, 1.9700000000000002, 1.0569661458333333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f437c296-0a4f-46bf-946e-a8ce503ed99c" isExpanded="false" absoluteBounds="0.5, 14.375, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/Torque" />
+      <nestedChildShapes>
+        <elementListCompartment Id="46e5dc7a-e255-4665-8820-3b8fbd2fcdbd" absoluteBounds="0.51500000000000057, 14.835, 1.9700000000000002, 1.9000651041666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9d68c986-8b7f-48f1-8dad-e69bd17984d1" isExpanded="false" absoluteBounds="0.5, 13.5, 2, 0.45">
+      <DataClassMoniker Name="/CPLDataContext/PressureTest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1a720743-0df7-4576-b39c-10d6b64c516e" absoluteBounds="0.51500000000000057, 13.96, 1.9700000000000002, 1.9000651041666665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.18419230769231 : 12.95); (1.18419230769231 : 13.2); (1.83084615384615 : 13.2); (1.83084615384615 : 12.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Segment/Segment_Segment" />
+      <nodes>
+        <classShapeMoniker Id="cbe65be0-b772-458f-84c2-e2175addc836" />
+        <classShapeMoniker Id="cbe65be0-b772-458f-84c2-e2175addc836" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.75 : 12.8728255208333); (6.75 : 13.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/WorkshopDailyActivity/WorkshopDailyActivity_WorkshopAssignment" />
+      <nodes>
+        <classShapeMoniker Id="391c384a-788a-4f92-982e-27b1cd57f67c" />
+        <classShapeMoniker Id="7f2ef8bf-b5a0-4338-9dc2-603b97333a3c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5 : 14.1030013871818); (5.75 : 14.1030013871818)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Employee/Employee_WorkshopAssignment" />
+      <nodes>
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+        <classShapeMoniker Id="7f2ef8bf-b5a0-4338-9dc2-603b97333a3c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 12.725); (3 : 12.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Segment/Segment_Employee" />
+      <nodes>
+        <classShapeMoniker Id="cbe65be0-b772-458f-84c2-e2175addc836" />
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3 : 14.6); (2.5 : 14.6)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Employee/Employee_Torque" />
+      <nodes>
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+        <classShapeMoniker Id="f437c296-0a4f-46bf-946e-a8ce503ed99c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3 : 14.425); (2.5 : 14.425)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Employee/Employee_Torque1" />
+      <nodes>
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+        <classShapeMoniker Id="f437c296-0a4f-46bf-946e-a8ce503ed99c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3 : 13.725); (2.5 : 13.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Employee/Employee_PressureTest" />
+      <nodes>
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+        <classShapeMoniker Id="9d68c986-8b7f-48f1-8dad-e69bd17984d1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3 : 13.55); (2.5 : 13.55)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Employee/Employee_PressureTest1" />
+      <nodes>
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+        <classShapeMoniker Id="9d68c986-8b7f-48f1-8dad-e69bd17984d1" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c667dc30-95db-46f0-9b71-80300af86f2d" absoluteBounds="3, 10.75, 2, 1.1111067708333344">
+      <DataClassMoniker Name="/CPLDataContext/EmployeeRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="50a35f38-384c-42bf-82f5-3e9ec9b89208" absoluteBounds="3.0150000000000006, 11.21, 1.9700000000000002, 0.55110677083333326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4 : 12.5); (4 : 11.8611067708333)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Employee/Employee_EmployeeRole" />
+      <nodes>
+        <classShapeMoniker Id="edbd0947-5f4b-45f6-af79-b7b9745a52d1" />
+        <classShapeMoniker Id="c667dc30-95db-46f0-9b71-80300af86f2d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 11.3055533854167); (3 : 11.3055533854167)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CPLDataContext/Role/Role_EmployeeRole" />
+      <nodes>
+        <classShapeMoniker Id="534ec817-3f96-4b1f-b397-9ca49e8230d4" />
+        <classShapeMoniker Id="c667dc30-95db-46f0-9b71-80300af86f2d" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

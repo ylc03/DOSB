@@ -70,7 +70,7 @@ Ext.onReady(function() {
 	
 	menuMapping['ca-mview'] = {
 	    scripts: ['/Scripts/ext/examples/ux/LockingGridView.js',
-				 '/Scripts/ext/examples/ux/LockingColumnHeaderGroup.js',
+				 '/Scripts/ExtUI/ux/LockingColumnHeaderGroup.js',
 				 '/CompletionActivity/MonthViewJS'], 
 		xtype: 'dosb-ca-monthview', 
 		id: 'main-ca-mview'

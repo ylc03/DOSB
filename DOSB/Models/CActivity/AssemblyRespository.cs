@@ -14,14 +14,14 @@ namespace DOSB.Models.EditableRespositories
     {
         public static IList<Assembly> All()
         {
-            CActivityDataContext storeDB = new CActivityDataContext("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DOSB.mdf;Integrated Security=True;User Instance=True");
+            CPLDataContext storeDB = new CPLDataContext("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DOSB.mdf;Integrated Security=True;User Instance=True");
 
             return storeDB.Assemblies.ToList();
         }
 
         public static IList<Assembly> Upper()
         {
-            CActivityDataContext storeDB = new CActivityDataContext("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DOSB.mdf;Integrated Security=True;User Instance=True");
+            CPLDataContext storeDB = new CPLDataContext("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DOSB.mdf;Integrated Security=True;User Instance=True");
 
             var dataResults = from tbl in storeDB.vwUpperCompletionAssemblies
                               select new Assembly
@@ -36,7 +36,7 @@ namespace DOSB.Models.EditableRespositories
 
         public static IList<Assembly> Lower()
         {
-            CActivityDataContext storeDB = new CActivityDataContext("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DOSB.mdf;Integrated Security=True;User Instance=True");
+            CPLDataContext storeDB = new CPLDataContext("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DOSB.mdf;Integrated Security=True;User Instance=True");
 
             var dataResults = from tbl in storeDB.vwLowerCompletionAssemblies
                               select new Assembly

@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 /*<script language="javascript">*/
-Ext.ns('Dosb.CActivity');
+Ext.ns('Dosb', 'Dosb.CActivity');
 
 Dosb.CActivity.MonthView = function(config) {
 	Dosb.CActivity.MonthView.superclass.constructor.call(this, {});
@@ -16,10 +16,10 @@ Ext.extend(Dosb.CActivity.MonthView, Ext.grid.GridPanel, {
                {name: 'Rig'},
                {name: 'Well'},
                <% foreach(var item in (ViewData["upper"] as IList<DOSB.Models.vwUpperCompletionAssembly>)) {%>
-               {name: '<%: item.Assembly_Name %>'},
+               {name: '<%: item.Name %>'},
                <% } %>
                <% foreach(var item in (ViewData["lower"] as IList<DOSB.Models.vwLowerCompletionAssembly>)) {%>
-               {name: '<%: item.Assembly_Name %>'},
+               {name: '<%: item.Name %>'},
                <% } %>
             ],
             data: []
@@ -49,10 +49,10 @@ Ext.extend(Dosb.CActivity.MonthView, Ext.grid.GridPanel, {
                 {header: 'Rig',      width: 60, sortable: true, dataIndex: 'Rig', locked: true, id:'company'},
                 {header: 'Well',     width: 60, sortable: true, dataIndex: 'Well', locked: true, },
                 <% foreach(var item in (ViewData["upper"] as IList<DOSB.Models.vwUpperCompletionAssembly>)) {%>
-                {header: '<%: item.Assembly_Name %>',    width: 80,  sortable: false, align: 'center', dataIndex: '<%: item.Assembly_Name %>'},
+                {header: '<%: item.Name %>',    width: 80,  sortable: false, align: 'center', dataIndex: '<%: item.Name %>'},
                 <% } %>
                 <% foreach(var item in (ViewData["lower"] as IList<DOSB.Models.vwLowerCompletionAssembly>)) {%>
-                {header: '<%: item.Assembly_Name %>',    width: 85,  sortable: false, align: 'center', dataIndex: '<%: item.Assembly_Name %>'},
+                {header: '<%: item.Name %>',    width: 85,  sortable: false, align: 'center', dataIndex: '<%: item.Name %>'},
                 <% } %>
             ]),
             view:           new Ext.ux.grid.LockingGridView(),

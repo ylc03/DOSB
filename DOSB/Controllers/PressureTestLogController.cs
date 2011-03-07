@@ -19,7 +19,7 @@ namespace DOSB.Controllers
 {
     public class PressureTestLogController : Controller
     {
-        private DOSBEntities storeDB = new DOSBEntities();
+        private CPLDataContext storeDB = new CPLDataContext();
 
         //
         // GET: /PressureTest/
@@ -41,7 +41,7 @@ namespace DOSB.Controllers
 
         public ActionResult Details(int id)
         {
-            var pressure_test = storeDB.PressureTest.Single(p => p.PressureTestId == id);
+            var pressure_test = storeDB.PressureTests.Single(p => p.PressureTestId == id);
             return View(pressure_test);
         }
 

@@ -90,20 +90,14 @@
     <Compile Include="GlobalConstant.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Attachment.cs" />
-    <Compile Include="Models\CActivity.designer.cs">
+    <Compile Include="Models\CPL.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CActivity.dbml</DependentUpon>
+      <DependentUpon>CPL.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\CActivity\AssemblyRespository.cs" />
     <Compile Include="Models\CActivity\EditableRigActivity.cs" />
     <Compile Include="Models\CActivity\EditableCompletionActivity.cs" />
-    <Compile Include="Models\DOSB.Designer.cs">
-      <DependentUpon>DOSB.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Models\DOSBEntities.cs" />
     <Compile Include="Models\EditableModels\EditableWorkshopActivity.cs" />
     <Compile Include="Models\EditableModels\EditablePressureTestLog.cs" />
     <Compile Include="Models\EditableModels\EditableTorqueLog.cs" />
@@ -211,7 +205,7 @@
     <Content Include="Scripts\ExtUI\CActivity\GridViewTest.js" />
     <Content Include="Scripts\ExtUI\Employee\EmployeeForm.js" />
     <Content Include="Scripts\ExtUI\Employee\EmployeeGrid.js" />
-    <Content Include="Scripts\ExtUI\Ext.ux\LockingColumnHeaderGroup.js" />
+    <Content Include="Scripts\ExtUI\ux\LockingColumnHeaderGroup.js" />
     <Content Include="Scripts\ExtUI\ScriptManager.js" />
     <Content Include="Scripts\ExtUI\test.js" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
@@ -273,13 +267,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\CActivity.dbml">
+    <None Include="Models\CPL.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>CActivity.designer.cs</LastGenOutput>
+      <LastGenOutput>CPL.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Models\CActivity.dbml.layout">
-      <DependentUpon>CActivity.dbml</DependentUpon>
+    <None Include="Models\CPL.dbml.layout">
+      <DependentUpon>CPL.dbml</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -289,12 +283,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Models\DOSB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DOSB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />

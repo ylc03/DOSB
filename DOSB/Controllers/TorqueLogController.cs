@@ -15,7 +15,7 @@ namespace DOSB.Controllers
 {
     public class TorqueLogController : Controller
     {
-        private DOSBEntities storeDB = new DOSBEntities();
+        private CPLDataContext storeDB = new CPLDataContext();
 
         public ActionResult Index()
         {
@@ -80,19 +80,20 @@ namespace DOSB.Controllers
                 {
                     if (!String.IsNullOrWhiteSpace(torque.AttachmentGuid))
                     {
-                        Attachment oldatt = storeDB.Attachment.First(a => a.Guid == torque.AttachmentGuid);
-                        storeDB.Attachment.DeleteObject(oldatt);
+                        
+                        Attachment oldatt = storeDB.Attachments.First(a => a.Guid == torque.AttachmentGuid);
+                        storeDB.Attachments.DeleteOnSubmit(oldatt);
                     }
 
                     if (!String.IsNullOrWhiteSpace(guid))
                     {
-                        Attachment newatt = storeDB.Attachment.First(a => a.Guid == guid);
+                        Attachment newatt = storeDB.Attachments.First(a => a.Guid == guid);
                         torque.AttachmentGuid = newatt.Guid;
                         torque.Attachment = newatt.FileName;
                         newatt.AttachTo(typeof(Torque), torque.TorqueId);
                     }
 
-                    storeDB.SaveChanges();
+                    storeDB.SubmitChanges();
                 }
 
                 EditableTorqueLogRespository.Update(torque);
@@ -115,19 +116,19 @@ namespace DOSB.Controllers
                 {
                     if (!String.IsNullOrWhiteSpace(torque.AttachmentGuid))
                     {
-                        Attachment oldatt = storeDB.Attachment.First(a => a.Guid == torque.AttachmentGuid);
-                        storeDB.Attachment.DeleteObject(oldatt);
+                        Attachment oldatt = storeDB.Attachments.First(a => a.Guid == torque.AttachmentGuid);
+                        storeDB.Attachments.DeleteOnSubmit(oldatt);
                     }
 
                     if (!String.IsNullOrWhiteSpace(guid))
                     {
-                        Attachment newatt = storeDB.Attachment.First(a => a.Guid == guid);
+                        Attachment newatt = storeDB.Attachments.First(a => a.Guid == guid);
                         torque.AttachmentGuid = newatt.Guid;
                         torque.Attachment = newatt.FileName;
                         newatt.AttachTo(typeof(Torque), torque.TorqueId);
                     }
 
-                    storeDB.SaveChanges();
+                    storeDB.SubmitChanges();
                 }
                 return Content("insert succeeded!");
             }

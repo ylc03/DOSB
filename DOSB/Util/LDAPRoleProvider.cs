@@ -10,17 +10,17 @@ namespace DOSB.Util
 {
     public class LDAPRoleProvider : RoleProvider
     {
-        private DOSBEntities storeDB = new DOSBEntities();
+        private CPLDataContext storeDB = new CPLDataContext();
 
         public override string[] GetRolesForUser(string username)
         {
             try
             {
                 List<string> roles = new List<string>();
-                Employee employee = storeDB.Employee.First(e => e.LDAP == username);
-                for(int i=0; i<employee.Roles.Count; i++)
+                Employee employee = storeDB.Employees.First(e => e.LDAP == username);
+                for(int i=0; i<employee.EmployeeRoles.Count; i++)
                 {
-                    roles[i] = employee.Roles.ElementAt(i).Name;
+                    roles[i] = employee.EmployeeRoles.ElementAt(i).Role.Name;
                 }
 
                 return roles.ToArray();

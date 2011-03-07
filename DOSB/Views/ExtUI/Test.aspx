@@ -15,7 +15,7 @@
   	<script type="text/javascript" src="/Scripts/ext/adapter/ext/ext-base.js"></script>
   	<script type="text/javascript" src="/Scripts/ext/ext-all-debug.js"></script>
 	<script type="text/javascript" src="/Scripts/ext/examples/ux/LockingGridView.js"></script>
-	<script type="text/javascript" src="/Scripts/ext/examples/ux/LockingColumnHeaderGroup.js"></script>
+	<script type="text/javascript" src="/Scripts/ExtUI/ux/LockingColumnHeaderGroup.js"></script>
 	<script type="text/javascript" src="/CompletionActivity/MonthViewJS"></script>
   	<script type="text/javascript" src="/Scripts/ExtUI/test.js"></script>
   <title>DOSB Ext Client</title>

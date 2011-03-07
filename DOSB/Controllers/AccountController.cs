@@ -16,7 +16,7 @@ namespace DOSB.Controllers
     [HandleError]
     public class AccountController : Controller
     {
-        private DOSBEntities storeDB = new DOSBEntities();
+        private CPLDataContext storeDB = new CPLDataContext();
 
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }

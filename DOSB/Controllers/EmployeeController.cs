@@ -19,7 +19,7 @@ namespace DOSB.Controllers
 {
     public class EmployeeController : Controller
     {
-        private DOSBEntities storeDB = new DOSBEntities();
+        private CPLDataContext storeDB = new CPLDataContext();
 
         /// <summary>
         /// Show all employees
@@ -91,7 +91,7 @@ namespace DOSB.Controllers
         public ActionResult _AddFromLDAP(string LDAP)
         {
             // if employee already exists, use the employee in database to update data
-            int count = storeDB.Employee.Count(s => s.LDAP == LDAP);
+            int count = storeDB.Employees.Count(s => s.LDAP == LDAP);
             if (count == 0)
             {
                 Employee employee = new Employee();
@@ -101,8 +101,8 @@ namespace DOSB.Controllers
                 if (updateLDAPInfo(employee))
                 {
                     // save to database
-                    storeDB.AddToEmployee(employee);
-                    storeDB.SaveChanges();
+                    storeDB.Employees.InsertOnSubmit(employee);
+                    storeDB.SubmitChanges();
                     ViewData["message"] = employee.LDAP + " has been added!";
                 }
                 else
@@ -131,8 +131,8 @@ namespace DOSB.Controllers
                 return File("/Content/Images/UnknownEmployee.jpg" ,"image/jpg");
             }
 
-            Employee emp = storeDB.Employee.Single(e => e.EmployeeId == id);
-            return File(emp.Avatar, "image/jpg");
+            Employee emp = storeDB.Employees.Single(e => e.EmployeeId == id);
+            return File(emp.Avatar.ToArray(), "image/jpg");
         }
         
         ////
@@ -189,7 +189,7 @@ namespace DOSB.Controllers
                 string businessCategory = (string)employeeEntry.Properties["businessCategory"][0];
                 try
                 {
-                    Segment subSegment = storeDB.Segment.Single(s => s.BusinessCategory == businessCategory);
+                    Segment subSegment = storeDB.Segments.Single(s => s.BusinessCategory == businessCategory);
                     if (subSegment != null)
                     {
                         employee.Segment = subSegment;

@@ -9,7 +9,7 @@ namespace DOSB.Models
     {
         public static bool AuthenticateByID(int id, string password)
         { 
-            Employee employee = (new DOSBEntities()).Employee.FirstOrDefault(e => e.EmployeeId == id);
+            Employee employee = (new CPLDataContext()).Employees.FirstOrDefault(e => e.EmployeeId == id);
             return AuthenticateByLDAP(employee.LDAP, password);
         }
 

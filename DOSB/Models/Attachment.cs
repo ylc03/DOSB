@@ -9,7 +9,7 @@ namespace DOSB.Models
     public partial class Attachment
     {
         private static string uploadsFolder = HostingEnvironment.MapPath("~/App_Data/Attachments");
-        private static DOSBEntities storeDB = new DOSBEntities();
+        private static CPLDataContext storeDB = new CPLDataContext();
 
         public void AttachTo(Type type, int id)
         {
@@ -32,8 +32,8 @@ namespace DOSB.Models
             attachment.Guid = System.Guid.NewGuid().ToString();
             fileBase.SaveAs(GetDiskLocation(attachment));
 
-            storeDB.AddToAttachment(attachment);
-            storeDB.SaveChanges();
+            storeDB.Attachments.InsertOnSubmit(attachment);
+            storeDB.SubmitChanges();
             return attachment;
         }
 

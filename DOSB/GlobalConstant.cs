@@ -28,7 +28,7 @@ namespace DOSB
         {
             if (HttpContext.Current.Session["segments"] == null)
             {
-                HttpContext.Current.Session["segments"] = (new DOSBEntities()).Segment.ToList();
+                HttpContext.Current.Session["segments"] = (new CPLDataContext()).Segments.ToList();
             }
 
             return (List<Segment>)HttpContext.Current.Session["segments"];
@@ -42,7 +42,7 @@ namespace DOSB
         {
             if (HttpContext.Current.Session["roles"] == null)
             {
-                HttpContext.Current.Session["roles"] = (new DOSBEntities()).Role.ToList();
+                HttpContext.Current.Session["roles"] = (new CPLDataContext()).Roles.ToList();
             }
 
             return (List<Role>)HttpContext.Current.Session["roles"];

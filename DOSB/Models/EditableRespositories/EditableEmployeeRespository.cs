@@ -21,10 +21,10 @@ namespace DOSB.Models.EditableRespositories
                 (IList<EditableEmployee>)HttpContext.Current.Session["employees"];
             if (result == null)
             {
-                DOSBEntities storeDB = new DOSBEntities();
+                CPLDataContext storeDB = new CPLDataContext();
                 result = new List<EditableEmployee>();
 
-                foreach (var employee in storeDB.Employee.ToList())
+                foreach (var employee in storeDB.Employees.ToList())
                 {
                     EditableEmployee editableEmployee = new EditableEmployee();
                     editableEmployee.EmployeeId = employee.EmployeeId;
@@ -36,8 +36,8 @@ namespace DOSB.Models.EditableRespositories
                     editableEmployee.SegmentId = employee.SegmentId.HasValue ? employee.SegmentId.Value : default(int);
                     editableEmployee.Segment = employee.Segment.Name;
                     editableEmployee.Status = employee.Status;
-                    editableEmployee.Role = employee.Roles.Count() > 0 ? employee.Roles.First().Name : "";
-                    editableEmployee.RoleId = employee.Roles.Count() > 0 ? employee.Roles.First().RoleId : 0;
+                    editableEmployee.Role = employee.EmployeeRoles.Count() > 0 ? employee.EmployeeRoles.First().Role.Name : "";
+                    editableEmployee.RoleId = employee.EmployeeRoles.Count() > 0 ? employee.EmployeeRoles.First().Role.RoleId : 0;
 
                     result.Add(editableEmployee);
                 }
@@ -74,13 +74,13 @@ namespace DOSB.Models.EditableRespositories
         /// <param name="employee">Editable Employee</param>
         public static void Update(EditableEmployee employee)
         {
-            DOSBEntities storeDB = new DOSBEntities();
-            Employee target = storeDB.Employee.First(e => e.EmployeeId == employee.EmployeeId);
+            CPLDataContext storeDB = new CPLDataContext();
+            Employee target = storeDB.Employees.First(e => e.EmployeeId == employee.EmployeeId);
             // segment from name to id
-            Segment segment = storeDB.Segment.First(s => s.Name == employee.Segment);
+            Segment segment = storeDB.Segments.First(s => s.Name == employee.Segment);
             employee.SegmentId = segment.SegmentId;
             // role from name to id
-            Role role = storeDB.Role.First(r => r.Name == employee.Role);
+            Role role = storeDB.Roles.First(r => r.Name == employee.Role);
             if (target != null)
             {
                 target.EmployeeId = employee.EmployeeId;
@@ -91,13 +91,15 @@ namespace DOSB.Models.EditableRespositories
                 target.GivenName = employee.GivenName;
                 target.SegmentId = employee.SegmentId;
                 target.Status = employee.Status;
-                if (!target.Roles.Contains(role))
+                if (target.EmployeeRoles.Count(er => er.RoleId == role.RoleId) > 0)
                 {
-                    target.Roles.Add(role);
+                    EmployeeRole empRole = new EmployeeRole();
+                    empRole.RoleId = role.RoleId;
+                    empRole.EmployeeId = target.EmployeeId;
+                    storeDB.EmployeeRoles.InsertOnSubmit(new EmployeeRole());
+                    storeDB.SubmitChanges();
                 }
             }
-
-            storeDB.SaveChanges();
         }
 
         /// <summary>

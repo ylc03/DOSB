@@ -17,13 +17,13 @@ namespace DOSB.Models.EditableRespositories
         /// <returns>list of activities</returns>
         public static IList<EditableWorkshopActivity> ActivitiesOn(DateTime date)
         {
-            DOSBEntities storeDB = new DOSBEntities();
+            CPLDataContext storeDB = new CPLDataContext();
             List<EditableWorkshopActivity> result = new List<EditableWorkshopActivity>();
 
             DateTime startTime = new DateTime(date.Year, date.Month, date.Day);
             DateTime endTime = new DateTime(date.Year, date.Month, date.Day + 1);
 
-            foreach (var activity in storeDB.WorkshopDailyActivity.Where(a => a.CreatedAt < endTime
+            foreach (var activity in storeDB.WorkshopDailyActivities.Where(a => a.CreatedAt < endTime
                                                                          && (!a.FinishedAt.HasValue || a.FinishedAt.Value >= startTime)
                                                                          && (!a.CanceledAt.HasValue || a.CanceledAt.Value >= startTime)))
             {
@@ -33,7 +33,7 @@ namespace DOSB.Models.EditableRespositories
                 editableActivity.Forklift = activity.Forklift > 0;
                 editableActivity.Torque = activity.Torque;
                 editableActivity.PressureTest = activity.PressureTest;
-                editableActivity.CreatedAt = activity.CreatedAt;
+                editableActivity.CreatedAt = activity.CreatedAt.HasValue ? activity.CreatedAt.Value : DateTime.MaxValue;
                 editableActivity.FinishedAt = activity.FinishedAt.HasValue ? activity.FinishedAt.Value : DateTime.MaxValue;
                 editableActivity.CanceledAt = activity.CanceledAt.HasValue ? activity.CanceledAt.Value : DateTime.MaxValue;
                 editableActivity.Assignments = activity.WorkshopAssignments.ToList();
@@ -71,9 +71,9 @@ namespace DOSB.Models.EditableRespositories
             target.PressureTest = activity.PressureTest;
             target.CreatedAt = DateTime.Now;
 
-            DOSBEntities storeDB = new DOSBEntities();
-            storeDB.WorkshopDailyActivity.AddObject(target);
-            storeDB.SaveChanges();
+            CPLDataContext storeDB = new CPLDataContext();
+            storeDB.WorkshopDailyActivities.InsertOnSubmit(target);
+            storeDB.SubmitChanges();
 
             activity.ActivityId = target.ActivityId;
             Today().Add(activity); // update cache.
@@ -85,8 +85,8 @@ namespace DOSB.Models.EditableRespositories
         /// <param name="activity">Editable activity</param>
         public static void Update(EditableWorkshopActivity activity)
         {
-            DOSBEntities storeDB = new DOSBEntities();
-            WorkshopDailyActivity target = storeDB.WorkshopDailyActivity.First(a => a.ActivityId == activity.ActivityId);
+            CPLDataContext storeDB = new CPLDataContext();
+            WorkshopDailyActivity target = storeDB.WorkshopDailyActivities.First(a => a.ActivityId == activity.ActivityId);
             if (target != null)
             {
                 target.Description = activity.Description;
@@ -106,7 +106,7 @@ namespace DOSB.Models.EditableRespositories
                 }
             }
 
-            storeDB.SaveChanges();
+            storeDB.SubmitChanges();
         }
 
         /// <summary>

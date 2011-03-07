@@ -15,7 +15,7 @@ namespace DOSB.Controllers
 {
     public class CompletionActivityController : Controller
     {
-        private DOSBEntities storeDB = new DOSBEntities();
+        private CPLDataContext storeDB = new CPLDataContext();
 
         //
         // GET: /CompletionActivity/
@@ -55,6 +55,17 @@ namespace DOSB.Controllers
 
            ///?????? ViewData["employees"] = GlobalConstant.GetAllEmployees();
             return View(target);
+        }
+
+        public ActionResult MonthViewJS()
+        {
+            CPLDataContext storeDB = new CPLDataContext();
+
+            ViewData["upper"] = storeDB.vwUpperCompletionAssemblies.ToList();
+            ViewData["upperCount"] = storeDB.vwUpperCompletionAssemblies.Count();
+            ViewData["lower"] = storeDB.vwLowerCompletionAssemblies.ToList();
+            ViewData["lowerCount"] = storeDB.vwLowerCompletionAssemblies.Count();
+            return View();
         }
     }
 }

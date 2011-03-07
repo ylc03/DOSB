@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOSB" Class="CActivityDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOSB" Class="CPLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\DOSB.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DOSBConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Clients" Member="Clients">
     <Type Name="Client">
@@ -147,8 +147,102 @@
       <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.PressureTest" Member="PressureTestLogs">
-    <Type Name="PressureTestLog">
+  <Table Name="dbo.Role" Member="Roles">
+    <Type Name="Role">
+      <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="LDAPJobCode" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="Role_EmployeeRole" Member="EmployeeRoles" ThisKey="RoleId" OtherKey="RoleId" Type="EmployeeRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Segment" Member="Segments">
+    <Type Name="Segment">
+      <Column Name="SegmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BusinessCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Segment_Segment" Member="Segments" ThisKey="SegmentId" OtherKey="ParentId" Type="Segment" />
+      <Association Name="Segment_Employee" Member="Employees" ThisKey="SegmentId" OtherKey="SegmentId" Type="Employee" />
+      <Association Name="Segment_Segment" Member="Segment1" ThisKey="ParentId" OtherKey="SegmentId" Type="Segment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorkshopAssignment" Member="WorkshopAssignments">
+    <Type Name="WorkshopAssignment">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="WorkshopDailyActivityId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AssignedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="WorkshopDailyActivity_WorkshopAssignment" Member="WorkshopDailyActivity" ThisKey="WorkshopDailyActivityId" OtherKey="ActivityId" Type="WorkshopDailyActivity" IsForeignKey="true" />
+      <Association Name="Employee_WorkshopAssignment" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WorkshopDailyActivity" Member="WorkshopDailyActivities">
+    <Type Name="WorkshopDailyActivity">
+      <Column Name="ActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Forklift" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Torque" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PressureTest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinishedAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CanceledAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="WorkshopDailyActivity_WorkshopAssignment" Member="WorkshopAssignments" ThisKey="ActivityId" OtherKey="WorkshopDailyActivityId" Type="WorkshopAssignment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employee" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LDAP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SegmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Avatar" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="GivenName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SurName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mobile" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="PersonalMobile" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="AramcoID" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="AramcoIdExpDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="H2SExpDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="HUETExpDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GIN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Employee_WorkshopAssignment" Member="WorkshopAssignments" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="WorkshopAssignment" />
+      <Association Name="Employee_Torque" Member="Torques" ThisKey="EmployeeId" OtherKey="ApprovedBy" Type="Torque" />
+      <Association Name="Employee_Torque1" Member="Torques1" ThisKey="EmployeeId" OtherKey="TorqueBy" Type="Torque" />
+      <Association Name="Employee_PressureTest" Member="PressureTests" ThisKey="EmployeeId" OtherKey="ApprovedBy" Type="PressureTest" />
+      <Association Name="Employee_PressureTest1" Member="PressureTests1" ThisKey="EmployeeId" OtherKey="TestBy" Type="PressureTest" />
+      <Association Name="Employee_EmployeeRole" Member="EmployeeRoles" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeeRole" />
+      <Association Name="Segment_Employee" Member="Segment" ThisKey="SegmentId" OtherKey="SegmentId" Type="Segment" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Attachment" Member="Attachments">
+    <Type Name="Attachment">
+      <Column Name="AttachmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AttachableType" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="AttachableId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Guid" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Torque" Member="Torques">
+    <Type Name="Torque">
+      <Column Name="TorqueId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PartNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SerialNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="AssemblyType" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TorqueBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ApprovedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Defect" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Employee_Torque" Member="Employee" ThisKey="ApprovedBy" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Employee_Torque1" Member="Employee1" ThisKey="TorqueBy" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PressureTest" Member="PressureTests">
+    <Type Name="PressureTest">
       <Column Name="PressureTestId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="PartNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="SerialNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -159,6 +253,16 @@
       <Column Name="TestBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Defect" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Employee_PressureTest" Member="Employee" ThisKey="ApprovedBy" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Employee_PressureTest1" Member="Employee1" ThisKey="TestBy" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmployeeRoles" Member="EmployeeRoles">
+    <Type Name="EmployeeRole">
+      <Column Name="EmployeeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Employee_EmployeeRole" Member="Employee" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+      <Association Name="Role_EmployeeRole" Member="Role" ThisKey="RoleId" OtherKey="RoleId" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

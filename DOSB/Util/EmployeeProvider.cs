@@ -9,7 +9,7 @@ namespace DOSB.Util
 {
     public class EmployeeProvider : MembershipProvider
     {
-        DOSBEntities storeDB = new DOSBEntities();
+        CPLDataContext storeDB = new CPLDataContext();
 
         #region Unimplemente MembershipProvider Methods
 
@@ -168,7 +168,7 @@ namespace DOSB.Util
 
             try
             {
-                var employee = storeDB.Employee.First(e => e.LDAP == username);
+                var employee = storeDB.Employees.First(e => e.LDAP == username);
             }
             catch (Exception e)
             {

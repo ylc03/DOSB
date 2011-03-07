@@ -36,7 +36,7 @@ namespace DOSB.Models.EditableRespositories
     {
         public static IList<EditableCompletionActivity> All(int rigActivityId)
         {
-            CActivityDataContext storeDB = new CActivityDataContext();
+            CPLDataContext storeDB = new CPLDataContext();
 
             var dataResults = from tbl in storeDB.vwCompletionActivities
                               where tbl.RigActivityId == rigActivityId

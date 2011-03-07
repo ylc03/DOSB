@@ -51,7 +51,7 @@ namespace DOSB.Models.EditableRespositories
             if (result == null)
             {
                 result = new List<EditableRigActivity>();
-                CActivityDataContext storeDB = new CActivityDataContext(getConString());
+                CPLDataContext storeDB = new CPLDataContext(getConString());
 
 
                 var dataResults = from tbl in storeDB.vwRigActivities
@@ -94,7 +94,7 @@ namespace DOSB.Models.EditableRespositories
             All().Insert(0, Activity);
 
 
-            CActivityDataContext storeDB = new CActivityDataContext(getConString());
+            CPLDataContext storeDB = new CPLDataContext(getConString());
 
             RigActivity target = new RigActivity();
             target.RigActivityId = Activity.RigActivityId;
@@ -110,7 +110,7 @@ namespace DOSB.Models.EditableRespositories
         /// <param name="torque">Editable Activity</param>
         public static void Update(EditableRigActivity activity)
         {
-            CActivityDataContext storeDB = new CActivityDataContext(getConString());
+            CPLDataContext storeDB = new CPLDataContext(getConString());
             RigActivity target = storeDB.RigActivities.First(ra => ra.RigActivityId == activity.RigActivityId);
 
             if (target != null)

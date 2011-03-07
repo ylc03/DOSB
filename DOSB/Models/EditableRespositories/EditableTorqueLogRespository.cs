@@ -22,11 +22,11 @@ namespace DOSB.Models.EditableRespositories
 
             if (result == null)
             {
-                DOSBEntities storeDB = new DOSBEntities();
+                CPLDataContext storeDB = new CPLDataContext();
                 string attachableType = typeof(Torque).ToString();
                 result = new List<EditableTorqueLog>();
 
-                foreach (var torque in storeDB.Torque.ToList())
+                foreach (var torque in storeDB.Torques.ToList())
                 {
                     EditableTorqueLog editableTorque = new EditableTorqueLog();
                     editableTorque.TorqueId = torque.TorqueId;
@@ -40,10 +40,10 @@ namespace DOSB.Models.EditableRespositories
                     editableTorque.AssemblyType = torque.AssemblyType;
                     editableTorque.Comment = torque.Comment;
 
-                    if (storeDB.Attachment.Count(a => a.AttachableType == attachableType
+                    if (storeDB.Attachments.Count(a => a.AttachableType == attachableType
                                               && a.AttachableId == torque.TorqueId) > 0)
                     {
-                        Attachment attachment = storeDB.Attachment.FirstOrDefault(a => a.AttachableType == attachableType
+                        Attachment attachment = storeDB.Attachments.FirstOrDefault(a => a.AttachableType == attachableType
                                                                                && a.AttachableId == torque.TorqueId);
                         editableTorque.Attachment = attachment.FileName;
                         editableTorque.AttachmentGuid = attachment.Guid;
@@ -77,7 +77,7 @@ namespace DOSB.Models.EditableRespositories
             torque.TorqueId = All().OrderByDescending(t => t.TorqueId).First().TorqueId + 1;
             All().Insert(0, torque);
 
-            DOSBEntities storeDB = new DOSBEntities();
+            CPLDataContext storeDB = new CPLDataContext();
 
             Torque target = new Torque();
             target.TorqueId = torque.TorqueId;
@@ -92,8 +92,8 @@ namespace DOSB.Models.EditableRespositories
             target.Comment = torque.Comment;
             target.ApprovedBy = null;
 
-            storeDB.Torque.AddObject(target);
-            storeDB.SaveChanges();
+            storeDB.Torques.InsertOnSubmit(target);
+            storeDB.SubmitChanges();
         }
 
         /// <summary>
@@ -102,8 +102,8 @@ namespace DOSB.Models.EditableRespositories
         /// <param name="torque">Editable torque</param>
         public static void Update(EditableTorqueLog torque)
         {
-            DOSBEntities storeDB = new DOSBEntities();
-            Torque target = storeDB.Torque.First(e => e.TorqueId == torque.TorqueId);
+            CPLDataContext storeDB = new CPLDataContext();
+            Torque target = storeDB.Torques.First(e => e.TorqueId == torque.TorqueId);
             
             if (target != null)
             {
@@ -119,7 +119,7 @@ namespace DOSB.Models.EditableRespositories
                 target.Comment = torque.Comment;
             }
 
-            storeDB.SaveChanges();
+            storeDB.SubmitChanges();
         }
 
         /// <summary>
