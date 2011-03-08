@@ -8,16 +8,33 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   	<link rel="stylesheet" type="text/css" href="/Scripts/ext/resources/css/ext-all.css">
   	<link rel="stylesheet" type="text/css" href="/Content/application.css">
-	
-	<link rel="stylesheet" type="text/css" href="/Scripts/ext/examples/ux/css/LockingGridView.css" />
-	<link rel="stylesheet" type="text/css" href="/Scripts/ext/examples/ux/css/ColumnHeaderGroup.css" />
+    
+    <link href="/Scripts/ext/examples/ux/css/Spinner.css" rel="stylesheet" type="text/css" />
+
+	<!--Scheduler styles-->
+    <link href="/Scripts/Sch/sch-all.css" rel="stylesheet" type="text/css" />
+
+	<!--Implementation specific styles-->
+    <link href="/Scripts/Sch/editor.css" rel="stylesheet" type="text/css" />
+    <link href="/Scripts/Sch/examples.css" rel="stylesheet" type="text/css" />
+
 	
   	<script type="text/javascript" src="/Scripts/ext/adapter/ext/ext-base.js"></script>
   	<script type="text/javascript" src="/Scripts/ext/ext-all-debug.js"></script>
-	<script type="text/javascript" src="/Scripts/ext/examples/ux/LockingGridView.js"></script>
-	<script type="text/javascript" src="/Scripts/ExtUI/ux/LockingColumnHeaderGroup.js"></script>
-	<script type="text/javascript" src="/CompletionActivity/MonthViewJS"></script>
-  	<script type="text/javascript" src="/Scripts/ExtUI/test.js"></script>
+    <script type="text/javascript" src="/Scripts/ext/examples/ux/Spinner.js"></script>
+    <script type="text/javascript" src="/Scripts/ext/examples/ux/SpinnerField.js"></script>
+
+	<script type="text/javascript" src="/Scripts/ExtUI/ux/ext.ux.form.datetime.js"></script>
+
+	<!--Scheduler components-->
+    <script src="/Scripts/Sch/sch-all-debug.js" type="text/javascript"></script>
+	
+	<!--Application files-->
+    <script src="/Scripts/ExtUI/CActivity/DemoEditor.js" type="text/javascript"></script>
+    <script src="/Scripts/ExtUI/CActivity/DemoScheduler.js" type="text/javascript"></script>
+
+    <script src="/Scripts/ExtUI/CActivity/data.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/Scripts/ExtUI/CActivity/editor.js"></script>
   <title>DOSB Ext Client</title>
 </head>
 <body>
