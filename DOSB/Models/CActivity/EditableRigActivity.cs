@@ -16,7 +16,7 @@ namespace DOSB.Models.EditableModels
         //[ReadOnly(true)]
         //[ScaffoldColumn(false)]
         public int RigActivityId { get; set; }
-
+        public int RigId { get; set; }
         public string FieldName { get; set; }
         public string ClientName { get; set; }
         public string CountryName { get; set; }
@@ -26,6 +26,23 @@ namespace DOSB.Models.EditableModels
         public string WellStatus { get; set; }
         public string WellTypeName { get; set; }
         public string CompletionTypeName { get; set; }
+        public DateTime StartAt { get; set; }
+        public DateTime FinishAt { get; set; }
+        public string StartDate 
+        { 
+            get
+            {
+                return this.StartAt.ToString("yyyy-MM-dd");
+            }
+        }
+
+        public string EndDate
+        {
+            get
+            {
+                return this.FinishAt.ToString("yyyy-MM-dd");
+            }
+        }
     }
 }
 
@@ -33,12 +50,6 @@ namespace DOSB.Models.EditableRespositories
 {
     public class EditableRigActivityRespository
     {
-        private static string getConString()
-        {
-            var conString = System.Configuration.ConfigurationManager.ConnectionStrings["DOSBConnectionString"];
-            return conString.ConnectionString;
-        }
-
         /// <summary>
         /// Rig Activity in one month
         /// </summary>
@@ -50,14 +61,14 @@ namespace DOSB.Models.EditableRespositories
 
             if (result == null)
             {
-                result = new List<EditableRigActivity>();
-                CPLDataContext storeDB = new CPLDataContext(getConString());
+                CPLDataContext store = CPLStore.Instance;
 
-
-                var dataResults = from tbl in storeDB.vwRigActivities
+                var dataResults = from tbl in store.vwRigActivities
                                   select new EditableRigActivity
                                   {
                                       RigActivityId = tbl.RigActivityId,
+                                      RigId= tbl.RigId,
+                                      RigName = tbl.RigName,
                                       WellName = tbl.WellName,
                                       FieldName = tbl.FieldName,
                                       ClientName = tbl.ClientName,
@@ -65,10 +76,11 @@ namespace DOSB.Models.EditableRespositories
                                       CompletionTypeName = tbl.CompletionTypeName,
                                       WellStatus = tbl.WellStatus,
                                       WellTypeName = tbl.WellTypeName,
-                                      Comment = tbl.Comment
+                                      Comment = tbl.Comment,
+                                      StartAt = tbl.StartAt.HasValue ? tbl.StartAt.Value : DateTime.Today,
+                                      FinishAt = tbl.FinishAt.HasValue ? tbl.FinishAt.Value : DateTime.MaxValue
                                   };
-
-                HttpContext.Current.Session["RigActivities"] = result;
+                HttpContext.Current.Session["RigActivities"] = result = dataResults.ToList();
             }
 
             return result;
@@ -94,7 +106,7 @@ namespace DOSB.Models.EditableRespositories
             All().Insert(0, Activity);
 
 
-            CPLDataContext storeDB = new CPLDataContext(getConString());
+            CPLDataContext storeDB = new CPLDataContext();
 
             RigActivity target = new RigActivity();
             target.RigActivityId = Activity.RigActivityId;
@@ -110,8 +122,8 @@ namespace DOSB.Models.EditableRespositories
         /// <param name="torque">Editable Activity</param>
         public static void Update(EditableRigActivity activity)
         {
-            CPLDataContext storeDB = new CPLDataContext(getConString());
-            RigActivity target = storeDB.RigActivities.First(ra => ra.RigActivityId == activity.RigActivityId);
+            CPLDataContext store = CPLStore.Instance;
+            RigActivity target = store.RigActivities.First(ra => ra.RigActivityId == activity.RigActivityId);
 
             if (target != null)
             {
@@ -119,7 +131,7 @@ namespace DOSB.Models.EditableRespositories
                 target.Comment = activity.Comment;
             }
 
-            storeDB.SubmitChanges();
+            store.SubmitChanges();
         }
 
         /// <summary>

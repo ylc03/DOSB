@@ -57,15 +57,28 @@ namespace DOSB.Controllers
             return View(target);
         }
 
-        public ActionResult MonthViewJS()
+        public ActionResult CustomHeaderJS()
         {
-            CPLDataContext storeDB = new CPLDataContext();
+            CPLDataContext storeDB = CPLStore.Instance;
 
             ViewData["upper"] = storeDB.vwUpperCompletionAssemblies.ToList();
             ViewData["upperCount"] = storeDB.vwUpperCompletionAssemblies.Count();
             ViewData["lower"] = storeDB.vwLowerCompletionAssemblies.ToList();
             ViewData["lowerCount"] = storeDB.vwLowerCompletionAssemblies.Count();
+            ViewData["Company"] = EditableCompanyRespository.All().ToList();
             return View();
         }
+
+        public JsonResult GetJson()
+        {
+            var data = EditableCompletionActivityRespository.AllMapToTime();
+            return Json(new {
+                total = data.Count(),
+                success = true,
+                message = "All Completion activities",
+                data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+        
     }
 }

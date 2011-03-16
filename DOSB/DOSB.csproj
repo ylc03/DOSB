@@ -76,12 +76,21 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AttachmentController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CompletionActivityController.cs" />
+    <Compile Include="Controllers\CompletionTypeController.cs" />
+    <Compile Include="Controllers\WellController.cs" />
+    <Compile Include="Controllers\RigController.cs" />
+    <Compile Include="Controllers\WellTypeController.cs" />
+    <Compile Include="Controllers\FieldController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\ExtUI\ExtUIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Controllers\PressureTestLogController.cs" />
+    <Compile Include="Controllers\RigActivityController.cs" />
     <Compile Include="Controllers\TorqueLogController.cs" />
     <Compile Include="Controllers\WorkshopDailyActivityController.cs" />
     <Compile Include="Global.asax.cs">
@@ -95,13 +104,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CPL.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\CActivity\AssemblyRespository.cs" />
+    <Compile Include="Models\CActivity\EditableAssemblyRespository.cs" />
     <Compile Include="Models\CActivity\EditableRigActivity.cs" />
     <Compile Include="Models\CActivity\EditableCompletionActivity.cs" />
+    <Compile Include="Models\CPLStore.cs" />
+    <Compile Include="Models\EditableModels\EditableCompany.cs" />
     <Compile Include="Models\EditableModels\EditableWorkshopActivity.cs" />
     <Compile Include="Models\EditableModels\EditablePressureTestLog.cs" />
     <Compile Include="Models\EditableModels\EditableTorqueLog.cs" />
     <Compile Include="Models\EditableModels\EditableEmployee.cs" />
+    <Compile Include="Models\EditableRespositories\EditableCompanyRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableWorkshopActivityRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditablePressureTestLogRespository.cs" />
     <Compile Include="Models\EditableRespositories\EditableTorqueLogRespository.cs" />
@@ -202,18 +214,32 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ExtUI\application.js" />
+    <Content Include="Scripts\ExtUI\CActivity\CAEditor.js" />
+    <Content Include="Scripts\ExtUI\CActivity\custompresents.js" />
+    <Content Include="Scripts\ExtUI\CActivity\data.js" />
+    <Content Include="Scripts\ExtUI\CActivity\DemoEditor.js" />
+    <Content Include="Scripts\ExtUI\CActivity\DemoScheduler.js" />
+    <Content Include="Scripts\ExtUI\CActivity\editor.js" />
     <Content Include="Scripts\ExtUI\CActivity\GridViewTest.js" />
+    <Content Include="Scripts\ExtUI\CActivity\MonthScheduler.js" />
+    <Content Include="Scripts\ExtUI\CActivity\MonthView.js" />
     <Content Include="Scripts\ExtUI\Employee\EmployeeForm.js" />
     <Content Include="Scripts\ExtUI\Employee\EmployeeGrid.js" />
-    <Content Include="Scripts\ExtUI\ux\LockingColumnHeaderGroup.js" />
+    <Content Include="Scripts\ExtUI\ux\ext.ux.form.datetime.js" />
     <Content Include="Scripts\ExtUI\ScriptManager.js" />
     <Content Include="Scripts\ExtUI\test.js" />
     <Content Include="Scripts\jquery-ui-1.8.7.min.js" />
     <Content Include="Scripts\jquery.jeditable.js" />
+    <Content Include="Scripts\Sch\editor.css" />
+    <Content Include="Scripts\Sch\examples.css" />
+    <Content Include="Scripts\Sch\ext-sch-crack.js" />
+    <Content Include="Scripts\Sch\sch-all-debug.js" />
+    <Content Include="Scripts\Sch\sch-all.css" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
+    <Content Include="Views\CompletionActivity\CustomHeaderJS.aspx" />
     <Content Include="Views\CompletionActivity\Index.aspx" />
     <Content Include="Views\CompletionActivity\_DeleteAjax.ascx" />
     <Content Include="Views\CompletionActivity\_EditAjax.ascx" />
@@ -222,6 +248,7 @@
     <Content Include="Views\ExtUI\Index.aspx" />
     <Content Include="Views\ExtUI\SiteMenu.aspx" />
     <Content Include="Views\ExtUI\Test.aspx" />
+    <Content Include="Views\ExtUI\YearViewTest.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Material\Index.aspx" />
     <Content Include="Views\PressureTestLog\Details.aspx" />

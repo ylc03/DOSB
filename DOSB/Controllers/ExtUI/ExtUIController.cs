@@ -21,6 +21,11 @@ namespace DOSB.Controllers.ExtUI
             return View();
         }
 
+        public ActionResult YearViewTest()
+        {
+            return View();
+        }
+
         public ActionResult SiteMenu()
         {
             return View();

@@ -31,7 +31,7 @@
     <script src="/Scripts/Sch/ext-sch-crack.js" type="text/javascript"></script>
 	
 	<!--Application files-->
-    <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.CompanyCombo.js"></script>
+    
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js"></script>
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js"></script>
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js"></script>
@@ -39,14 +39,11 @@
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.WellTypeCombo.js"></script>
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.RigField.js"></script>
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.WellField.js"></script>
+   
     <script src="/CompletionActivity/CustomHeaderJS" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/custompresents.js" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/CAEditor.js" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/RAEditor.js" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/MonthScheduler.js" type="text/javascript"></script>
-
-    <script src="/Scripts/ExtUI/CActivity/caData.js" type="text/javascript"></script>
-	<script src="/Scripts/ExtUI/CActivity/MonthView.js" type="text/javascript" ></script>
+    <script src="/Scripts/ExtUI/CActivity/YVEditor.js" type="text/javascript"></script>
+    <script src="/Scripts/ExtUI/CActivity/YearScheduler.js" type="text/javascript"></script>
+	<script src="/Scripts/ExtUI/CActivity/YearView.js" type="text/javascript" ></script>
   <title>DOSB Ext Client</title>
 </head>
 <body>
