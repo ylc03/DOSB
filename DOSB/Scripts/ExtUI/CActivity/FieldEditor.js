@@ -5,18 +5,15 @@ Ext.ns('Dosb', 'Dosb.CActivity');
  * A typical FormPanel extension
  */
 Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
-    iconCls: 'silk-user',
+    iconCls: 'silk-application-edit',
     frame: true,
     labelAlign: 'right',
-    title: 'User -- All fields are required',
-	height: 200,
+    title: 'Field -- All fields are required',
+	height: 150,
     defaultType: 'textfield',
     defaults: {
         anchor: '100%'
     },
-	viewConfig {
-		forceFit: true
-	},
 
     // private A pointer to the currently loaded record
     record : null,
@@ -41,7 +38,8 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
              * @param {FormPanel} this
              * @param {Object} values, the Form's values object
              */
-            create : true
+            create : true,
+			destory : true
         });
 
         // super
@@ -72,8 +70,13 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
             scope: this
         }, {
             text: 'Create',
-            iconCls: 'silk-user-add',
+            iconCls: 'silk-application-add',
             handler: this.onCreate,
+            scope: this
+        }, {
+            text: 'Delete',
+            iconCls: 'silk-application-delete',
+            handler: this.onDelete,
             scope: this
         }, {
             text: 'Reset',
@@ -120,6 +123,14 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
     },
 
     /**
+     * onDelete
+     */
+    onDelete : function(btn, ev) {
+        this.fireEvent('destory', this, this.getForm().getValues());
+		this.getForm().reset();
+	},
+	
+    /**
      * onReset
      */
     onReset : function(btn, ev) {
@@ -129,10 +140,7 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
 });
 
 Dosb.CActivity.FieldGrid = Ext.extend(Ext.grid.GridPanel, {
-    iconCls: 'silk-grid',
     frame: false,
-    height: 300,
-    width: 500,
     style: 'margin-top: 10px',
 
     initComponent : function() {
@@ -148,104 +156,103 @@ Dosb.CActivity.FieldGrid = Ext.extend(Ext.grid.GridPanel, {
         // build toolbars and buttons.
         //this.tbar = this.buildTopToolbar();
         //this.bbar = this.buildBottomToolbar();
-        this.buttons = this.buildUI();
+        //this.buttons = this.buildUI();
 
         // super
         Dosb.CActivity.FieldGrid.superclass.initComponent.call(this);
     },
-
+	
     /**
      * buildTopToolbar
      */
-    buildTopToolbar : function() {
-        return [{
-            text: 'Add',
-            iconCls: 'silk-add',
-            handler: this.onAdd,
-            scope: this
-        }, '-', {
-            text: 'Delete',
-            iconCls: 'silk-delete',
-            handler: this.onDelete,
-            scope: this
-        }, '-'];
-    },
+    // buildTopToolbar : function() {
+        // return [{
+            // text: 'Add',
+            // iconCls: 'silk-add',
+            // handler: this.onAdd,
+            // scope: this
+        // }, '-', {
+            // text: 'Delete',
+            // iconCls: 'silk-delete',
+            // handler: this.onDelete,
+            // scope: this
+        // }, '-'];
+    // },
 
     /**
      * buildBottomToolbar
      */
-    buildBottomToolbar : function() {
-        return ['<b>@cfg:</b>', '-', {
-            text: 'autoSave',
-            enableToggle: true,
-            pressed: true,
-            tooltip: 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
-            toggleHandler: function(btn, pressed) {
-                this.store.autoSave = pressed;
-            },
-            scope: this
-        }, '-', {
-            text: 'batch',
-            enableToggle: true,
-            pressed: true,
-            tooltip: 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
-            toggleHandler: function(btn, pressed) {
-                this.store.batch = pressed;
-            },
-            scope: this
-        }, '-', {
-            text: 'writeAllFields',
-            enableToggle: true,
-            tooltip: 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
-            toggleHandler: function(btn, pressed) {
-                store.writer.writeAllFields = pressed;
-            },
-            scope: this
-        }, '-'];
-    },
+    // buildBottomToolbar : function() {
+        // return ['<b>@cfg:</b>', '-', {
+            // text: 'autoSave',
+            // enableToggle: true,
+            // pressed: true,
+            // tooltip: 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
+            // toggleHandler: function(btn, pressed) {
+                // this.store.autoSave = pressed;
+            // },
+            // scope: this
+        // }, '-', {
+            // text: 'batch',
+            // enableToggle: true,
+            // pressed: true,
+            // tooltip: 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
+            // toggleHandler: function(btn, pressed) {
+                // this.store.batch = pressed;
+            // },
+            // scope: this
+        // }, '-', {
+            // text: 'writeAllFields',
+            // enableToggle: true,
+            // tooltip: 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
+            // toggleHandler: function(btn, pressed) {
+                // store.writer.writeAllFields = pressed;
+            // },
+            // scope: this
+        // }, '-'];
+    // },
 
     /**
      * buildUI
      */
-    buildUI : function() {
-        return [{
-            text: 'Save',
-            iconCls: 'icon-save',
-            handler: this.onSave,
-            scope: this
-        }];
-    },
+    // buildUI : function() {
+        // return [{
+            // text: 'Save',
+            // iconCls: 'icon-save',
+            // handler: this.onSave,
+            // scope: this
+        // }];
+    // },
 
     /**
      * onSave
      */
-    onSave : function(btn, ev) {
-        this.store.save();
-    },
+    // onSave : function(btn, ev) {
+        // this.store.save();
+    // },
 
     /**
      * onAdd
      */
-    onAdd : function(btn, ev) {
-        var u = new this.store.recordType({
-            first : '',
-            last: '',
-            email : ''
-        });
-        this.stopEditing();
-        this.store.insert(0, u);
-        this.startEditing(0, 1);
-    },
+    // onAdd : function(btn, ev) {
+        // var u = new this.store.recordType({
+            // first : '',
+            // last: '',
+            // email : ''
+        // });
+        // this.stopEditing();
+        // this.store.insert(0, u);
+        // this.startEditing(0, 1);
+    // },
 
     /**
-     * onDelete
+     * Delete the selected
      */
-    onDelete : function(btn, ev) {
-        var index = this.getSelectionModel().getSelectedCell();
-        if (!index) {
+    DeleteSelected : function() {
+        var rec = this.getSelectionModel().getSelected();
+        if (!rec) {
             return false;
         }
-        var rec = this.store.getAt(index[0]);
         this.store.remove(rec);
     }
 });
@@ -311,8 +318,11 @@ Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
 			region: 'north',
 			listeners: {
 				create : function(fpanel, data) {   // <-- custom "create" event defined in App.user.Form class
-					var rec = new userGrid.store.recordType(data);
-					userGrid.store.insert(0, rec);
+					var rec = new fieldGrid.store.recordType(data);
+					fieldGrid.store.insert(0, rec);
+				},
+				destory : function(fpanel, data) {
+					fieldGrid.DeleteSelected();
 				}
 			}
 		});

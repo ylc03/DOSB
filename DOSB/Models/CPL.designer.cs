@@ -306,19 +306,19 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Field> Fields
-		{
-			get
-			{
-				return this.GetTable<Field>();
-			}
-		}
-		
 		public System.Data.Linq.Table<vwField> vwFields
 		{
 			get
 			{
 				return this.GetTable<vwField>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Field> Fields
+		{
+			get
+			{
+				return this.GetTable<Field>();
 			}
 		}
 	}
@@ -970,7 +970,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Field", ThisKey="FieldId", OtherKey="FieldId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field1_Well", Storage="_Field", ThisKey="FieldId", OtherKey="FieldId", IsForeignKey=true)]
 		public Field Field
 		{
 			get
@@ -5151,7 +5151,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field", Storage="_Fields", ThisKey="ClientId", OtherKey="ClientId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field1", Storage="_Fields", ThisKey="ClientId", OtherKey="ClientId")]
 		public EntitySet<Field> Fields
 		{
 			get
@@ -5265,7 +5265,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Field", Storage="_Fields", ThisKey="CountryId", OtherKey="CountryId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Field1", Storage="_Fields", ThisKey="CountryId", OtherKey="CountryId")]
 		public EntitySet<Field> Fields
 		{
 			get
@@ -5311,6 +5311,87 @@ namespace DOSB.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwField")]
+	public partial class vwField
+	{
+		
+		private string _Country;
+		
+		private string _Client;
+		
+		private string _Name;
+		
+		private int _FieldId;
+		
+		public vwField()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(50)")]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this._Country = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Client", DbType="NVarChar(50)")]
+		public string Client
+		{
+			get
+			{
+				return this._Client;
+			}
+			set
+			{
+				if ((this._Client != value))
+				{
+					this._Client = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldId", DbType="Int NOT NULL")]
+		public int FieldId
+		{
+			get
+			{
+				return this._FieldId;
+			}
+			set
+			{
+				if ((this._FieldId != value))
+				{
+					this._FieldId = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fields")]
 	public partial class Field : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5324,6 +5405,8 @@ namespace DOSB.Models
 		private System.Nullable<int> _ClientId;
 		
 		private System.Nullable<int> _CountryId;
+		
+		private int _Deleted;
 		
 		private EntitySet<Well> _Wells;
 		
@@ -5343,6 +5426,8 @@ namespace DOSB.Models
     partial void OnClientIdChanged();
     partial void OnCountryIdChanging(System.Nullable<int> value);
     partial void OnCountryIdChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
     #endregion
 		
 		public Field()
@@ -5441,7 +5526,27 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Wells", ThisKey="FieldId", OtherKey="FieldId")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field1_Well", Storage="_Wells", ThisKey="FieldId", OtherKey="FieldId")]
 		public EntitySet<Well> Wells
 		{
 			get
@@ -5454,7 +5559,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field", Storage="_Client", ThisKey="ClientId", OtherKey="ClientId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field1", Storage="_Client", ThisKey="ClientId", OtherKey="ClientId", IsForeignKey=true)]
 		public Client Client
 		{
 			get
@@ -5488,7 +5593,7 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Field", Storage="_Country", ThisKey="CountryId", OtherKey="CountryId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Field1", Storage="_Country", ThisKey="CountryId", OtherKey="CountryId", IsForeignKey=true)]
 		public Country Country
 		{
 			get
@@ -5552,87 +5657,6 @@ namespace DOSB.Models
 		{
 			this.SendPropertyChanging();
 			entity.Field = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwField")]
-	public partial class vwField
-	{
-		
-		private string _Country;
-		
-		private string _Client;
-		
-		private string _Name;
-		
-		private int _FieldId;
-		
-		public vwField()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(50)")]
-		public string Country
-		{
-			get
-			{
-				return this._Country;
-			}
-			set
-			{
-				if ((this._Country != value))
-				{
-					this._Country = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Client", DbType="NVarChar(50)")]
-		public string Client
-		{
-			get
-			{
-				return this._Client;
-			}
-			set
-			{
-				if ((this._Client != value))
-				{
-					this._Client = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this._Name = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldId", DbType="Int NOT NULL")]
-		public int FieldId
-		{
-			get
-			{
-				return this._FieldId;
-			}
-			set
-			{
-				if ((this._FieldId != value))
-				{
-					this._FieldId = value;
-				}
-			}
 		}
 	}
 }

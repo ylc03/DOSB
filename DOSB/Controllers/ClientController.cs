@@ -10,6 +10,8 @@ namespace DOSB.Controllers
 {
     public class ClientController : Controller
     {
+        CPLDataContext store = new CPLDataContext();
+
         //
         // GET: /Client/
 
@@ -20,7 +22,7 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in CPLStore.Instance.Clients
+            var data = from item in store.Clients
                        select new
                        {
                            ClientId = item.ClientId,

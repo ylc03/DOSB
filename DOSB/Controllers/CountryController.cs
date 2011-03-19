@@ -20,7 +20,8 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in CPLStore.Instance.Countries
+            CPLDataContext store = new CPLDataContext();
+            var data = from item in store.Countries
                        select new
                        {
                            CountryId = item.CountryId,

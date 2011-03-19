@@ -6,6 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   	<link rel="stylesheet" type="text/css" href="/Scripts/ext/resources/css/ext-all.css">
+    <link rel="stylesheet" type="text/css" href="/Scripts/ext/examples/shared/icons/silk.css">
   	<link rel="stylesheet" type="text/css" href="/Content/application.css">
 	
 	<link rel="stylesheet" type="text/css" href="/Scripts/ext/examples/ux/css/LockingGridView.css" />
