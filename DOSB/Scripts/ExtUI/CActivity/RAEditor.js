@@ -135,7 +135,7 @@
 						name: 'CompletionTypeName',
 						width : 100,
 						fieldLabel: 'Comp Type'
-					}),						
+					})						
 				]
 			});
 		},
@@ -172,7 +172,7 @@
 						name : 'ClientName',
 						width : 100,
 						fieldLabel : 'Client'
-					}),
+					})
 				]
 			});
 		},

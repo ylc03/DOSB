@@ -48,7 +48,7 @@ Dosb.CActivity.YearView = {
 
                 // Simulate server delay 1.5 seconds
                 bookingRecord.commit.defer(1500, bookingRecord);
-            },
+            }
             
             //add : function(s, rs) {
             //    // Pretend it's been sent to server and stored
@@ -173,7 +173,7 @@ Dosb.CActivity.YearView = {
             eventStore: eventStore,
 			viewPreset: 'monthAndYear',
             startDate: new Date(2011, 0, 1),
-            endDate: new Date(2012, 0, 1),
+            endDate: new Date(2012, 0, 1)
         });
     }
 };

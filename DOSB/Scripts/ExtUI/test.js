@@ -17,9 +17,9 @@ Ext.onReady(function() {
  
     Ext.QuickTips.init();
 
-   	var grid = new Dosb.CActivity.MonthView();
+   	var a = new Dosb.CActivity.FieldEditor();
 
-	grid.render('test');
+	a.render('test');
  
 }); // eo function onReady
  

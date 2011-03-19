@@ -10,7 +10,7 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
         return {
             headerText: item.get('Comment'),
             footerText: item.get('CompanyName'),
-			textColor: item.get('TextColor'),
+			textColor: item.get('TextColor')
         };
     },
 
@@ -65,7 +65,7 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                         triggerAction: 'all',
                         selectOnFocus: true
                     })
-                },				
+                }			
             ],
 
             // Specialized body template with header and footer
@@ -144,7 +144,7 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
 				
 				this.resourceEditor = new RAEditor({
 				
-				}),
+				})
             ]
         });
 		

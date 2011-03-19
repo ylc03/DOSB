@@ -30,21 +30,12 @@ namespace DOSB.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertClient(Client instance);
-    partial void UpdateClient(Client instance);
-    partial void DeleteClient(Client instance);
     partial void InsertCompany(Company instance);
     partial void UpdateCompany(Company instance);
     partial void DeleteCompany(Company instance);
     partial void InsertCompletionType(CompletionType instance);
     partial void UpdateCompletionType(CompletionType instance);
     partial void DeleteCompletionType(CompletionType instance);
-    partial void InsertCountry(Country instance);
-    partial void UpdateCountry(Country instance);
-    partial void DeleteCountry(Country instance);
-    partial void InsertField(Field instance);
-    partial void UpdateField(Field instance);
-    partial void DeleteField(Field instance);
     partial void InsertRig(Rig instance);
     partial void UpdateRig(Rig instance);
     partial void DeleteRig(Rig instance);
@@ -90,6 +81,15 @@ namespace DOSB.Models
     partial void InsertCompletionActivity(CompletionActivity instance);
     partial void UpdateCompletionActivity(CompletionActivity instance);
     partial void DeleteCompletionActivity(CompletionActivity instance);
+    partial void InsertClient(Client instance);
+    partial void UpdateClient(Client instance);
+    partial void DeleteClient(Client instance);
+    partial void InsertCountry(Country instance);
+    partial void UpdateCountry(Country instance);
+    partial void DeleteCountry(Country instance);
+    partial void InsertField(Field instance);
+    partial void UpdateField(Field instance);
+    partial void DeleteField(Field instance);
     #endregion
 		
 		public CPLDataContext() : 
@@ -122,14 +122,6 @@ namespace DOSB.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Client> Clients
-		{
-			get
-			{
-				return this.GetTable<Client>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Company> Companies
 		{
 			get
@@ -143,22 +135,6 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<CompletionType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Country> Countries
-		{
-			get
-			{
-				return this.GetTable<Country>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Field> Fields
-		{
-			get
-			{
-				return this.GetTable<Field>();
 			}
 		}
 		
@@ -313,184 +289,37 @@ namespace DOSB.Models
 				return this.GetTable<vwRigActivity>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clients")]
-	public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ClientId;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _CountryId;
-		
-		private EntitySet<Field> _Fields;
-		
-		private EntityRef<Country> _Country;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnClientIdChanging(int value);
-    partial void OnClientIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnCountryIdChanging(System.Nullable<int> value);
-    partial void OnCountryIdChanged();
-    #endregion
-		
-		public Client()
-		{
-			this._Fields = new EntitySet<Field>(new Action<Field>(this.attach_Fields), new Action<Field>(this.detach_Fields));
-			this._Country = default(EntityRef<Country>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ClientId
+		public System.Data.Linq.Table<Client> Clients
 		{
 			get
 			{
-				return this._ClientId;
-			}
-			set
-			{
-				if ((this._ClientId != value))
-				{
-					this.OnClientIdChanging(value);
-					this.SendPropertyChanging();
-					this._ClientId = value;
-					this.SendPropertyChanged("ClientId");
-					this.OnClientIdChanged();
-				}
+				return this.GetTable<Client>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
-		public string Name
+		public System.Data.Linq.Table<Country> Countries
 		{
 			get
 			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
+				return this.GetTable<Country>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="Int")]
-		public System.Nullable<int> CountryId
+		public System.Data.Linq.Table<Field> Fields
 		{
 			get
 			{
-				return this._CountryId;
-			}
-			set
-			{
-				if ((this._CountryId != value))
-				{
-					if (this._Country.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCountryIdChanging(value);
-					this.SendPropertyChanging();
-					this._CountryId = value;
-					this.SendPropertyChanged("CountryId");
-					this.OnCountryIdChanged();
-				}
+				return this.GetTable<Field>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field", Storage="_Fields", ThisKey="ClientId", OtherKey="ClientId")]
-		public EntitySet<Field> Fields
+		public System.Data.Linq.Table<vwField> vwFields
 		{
 			get
 			{
-				return this._Fields;
+				return this.GetTable<vwField>();
 			}
-			set
-			{
-				this._Fields.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Client", Storage="_Country", ThisKey="CountryId", OtherKey="CountryId", IsForeignKey=true)]
-		public Country Country
-		{
-			get
-			{
-				return this._Country.Entity;
-			}
-			set
-			{
-				Country previousValue = this._Country.Entity;
-				if (((previousValue != value) 
-							|| (this._Country.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Country.Entity = null;
-						previousValue.Clients.Remove(this);
-					}
-					this._Country.Entity = value;
-					if ((value != null))
-					{
-						value.Clients.Add(this);
-						this._CountryId = value.CountryId;
-					}
-					else
-					{
-						this._CountryId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Country");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Fields(Field entity)
-		{
-			this.SendPropertyChanging();
-			entity.Client = this;
-		}
-		
-		private void detach_Fields(Field entity)
-		{
-			this.SendPropertyChanging();
-			entity.Client = null;
 		}
 	}
 	
@@ -798,299 +627,6 @@ namespace DOSB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Countries")]
-	public partial class Country : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _CountryId;
-		
-		private string _Name;
-		
-		private EntitySet<Client> _Clients;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCountryIdChanging(int value);
-    partial void OnCountryIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public Country()
-		{
-			this._Clients = new EntitySet<Client>(new Action<Client>(this.attach_Clients), new Action<Client>(this.detach_Clients));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CountryId
-		{
-			get
-			{
-				return this._CountryId;
-			}
-			set
-			{
-				if ((this._CountryId != value))
-				{
-					this.OnCountryIdChanging(value);
-					this.SendPropertyChanging();
-					this._CountryId = value;
-					this.SendPropertyChanged("CountryId");
-					this.OnCountryIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Client", Storage="_Clients", ThisKey="CountryId", OtherKey="CountryId")]
-		public EntitySet<Client> Clients
-		{
-			get
-			{
-				return this._Clients;
-			}
-			set
-			{
-				this._Clients.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Clients(Client entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = this;
-		}
-		
-		private void detach_Clients(Client entity)
-		{
-			this.SendPropertyChanging();
-			entity.Country = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fields")]
-	public partial class Field : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _FieldId;
-		
-		private string _Name;
-		
-		private System.Nullable<int> _ClientId;
-		
-		private EntitySet<Well> _Wells;
-		
-		private EntityRef<Client> _Client;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnFieldIdChanging(int value);
-    partial void OnFieldIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnClientIdChanging(System.Nullable<int> value);
-    partial void OnClientIdChanged();
-    #endregion
-		
-		public Field()
-		{
-			this._Wells = new EntitySet<Well>(new Action<Well>(this.attach_Wells), new Action<Well>(this.detach_Wells));
-			this._Client = default(EntityRef<Client>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int FieldId
-		{
-			get
-			{
-				return this._FieldId;
-			}
-			set
-			{
-				if ((this._FieldId != value))
-				{
-					this.OnFieldIdChanging(value);
-					this.SendPropertyChanging();
-					this._FieldId = value;
-					this.SendPropertyChanged("FieldId");
-					this.OnFieldIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", DbType="Int")]
-		public System.Nullable<int> ClientId
-		{
-			get
-			{
-				return this._ClientId;
-			}
-			set
-			{
-				if ((this._ClientId != value))
-				{
-					if (this._Client.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnClientIdChanging(value);
-					this.SendPropertyChanging();
-					this._ClientId = value;
-					this.SendPropertyChanged("ClientId");
-					this.OnClientIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Wells", ThisKey="FieldId", OtherKey="FieldId")]
-		public EntitySet<Well> Wells
-		{
-			get
-			{
-				return this._Wells;
-			}
-			set
-			{
-				this._Wells.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field", Storage="_Client", ThisKey="ClientId", OtherKey="ClientId", IsForeignKey=true)]
-		public Client Client
-		{
-			get
-			{
-				return this._Client.Entity;
-			}
-			set
-			{
-				Client previousValue = this._Client.Entity;
-				if (((previousValue != value) 
-							|| (this._Client.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Client.Entity = null;
-						previousValue.Fields.Remove(this);
-					}
-					this._Client.Entity = value;
-					if ((value != null))
-					{
-						value.Fields.Add(this);
-						this._ClientId = value.ClientId;
-					}
-					else
-					{
-						this._ClientId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Client");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Wells(Well entity)
-		{
-			this.SendPropertyChanging();
-			entity.Field = this;
-		}
-		
-		private void detach_Wells(Well entity)
-		{
-			this.SendPropertyChanging();
-			entity.Field = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rigs")]
 	public partial class Rig : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1251,9 +787,9 @@ namespace DOSB.Models
 		
 		private EntitySet<RigActivity> _RigActivities;
 		
-		private EntityRef<Field> _Field;
-		
 		private EntityRef<WellType> _WellType;
+		
+		private EntityRef<Field> _Field;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1274,8 +810,8 @@ namespace DOSB.Models
 		public Well()
 		{
 			this._RigActivities = new EntitySet<RigActivity>(new Action<RigActivity>(this.attach_RigActivities), new Action<RigActivity>(this.detach_RigActivities));
-			this._Field = default(EntityRef<Field>);
 			this._WellType = default(EntityRef<WellType>);
+			this._Field = default(EntityRef<Field>);
 			OnCreated();
 		}
 		
@@ -1400,40 +936,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Field", ThisKey="FieldId", OtherKey="FieldId", IsForeignKey=true)]
-		public Field Field
-		{
-			get
-			{
-				return this._Field.Entity;
-			}
-			set
-			{
-				Field previousValue = this._Field.Entity;
-				if (((previousValue != value) 
-							|| (this._Field.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Field.Entity = null;
-						previousValue.Wells.Remove(this);
-					}
-					this._Field.Entity = value;
-					if ((value != null))
-					{
-						value.Wells.Add(this);
-						this._FieldId = value.FieldId;
-					}
-					else
-					{
-						this._FieldId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Field");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WellType_Well", Storage="_WellType", ThisKey="TypeId", OtherKey="WellTypeId", IsForeignKey=true)]
 		public WellType WellType
 		{
@@ -1464,6 +966,40 @@ namespace DOSB.Models
 						this._TypeId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("WellType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Field", ThisKey="FieldId", OtherKey="FieldId", IsForeignKey=true)]
+		public Field Field
+		{
+			get
+			{
+				return this._Field.Entity;
+			}
+			set
+			{
+				Field previousValue = this._Field.Entity;
+				if (((previousValue != value) 
+							|| (this._Field.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Field.Entity = null;
+						previousValue.Wells.Remove(this);
+					}
+					this._Field.Entity = value;
+					if ((value != null))
+					{
+						value.Wells.Add(this);
+						this._FieldId = value.FieldId;
+					}
+					else
+					{
+						this._FieldId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Field");
 				}
 			}
 		}
@@ -5542,6 +5078,559 @@ namespace DOSB.Models
 				if ((this._FinishAt != value))
 				{
 					this._FinishAt = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clients")]
+	public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ClientId;
+		
+		private string _Name;
+		
+		private EntitySet<Field> _Fields;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnClientIdChanging(int value);
+    partial void OnClientIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Client()
+		{
+			this._Fields = new EntitySet<Field>(new Action<Field>(this.attach_Fields), new Action<Field>(this.detach_Fields));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ClientId
+		{
+			get
+			{
+				return this._ClientId;
+			}
+			set
+			{
+				if ((this._ClientId != value))
+				{
+					this.OnClientIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClientId = value;
+					this.SendPropertyChanged("ClientId");
+					this.OnClientIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field", Storage="_Fields", ThisKey="ClientId", OtherKey="ClientId")]
+		public EntitySet<Field> Fields
+		{
+			get
+			{
+				return this._Fields;
+			}
+			set
+			{
+				this._Fields.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Fields(Field entity)
+		{
+			this.SendPropertyChanging();
+			entity.Client = this;
+		}
+		
+		private void detach_Fields(Field entity)
+		{
+			this.SendPropertyChanging();
+			entity.Client = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Countries")]
+	public partial class Country : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CountryId;
+		
+		private string _Name;
+		
+		private EntitySet<Field> _Fields;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCountryIdChanging(int value);
+    partial void OnCountryIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Country()
+		{
+			this._Fields = new EntitySet<Field>(new Action<Field>(this.attach_Fields), new Action<Field>(this.detach_Fields));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CountryId
+		{
+			get
+			{
+				return this._CountryId;
+			}
+			set
+			{
+				if ((this._CountryId != value))
+				{
+					this.OnCountryIdChanging(value);
+					this.SendPropertyChanging();
+					this._CountryId = value;
+					this.SendPropertyChanged("CountryId");
+					this.OnCountryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Field", Storage="_Fields", ThisKey="CountryId", OtherKey="CountryId")]
+		public EntitySet<Field> Fields
+		{
+			get
+			{
+				return this._Fields;
+			}
+			set
+			{
+				this._Fields.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Fields(Field entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = this;
+		}
+		
+		private void detach_Fields(Field entity)
+		{
+			this.SendPropertyChanging();
+			entity.Country = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Fields")]
+	public partial class Field : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _FieldId;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _ClientId;
+		
+		private System.Nullable<int> _CountryId;
+		
+		private EntitySet<Well> _Wells;
+		
+		private EntityRef<Client> _Client;
+		
+		private EntityRef<Country> _Country;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnFieldIdChanging(int value);
+    partial void OnFieldIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnClientIdChanging(System.Nullable<int> value);
+    partial void OnClientIdChanged();
+    partial void OnCountryIdChanging(System.Nullable<int> value);
+    partial void OnCountryIdChanged();
+    #endregion
+		
+		public Field()
+		{
+			this._Wells = new EntitySet<Well>(new Action<Well>(this.attach_Wells), new Action<Well>(this.detach_Wells));
+			this._Client = default(EntityRef<Client>);
+			this._Country = default(EntityRef<Country>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int FieldId
+		{
+			get
+			{
+				return this._FieldId;
+			}
+			set
+			{
+				if ((this._FieldId != value))
+				{
+					this.OnFieldIdChanging(value);
+					this.SendPropertyChanging();
+					this._FieldId = value;
+					this.SendPropertyChanged("FieldId");
+					this.OnFieldIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", DbType="Int")]
+		public System.Nullable<int> ClientId
+		{
+			get
+			{
+				return this._ClientId;
+			}
+			set
+			{
+				if ((this._ClientId != value))
+				{
+					if (this._Client.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnClientIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClientId = value;
+					this.SendPropertyChanged("ClientId");
+					this.OnClientIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryId", DbType="Int")]
+		public System.Nullable<int> CountryId
+		{
+			get
+			{
+				return this._CountryId;
+			}
+			set
+			{
+				if ((this._CountryId != value))
+				{
+					if (this._Country.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCountryIdChanging(value);
+					this.SendPropertyChanging();
+					this._CountryId = value;
+					this.SendPropertyChanged("CountryId");
+					this.OnCountryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Wells", ThisKey="FieldId", OtherKey="FieldId")]
+		public EntitySet<Well> Wells
+		{
+			get
+			{
+				return this._Wells;
+			}
+			set
+			{
+				this._Wells.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Client_Field", Storage="_Client", ThisKey="ClientId", OtherKey="ClientId", IsForeignKey=true)]
+		public Client Client
+		{
+			get
+			{
+				return this._Client.Entity;
+			}
+			set
+			{
+				Client previousValue = this._Client.Entity;
+				if (((previousValue != value) 
+							|| (this._Client.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Client.Entity = null;
+						previousValue.Fields.Remove(this);
+					}
+					this._Client.Entity = value;
+					if ((value != null))
+					{
+						value.Fields.Add(this);
+						this._ClientId = value.ClientId;
+					}
+					else
+					{
+						this._ClientId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Client");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Country_Field", Storage="_Country", ThisKey="CountryId", OtherKey="CountryId", IsForeignKey=true)]
+		public Country Country
+		{
+			get
+			{
+				return this._Country.Entity;
+			}
+			set
+			{
+				Country previousValue = this._Country.Entity;
+				if (((previousValue != value) 
+							|| (this._Country.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Country.Entity = null;
+						previousValue.Fields.Remove(this);
+					}
+					this._Country.Entity = value;
+					if ((value != null))
+					{
+						value.Fields.Add(this);
+						this._CountryId = value.CountryId;
+					}
+					else
+					{
+						this._CountryId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Country");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Wells(Well entity)
+		{
+			this.SendPropertyChanging();
+			entity.Field = this;
+		}
+		
+		private void detach_Wells(Well entity)
+		{
+			this.SendPropertyChanging();
+			entity.Field = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwField")]
+	public partial class vwField
+	{
+		
+		private string _Country;
+		
+		private string _Client;
+		
+		private string _Name;
+		
+		private int _FieldId;
+		
+		public vwField()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(50)")]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this._Country = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Client", DbType="NVarChar(50)")]
+		public string Client
+		{
+			get
+			{
+				return this._Client;
+			}
+			set
+			{
+				if ((this._Client != value))
+				{
+					this._Client = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldId", DbType="Int NOT NULL")]
+		public int FieldId
+		{
+			get
+			{
+				return this._FieldId;
+			}
+			set
+			{
+				if ((this._FieldId != value))
+				{
+					this._FieldId = value;
 				}
 			}
 		}

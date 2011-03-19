@@ -1754,28 +1754,34 @@ return new (Ext.XTemplate)("<div class=\"sch-clockwrap {cls}\"><div class=\"sch-
 			}
 		};
 	}();
-	
-    Sch.SchedulerPanel.prototype.onRender = Sch.SchedulerPanel.prototype.onRender.createSequence(function () {
-		if (window.location.href.match("localhost")) {return;}
-		var g = this;
-		(function () {
-			g.getView().mainBody.select(g.eventSelector).setOpacity(0.15);}.defer(600000, this));
-			g.body.createChild({tag: "a", 
-								href: "http://www.ext-scheduler.com/store.html", 
-								title: "Click here to purchase a license", 
-								style: "display:block;height:50px;width:230px;background: #fff url(http://www.ext-scheduler.com/img/triallogoscheduler.png) no-repeat;z-index:10000;border:1px solid #ddd;-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.5);-moz-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.5);-moz-border-radius:5px;-webkit-border-radius:5px;position:absolute;bottom:20px;right:25px;"});
-		(function () {
-			try {if (!Ext.util.Cookies.get("schedulereval")) {
-					Ext.util.Cookies.set("schedulereval", (new Date).getTime(), (new Date).add(Date.YEAR, 2));
-				} else {
-					var a = Ext.util.Cookies.get("schedulereval"), 
+
+	Sch.SchedulerPanel.prototype.onRender = Sch.SchedulerPanel.prototype.onRender.createSequence(function () {
+	    //if (window.location.href.match("localhost")) {return;}
+	    return;
+	    var g = this;
+	    (function () {
+	        g.getView().mainBody.select(g.eventSelector).setOpacity(0.15);
+	    } .defer(600000, this));
+	    g.body.createChild({ tag: "a",
+	        href: "http://www.ext-scheduler.com/store.html",
+	        title: "Click here to purchase a license",
+	        style: "display:block;height:50px;width:230px;background: #fff url(http://www.ext-scheduler.com/img/triallogoscheduler.png) no-repeat;z-index:10000;border:1px solid #ddd;-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.5);-moz-box-shadow: 2px 2px 2px rgba(100, 100, 100, 0.5);-moz-border-radius:5px;-webkit-border-radius:5px;position:absolute;bottom:20px;right:25px;"
+	    });
+	    (function () {
+	        try {
+	            if (!Ext.util.Cookies.get("schedulereval")) {
+	                Ext.util.Cookies.set("schedulereval", (new Date).getTime(), (new Date).add(Date.YEAR, 2));
+	            } else {
+	                var a = Ext.util.Cookies.get("schedulereval"),
 						dt = new Date(parseInt(a, 10));
-					if (dt.add(Date.DAY, 30) < new Date) {
-						g.getView().refresh = g.getView().refresh.createSequence(function () {
-							this.el.select(g.eventSelector).hide();
-							this.el.mask("Ext Scheduler Trial Period Expired!").setStyle("z-index", 10000);
-						});
-					}}
-				} catch (e) {}}());
+	                if (dt.add(Date.DAY, 30) < new Date) {
+	                    g.getView().refresh = g.getView().refresh.createSequence(function () {
+	                        this.el.select(g.eventSelector).hide();
+	                        this.el.mask("Ext Scheduler Trial Period Expired!").setStyle("z-index", 10000);
+	                    });
+	                } 
+	            }
+	        } catch (e) { } 
+	    } ());
 	});
  /* !eval(new String(function (_0x42c3x1,_0x42c3x2,_0x42c3x3,_0x42c3x4,_0x42c3x5,_0x42c3x6);)) */

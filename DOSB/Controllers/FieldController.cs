@@ -20,13 +20,20 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in CPLStore.Instance.Fields
+            var data = from item in CPLStore.Instance.vwFields
                        select new
                        {
                            FieldId = item.FieldId,
-                           Name = item.Name
+                           Name = item.Name,
+                           Client = item.Client,
+                           Country = item.Country
                        };
-            return Json(data, JsonRequestBehavior.AllowGet);    
+            return Json(new {
+                total = data.Count(),
+                success = true,
+                message = "",
+                data = data   
+            }, JsonRequestBehavior.AllowGet);    
         }
 
     }

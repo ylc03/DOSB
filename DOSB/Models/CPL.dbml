@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DOSB" Class="CPLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\DOSB.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DOSBConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Clients" Member="Clients">
-    <Type Name="Client">
-      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Client_Field" Member="Fields" ThisKey="ClientId" OtherKey="ClientId" Type="Field" />
-      <Association Name="Country_Client" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Companies" Member="Companies">
     <Type Name="Company">
       <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -24,22 +15,6 @@
       <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="CompletionType_RigActivity" Member="RigActivity" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="RigActivity" Cardinality="One" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Countries" Member="Countries">
-    <Type Name="Country">
-      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Country_Client" Member="Clients" ThisKey="CountryId" OtherKey="CountryId" Type="Client" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Fields" Member="Fields">
-    <Type Name="Field">
-      <Column Name="FieldId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Field_Well" Member="Wells" ThisKey="FieldId" OtherKey="FieldId" Type="Well" />
-      <Association Name="Client_Field" Member="Client" ThisKey="ClientId" OtherKey="ClientId" Type="Client" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Rigs" Member="Rigs">
@@ -58,8 +33,8 @@
       <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Well_RigActivity" Member="RigActivities" ThisKey="WellId" OtherKey="WellId" Type="RigActivity" />
-      <Association Name="Field_Well" Member="Field" ThisKey="FieldId" OtherKey="FieldId" Type="Field" IsForeignKey="true" />
       <Association Name="WellType_Well" Member="WellType" ThisKey="TypeId" OtherKey="WellTypeId" Type="WellType" IsForeignKey="true" />
+      <Association Name="Field_Well" Member="Field" ThisKey="FieldId" OtherKey="FieldId" Type="Field" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.WellTypes" Member="WellTypes">
@@ -268,6 +243,39 @@
       <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Clients" Member="Clients">
+    <Type Name="Client">
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Client_Field" Member="Fields" ThisKey="ClientId" OtherKey="ClientId" Type="Field" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Countries" Member="Countries">
+    <Type Name="Country">
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Country_Field" Member="Fields" ThisKey="CountryId" OtherKey="CountryId" Type="Field" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Fields" Member="Fields">
+    <Type Name="Field">
+      <Column Name="FieldId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Field_Well" Member="Wells" ThisKey="FieldId" OtherKey="FieldId" Type="Well" />
+      <Association Name="Client_Field" Member="Client" ThisKey="ClientId" OtherKey="ClientId" Type="Client" IsForeignKey="true" />
+      <Association Name="Country_Field" Member="Country" ThisKey="CountryId" OtherKey="CountryId" Type="Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwField" Member="vwFields">
+    <Type Name="vwField">
+      <Column Name="Country" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Client" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FieldId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

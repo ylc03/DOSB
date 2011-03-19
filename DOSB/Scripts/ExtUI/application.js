@@ -10,7 +10,42 @@
 
 Ext.BLANK_IMAGE_URL = '/Scripts/ext/resources/images/default/s.gif';
 Ext.ns('Dosb');
- 
+
+/*
+var App = new Ext.App({});
+////
+// ***New*** centralized listening of DataProxy events "beforewrite", "write" and "writeexception"
+// upon Ext.data.DataProxy class.  This is handy for centralizing user-feedback messaging into one place rather than
+// attaching listenrs to EACH Store.
+//
+// Listen to all DataProxy beforewrite events
+//
+Ext.data.DataProxy.addListener('beforewrite', function(proxy, action) {
+    App.setAlert(App.STATUS_NOTICE, "Before " + action);
+});
+
+////
+// all write events
+//
+Ext.data.DataProxy.addListener('write', function(proxy, action, result, res, rs) {
+    App.setAlert(true, action + ':' + res.message);
+});
+
+////
+// all exception events
+//
+Ext.data.DataProxy.addListener('exception', function(proxy, type, action, options, res) {
+    if (type === 'remote') {
+        Ext.Msg.show({
+            title: 'REMOTE EXCEPTION',
+            msg: res.message,
+            icon: Ext.MessageBox.ERROR,
+            buttons: Ext.Msg.OK
+        });
+    }
+});
+*/
+
 // application main entry point
 Ext.onReady(function() {
  
@@ -61,6 +96,14 @@ Ext.onReady(function() {
     });
 
 	var menuMapping = new Array();
+	
+	menuMapping['ca-fields'] = {
+		scripts: ['/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',
+				  '/Scripts/ExtUI/CActivity/FieldEditor.js'], 
+		xtype: 'dosb-ca-feditor', 
+		id: 'main-ca-fields'
+	};
 	
 	menuMapping['ca-gtview'] = {
 		scripts:'/Scripts/ExtUI/CActivity/GridViewTest.js', 

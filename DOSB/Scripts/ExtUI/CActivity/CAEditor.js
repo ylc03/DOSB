@@ -43,11 +43,11 @@ CAEditor = Ext.extend(Sch.plugins.EventEditor, {
                                 fieldLabel : 'Comment'
                             }),
 							this.BackgroundColorField = new Ext.form.Hidden({
-								name: 'BackgroundColor',
+								name: 'BackgroundColor'
 							}),
 							this.BackgroundColorField = new Ext.form.Hidden({
-								name: 'TextColor',
-							}),							
+								name: 'TextColor'
+							})						
                         ]
                     }
                 ]

@@ -55,8 +55,8 @@ DOSB.CActivity.MonthView = {
 		
 		// save data to 
 		s.dbClickData = { date: s.getDateFromXY(pos),
-					  rowIndex : rowIndex
-					}
+			rowIndex : rowIndex
+		};
 		
 		if (!s.ctxAddJob) {
             s.ctxAddJob = new Ext.menu.Menu({
@@ -232,8 +232,7 @@ DOSB.CActivity.MonthView = {
             eventStore: eventStore,
 			viewPreset: 'assembly2Day',
             startDate: start,
-            endDate: start.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount 
-										+ Dosb.CActivity.MonthViewHeaderData.lowerCount)
+            endDate: start.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount + Dosb.CActivity.MonthViewHeaderData.lowerCount)
         });
     }
 };

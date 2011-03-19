@@ -30,5 +30,10 @@ namespace DOSB.Controllers.ExtUI
         {
             return View();
         }
+
+        public ActionResult Test2()
+        {
+            return View();
+        }
     }
 }

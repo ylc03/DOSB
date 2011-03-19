@@ -31,6 +31,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <ExcludeApp_Data>true</ExcludeApp_Data>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -216,10 +218,6 @@
     <Content Include="Scripts\ExtUI\application.js" />
     <Content Include="Scripts\ExtUI\CActivity\CAEditor.js" />
     <Content Include="Scripts\ExtUI\CActivity\custompresents.js" />
-    <Content Include="Scripts\ExtUI\CActivity\data.js" />
-    <Content Include="Scripts\ExtUI\CActivity\DemoEditor.js" />
-    <Content Include="Scripts\ExtUI\CActivity\DemoScheduler.js" />
-    <Content Include="Scripts\ExtUI\CActivity\editor.js" />
     <Content Include="Scripts\ExtUI\CActivity\GridViewTest.js" />
     <Content Include="Scripts\ExtUI\CActivity\MonthScheduler.js" />
     <Content Include="Scripts\ExtUI\CActivity\MonthView.js" />
@@ -248,6 +246,7 @@
     <Content Include="Views\ExtUI\Index.aspx" />
     <Content Include="Views\ExtUI\SiteMenu.aspx" />
     <Content Include="Views\ExtUI\Test.aspx" />
+    <Content Include="Views\ExtUI\Test2.aspx" />
     <Content Include="Views\ExtUI\YearViewTest.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Material\Index.aspx" />

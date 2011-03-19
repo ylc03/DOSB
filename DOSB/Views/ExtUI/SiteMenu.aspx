@@ -4,8 +4,8 @@
     text:'Sales',
     expanded: true,
     children:[{
-        text:'Rig Activity Table',
-        id:'ra-table',
+        text:'Fields',
+        id:'ca-fields',
         leaf:true
     },{
         text:'Job Activity Table',

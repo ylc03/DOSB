@@ -10,17 +10,21 @@ Dosb.CActivity.MonthViewHeaderData = {
     <% foreach(var item in (ViewData["upper"] as IList<DOSB.Models.vwUpperCompletionAssembly>)) {%>
         '<%: item.Name %>',
     <% } %>
+    
+    <% int count = (int)ViewData["lowerCount"]; %>
     <% foreach(var item in (ViewData["lower"] as IList<DOSB.Models.vwLowerCompletionAssembly>)) {%>
-        '<%: item.Name %>',
+        '<%: item.Name %>'<% count = count - 1; if (count > 0) { %>,<% } %>
     <% } %>
     ]
 };
 
+    <% count =  (ViewData["Company"] as IList<DOSB.Models.EditableModels.EditableCompany>).Count(); %>
 Dosb.CActivity.CompanyColor = {
     <% foreach(var item in (ViewData["Company"] as IList<DOSB.Models.EditableModels.EditableCompany>)) {%>
-    <%: item.ShortName %>: {BackgroundColor: "<%: item.BackgroundColor %>", TextColor: "<%: item.TextColor %>"},
+
+    <%: item.ShortName %>: {BackgroundColor: "<%: item.BackgroundColor %>", TextColor: "<%: item.TextColor %>"}<% count = count - 1; if (count > 0) { %>,<% } %>
     <% } %>
-}
+};
 
 Dosb.CActivity.WellStatus = ['Developement', 'W/O', 'Exp.', 'M W/O'];
 /*</script>*/

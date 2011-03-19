@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 using DOSB.Models;
 using DOSB.Models.EditableModels;
@@ -29,5 +30,6 @@ namespace DOSB.Controllers
                 data = EditableRigActivityRespository.All(),
             }, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

@@ -79,7 +79,7 @@ YVEditor = Ext.extend(Sch.plugins.EventEditor, {
 					name: 'CompletionTypeName',
 					width : 100,
 					fieldLabel: 'Comp Type'
-				}),						
+				})				
 			]
 		};
 	},
@@ -116,7 +116,7 @@ YVEditor = Ext.extend(Sch.plugins.EventEditor, {
 					name : 'ClientName',
 					width : 100,
 					fieldLabel : 'Client'
-				}),
+				})
 			]
 		};
 	},    
@@ -206,6 +206,6 @@ YVEditor = Ext.extend(Sch.plugins.EventEditor, {
         r.set('WellStatus', ''),
 		r.set('CompletionTypeName', ''),
 		r.set('Comment', '')
-    },
+    }
 	
 });
