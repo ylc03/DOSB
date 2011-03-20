@@ -17,7 +17,12 @@ Ext.onReady(function() {
  
     Ext.QuickTips.init();
 
-   	var a = new Dosb.CActivity.FieldEditor();
+   	var a = new Ext.Panel({
+		viewConfig: {
+			forceFit: true
+		},
+		items: [{xtype: 'dosb-ca-yview'}]
+	});
 
 	a.render('test');
  

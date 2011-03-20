@@ -57,7 +57,6 @@ YearScheduler = Ext.extend(Sch.SchedulerPanel, {
             tbar: [
                 {
                     iconCls: 'icon-prev',
-                    scale: 'medium',
                     scope : this,
                     handler: function () {
                         this.shiftPrevious();
@@ -66,7 +65,6 @@ YearScheduler = Ext.extend(Sch.SchedulerPanel, {
                 '->',
                 {
                     iconCls: 'icon-next',
-                    scale: 'medium',
                     scope : this,
                     handler: function () {
                         this.shiftNext();

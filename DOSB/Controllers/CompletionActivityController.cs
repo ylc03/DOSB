@@ -15,7 +15,7 @@ namespace DOSB.Controllers
 {
     public class CompletionActivityController : Controller
     {
-        private CPLDataContext storeDB = new CPLDataContext();
+        private CPLDataContext store = new CPLDataContext();
 
         //
         // GET: /CompletionActivity/
@@ -59,12 +59,10 @@ namespace DOSB.Controllers
 
         public ActionResult CustomHeaderJS()
         {
-            CPLDataContext storeDB = CPLStore.Instance;
-
-            ViewData["upper"] = storeDB.vwUpperCompletionAssemblies.ToList();
-            ViewData["upperCount"] = storeDB.vwUpperCompletionAssemblies.Count();
-            ViewData["lower"] = storeDB.vwLowerCompletionAssemblies.ToList();
-            ViewData["lowerCount"] = storeDB.vwLowerCompletionAssemblies.Count();
+            ViewData["upper"] = store.vwUpperCompletionAssemblies.ToList();
+            ViewData["upperCount"] = store.vwUpperCompletionAssemblies.Count();
+            ViewData["lower"] = store.vwLowerCompletionAssemblies.ToList();
+            ViewData["lowerCount"] = store.vwLowerCompletionAssemblies.Count();
             ViewData["Company"] = EditableCompanyRespository.All().ToList();
             return View();
         }

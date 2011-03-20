@@ -13,7 +13,6 @@ Dosb.ux.ClientCombo = Ext.extend(Ext.form.ComboBox, {
 			url: '/Client/GetJson',
             idProperty: 'CountryId',
             fields: [
-				{ name: 'attr', mapping: 'Name' },
 				'Name',
 				'ClientId',
             ]

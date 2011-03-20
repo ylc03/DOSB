@@ -126,27 +126,34 @@ ScriptLoaderMgr = function() {
 				files.splice(index, 1);
 			}
 		});
+		
 		if (files.length == 0 && Ext.isFunction(o.callback)){
 			o.callback.call();
+			return;
 		}
-
+		
         var head = document.getElementsByTagName('head')[0];
-
-        Ext.each(files, function(file) {
-                    script = document.createElement('script');
-                    script.type = 'text/javascript';
-                    if (Ext.isFunction(o.callback)) {
-                        script.onload = function() {
-                            count++;
-                            if (count == files.length) {
-                                o.callback.call();
-                            }
-                        }
+		for (;files.length > 0;){
+			var script = document.createElement('script');
+            script.type = 'text/javascript';
+			var file = files.splice(0, 1);
+			script.src = file;
+			head.appendChild(script);
+			loadMap[file] = true;
+			
+			if (Ext.isFunction(o.callback)){
+				if (files.length == 0){
+					// bind for IE
+					script.onreadystatechange= function () {
+						if (this.readyState == 'complete' || this.readyState == 'loaded') o.callback.call();
+	 			    }
+					// bind for others
+                    script.onload = function() {
+                        o.callback.call();
                     }
-                    script.src = file;
-                    head.appendChild(script);
-					loadMap[file] = true;
-                });
+				}
+			}
+		} //eo for
     }
 };
 

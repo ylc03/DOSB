@@ -10,6 +10,8 @@ namespace DOSB.Controllers
 {
     public class RigController : Controller
     {
+        private CPLDataContext store = new CPLDataContext();
+
         //
         // GET: /Rig/
 
@@ -20,7 +22,7 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in CPLStore.Instance.Rigs
+            var data = from item in store.Rigs
                        select new
                        {
                            RigId = item.RigId,

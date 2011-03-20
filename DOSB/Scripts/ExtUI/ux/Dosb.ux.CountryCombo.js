@@ -2,6 +2,7 @@ Ext.ns('Dosb', 'Dosb.ux')
 
 Dosb.ux.CountryCombo = Ext.extend(Ext.form.ComboBox, {
 	fieldLabel : 'Country',
+	forceSelection: true, // force select from the list
     typeAhead: true,
     mode: 'local',
     triggerAction: 'all',
@@ -13,7 +14,6 @@ Dosb.ux.CountryCombo = Ext.extend(Ext.form.ComboBox, {
 			url: '/Country/GetJson',
             idProperty: 'CountryId',
             fields: [
-				{ name: 'attr', mapping: 'Name' },
 				'Name',
 				'CountryId',
             ]

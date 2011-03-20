@@ -1,17 +1,30 @@
-Ext.ns('Dosb', 'Dosb.nx');
+/**
+ * Rig activity year view & edit
+ * @auther Yuan Lichuan & Ali Jassim
+ * @email LYuan2@slb.com & AJassim@slb.com
+ * @company Completions, Schlumberger, Saudi Arabia
+ * @date 20-Mar-2011
+ */
 
-Ext.onReady(function () {
-    Ext.QuickTips.init();
-    Dosb.CActivity.YearView.init();
-});
+Ext.ns('Dosb', 'Dosb.CActivity');
 
-Dosb.CActivity.YearView = {
-    // Bootstrap function
-    init: function () {
+Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
+	frame: false,
+	border: true,
+	layout:'fit',
+    initComponent: function () {
         this.scheduler = this.createScheduler();
 
         this.initSchedulerEvents();
         this.initStoreEvents();
+		
+		Ext.apply(this, {
+			items: [
+				this.scheduler
+			]
+		});
+		
+		Dosb.CActivity.YearView.superclass.initComponent.apply(this, arguments);
     },
 
     onEventContextMenu: function (s, rec, e) {
@@ -49,11 +62,6 @@ Dosb.CActivity.YearView = {
                 // Simulate server delay 1.5 seconds
                 bookingRecord.commit.defer(1500, bookingRecord);
             }
-            
-            //add : function(s, rs) {
-            //    // Pretend it's been sent to server and stored
-            //    rs[0].commit();
-            //}
         });
     },
 
@@ -164,16 +172,18 @@ Dosb.CActivity.YearView = {
 		
         return new YearScheduler({
 			showTooltip: true,
-			loadMask: true,
-            width: 1030,
-            height: 400,
-            renderTo : 'test',
+			loadMask: true,			
+			viewConfig: {
+				forceFit: true
+			},
             resourceStore: resStore,
 			enableDragCreation: true,
             eventStore: eventStore,
 			viewPreset: 'monthAndYear',
             startDate: new Date(2011, 0, 1),
-            endDate: new Date(2012, 0, 1)
+            endDate: new Date(2012, 0, 1),
         });
     }
-};
+});
+
+Ext.reg('dosb-ca-yview', Dosb.CActivity.YearView);

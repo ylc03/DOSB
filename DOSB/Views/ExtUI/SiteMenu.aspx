@@ -8,10 +8,6 @@
         id:'ca-fields',
         leaf:true
     },{
-        text:'Job Activity Table',
-        id:'ja-table',
-        leaf:true
-    },{
         text:'Grid View Test',
         id:'ca-gtview',
 		module: 'dosb-ca-gtview',
@@ -27,26 +23,6 @@
     },{
         text:'Statistics',
         id:'ca-stat',
-        leaf:true
-    }]
-},{
-    text:'Workshop',
-	expanded: true,
-    children:[{
-        text:'Daily Activity PVD',
-        id:'wkshop-da',
-        leaf:true
-    },{
-        text:'Torque Logs',
-        id:'wkshop-tl',
-        leaf:true
-    },{
-        text:'Pressure Test Logs',
-        id:'wkshop-pt',
-        leaf:true
-    },{
-        text:'Tech&Recp Logs',
-        id:'wkshop-tr',
         leaf:true
     }]
 },{
@@ -67,6 +43,26 @@
     },{
         text:'SAM',
         id:'job-sam',
+        leaf:true
+    }]
+},{
+    text:'Workshop',
+	expanded: true,
+    children:[{
+        text:'Daily Activity PVD',
+        id:'wkshop-da',
+        leaf:true
+    },{
+        text:'Torque Logs',
+        id:'wkshop-tl',
+        leaf:true
+    },{
+        text:'Pressure Test Logs',
+        id:'wkshop-pt',
+        leaf:true
+    },{
+        text:'Tech&Recp Logs',
+        id:'wkshop-tr',
         leaf:true
     }]
 },{

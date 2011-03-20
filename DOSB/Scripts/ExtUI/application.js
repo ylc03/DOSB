@@ -78,6 +78,7 @@ Ext.onReady(function() {
 	
 	var mainPanel = new Ext.Panel({
 	    region: 'center',
+		border: false,
 	    layout: 'fit',
 	    id: 'main-panel'
 	});
@@ -120,8 +121,25 @@ Ext.onReady(function() {
 	};
 	
 	menuMapping['ca-yview'] = {
-	    scripts: '/Scripts/CActivity/YearView.js', 
-		xtype: 'dosb-ca-yearview', 
+	    scripts: ['/Scripts/ext/examples/ux/Spinner.js',		//ext
+				  '/Scripts/ext/examples/ux/SpinnerField.js',
+				  '/Scripts/ExtUI/ux/ext.ux.form.datetime.js', 	
+				  '/Scripts/Sch/ext-sch-crack.js',				//sch
+				  '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',	//ux
+				  '/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.CompTypeCombo.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.WellTypeCombo.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.RigField.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.WellField.js',		
+				  '/Scripts/ExtUI/CActivity/YVEditor.js',		//app
+				  '/Scripts/ExtUI/CActivity/YearScheduler.js',
+				  '/Scripts/ExtUI/CActivity/YearView.js'],
+		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
+			  '/Scripts/Sch/sch-all.css',
+			  '/Scripts/Sch/editor.css',
+			  '/Scripts/Sch/examples.css'],		  
+		xtype: 'dosb-ca-yview', 
 		id: 'main-ca-yview'
 	};
 	
@@ -130,6 +148,7 @@ Ext.onReady(function() {
     	if(n.leaf){  // ignore clicks on folders and currently selected node 
 			// execute an Ajax request to invoke server side script:
 			treeData = menuMapping[n.id];
+			ScriptMgr.loadCss(treeData.css);
 			ScriptMgr.addAsScript({
 			     scripts : treeData.scripts,
 			     callback : function() {
@@ -143,7 +162,7 @@ Ext.onReady(function() {
 			});
     	}
     });
- 
+
 }); // eo function onReady
  
 // eof

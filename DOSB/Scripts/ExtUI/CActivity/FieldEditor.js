@@ -1,9 +1,13 @@
+/**
+ * Field editor page. Consist a form and a grid
+ * @auther Yuan Lichuan
+ * @email LYuan2@slb.com
+ * @company Completions, Schlumberger, Saudi Arabia
+ * @date 19-Mar-2011
+ */
+
 Ext.ns('Dosb', 'Dosb.CActivity');
 
-/**
- * @class App.user.FormPanel
- * A typical FormPanel extension
- */
 Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
     iconCls: 'silk-application-edit',
     frame: true,
@@ -39,6 +43,12 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
              * @param {Object} values, the Form's values object
              */
             create : true,
+			/**
+             * @event destory
+             * Fires when user clicks [destory] button
+             * @param {FormPanel} this
+             * @param {Object} values, the Form's values object
+             */
 			destory : true
         });
 
@@ -53,8 +63,8 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
     buildForm : function() {
         return [
             {fieldLabel: 'Field', name: 'Name', allowBlank: false},
-            {fieldLabel: 'Client', name: 'Client', allowBlank: false, xtype: 'dosb-client-combo'},
-            {fieldLabel: 'Country', name: 'Country', allowBlank: false, xtype: 'dosb-country-combo'}
+            {fieldLabel: 'Client', name: 'ClientName', allowBlank: false, xtype: 'dosb-client-combo'},
+            {fieldLabel: 'Country', name: 'CountryName', allowBlank: false, xtype: 'dosb-country-combo'}
         ];
     },
 
@@ -64,14 +74,14 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
      */
     buildUI: function(){
         return [{
-            text: 'Save',
-            iconCls: 'icon-save',
-            handler: this.onUpdate,
-            scope: this
-        }, {
             text: 'Create',
             iconCls: 'silk-application-add',
             handler: this.onCreate,
+            scope: this
+        }, {
+            text: 'Save',
+            iconCls: 'icon-save',
+            handler: this.onUpdate,
             scope: this
         }, {
             text: 'Delete',
@@ -141,8 +151,7 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
 
 Dosb.CActivity.FieldGrid = Ext.extend(Ext.grid.GridPanel, {
     frame: false,
-    style: 'margin-top: 10px',
-
+	
     initComponent : function() {
 
         // typical viewConfig
@@ -152,98 +161,10 @@ Dosb.CActivity.FieldGrid = Ext.extend(Ext.grid.GridPanel, {
 
         // relay the Store's CRUD events into this grid so these events can be conveniently listened-to in our application-code.
         this.relayEvents(this.store, ['destroy', 'save', 'update']);
-
-        // build toolbars and buttons.
-        //this.tbar = this.buildTopToolbar();
-        //this.bbar = this.buildBottomToolbar();
-        //this.buttons = this.buildUI();
-
+		
         // super
         Dosb.CActivity.FieldGrid.superclass.initComponent.call(this);
     },
-	
-    /**
-     * buildTopToolbar
-     */
-    // buildTopToolbar : function() {
-        // return [{
-            // text: 'Add',
-            // iconCls: 'silk-add',
-            // handler: this.onAdd,
-            // scope: this
-        // }, '-', {
-            // text: 'Delete',
-            // iconCls: 'silk-delete',
-            // handler: this.onDelete,
-            // scope: this
-        // }, '-'];
-    // },
-
-    /**
-     * buildBottomToolbar
-     */
-    // buildBottomToolbar : function() {
-        // return ['<b>@cfg:</b>', '-', {
-            // text: 'autoSave',
-            // enableToggle: true,
-            // pressed: true,
-            // tooltip: 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
-            // toggleHandler: function(btn, pressed) {
-                // this.store.autoSave = pressed;
-            // },
-            // scope: this
-        // }, '-', {
-            // text: 'batch',
-            // enableToggle: true,
-            // pressed: true,
-            // tooltip: 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
-            // toggleHandler: function(btn, pressed) {
-                // this.store.batch = pressed;
-            // },
-            // scope: this
-        // }, '-', {
-            // text: 'writeAllFields',
-            // enableToggle: true,
-            // tooltip: 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
-            // toggleHandler: function(btn, pressed) {
-                // store.writer.writeAllFields = pressed;
-            // },
-            // scope: this
-        // }, '-'];
-    // },
-
-    /**
-     * buildUI
-     */
-    // buildUI : function() {
-        // return [{
-            // text: 'Save',
-            // iconCls: 'icon-save',
-            // handler: this.onSave,
-            // scope: this
-        // }];
-    // },
-
-    /**
-     * onSave
-     */
-    // onSave : function(btn, ev) {
-        // this.store.save();
-    // },
-
-    /**
-     * onAdd
-     */
-    // onAdd : function(btn, ev) {
-        // var u = new this.store.recordType({
-            // first : '',
-            // last: '',
-            // email : ''
-        // });
-        // this.stopEditing();
-        // this.store.insert(0, u);
-        // this.startEditing(0, 1);
-    // },
 
     /**
      * Delete the selected
@@ -258,11 +179,16 @@ Dosb.CActivity.FieldGrid = Ext.extend(Ext.grid.GridPanel, {
 });
 
 Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
-	frame: false,
-	layout: 'border',
+	frame: false,		// no frame
+	border: false,		// no border
+	layout: 'border', 	// form at 'north', grid at 'center'
 	viewConfig: {
 		forceFit: true
 	},
+	
+	/**
+	 * Create data store, field form and field grid
+	 */
 	initComponent : function(){
 		// Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
 		// the "url" paramater -- All CRUD requests will be directed to your single url instead.
@@ -285,8 +211,10 @@ Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
 		}, [
 			{name: 'FieldId'},
 			{name: 'Name', allowBlank: false},
-			{name: 'Country', allowBlank: false},
-			{name: 'Client', allowBlank: false}
+			{name: 'CountryName', allowBlank: false},
+			{name: 'CountryId'},
+			{name: 'ClientName', allowBlank: false},
+			{name: 'ClientId'}
 		]);
 
 		// The new DataWriter component.
@@ -307,17 +235,19 @@ Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
 		// load the store immeditately
 		store.load();
 		
+		// define columns in fieldGrid
 		var fieldColumns =  [
 			{header: "ID", width: 40, sortable: true, dataIndex: 'FieldId'},
 			{header: "Field", width: 100, sortable: true, dataIndex: 'Name'},
-			{header: "Country", width: 80, sortable: true, dataIndex: 'Country'},
-			{header: "Client", width: 80, sortable: true, dataIndex: 'Client'}
+			{header: "Client", width: 80, sortable: true, dataIndex: 'ClientName'},
+			{header: "Country", width: 80, sortable: true, dataIndex: 'CountryName'}
 		];
 
+		// field form
 		var fieldForm = new Dosb.CActivity.FieldForm({
 			region: 'north',
 			listeners: {
-				create : function(fpanel, data) {   // <-- custom "create" event defined in App.user.Form class
+				create : function(fpanel, data) {   // <-- custom "create" event defined in FieldForm class
 					var rec = new fieldGrid.store.recordType(data);
 					fieldGrid.store.insert(0, rec);
 				},
@@ -327,6 +257,7 @@ Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
 			}
 		});
 
+		// field grid
 		var fieldGrid = new Dosb.CActivity.FieldGrid({
 			region: 'center',
 			store: store,
@@ -342,6 +273,7 @@ Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
 			}
 		});
 		
+		// add components
 		Ext.apply(this, {
 			items: [
 				fieldForm,
@@ -353,4 +285,5 @@ Dosb.CActivity.FieldEditor = Ext.extend(Ext.Panel, {
 	}
 });
 
+// add to Ext xtype
 Ext.reg('dosb-ca-feditor', Dosb.CActivity.FieldEditor);

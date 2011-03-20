@@ -10,7 +10,6 @@
   	<link rel="stylesheet" type="text/css" href="/Content/application.css">
     
     <link href="/Scripts/ext/examples/ux/css/Spinner.css" rel="stylesheet" type="text/css" />
-    <link href="/Scripts/ext/examples/ux/css/LockingGridView.css" rel="stylesheet" type="text/css" />
 
 	<!--Scheduler styles-->
     <link href="/Scripts/Sch/sch-all.css" rel="stylesheet" type="text/css" />
@@ -19,12 +18,10 @@
     <link href="/Scripts/Sch/editor.css" rel="stylesheet" type="text/css" />
     <link href="/Scripts/Sch/examples.css" rel="stylesheet" type="text/css" />
 
-	
   	<script type="text/javascript" src="/Scripts/ext/adapter/ext/ext-base.js"></script>
   	<script type="text/javascript" src="/Scripts/ext/ext-all-debug.js"></script>
     <script type="text/javascript" src="/Scripts/ext/examples/ux/Spinner.js"></script>
     <script type="text/javascript" src="/Scripts/ext/examples/ux/SpinnerField.js"></script>
-    <script type="text/javascript" src="/Scripts/ext/examples/ux/LockingGridView.js"></script>
 	<script type="text/javascript" src="/Scripts/ExtUI/ux/ext.ux.form.datetime.js"></script>
 
 	<!--Scheduler components-->
@@ -40,10 +37,9 @@
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.RigField.js"></script>
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.WellField.js"></script>
    
-    <script src="/CompletionActivity/CustomHeaderJS" type="text/javascript"></script>
     <script src="/Scripts/ExtUI/CActivity/YVEditor.js" type="text/javascript"></script>
     <script src="/Scripts/ExtUI/CActivity/YearScheduler.js" type="text/javascript"></script>
-	<script src="/Scripts/ExtUI/CActivity/YearView.js" type="text/javascript" ></script>
+	<script src="/Scripts/ExtUI/CActivity/YearViewOld.js" type="text/javascript" ></script>
   <title>DOSB Ext Client</title>
 </head>
 <body>
