@@ -1,97 +1,123 @@
-YearScheduler = Ext.extend(Sch.SchedulerPanel, {
-    clicksToEdit: 1,
-    rowHeight : 30,
-    snapToIncrement: true,
-    
-    eventRenderer: function (item, resourceRec, tplData, row, col, ds) {
-        tplData.style = 'background-color:' + (resourceRec.get('Color') || 'Coral');
+Ext.ns('Dosb', 'Dosb.CActivity');
 
+Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
+    clicksToEdit: 1,
+    snapToIncrement: true,
+
+    eventRenderer: function (item, resourceRec, tplData, row, col, ds) {
+        //tplData.cls = 'evt-' + resource.get('Category');
+        tplData.style = row % 2 === 1 ? 'background-color:lightgray' : '';
         return {
-            headerText: item.get('WellName'),
-            footerText: item.get('RigName') 
+            well: item.get('WellName')
         };
     },
 
-    initComponent : function() {
-        
+    initComponent: function () {
         Ext.apply(this, {
+            columns: this.buildColumns(),
+            tbar: this.buildToolbar(),
 
-            columns: [
-                { header: 'Rig', sortable: true, width: 80, dataIndex: 'Name', editor: new Ext.form.TextField() },
-                { header: 'Type', sortable: true, width: 120, dataIndex: 'Type', editor: new Ext.form.ComboBox({
-                        store: ['Sales', 'Developer', 'Marketing', 'Product manager'],
-                        typeAhead: true,
-                        forceSelection: true,
-                        triggerAction: 'all',
-                        selectOnFocus: true
-                    })
-                },
-                {
-                    xtype: 'actioncolumn',
-                    width: 30,
-                    position: 'right',
-                    items: [
-                        {
-                            iconCls : 'delete',  
-                            tooltip: 'Clear row',
-                            handler: function(scheduler, rowIndex, colIndex) {
-                                var els = Ext.fly(scheduler.getView().getRow(rowIndex)).select(scheduler.eventSelector),
-                                    rs = [];
-                                els.each(function(el) {
-                                    rs.push(scheduler.getEventRecordFromElement(el));
-                                });
-                                scheduler.eventStore.remove(rs);
-                            }
-                        }
-                    ]
-                }
-            ],
-
-            // Specialized body template with header and footer
             eventBodyTemplate: new Ext.Template(
-                '<div class="sch-event-header">{headerText}</div>' +
-                '<div class="sch-event-footer">{footerText}</div>'
+                '<div class="sch-event-body">{well}</div>'
             ),
 
-            border: true,
-            tbar: [
-                {
-                    iconCls: 'icon-prev',
-                    scope : this,
-                    handler: function () {
-                        this.shiftPrevious();
-                    }
-                },
-                '->',
-                {
-                    iconCls: 'icon-next',
-                    scope : this,
-                    handler: function () {
-                        this.shiftNext();
-                    }
-                }
-            ],
-
-            tooltipTpl: new Ext.XTemplate(
-                '<dl class="eventTip">',
-                    '<dt class="icon-clock">Time</dt><dd>{[values.StartDate.format("Y-m-d G:i")]}</dd>',
-                    '<dt class="icon-task">Task</dt><dd>{Title}</dd>',
-                    '<dt class="icon-earth">Location</dt><dd>{Location}&nbsp;</dd>',
-                '</dl>').compile(),
-
-            plugins: [
-                this.editor = new YVEditor({
-                    // Extra config goes here
-                })
-            ],
-    
-            onEventCreated : function(newEventRecord) {
+            onEventCreated: function (newEventRecord) {
                 // Overridden to provide some default values
                 //newEventRecord.set('Rig', 'Rig...');
                 //newEventRecord.set('Type', 'Local office');
             }
         });
 
-        YearScheduler.superclass.initComponent.call(this);
+        Dosb.CActivity.YearScheduler.superclass.initComponent.call(this);
+    },
+
+    buildColumns: function () {
+        var columns = [
+                { header: 'Rig', sortable: true, width: 80, dataIndex: 'Name' },
+                { header: 'Sales', sortable: true, width: 120, dataIndex: 'Type', editor: new Ext.form.ComboBox({
+                    store: ['Sales', 'Developer', 'Marketing', 'Product manager'],
+                    typeAhead: true,
+                    forceSelection: true,
+                    triggerAction: 'all',
+                    selectOnFocus: true
+                })
+                }
+            ];
+        return columns;
+    },
+
+    buildToolbar: function () {
+        
+        var toolbar = [
+                {
+                    xtype: 'tbtext',
+                    text: 'Rig'
+                },
+                {
+                    xtype: 'textfield',
+                    length: 5,
+                    name: 'rig-name',
+                    emptyText: 'Rig'
+                },
+                {
+                    iconCls: 'silk-add',
+                    tooltip: 'Add a rig',
+                    scope: this,
+                    handler: function () {
+                        var u = new this.resourceStore.recordType({
+                            Name: 'ADC'
+                        });
+                        this.stopEditing();
+                        this.store.insert(0, u);
+                        this.startEditing(0, 1);
+
+                    }
+                },
+                '-',
+                ' ',
+                {
+                    xtype: 'tbtext',
+                    text: 'Field'
+                },
+                {
+                    xtype: 'dosb-field-combo',
+                    name: 'field-name',
+                    emptyText: 'Field',
+                    width: 80
+                },
+                '   ',
+                {
+                    xtype: 'tbtext',
+                    text: 'Well'
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'well-name',
+                    emptyText: 'Well'
+                },
+                '->',
+                {
+                    iconCls: 'silk-arrow-left',
+                    tooltip: 'prev quarter',
+                    scope: this,
+                    handler: function () {
+                        this.shiftPrevious();
+                        this.resourceStore.load();
+                        this.eventStore.load();
+                    }
+                }, 
+                {
+                    iconCls: 'silk-arrow-right',
+                    tooltip: 'next quarter',
+                    scope: this,
+                    handler: function () {
+                        this.shiftNext();
+                        this.resourceStore.load();
+                        this.eventStore.load();
+                    }
+                }
+            ];
+        return toolbar;
     }
+
 });

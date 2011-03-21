@@ -71,12 +71,12 @@ ScriptLoader.prototype = {
 
 };
 
-ScriptLoaderMgr = function() {
+ScriptLoaderMgr = function () {
     this.loader = new ScriptLoader();
 
-	var loadMap = {};
+    var loadMap = new Object;
 
-    this.load = function(o) {
+    this.load = function (o) {
         if (!Ext.isArray(o.scripts)) {
             o.scripts = [o.scripts];
         }
@@ -84,36 +84,40 @@ ScriptLoaderMgr = function() {
         o.url = o.scripts.shift();
 
         for (var i = 0; i < o.scripts.length; i++) {
-	            this.loader.load(o);
+            this.loader.load(o);
         }
-		
+
         if (o.scripts.length == 0) {
             this.loader.load(o);
         } else {
             o.scope = this;
-            this.loader.load(o, function() {
-                        this.load(o);
-                    });
+            this.loader.load(o, function () {
+                this.load(o);
+            });
         }
     };
 
-    this.loadCss = function(scripts) {
+    this.loadCss = function (css) {
         var id = '';
         var file;
 
-        if (!Ext.isArray(scripts)) {
-            scripts = [scripts];
+        if (!Ext.isArray(css)) {
+            css = [css];
         }
 
-        for (var i = 0; i < scripts.length; i++) {
-            file = scripts[i];
+        for (var i = 0; i < css.length; i++) {
+            file = css[i];
+            if (loadMap[file]) {
+                continue;
+            }
             id = '' + Math.floor(Math.random() * 100);
             Ext.util.CSS.createStyleSheet('', id);
             Ext.util.CSS.swapStyleSheet(id, file);
+            loadMap[file] = true;
         }
     };
 
-    this.addAsScript = function(o) {
+    this.addAsScript = function (o) {
         var count = 0;
         var script;
         var files = o.scripts;
@@ -121,39 +125,39 @@ ScriptLoaderMgr = function() {
             files = [files];
         }
 
-		Ext.each(files, function(file, index) {
-			if (loadMap[file]){
-				files.splice(index, 1);
-			}
-		});
-		
-		if (files.length == 0 && Ext.isFunction(o.callback)){
-			o.callback.call();
-			return;
-		}
-		
+        Ext.each(files, function (file, index) {
+            if (loadMap[file]) {
+                files.splice(index, 1);
+            }
+        });
+
+        if (files.length == 0 && Ext.isFunction(o.callback)) {
+            o.callback.call();
+            return;
+        }
+
         var head = document.getElementsByTagName('head')[0];
-		for (;files.length > 0;){
-			var script = document.createElement('script');
+        for (; files.length > 0; ) {
+            var script = document.createElement('script');
             script.type = 'text/javascript';
-			var file = files.splice(0, 1);
-			script.src = file;
-			head.appendChild(script);
-			loadMap[file] = true;
-			
-			if (Ext.isFunction(o.callback)){
-				if (files.length == 0){
-					// bind for IE
-					script.onreadystatechange= function () {
-						if (this.readyState == 'complete' || this.readyState == 'loaded') o.callback.call();
-	 			    }
-					// bind for others
-                    script.onload = function() {
+            var file = files.splice(0, 1);
+            script.src = file;
+            head.appendChild(script);
+            loadMap[file] = true;
+
+            if (Ext.isFunction(o.callback)) {
+                if (files.length == 0) {
+                    // bind for IE
+                    script.onreadystatechange = function () {
+                        if (this.readyState == 'complete' || this.readyState == 'loaded') o.callback.call();
+                    }
+                    // bind for others
+                    script.onload = function () {
                         o.callback.call();
                     }
-				}
-			}
-		} //eo for
+                }
+            }
+        } //eo for
     }
 };
 

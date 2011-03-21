@@ -65,7 +65,7 @@
         <classShapeMoniker Id="75c0b63a-333c-44b0-88ae-4423617e48e4" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 2.91611857096354); (3.5 : 2.91611857096354)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 2.91611857096354); (3.5 : 2.91611857096354)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Well/Well_RigActivity" />
       <nodes>
         <classShapeMoniker Id="cb569cf8-f299-4f73-b4c6-2e80ff0fcdfc" />
@@ -265,21 +265,21 @@
         <elementListCompartment Id="640de024-72af-4cda-b800-f578d58665f7" absoluteBounds="0.51499999999999968, 2.335, 1.9700000000000002, 1.0291951497395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.5 : 2.325); (1.5 : 2.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.5 : 2.325); (1.5 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Field/Field_Well" />
       <nodes>
         <classShapeMoniker Id="669142c4-f7bb-448a-9639-cdb92114a0f3" />
         <classShapeMoniker Id="cb569cf8-f299-4f73-b4c6-2e80ff0fcdfc" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.125 : 1.7); (1.125 : 1.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.125 : 1.7); (1.125 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Client/Client_Field" />
       <nodes>
         <classShapeMoniker Id="61ef19ac-9166-42a4-ab8f-cf5685721e1a" />
         <classShapeMoniker Id="669142c4-f7bb-448a-9639-cdb92114a0f3" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.15625 : 0.95); (2.15625 : 1.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.15625 : 0.95); (2.15625 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Country/Country_Field" />
       <nodes>
         <classShapeMoniker Id="2b8552c7-77de-49ca-ac17-5bce0b233ff7" />

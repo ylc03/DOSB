@@ -28,8 +28,8 @@ namespace DOSB.Models.EditableModels
         public string CompletionTypeName { get; set; }
         public DateTime StartAt { get; set; }
         public DateTime FinishAt { get; set; }
-        public string StartDate 
-        { 
+        public string StartDate
+        {
             get
             {
                 return this.StartAt.ToString("yyyy-MM-dd");
@@ -67,7 +67,7 @@ namespace DOSB.Models.EditableRespositories
                                   select new EditableRigActivity
                                   {
                                       RigActivityId = tbl.RigActivityId,
-                                      RigId= tbl.RigId,
+                                      RigId = tbl.RigId,
                                       RigName = tbl.RigName,
                                       WellName = tbl.WellName,
                                       FieldName = tbl.FieldName,
@@ -84,6 +84,30 @@ namespace DOSB.Models.EditableRespositories
             }
 
             return result;
+        }
+
+        public static IQueryable<EditableRigActivity> AllByTimeSpan(DateTime start, DateTime end)
+        {
+            CPLDataContext store = CPLStore.Instance;
+
+            var dataResults = from tbl in store.fnFilterRigActivity(start, end)
+                              select new EditableRigActivity
+                              {
+                                  RigActivityId = tbl.RigActivityId,
+                                  RigId = tbl.RigId,
+                                  RigName = tbl.RigName,
+                                  WellName = tbl.WellName,
+                                  FieldName = tbl.FieldName,
+                                  ClientName = tbl.ClientName,
+                                  CountryName = tbl.CountryName,
+                                  CompletionTypeName = tbl.CompletionTypeName,
+                                  WellStatus = tbl.WellStatus,
+                                  WellTypeName = tbl.WellTypeName,
+                                  Comment = tbl.Comment,
+                                  StartAt = tbl.StartAt.HasValue ? tbl.StartAt.Value : DateTime.Today,
+                                  FinishAt = tbl.FinishAt.HasValue ? tbl.FinishAt.Value : DateTime.Today.AddMonths(1)
+                              };
+            return dataResults;
         }
 
         /// <summary>

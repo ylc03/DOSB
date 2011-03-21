@@ -19,12 +19,13 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
         this.initStoreEvents();
 		
 		Ext.apply(this, {
-			items: [
-				this.scheduler
-			]
+			items: [this.scheduler]
 		});
+        Dosb.CActivity.YearView.superclass.initComponent.apply(this, arguments);
+
+        this.scheduler.resourceStore.load();
+        this.scheduler.eventStore.load();
 		
-		Dosb.CActivity.YearView.superclass.initComponent.apply(this, arguments);
     },
 
     onEventContextMenu: function (s, rec, e) {
@@ -34,7 +35,7 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
             s.ctx = new Ext.menu.Menu({
                 items: [{
                     text: 'Delete event',
-                    iconCls: 'icon-delete',
+                    iconCls: 'silk-delete',
                     handler : function() {
                         s.eventStore.remove(s.ctx.rec);
                     }
@@ -61,8 +62,19 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
 
                 // Simulate server delay 1.5 seconds
                 bookingRecord.commit.defer(1500, bookingRecord);
-            }
+            },
+			'beforeload' : function(store, opt){
+				store.baseParams.startDate = s.getStart().format('Y-n-d');
+				store.baseParams.endDate = s.getEnd().format('Y-n-d');
+			}
         });
+		
+		s.resourceStore.on({
+			'beforeload' : function(store, opt){
+				store.baseParams.startDate = s.getStart().format('Y-n-d');
+				store.baseParams.endDate = s.getEnd().format('Y-n-d');
+			}
+		});
     },
 
     allowModify : function(s, r) {
@@ -86,7 +98,7 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
 		// initialize the resource store.
 		var eventProxy = new Ext.data.HttpProxy({
 			api: {
-				read: '/RigActivity/GetJson',
+				read: '/RigActivity/GetByTimeSpan',
 				create: '/RigActivity/CreateJson',
 				update: '/RigActivity/UpdateJson',
 				destroy: '/RigActivity/DeleteJson'
@@ -127,13 +139,11 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
 			writer: eventWriter,  // <-- plug a DataWriter into the store just as you would a Reader
 			autoSave: true // <-- false would delay executing create, update, destroy requests until specifically told to do so with some [save] buton.
 		});
-
-        eventStore.load();
-
+		
         // Store holding all the events
 		var resProxy = new Ext.data.HttpProxy({
 			api: {
-				read: '/Rig/GetJson',
+				read: '/Rig/GetByTimeSpan',
 				create: '/Rig/CreateJson',
 				update: '/Rig/UpdateJson',
 				destroy: '/Rig/DeleteJson'
@@ -163,25 +173,20 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
 			proxy: resProxy,
 			reader: resReader,
 			writer: resWriter,  // <-- plug a DataWriter into the store just as you would a Reader
-			autoSave: true // <-- false would delay executing create, update, destroy requests until specifically told to do so with some [save] buton.
+			autoSave: true
 		});
-		
-        resStore.load();
-
-		var start = new Date();
-		
-        return new YearScheduler({
-			showTooltip: true,
-			loadMask: true,			
-			viewConfig: {
-				forceFit: true
-			},
-            resourceStore: resStore,
-			enableDragCreation: true,
+        return new Dosb.CActivity.YearScheduler({
+			rowHeight : 25,
+			showTooltip: false,
+			resourceStore: resStore,
             eventStore: eventStore,
+			loadMask: {store: eventStore},			
+			resizeHandles: 'both',
+			constrainDragToResource: true,
+			enableDragCreation: true,
 			viewPreset: 'monthAndYear',
             startDate: new Date(2011, 0, 1),
-            endDate: new Date(2012, 0, 1),
+            endDate: new Date(2012, 0, 1)
         });
     }
 });

@@ -137,8 +137,7 @@ Ext.onReady(function() {
 				  '/Scripts/ExtUI/CActivity/YearView.js'],
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/Sch/sch-all.css',
-			  '/Scripts/Sch/editor.css',
-			  '/Scripts/Sch/examples.css'],		  
+			  '/Scripts/Sch/app.css'],		  
 		xtype: 'dosb-ca-yview', 
 		id: 'main-ca-yview'
 	};

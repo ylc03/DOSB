@@ -281,4 +281,33 @@
       <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="fnFilterRigActivityResult">
+      <Column Name="ClientName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FieldName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WellTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompletionTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CountryName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fnFilterRigs" Method="fnFilterRigs" IsComposable="true">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="fnFilterRigsResult">
+      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeskEngId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
 </Database>

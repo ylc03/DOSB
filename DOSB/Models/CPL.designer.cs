@@ -321,6 +321,18 @@ namespace DOSB.Models
 				return this.GetTable<vwField>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.fnFilterRigActivity", IsComposable=true)]
+		public IQueryable<fnFilterRigActivityResult> fnFilterRigActivity([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> startDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> endDate)
+		{
+			return this.CreateMethodCallQuery<fnFilterRigActivityResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate);
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.fnFilterRigs", IsComposable=true)]
+		public IQueryable<fnFilterRigsResult> fnFilterRigs([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> startDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> endDate)
+		{
+			return this.CreateMethodCallQuery<fnFilterRigsResult>(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate);
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Companies")]
@@ -5691,6 +5703,328 @@ namespace DOSB.Models
 				if ((this._ClientId != value))
 				{
 					this._ClientId = value;
+				}
+			}
+		}
+	}
+	
+	public partial class fnFilterRigActivityResult
+	{
+		
+		private string _ClientName;
+		
+		private string _FieldName;
+		
+		private string _RigName;
+		
+		private string _WellName;
+		
+		private string _WellTypeName;
+		
+		private string _Comment;
+		
+		private int _RigActivityId;
+		
+		private string _CompletionTypeName;
+		
+		private string _WellStatus;
+		
+		private System.Nullable<System.DateTime> _StartAt;
+		
+		private System.Nullable<System.DateTime> _FinishAt;
+		
+		private int _RigId;
+		
+		private string _CountryName;
+		
+		public fnFilterRigActivityResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientName", DbType="NVarChar(50)")]
+		public string ClientName
+		{
+			get
+			{
+				return this._ClientName;
+			}
+			set
+			{
+				if ((this._ClientName != value))
+				{
+					this._ClientName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldName", DbType="NVarChar(50)")]
+		public string FieldName
+		{
+			get
+			{
+				return this._FieldName;
+			}
+			set
+			{
+				if ((this._FieldName != value))
+				{
+					this._FieldName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigName", DbType="VarChar(50)")]
+		public string RigName
+		{
+			get
+			{
+				return this._RigName;
+			}
+			set
+			{
+				if ((this._RigName != value))
+				{
+					this._RigName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellName", DbType="NVarChar(50)")]
+		public string WellName
+		{
+			get
+			{
+				return this._WellName;
+			}
+			set
+			{
+				if ((this._WellName != value))
+				{
+					this._WellName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellTypeName", DbType="VarChar(50)")]
+		public string WellTypeName
+		{
+			get
+			{
+				return this._WellTypeName;
+			}
+			set
+			{
+				if ((this._WellTypeName != value))
+				{
+					this._WellTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", DbType="Int NOT NULL")]
+		public int RigActivityId
+		{
+			get
+			{
+				return this._RigActivityId;
+			}
+			set
+			{
+				if ((this._RigActivityId != value))
+				{
+					this._RigActivityId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeName", DbType="VarChar(50)")]
+		public string CompletionTypeName
+		{
+			get
+			{
+				return this._CompletionTypeName;
+			}
+			set
+			{
+				if ((this._CompletionTypeName != value))
+				{
+					this._CompletionTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellStatus", DbType="VarChar(50)")]
+		public string WellStatus
+		{
+			get
+			{
+				return this._WellStatus;
+			}
+			set
+			{
+				if ((this._WellStatus != value))
+				{
+					this._WellStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
+		public System.Nullable<System.DateTime> StartAt
+		{
+			get
+			{
+				return this._StartAt;
+			}
+			set
+			{
+				if ((this._StartAt != value))
+				{
+					this._StartAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
+		public System.Nullable<System.DateTime> FinishAt
+		{
+			get
+			{
+				return this._FinishAt;
+			}
+			set
+			{
+				if ((this._FinishAt != value))
+				{
+					this._FinishAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", DbType="Int NOT NULL")]
+		public int RigId
+		{
+			get
+			{
+				return this._RigId;
+			}
+			set
+			{
+				if ((this._RigId != value))
+				{
+					this._RigId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryName", DbType="VarChar(50)")]
+		public string CountryName
+		{
+			get
+			{
+				return this._CountryName;
+			}
+			set
+			{
+				if ((this._CountryName != value))
+				{
+					this._CountryName = value;
+				}
+			}
+		}
+	}
+	
+	public partial class fnFilterRigsResult
+	{
+		
+		private int _RigId;
+		
+		private string _Name;
+		
+		private System.Nullable<int> _DeskEngId;
+		
+		private int _Deleted;
+		
+		public fnFilterRigsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", DbType="Int NOT NULL")]
+		public int RigId
+		{
+			get
+			{
+				return this._RigId;
+			}
+			set
+			{
+				if ((this._RigId != value))
+				{
+					this._RigId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeskEngId", DbType="Int")]
+		public System.Nullable<int> DeskEngId
+		{
+			get
+			{
+				return this._DeskEngId;
+			}
+			set
+			{
+				if ((this._DeskEngId != value))
+				{
+					this._DeskEngId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this._Deleted = value;
 				}
 			}
 		}

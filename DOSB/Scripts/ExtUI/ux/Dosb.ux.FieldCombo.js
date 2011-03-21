@@ -6,16 +6,20 @@ Dosb.ux.FieldCombo = Ext.extend(Ext.form.ComboBox, {
     mode: 'local',
     triggerAction: 'all',
     emptyText:'Select field...',
-    selectOnFocus:true,
+    selectOnFocus: true,
+	forceSelection: true, 
 	
     initComponent : function() {
 		var store = new Ext.data.JsonStore({
 			url: '/Field/GetJson',
-            idProperty: 'FieldId',
+			idProperty: 'FieldId',
+            totalProperty: 'total',
+			successProperty: 'success',
+			root: 'data',
+			messageProperty: 'message',  // <-- New "messageProperty" meta-data
             fields: [
-				{ name: 'attr', mapping: 'Name' },
-				'Name',
-				'FieldId',
+			    {name: 'Name', allowBlank: false},
+				'FieldId'
             ]
         });
 		

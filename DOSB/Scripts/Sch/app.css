@@ -3,57 +3,12 @@
  *
  */
 
-.icon-prev
-{
-    background: url(/Content/Images/Sch/arrow_left.png) no-repeat center center !important;
-}
-
-.icon-next
-{
-    background: url(/Content/Images/Sch/arrow_right.png) no-repeat center center !important;
-}
-
 body {
 	font-family:helvetica,tahoma,verdana,sans-serif;
 	padding:20px;
     padding-top:32px;
     font-size:13px;
 }
-p {
-	margin-bottom:15px;
-}
-h1 {
-	font-size:large;
-	margin-bottom:20px;
-}
-h2 {
-	font-size:14px;
-    color:#333;
-    font-weight:bold;
-    margin:10px 0;
-}
-
-pre.code{
-	background: #F8F8F8;
-	border: 1px solid #e8e8e8;
-	padding:10px;
-	margin:10px;
-	margin-left:0px;
-	border-left:5px solid #e8e8e8;
-	font-size: 12px !important;
-	line-height:14px !important;
-}
-
-a
-{
-	text-decoration:none;
-}
-
-a:hover
-{
-	text-decoration:underline;
-}
-
 
 .sch-event-endsoutside
 {
@@ -71,4 +26,11 @@ a:hover
 	-webkit-border-radius-bottom-left:0 !important;
 }
 
-
+.sch-event
+{
+    -webkit-box-shadow: 1px 1px 1px rgba(150, 150, 150, 0.3);
+    -moz-box-shadow: 1px 1px 1px rgba(150, 150, 150, 0.3); 
+    -ms-box-shadow: 1px 1px 1px rgba(150, 150, 150, 0.3); 
+    box-shadow: 1px 1px 1px rgba(150, 150, 150, 0.3); 
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.7);
+}

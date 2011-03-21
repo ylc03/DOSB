@@ -37,5 +37,25 @@ namespace DOSB.Controllers
                 data = data,
             }, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult GetByTimeSpan(DateTime? startDate, DateTime? endDate)
+        {
+            var data = from item in store.fnFilterRigs(startDate, endDate)
+                       select new
+                       {
+                           RigId = item.RigId,
+                           Name = item.Name,
+                           EngId = item.DeskEngId
+                       };
+
+            return Json(new
+            {
+                total = data.Count(),
+                success = true,
+                message = "Return new all rigs",
+                data = data,
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
