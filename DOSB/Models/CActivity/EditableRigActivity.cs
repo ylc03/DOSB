@@ -26,23 +26,36 @@ namespace DOSB.Models.EditableModels
         public string WellStatus { get; set; }
         public string WellTypeName { get; set; }
         public string CompletionTypeName { get; set; }
-        public DateTime StartAt { get; set; }
-        public DateTime FinishAt { get; set; }
-        public string StartDate
+
+        private DateTime start;
+        public DateTime StartAt 
         {
             get
             {
-                return this.StartAt.ToString("yyyy-MM-dd");
+                return start;
             }
+            set 
+            {
+                start = value;
+                StartDate = value.ToString("yyyy-MM-dd");
+            } 
         }
 
-        public string EndDate
+        private DateTime end;
+        public DateTime FinishAt 
         {
             get
             {
-                return this.FinishAt.ToString("yyyy-MM-dd");
+                return end;
+            }
+            set
+            {
+                end = value;
+                EndDate = value.ToString("yyyy-MM-dd");
             }
         }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
     }
 }
 

@@ -14,15 +14,7 @@
     <Type Name="CompletionType">
       <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="CompletionType_RigActivity" Member="RigActivity" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="RigActivity" Cardinality="One" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Rigs" Member="Rigs">
-    <Type Name="Rig">
-      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Rig_RigActivity" Member="RigActivity" ThisKey="RigId" OtherKey="RigId" Type="RigActivity" Cardinality="One" />
+      <Association Name="CompletionType_RigActivity" Member="RigActivities" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="RigActivity" />
     </Type>
   </Table>
   <Table Name="dbo.Wells" Member="Wells">
@@ -50,22 +42,6 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Assembly_CompletionActivity" Member="CompletionActivities" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="CompletionActivity" />
-    </Type>
-  </Table>
-  <Table Name="dbo.RigActivities" Member="RigActivities">
-    <Type Name="RigActivity">
-      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="RigId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="WellId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Association Name="RigActivity_CompletionActivity" Member="CompletionActivities" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="CompletionActivity" />
-      <Association Name="CompletionType_RigActivity" Member="CompletionType" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="CompletionType" IsForeignKey="true" />
-      <Association Name="Rig_RigActivity" Member="Rig" ThisKey="RigId" OtherKey="RigId" Type="Rig" IsForeignKey="true" />
-      <Association Name="Well_RigActivity" Member="Well" ThisKey="WellId" OtherKey="WellId" Type="Well" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.vwLowerCompletionAssembly" Member="vwLowerCompletionAssemblies">
@@ -148,6 +124,7 @@
       <Association Name="Employee_PressureTest" Member="PressureTests" ThisKey="EmployeeId" OtherKey="ApprovedBy" Type="PressureTest" />
       <Association Name="Employee_PressureTest1" Member="PressureTests1" ThisKey="EmployeeId" OtherKey="TestBy" Type="PressureTest" />
       <Association Name="Employee_EmployeeRole" Member="EmployeeRoles" ThisKey="EmployeeId" OtherKey="EmployeeId" Type="EmployeeRole" />
+      <Association Name="Employee_Rig" Member="Rigs" ThisKey="EmployeeId" OtherKey="DeskEngId" Type="Rig" />
       <Association Name="Segment_Employee" Member="Segment" ThisKey="SegmentId" OtherKey="SegmentId" Type="Segment" IsForeignKey="true" />
     </Type>
   </Table>
@@ -228,23 +205,6 @@
       <Column Name="CompletionActivityId" Type="System.Int32" DbType="Int not NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.vwRigActivity" Member="vwRigActivities">
-    <Type Name="vwRigActivity">
-      <Column Name="ClientName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CountryName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="FieldName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="WellTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CompletionTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WellStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Clients" Member="Clients">
     <Type Name="Client">
       <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -279,6 +239,53 @@
       <Column Name="FieldId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rigs" Member="Rigs">
+    <Type Name="Rig">
+      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DeskEngId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Rig_RigActivity" Member="RigActivities" ThisKey="RigId" OtherKey="RigId" Type="RigActivity" />
+      <Association Name="Employee_Rig" Member="Employee" ThisKey="DeskEngId" OtherKey="EmployeeId" Type="Employee" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RigActivities" Member="RigActivities">
+    <Type Name="RigActivity">
+      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WellId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="RigActivity_CompletionActivity" Member="CompletionActivities" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="CompletionActivity" />
+      <Association Name="CompletionType_RigActivity" Member="CompletionType" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="CompletionType" IsForeignKey="true" />
+      <Association Name="Rig_RigActivity" Member="Rig" ThisKey="RigId" OtherKey="RigId" Type="Rig" IsForeignKey="true" />
+      <Association Name="Well_RigActivity" Member="Well" ThisKey="WellId" OtherKey="WellId" Type="Well" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwRigActivity" Member="vwRigActivities">
+    <Type Name="vwRigActivity">
+      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FieldName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClientName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CompletionTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RigId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WellId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="WellStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">

@@ -110,6 +110,7 @@
     <Compile Include="Models\CActivity\EditableRigActivity.cs" />
     <Compile Include="Models\CActivity\EditableCompletionActivity.cs" />
     <Compile Include="Models\CPLStore.cs" />
+    <Compile Include="Models\EditableModels\EditableRig.cs" />
     <Compile Include="Models\EditableModels\EditableCompany.cs" />
     <Compile Include="Models\EditableModels\EditableField.cs" />
     <Compile Include="Models\EditableModels\EditableWorkshopActivity.cs" />

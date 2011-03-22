@@ -36,9 +36,6 @@ namespace DOSB.Models
     partial void InsertCompletionType(CompletionType instance);
     partial void UpdateCompletionType(CompletionType instance);
     partial void DeleteCompletionType(CompletionType instance);
-    partial void InsertRig(Rig instance);
-    partial void UpdateRig(Rig instance);
-    partial void DeleteRig(Rig instance);
     partial void InsertWell(Well instance);
     partial void UpdateWell(Well instance);
     partial void DeleteWell(Well instance);
@@ -48,9 +45,6 @@ namespace DOSB.Models
     partial void InsertAssembly(Assembly instance);
     partial void UpdateAssembly(Assembly instance);
     partial void DeleteAssembly(Assembly instance);
-    partial void InsertRigActivity(RigActivity instance);
-    partial void UpdateRigActivity(RigActivity instance);
-    partial void DeleteRigActivity(RigActivity instance);
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
@@ -90,6 +84,12 @@ namespace DOSB.Models
     partial void InsertField(Field instance);
     partial void UpdateField(Field instance);
     partial void DeleteField(Field instance);
+    partial void InsertRig(Rig instance);
+    partial void UpdateRig(Rig instance);
+    partial void DeleteRig(Rig instance);
+    partial void InsertRigActivity(RigActivity instance);
+    partial void UpdateRigActivity(RigActivity instance);
+    partial void DeleteRigActivity(RigActivity instance);
     #endregion
 		
 		public CPLDataContext() : 
@@ -138,14 +138,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Rig> Rigs
-		{
-			get
-			{
-				return this.GetTable<Rig>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Well> Wells
 		{
 			get
@@ -167,14 +159,6 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<Assembly>();
-			}
-		}
-		
-		public System.Data.Linq.Table<RigActivity> RigActivities
-		{
-			get
-			{
-				return this.GetTable<RigActivity>();
 			}
 		}
 		
@@ -282,14 +266,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<vwRigActivity> vwRigActivities
-		{
-			get
-			{
-				return this.GetTable<vwRigActivity>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Client> Clients
 		{
 			get
@@ -319,6 +295,30 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<vwField>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Rig> Rigs
+		{
+			get
+			{
+				return this.GetTable<Rig>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RigActivity> RigActivities
+		{
+			get
+			{
+				return this.GetTable<RigActivity>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vwRigActivity> vwRigActivities
+		{
+			get
+			{
+				return this.GetTable<vwRigActivity>();
 			}
 		}
 		
@@ -531,7 +531,7 @@ namespace DOSB.Models
 		
 		private string _Name;
 		
-		private EntityRef<RigActivity> _RigActivity;
+		private EntitySet<RigActivity> _RigActivities;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -545,7 +545,7 @@ namespace DOSB.Models
 		
 		public CompletionType()
 		{
-			this._RigActivity = default(EntityRef<RigActivity>);
+			this._RigActivities = new EntitySet<RigActivity>(new Action<RigActivity>(this.attach_RigActivities), new Action<RigActivity>(this.detach_RigActivities));
 			OnCreated();
 		}
 		
@@ -589,32 +589,16 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_RigActivity", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId", IsUnique=true, IsForeignKey=false)]
-		public RigActivity RigActivity
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_RigActivities", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId")]
+		public EntitySet<RigActivity> RigActivities
 		{
 			get
 			{
-				return this._RigActivity.Entity;
+				return this._RigActivities;
 			}
 			set
 			{
-				RigActivity previousValue = this._RigActivity.Entity;
-				if (((previousValue != value) 
-							|| (this._RigActivity.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RigActivity.Entity = null;
-						previousValue.CompletionType = null;
-					}
-					this._RigActivity.Entity = value;
-					if ((value != null))
-					{
-						value.CompletionType = this;
-					}
-					this.SendPropertyChanged("RigActivity");
-				}
+				this._RigActivities.Assign(value);
 			}
 		}
 		
@@ -637,147 +621,17 @@ namespace DOSB.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rigs")]
-	public partial class Rig : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RigId;
-		
-		private string _Name;
-		
-		private string _Type;
-		
-		private EntityRef<RigActivity> _RigActivity;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRigIdChanging(int value);
-    partial void OnRigIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnTypeChanging(string value);
-    partial void OnTypeChanged();
-    #endregion
-		
-		public Rig()
+		private void attach_RigActivities(RigActivity entity)
 		{
-			this._RigActivity = default(EntityRef<RigActivity>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.CompletionType = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RigId
+		private void detach_RigActivities(RigActivity entity)
 		{
-			get
-			{
-				return this._RigId;
-			}
-			set
-			{
-				if ((this._RigId != value))
-				{
-					this.OnRigIdChanging(value);
-					this.SendPropertyChanging();
-					this._RigId = value;
-					this.SendPropertyChanged("RigId");
-					this.OnRigIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="VarChar(50)")]
-		public string Type
-		{
-			get
-			{
-				return this._Type;
-			}
-			set
-			{
-				if ((this._Type != value))
-				{
-					this.OnTypeChanging(value);
-					this.SendPropertyChanging();
-					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rig_RigActivity", Storage="_RigActivity", ThisKey="RigId", OtherKey="RigId", IsUnique=true, IsForeignKey=false)]
-		public RigActivity RigActivity
-		{
-			get
-			{
-				return this._RigActivity.Entity;
-			}
-			set
-			{
-				RigActivity previousValue = this._RigActivity.Entity;
-				if (((previousValue != value) 
-							|| (this._RigActivity.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RigActivity.Entity = null;
-						previousValue.Rig = null;
-					}
-					this._RigActivity.Entity = value;
-					if ((value != null))
-					{
-						value.Rig = this;
-					}
-					this.SendPropertyChanged("RigActivity");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.CompletionType = null;
 		}
 	}
 	
@@ -1298,387 +1152,6 @@ namespace DOSB.Models
 		{
 			this.SendPropertyChanging();
 			entity.Assembly = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RigActivities")]
-	public partial class RigActivity : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RigActivityId;
-		
-		private System.Nullable<int> _RigId;
-		
-		private System.Nullable<int> _WellId;
-		
-		private System.Nullable<int> _CompletionTypeId;
-		
-		private System.Nullable<System.DateTime> _StartAt;
-		
-		private System.Nullable<System.DateTime> _FinishAt;
-		
-		private System.Nullable<System.DateTime> _ShowAt;
-		
-		private string _Comment;
-		
-		private EntitySet<CompletionActivity> _CompletionActivities;
-		
-		private EntityRef<CompletionType> _CompletionType;
-		
-		private EntityRef<Rig> _Rig;
-		
-		private EntityRef<Well> _Well;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnRigActivityIdChanging(int value);
-    partial void OnRigActivityIdChanged();
-    partial void OnRigIdChanging(System.Nullable<int> value);
-    partial void OnRigIdChanged();
-    partial void OnWellIdChanging(System.Nullable<int> value);
-    partial void OnWellIdChanged();
-    partial void OnCompletionTypeIdChanging(System.Nullable<int> value);
-    partial void OnCompletionTypeIdChanged();
-    partial void OnStartAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartAtChanged();
-    partial void OnFinishAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnFinishAtChanged();
-    partial void OnShowAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnShowAtChanged();
-    partial void OnCommentChanging(string value);
-    partial void OnCommentChanged();
-    #endregion
-		
-		public RigActivity()
-		{
-			this._CompletionActivities = new EntitySet<CompletionActivity>(new Action<CompletionActivity>(this.attach_CompletionActivities), new Action<CompletionActivity>(this.detach_CompletionActivities));
-			this._CompletionType = default(EntityRef<CompletionType>);
-			this._Rig = default(EntityRef<Rig>);
-			this._Well = default(EntityRef<Well>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RigActivityId
-		{
-			get
-			{
-				return this._RigActivityId;
-			}
-			set
-			{
-				if ((this._RigActivityId != value))
-				{
-					this.OnRigActivityIdChanging(value);
-					this.SendPropertyChanging();
-					this._RigActivityId = value;
-					this.SendPropertyChanged("RigActivityId");
-					this.OnRigActivityIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", DbType="Int")]
-		public System.Nullable<int> RigId
-		{
-			get
-			{
-				return this._RigId;
-			}
-			set
-			{
-				if ((this._RigId != value))
-				{
-					if (this._Rig.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRigIdChanging(value);
-					this.SendPropertyChanging();
-					this._RigId = value;
-					this.SendPropertyChanged("RigId");
-					this.OnRigIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellId", DbType="Int")]
-		public System.Nullable<int> WellId
-		{
-			get
-			{
-				return this._WellId;
-			}
-			set
-			{
-				if ((this._WellId != value))
-				{
-					if (this._Well.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnWellIdChanging(value);
-					this.SendPropertyChanging();
-					this._WellId = value;
-					this.SendPropertyChanged("WellId");
-					this.OnWellIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeId", DbType="Int")]
-		public System.Nullable<int> CompletionTypeId
-		{
-			get
-			{
-				return this._CompletionTypeId;
-			}
-			set
-			{
-				if ((this._CompletionTypeId != value))
-				{
-					if (this._CompletionType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCompletionTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._CompletionTypeId = value;
-					this.SendPropertyChanged("CompletionTypeId");
-					this.OnCompletionTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
-		public System.Nullable<System.DateTime> StartAt
-		{
-			get
-			{
-				return this._StartAt;
-			}
-			set
-			{
-				if ((this._StartAt != value))
-				{
-					this.OnStartAtChanging(value);
-					this.SendPropertyChanging();
-					this._StartAt = value;
-					this.SendPropertyChanged("StartAt");
-					this.OnStartAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
-		public System.Nullable<System.DateTime> FinishAt
-		{
-			get
-			{
-				return this._FinishAt;
-			}
-			set
-			{
-				if ((this._FinishAt != value))
-				{
-					this.OnFinishAtChanging(value);
-					this.SendPropertyChanging();
-					this._FinishAt = value;
-					this.SendPropertyChanged("FinishAt");
-					this.OnFinishAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShowAt", DbType="Date")]
-		public System.Nullable<System.DateTime> ShowAt
-		{
-			get
-			{
-				return this._ShowAt;
-			}
-			set
-			{
-				if ((this._ShowAt != value))
-				{
-					this.OnShowAtChanging(value);
-					this.SendPropertyChanging();
-					this._ShowAt = value;
-					this.SendPropertyChanged("ShowAt");
-					this.OnShowAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX)")]
-		public string Comment
-		{
-			get
-			{
-				return this._Comment;
-			}
-			set
-			{
-				if ((this._Comment != value))
-				{
-					this.OnCommentChanging(value);
-					this.SendPropertyChanging();
-					this._Comment = value;
-					this.SendPropertyChanged("Comment");
-					this.OnCommentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RigActivity_CompletionActivity", Storage="_CompletionActivities", ThisKey="RigActivityId", OtherKey="RigActivityId")]
-		public EntitySet<CompletionActivity> CompletionActivities
-		{
-			get
-			{
-				return this._CompletionActivities;
-			}
-			set
-			{
-				this._CompletionActivities.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_CompletionType", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId", IsForeignKey=true)]
-		public CompletionType CompletionType
-		{
-			get
-			{
-				return this._CompletionType.Entity;
-			}
-			set
-			{
-				CompletionType previousValue = this._CompletionType.Entity;
-				if (((previousValue != value) 
-							|| (this._CompletionType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CompletionType.Entity = null;
-						previousValue.RigActivity = null;
-					}
-					this._CompletionType.Entity = value;
-					if ((value != null))
-					{
-						value.RigActivity = this;
-						this._CompletionTypeId = value.CompletionTypeId;
-					}
-					else
-					{
-						this._CompletionTypeId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("CompletionType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rig_RigActivity", Storage="_Rig", ThisKey="RigId", OtherKey="RigId", IsForeignKey=true)]
-		public Rig Rig
-		{
-			get
-			{
-				return this._Rig.Entity;
-			}
-			set
-			{
-				Rig previousValue = this._Rig.Entity;
-				if (((previousValue != value) 
-							|| (this._Rig.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Rig.Entity = null;
-						previousValue.RigActivity = null;
-					}
-					this._Rig.Entity = value;
-					if ((value != null))
-					{
-						value.RigActivity = this;
-						this._RigId = value.RigId;
-					}
-					else
-					{
-						this._RigId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Rig");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Well_RigActivity", Storage="_Well", ThisKey="WellId", OtherKey="WellId", IsForeignKey=true)]
-		public Well Well
-		{
-			get
-			{
-				return this._Well.Entity;
-			}
-			set
-			{
-				Well previousValue = this._Well.Entity;
-				if (((previousValue != value) 
-							|| (this._Well.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Well.Entity = null;
-						previousValue.RigActivities.Remove(this);
-					}
-					this._Well.Entity = value;
-					if ((value != null))
-					{
-						value.RigActivities.Add(this);
-						this._WellId = value.WellId;
-					}
-					else
-					{
-						this._WellId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Well");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_CompletionActivities(CompletionActivity entity)
-		{
-			this.SendPropertyChanging();
-			entity.RigActivity = this;
-		}
-		
-		private void detach_CompletionActivities(CompletionActivity entity)
-		{
-			this.SendPropertyChanging();
-			entity.RigActivity = null;
 		}
 	}
 	
@@ -2745,6 +2218,8 @@ namespace DOSB.Models
 		
 		private EntitySet<EmployeeRole> _EmployeeRoles;
 		
+		private EntitySet<Rig> _Rigs;
+		
 		private EntityRef<Segment> _Segment;
 		
     #region Extensibility Method Definitions
@@ -2789,6 +2264,7 @@ namespace DOSB.Models
 			this._PressureTests = new EntitySet<PressureTest>(new Action<PressureTest>(this.attach_PressureTests), new Action<PressureTest>(this.detach_PressureTests));
 			this._PressureTests1 = new EntitySet<PressureTest>(new Action<PressureTest>(this.attach_PressureTests1), new Action<PressureTest>(this.detach_PressureTests1));
 			this._EmployeeRoles = new EntitySet<EmployeeRole>(new Action<EmployeeRole>(this.attach_EmployeeRoles), new Action<EmployeeRole>(this.detach_EmployeeRoles));
+			this._Rigs = new EntitySet<Rig>(new Action<Rig>(this.attach_Rigs), new Action<Rig>(this.detach_Rigs));
 			this._Segment = default(EntityRef<Segment>);
 			OnCreated();
 		}
@@ -3155,6 +2631,19 @@ namespace DOSB.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Rig", Storage="_Rigs", ThisKey="EmployeeId", OtherKey="DeskEngId")]
+		public EntitySet<Rig> Rigs
+		{
+			get
+			{
+				return this._Rigs;
+			}
+			set
+			{
+				this._Rigs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Segment_Employee", Storage="_Segment", ThisKey="SegmentId", OtherKey="SegmentId", IsForeignKey=true)]
 		public Segment Segment
 		{
@@ -3276,6 +2765,18 @@ namespace DOSB.Models
 		}
 		
 		private void detach_EmployeeRoles(EmployeeRole entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = null;
+		}
+		
+		private void attach_Rigs(Rig entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employee = this;
+		}
+		
+		private void detach_Rigs(Rig entity)
 		{
 			this.SendPropertyChanging();
 			entity.Employee = null;
@@ -4852,249 +4353,6 @@ namespace DOSB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwRigActivity")]
-	public partial class vwRigActivity
-	{
-		
-		private string _ClientName;
-		
-		private string _CountryName;
-		
-		private string _FieldName;
-		
-		private string _RigName;
-		
-		private string _WellName;
-		
-		private string _WellTypeName;
-		
-		private string _Comment;
-		
-		private int _RigActivityId;
-		
-		private string _CompletionTypeName;
-		
-		private string _WellStatus;
-		
-		private int _RigId;
-		
-		private System.Nullable<System.DateTime> _StartAt;
-		
-		private System.Nullable<System.DateTime> _FinishAt;
-		
-		public vwRigActivity()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientName", DbType="NVarChar(50)")]
-		public string ClientName
-		{
-			get
-			{
-				return this._ClientName;
-			}
-			set
-			{
-				if ((this._ClientName != value))
-				{
-					this._ClientName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryName", DbType="VarChar(50)")]
-		public string CountryName
-		{
-			get
-			{
-				return this._CountryName;
-			}
-			set
-			{
-				if ((this._CountryName != value))
-				{
-					this._CountryName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldName", DbType="NVarChar(50)")]
-		public string FieldName
-		{
-			get
-			{
-				return this._FieldName;
-			}
-			set
-			{
-				if ((this._FieldName != value))
-				{
-					this._FieldName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigName", DbType="VarChar(50)")]
-		public string RigName
-		{
-			get
-			{
-				return this._RigName;
-			}
-			set
-			{
-				if ((this._RigName != value))
-				{
-					this._RigName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellName", DbType="NVarChar(50)")]
-		public string WellName
-		{
-			get
-			{
-				return this._WellName;
-			}
-			set
-			{
-				if ((this._WellName != value))
-				{
-					this._WellName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellTypeName", DbType="VarChar(50)")]
-		public string WellTypeName
-		{
-			get
-			{
-				return this._WellTypeName;
-			}
-			set
-			{
-				if ((this._WellTypeName != value))
-				{
-					this._WellTypeName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX)")]
-		public string Comment
-		{
-			get
-			{
-				return this._Comment;
-			}
-			set
-			{
-				if ((this._Comment != value))
-				{
-					this._Comment = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", DbType="Int NOT NULL")]
-		public int RigActivityId
-		{
-			get
-			{
-				return this._RigActivityId;
-			}
-			set
-			{
-				if ((this._RigActivityId != value))
-				{
-					this._RigActivityId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeName", DbType="VarChar(50)")]
-		public string CompletionTypeName
-		{
-			get
-			{
-				return this._CompletionTypeName;
-			}
-			set
-			{
-				if ((this._CompletionTypeName != value))
-				{
-					this._CompletionTypeName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellStatus", DbType="VarChar(50)")]
-		public string WellStatus
-		{
-			get
-			{
-				return this._WellStatus;
-			}
-			set
-			{
-				if ((this._WellStatus != value))
-				{
-					this._WellStatus = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", DbType="Int NOT NULL")]
-		public int RigId
-		{
-			get
-			{
-				return this._RigId;
-			}
-			set
-			{
-				if ((this._RigId != value))
-				{
-					this._RigId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
-		public System.Nullable<System.DateTime> StartAt
-		{
-			get
-			{
-				return this._StartAt;
-			}
-			set
-			{
-				if ((this._StartAt != value))
-				{
-					this._StartAt = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
-		public System.Nullable<System.DateTime> FinishAt
-		{
-			get
-			{
-				return this._FinishAt;
-			}
-			set
-			{
-				if ((this._FinishAt != value))
-				{
-					this._FinishAt = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clients")]
 	public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5703,6 +4961,917 @@ namespace DOSB.Models
 				if ((this._ClientId != value))
 				{
 					this._ClientId = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rigs")]
+	public partial class Rig : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RigId;
+		
+		private string _Name;
+		
+		private string _Type;
+		
+		private System.Nullable<int> _DeskEngId;
+		
+		private int _Deleted;
+		
+		private EntitySet<RigActivity> _RigActivities;
+		
+		private EntityRef<Employee> _Employee;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRigIdChanging(int value);
+    partial void OnRigIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnTypeChanging(string value);
+    partial void OnTypeChanged();
+    partial void OnDeskEngIdChanging(System.Nullable<int> value);
+    partial void OnDeskEngIdChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
+    #endregion
+		
+		public Rig()
+		{
+			this._RigActivities = new EntitySet<RigActivity>(new Action<RigActivity>(this.attach_RigActivities), new Action<RigActivity>(this.detach_RigActivities));
+			this._Employee = default(EntityRef<Employee>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RigId
+		{
+			get
+			{
+				return this._RigId;
+			}
+			set
+			{
+				if ((this._RigId != value))
+				{
+					this.OnRigIdChanging(value);
+					this.SendPropertyChanging();
+					this._RigId = value;
+					this.SendPropertyChanged("RigId");
+					this.OnRigIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="VarChar(50)")]
+		public string Type
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnTypeChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("Type");
+					this.OnTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeskEngId", DbType="Int")]
+		public System.Nullable<int> DeskEngId
+		{
+			get
+			{
+				return this._DeskEngId;
+			}
+			set
+			{
+				if ((this._DeskEngId != value))
+				{
+					if (this._Employee.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnDeskEngIdChanging(value);
+					this.SendPropertyChanging();
+					this._DeskEngId = value;
+					this.SendPropertyChanged("DeskEngId");
+					this.OnDeskEngIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rig_RigActivity", Storage="_RigActivities", ThisKey="RigId", OtherKey="RigId")]
+		public EntitySet<RigActivity> RigActivities
+		{
+			get
+			{
+				return this._RigActivities;
+			}
+			set
+			{
+				this._RigActivities.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employee_Rig", Storage="_Employee", ThisKey="DeskEngId", OtherKey="EmployeeId", IsForeignKey=true)]
+		public Employee Employee
+		{
+			get
+			{
+				return this._Employee.Entity;
+			}
+			set
+			{
+				Employee previousValue = this._Employee.Entity;
+				if (((previousValue != value) 
+							|| (this._Employee.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employee.Entity = null;
+						previousValue.Rigs.Remove(this);
+					}
+					this._Employee.Entity = value;
+					if ((value != null))
+					{
+						value.Rigs.Add(this);
+						this._DeskEngId = value.EmployeeId;
+					}
+					else
+					{
+						this._DeskEngId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Employee");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_RigActivities(RigActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Rig = this;
+		}
+		
+		private void detach_RigActivities(RigActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Rig = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.RigActivities")]
+	public partial class RigActivity : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _RigActivityId;
+		
+		private int _RigId;
+		
+		private int _WellId;
+		
+		private System.Nullable<int> _CompletionTypeId;
+		
+		private System.Nullable<System.DateTime> _StartAt;
+		
+		private System.Nullable<System.DateTime> _FinishAt;
+		
+		private System.Nullable<System.DateTime> _ShowAt;
+		
+		private string _Comment;
+		
+		private int _Deleted;
+		
+		private EntitySet<CompletionActivity> _CompletionActivities;
+		
+		private EntityRef<CompletionType> _CompletionType;
+		
+		private EntityRef<Rig> _Rig;
+		
+		private EntityRef<Well> _Well;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnRigActivityIdChanging(int value);
+    partial void OnRigActivityIdChanged();
+    partial void OnRigIdChanging(int value);
+    partial void OnRigIdChanged();
+    partial void OnWellIdChanging(int value);
+    partial void OnWellIdChanged();
+    partial void OnCompletionTypeIdChanging(System.Nullable<int> value);
+    partial void OnCompletionTypeIdChanged();
+    partial void OnStartAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartAtChanged();
+    partial void OnFinishAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnFinishAtChanged();
+    partial void OnShowAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnShowAtChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
+    #endregion
+		
+		public RigActivity()
+		{
+			this._CompletionActivities = new EntitySet<CompletionActivity>(new Action<CompletionActivity>(this.attach_CompletionActivities), new Action<CompletionActivity>(this.detach_CompletionActivities));
+			this._CompletionType = default(EntityRef<CompletionType>);
+			this._Rig = default(EntityRef<Rig>);
+			this._Well = default(EntityRef<Well>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int RigActivityId
+		{
+			get
+			{
+				return this._RigActivityId;
+			}
+			set
+			{
+				if ((this._RigActivityId != value))
+				{
+					this.OnRigActivityIdChanging(value);
+					this.SendPropertyChanging();
+					this._RigActivityId = value;
+					this.SendPropertyChanged("RigActivityId");
+					this.OnRigActivityIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", DbType="Int NOT NULL")]
+		public int RigId
+		{
+			get
+			{
+				return this._RigId;
+			}
+			set
+			{
+				if ((this._RigId != value))
+				{
+					if (this._Rig.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRigIdChanging(value);
+					this.SendPropertyChanging();
+					this._RigId = value;
+					this.SendPropertyChanged("RigId");
+					this.OnRigIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellId", DbType="Int NOT NULL")]
+		public int WellId
+		{
+			get
+			{
+				return this._WellId;
+			}
+			set
+			{
+				if ((this._WellId != value))
+				{
+					if (this._Well.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWellIdChanging(value);
+					this.SendPropertyChanging();
+					this._WellId = value;
+					this.SendPropertyChanged("WellId");
+					this.OnWellIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeId", DbType="Int")]
+		public System.Nullable<int> CompletionTypeId
+		{
+			get
+			{
+				return this._CompletionTypeId;
+			}
+			set
+			{
+				if ((this._CompletionTypeId != value))
+				{
+					if (this._CompletionType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompletionTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._CompletionTypeId = value;
+					this.SendPropertyChanged("CompletionTypeId");
+					this.OnCompletionTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
+		public System.Nullable<System.DateTime> StartAt
+		{
+			get
+			{
+				return this._StartAt;
+			}
+			set
+			{
+				if ((this._StartAt != value))
+				{
+					this.OnStartAtChanging(value);
+					this.SendPropertyChanging();
+					this._StartAt = value;
+					this.SendPropertyChanged("StartAt");
+					this.OnStartAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
+		public System.Nullable<System.DateTime> FinishAt
+		{
+			get
+			{
+				return this._FinishAt;
+			}
+			set
+			{
+				if ((this._FinishAt != value))
+				{
+					this.OnFinishAtChanging(value);
+					this.SendPropertyChanging();
+					this._FinishAt = value;
+					this.SendPropertyChanged("FinishAt");
+					this.OnFinishAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShowAt", DbType="Date")]
+		public System.Nullable<System.DateTime> ShowAt
+		{
+			get
+			{
+				return this._ShowAt;
+			}
+			set
+			{
+				if ((this._ShowAt != value))
+				{
+					this.OnShowAtChanging(value);
+					this.SendPropertyChanging();
+					this._ShowAt = value;
+					this.SendPropertyChanged("ShowAt");
+					this.OnShowAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RigActivity_CompletionActivity", Storage="_CompletionActivities", ThisKey="RigActivityId", OtherKey="RigActivityId")]
+		public EntitySet<CompletionActivity> CompletionActivities
+		{
+			get
+			{
+				return this._CompletionActivities;
+			}
+			set
+			{
+				this._CompletionActivities.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_CompletionType", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId", IsForeignKey=true)]
+		public CompletionType CompletionType
+		{
+			get
+			{
+				return this._CompletionType.Entity;
+			}
+			set
+			{
+				CompletionType previousValue = this._CompletionType.Entity;
+				if (((previousValue != value) 
+							|| (this._CompletionType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CompletionType.Entity = null;
+						previousValue.RigActivities.Remove(this);
+					}
+					this._CompletionType.Entity = value;
+					if ((value != null))
+					{
+						value.RigActivities.Add(this);
+						this._CompletionTypeId = value.CompletionTypeId;
+					}
+					else
+					{
+						this._CompletionTypeId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("CompletionType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rig_RigActivity", Storage="_Rig", ThisKey="RigId", OtherKey="RigId", IsForeignKey=true)]
+		public Rig Rig
+		{
+			get
+			{
+				return this._Rig.Entity;
+			}
+			set
+			{
+				Rig previousValue = this._Rig.Entity;
+				if (((previousValue != value) 
+							|| (this._Rig.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Rig.Entity = null;
+						previousValue.RigActivities.Remove(this);
+					}
+					this._Rig.Entity = value;
+					if ((value != null))
+					{
+						value.RigActivities.Add(this);
+						this._RigId = value.RigId;
+					}
+					else
+					{
+						this._RigId = default(int);
+					}
+					this.SendPropertyChanged("Rig");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Well_RigActivity", Storage="_Well", ThisKey="WellId", OtherKey="WellId", IsForeignKey=true)]
+		public Well Well
+		{
+			get
+			{
+				return this._Well.Entity;
+			}
+			set
+			{
+				Well previousValue = this._Well.Entity;
+				if (((previousValue != value) 
+							|| (this._Well.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Well.Entity = null;
+						previousValue.RigActivities.Remove(this);
+					}
+					this._Well.Entity = value;
+					if ((value != null))
+					{
+						value.RigActivities.Add(this);
+						this._WellId = value.WellId;
+					}
+					else
+					{
+						this._WellId = default(int);
+					}
+					this.SendPropertyChanged("Well");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CompletionActivities(CompletionActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.RigActivity = this;
+		}
+		
+		private void detach_CompletionActivities(CompletionActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.RigActivity = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwRigActivity")]
+	public partial class vwRigActivity
+	{
+		
+		private int _RigActivityId;
+		
+		private string _WellName;
+		
+		private string _FieldName;
+		
+		private string _ClientName;
+		
+		private string _CountryName;
+		
+		private string _WellTypeName;
+		
+		private string _RigName;
+		
+		private string _CompletionTypeName;
+		
+		private int _RigId;
+		
+		private int _WellId;
+		
+		private System.Nullable<int> _CompletionTypeId;
+		
+		private System.Nullable<System.DateTime> _StartAt;
+		
+		private System.Nullable<System.DateTime> _FinishAt;
+		
+		private string _WellStatus;
+		
+		private string _Comment;
+		
+		public vwRigActivity()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", DbType="Int NOT NULL")]
+		public int RigActivityId
+		{
+			get
+			{
+				return this._RigActivityId;
+			}
+			set
+			{
+				if ((this._RigActivityId != value))
+				{
+					this._RigActivityId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellName", DbType="NVarChar(50)")]
+		public string WellName
+		{
+			get
+			{
+				return this._WellName;
+			}
+			set
+			{
+				if ((this._WellName != value))
+				{
+					this._WellName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FieldName", DbType="NVarChar(50)")]
+		public string FieldName
+		{
+			get
+			{
+				return this._FieldName;
+			}
+			set
+			{
+				if ((this._FieldName != value))
+				{
+					this._FieldName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientName", DbType="NVarChar(50)")]
+		public string ClientName
+		{
+			get
+			{
+				return this._ClientName;
+			}
+			set
+			{
+				if ((this._ClientName != value))
+				{
+					this._ClientName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CountryName", DbType="VarChar(50)")]
+		public string CountryName
+		{
+			get
+			{
+				return this._CountryName;
+			}
+			set
+			{
+				if ((this._CountryName != value))
+				{
+					this._CountryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellTypeName", DbType="VarChar(50)")]
+		public string WellTypeName
+		{
+			get
+			{
+				return this._WellTypeName;
+			}
+			set
+			{
+				if ((this._WellTypeName != value))
+				{
+					this._WellTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigName", DbType="VarChar(50)")]
+		public string RigName
+		{
+			get
+			{
+				return this._RigName;
+			}
+			set
+			{
+				if ((this._RigName != value))
+				{
+					this._RigName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeName", DbType="VarChar(50)")]
+		public string CompletionTypeName
+		{
+			get
+			{
+				return this._CompletionTypeName;
+			}
+			set
+			{
+				if ((this._CompletionTypeName != value))
+				{
+					this._CompletionTypeName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigId", DbType="Int NOT NULL")]
+		public int RigId
+		{
+			get
+			{
+				return this._RigId;
+			}
+			set
+			{
+				if ((this._RigId != value))
+				{
+					this._RigId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellId", DbType="Int NOT NULL")]
+		public int WellId
+		{
+			get
+			{
+				return this._WellId;
+			}
+			set
+			{
+				if ((this._WellId != value))
+				{
+					this._WellId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeId", DbType="Int")]
+		public System.Nullable<int> CompletionTypeId
+		{
+			get
+			{
+				return this._CompletionTypeId;
+			}
+			set
+			{
+				if ((this._CompletionTypeId != value))
+				{
+					this._CompletionTypeId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
+		public System.Nullable<System.DateTime> StartAt
+		{
+			get
+			{
+				return this._StartAt;
+			}
+			set
+			{
+				if ((this._StartAt != value))
+				{
+					this._StartAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
+		public System.Nullable<System.DateTime> FinishAt
+		{
+			get
+			{
+				return this._FinishAt;
+			}
+			set
+			{
+				if ((this._FinishAt != value))
+				{
+					this._FinishAt = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellStatus", DbType="VarChar(50)")]
+		public string WellStatus
+		{
+			get
+			{
+				return this._WellStatus;
+			}
+			set
+			{
+				if ((this._WellStatus != value))
+				{
+					this._WellStatus = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(MAX)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
 				}
 			}
 		}

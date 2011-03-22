@@ -22,6 +22,8 @@ namespace DOSB.Controllers
             return View();
         }
 
+        #region Json Actions
+
         public JsonResult GetJson()
         {
             var data = from item in store.vwFields
@@ -142,5 +144,7 @@ namespace DOSB.Controllers
                                              };
             return (EditableField)record.FirstOrDefault();
         }
+
+        #endregion
     }
 }

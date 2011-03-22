@@ -214,16 +214,6 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
                 '-',
                 '->',
                 {
-                    iconCls: 'silk-arrow-',
-                    tooltip: '',
-                    scope: this,
-                    handler: function () {
-                        this.shiftPrevious();
-                        this.resourceStore.load();
-                        this.eventStore.load();
-                    }
-                },
-                {
                     iconCls: 'silk-arrow-left',
                     tooltip: 'prev quarter',
                     scope: this,
