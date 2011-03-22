@@ -125,15 +125,8 @@ Ext.onReady(function() {
 				  '/Scripts/ext/examples/ux/SpinnerField.js',
 				  '/Scripts/ExtUI/ux/ext.ux.form.datetime.js', 	
 				  '/Scripts/Sch/ext-sch-crack.js',				//sch
-				  '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',	//ux
-				  '/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
-				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',
-				  '/Scripts/ExtUI/ux/Dosb.ux.CompTypeCombo.js',
-				  '/Scripts/ExtUI/ux/Dosb.ux.WellTypeCombo.js',
-				  '/Scripts/ExtUI/ux/Dosb.ux.RigField.js',
-				  '/Scripts/ExtUI/ux/Dosb.ux.WellField.js',		
-				  '/Scripts/ExtUI/CActivity/YVEditor.js',		//app
-				  '/Scripts/ExtUI/CActivity/YearScheduler.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',	//ux
+				  '/Scripts/ExtUI/CActivity/YearScheduler.js',	//app
 				  '/Scripts/ExtUI/CActivity/YearView.js'],
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/Sch/sch-all.css',

@@ -29,6 +29,82 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
         });
 
         Dosb.CActivity.YearScheduler.superclass.initComponent.call(this);
+
+        // disable Edit
+        this.disableEdit();
+        this.fieldNameCombo.on('select', this.onFieldNameChange, this);
+    },
+
+    // disable editing event, enable editing rig
+    disableEdit: function () {
+        this.wellNameEdit.setValue('');
+        this.fieldNameCombo.setValue('');
+        this.wellNameEdit.disable();
+        this.fieldNameCombo.disable();
+
+        this.rigNameEdit.setValue('');
+        this.rigNameEdit.enable();
+
+        this.ifDisableEdit = true;
+    },
+
+    // enable editing event, disable editing rig
+    enableEdit: function (rec) {
+        if (rec) {
+            this.rigNameEdit.setValue(rec.get('RigName'));
+            this.wellNameEdit.setValue(rec.get('WellName'));
+            this.fieldNameCombo.setValue(rec.get('FieldName'));
+        }
+        this.wellNameEdit.enable();
+        this.fieldNameCombo.enable();
+
+        this.rigNameEdit.disable();
+
+        this.ifDisableEdit = false;
+    },
+
+    onFieldNameChange: function (combo, rec, index) {
+        var fieldName = rec.get('Name');
+        if (fieldName == '(Not Specified)') return;
+        this.wellNameEdit.setValue(fieldName + '-');
+        this.wellNameEdit.focus();
+    },
+
+    addRigHandler: function () {
+        this.stopEditing();
+
+        var name = this.rigNameEdit.getValue();
+        if (name == '') return;
+
+        var index = this.resourceStore.findExact('Name', name);
+        if (index >= 0) {
+            this.startEditing(index, 1);
+        } else {
+            var u = new this.resourceStore.recordType({
+                Name: name
+            });
+            this.rigNameEdit.setValue('');
+            this.store.insert(0, u);
+            this.startEditing(0, 1);
+        }
+    },
+
+    updateWellHandler: function (e) {
+        var sel = this.getSelectionModel().selected;
+        if (this.ifDisableEdit) return;
+        var rec = this.getEventRecordFromElement(sel.el);
+        var wellName = this.wellNameEdit.getValue();
+        var fieldName = this.fieldNameCombo.getValue();
+        rec.beginEdit();
+        rec.set('WellName', wellName);
+        rec.set('FieldName', fieldName);
+        rec.endEdit();
+
+        //this.disableEdit();
+    },
+
+    cancelWellHandler: function () {
+        this.disableEdit();
     },
 
     buildColumns: function () {
@@ -47,31 +123,35 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
     },
 
     buildToolbar: function () {
-        
+        this.rigNameEdit = new Ext.form.TextField({
+            name: 'rig-name',
+            emptyText: 'Rig',
+            width: 100
+        });
+        this.fieldNameCombo = new Dosb.ux.FieldCombo({
+            name: 'field-name',
+            emptyText: 'Field',
+            allowBlank: false,
+            width: 80
+        });
+        this.wellNameEdit = new Ext.form.TextField({
+            name: 'well-name',
+            emptyText: 'Well',
+            allowBlank: false,
+            width: 120
+        });
+
         var toolbar = [
                 {
                     xtype: 'tbtext',
                     text: 'Rig'
                 },
-                {
-                    xtype: 'textfield',
-                    length: 5,
-                    name: 'rig-name',
-                    emptyText: 'Rig'
-                },
+                this.rigNameEdit,
                 {
                     iconCls: 'silk-add',
                     tooltip: 'Add a rig',
                     scope: this,
-                    handler: function () {
-                        var u = new this.resourceStore.recordType({
-                            Name: 'ADC'
-                        });
-                        this.stopEditing();
-                        this.store.insert(0, u);
-                        this.startEditing(0, 1);
-
-                    }
+                    handler: this.addRigHandler
                 },
                 '-',
                 ' ',
@@ -79,23 +159,70 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
                     xtype: 'tbtext',
                     text: 'Field'
                 },
-                {
-                    xtype: 'dosb-field-combo',
-                    name: 'field-name',
-                    emptyText: 'Field',
-                    width: 80
-                },
+                this.fieldNameCombo,
                 '   ',
                 {
                     xtype: 'tbtext',
                     text: 'Well'
                 },
+                this.wellNameEdit,
                 {
-                    xtype: 'textfield',
-                    name: 'well-name',
-                    emptyText: 'Well'
+                    iconCls: 'silk-disk',
+                    name: 'update',
+                    tooltip: 'Update changes',
+                    scope: this,
+                    handler: this.updateWellHandler
                 },
+                {
+                    iconCls: 'silk-cancel',
+                    name: 'cancel',
+                    tooltip: 'Discard changes',
+                    scope: this,
+                    handler: this.cancelWellHandler
+                },
+                '-',
+                {
+                    iconCls: 'silk-database-refresh',
+                    name: 'refresh',
+                    tooltip: 'Reload data',
+                    scope: this,
+                    handler: function () {
+                        this.resourceStore.load();
+                        this.eventStore.load();
+                    }
+                },
+                {
+                    iconCls: 'silk-database-save',
+                    name: 'save-all',
+                    tooltip: 'Save all',
+                    scope: this,
+                    handler: function () {
+                        this.resourceStore.save();
+                        this.eventStore.save();
+                    }
+                },
+				{
+                    iconCls: 'silk-database-lightning',
+                    name: 'discard-all',
+                    tooltip: 'Discard all',
+                    scope: this,
+                    handler: function () {
+                        this.resourceStore.rejectChanges();
+                        this.eventStore.rejectChanges();
+                    }
+                },
+                '-',
                 '->',
+                {
+                    iconCls: 'silk-arrow-',
+                    tooltip: '',
+                    scope: this,
+                    handler: function () {
+                        this.shiftPrevious();
+                        this.resourceStore.load();
+                        this.eventStore.load();
+                    }
+                },
                 {
                     iconCls: 'silk-arrow-left',
                     tooltip: 'prev quarter',
@@ -105,7 +232,7 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
                         this.resourceStore.load();
                         this.eventStore.load();
                     }
-                }, 
+                },
                 {
                     iconCls: 'silk-arrow-right',
                     tooltip: 'next quarter',
@@ -119,5 +246,4 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
             ];
         return toolbar;
     }
-
 });

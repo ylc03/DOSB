@@ -806,8 +806,51 @@
 		}, createHeaderRows: function (a, b) {var c = {};if (b.top) {var d;if (b.top.cellGenerator) {d = b.top.cellGenerator.call(this, a.getStart(), a.getEnd());} else {d = this.createHeaderRow(a, b.top);}c.top = d;}if (b.bottom) {var e;if (b.middle.cellGenerator) {e = b.middle.cellGenerator.call(this, a.getStart(), a.getEnd());} else {e = this.createHeaderRow(a, b.middle);}c.middle = e;}return c;}, createHeaderRow: function (a, b) {var c = [], colConfig, start = a.getStart(), end = a.getEnd(), totalDuration = end - start, cols = [], dt = start, i = 0, cfg, align = b.align || "center", intervalEnd;while (dt < end) {intervalEnd = Date.min(a.getNext(dt, b.unit, b.increment || 1), end);colConfig = {align: align, start: dt, end: intervalEnd};if (b.renderer) {colConfig.header = b.renderer.call(b.scope || this, dt, intervalEnd, colConfig, i);} else {colConfig.header = this.defaultRenderer(dt, intervalEnd, b.dateFormat, colConfig, i);}c.push(colConfig);dt = intervalEnd;i++;}return c;}};
     
 	Ext.ns("Sch");
-    Sch.EventSelectionModel = function (a) {Ext.apply(this, a);this.selected = new (Ext.CompositeElementLite);this.addEvents("beforeeventselect", "selectionchange");Sch.EventSelectionModel.superclass.constructor.call(this);};
-    Ext.extend(Sch.EventSelectionModel, Ext.grid.AbstractSelectionModel, {multiSelect: false, selectedClass: "sch-event-selected", clearSelectionsOnBlur: true, initEvents: function () {this.grid.on("eventclick", this.onEventClick, this);this.grid.getView().on({scope: this, refresh: this.onViewRefresh, rowupdated: this.onRowUpdated, beforerowremoved: this.clearSelections, beforerowsinserted: this.clearSelections});if (this.clearSelectionsOnBlur) {this.grid.mon(Ext.getBody(), "mousedown", function (e) {if (!e.getTarget(this.grid.eventSelector)) {this.clearSelections();}}, this);}}, deselectEvent: function (s, r) {this.deselect(this.grid.eventPrefix + r.id);}, onRowUpdated: function (v, a, r) {var b = this.selected.getCount(), resourceId = r.id;for (var i = b - 1; i >= 0; i--) {var c = this.selected.item(i), eventRecord = this.grid.getEventRecordFromDomId(c.dom.id);if (!eventRecord || resourceId === eventRecord.get("ResourceId")) {this.selected.removeElement(c);}}}, onViewRefresh: function () {this.clearSelections(true);}, clearSelections: function (a, b) {if (this.selected.getCount() > 0) {if (!b) {this.selected.removeClass(this.selectedClass);}this.selected.clear();if (!a) {this.fireEvent("selectionchange", this, this.selected.elements);}}}, hasSelection: function () {return this.selection ? true : false;}, onEventClick: function (g, a, e) {var b = e.getTarget(this.grid.eventSelector);if (e.ctrlKey && this.isSelected(b)) {this.deselect(b);} else {this.select(b, this.multiSelect);}}, getSelectionCount: function () {return this.selected.getCount();}, getSelectedNodes: function () {return this.selected.elements;}, isSelected: function (a) {return this.selected.contains(this.getNode(a).id);}, deselect: function (a) {var b = this.getNode(a);if (this.isSelected(b)) {b = this.getNode(b);this.selected.removeElement(b);Ext.fly(b).removeClass(this.selectedClass);this.fireEvent("selectionchange", this, this.selected.elements);}}, select: function (a, b, c) {if (Ext.isArray(a)) {if (!b) {this.clearSelections(true);}for (var i = 0, len = a.length; i < len; i++) {this.select(a[i], true, true);}if (!c) {this.fireEvent("selectionchange", this, this.selected.elements);}} else {var d = this.getNode(a);if (!b) {this.clearSelections(true);}if (d && !this.isSelected(d)) {if (this.fireEvent("beforeventselect", this, d, this.selected.elements) !== false) {Ext.fly(d).addClass(this.selectedClass);this.selected.add(d);if (!c) {this.fireEvent("selectionchange", this, this.selected.elements);}}}}}, getNode: function (a) {if (typeof a === "string") {return document.getElementById(a);}return a;}, onEditorKey: Ext.emptyFn});
+	Sch.EventSelectionModel = function (a) {
+	    Ext.apply(this, a);
+	    this.selected = new (Ext.CompositeElementLite);
+	    this.addEvents("beforeeventselect", "selectionchange");
+	    Sch.EventSelectionModel.superclass.constructor.call(this);
+    };
+	Ext.extend(Sch.EventSelectionModel, Ext.grid.AbstractSelectionModel, {
+	    multiSelect: false,
+	    selectedClass: "sch-event-selected",
+	    clearSelectionsOnBlur: true,
+	    initEvents: function () {
+	        this.grid.on("eventclick", this.onEventClick, this);
+	        this.grid.getView().on({
+	            scope: this,
+	            refresh: this.onViewRefresh,
+	            rowupdated: this.onRowUpdated,
+	            beforerowremoved: this.clearSelections,
+	            beforerowsinserted: this.clearSelections
+	        });
+	        if (this.clearSelectionsOnBlur) {
+                this.grid.mon(Ext.getBody(), "mousedown", function (e) {
+					if (!e.getTarget(this.grid.eventSelector)) {this.clearSelections();}}
+					, this);
+			}
+		}, 
+		deselectEvent: function (s, r) {this.deselect(this.grid.eventPrefix + r.id);}, 
+		onRowUpdated: function (v, a, r) {var b = this.selected.getCount(), resourceId = r.id;for (var i = b - 1; i >= 0; i--) {var c = this.selected.item(i), eventRecord = this.grid.getEventRecordFromDomId(c.dom.id);if (!eventRecord || resourceId === eventRecord.get("ResourceId")) {this.selected.removeElement(c);}}}, 
+		onViewRefresh: function () {this.clearSelections(true);}, 
+		clearSelections: function (a, b) {
+			if (this.selected.getCount() > 0) {
+				if (!b) {this.selected.removeClass(this.selectedClass);}
+				this.selected.clear();
+				if (!a) {this.fireEvent("selectionchange", this, this.selected.elements);}
+			}
+		}, 
+		hasSelection: function () {return this.selection ? true : false;}, 
+		onEventClick: function (g, a, e) {var b = e.getTarget(this.grid.eventSelector);if (e.ctrlKey && this.isSelected(b)) {this.deselect(b);} else {this.select(b, this.multiSelect);}}, 
+		getSelectionCount: function () {return this.selected.getCount();}, 
+		getSelectedNodes: function () {return this.selected.elements;}, 
+		isSelected: function (a) {return this.selected.contains(this.getNode(a).id);}, 
+		deselect: function (a) {var b = this.getNode(a);if (this.isSelected(b)) {b = this.getNode(b);this.selected.removeElement(b);Ext.fly(b).removeClass(this.selectedClass);this.fireEvent("selectionchange", this, this.selected.elements);}}, 
+		select: function (a, b, c) {if (Ext.isArray(a)) {if (!b) {this.clearSelections(true);}for (var i = 0, len = a.length; i < len; i++) {this.select(a[i], true, true);}if (!c) {this.fireEvent("selectionchange", this, this.selected.elements);}} else {var d = this.getNode(a);if (!b) {this.clearSelections(true);}if (d && !this.isSelected(d)) {if (this.fireEvent("beforeventselect", this, d, this.selected.elements) !== false) {Ext.fly(d).addClass(this.selectedClass);this.selected.add(d);if (!c) {this.fireEvent("selectionchange", this, this.selected.elements);}}}}}, 
+		getNode: function (a) {if (typeof a === "string") {return document.getElementById(a);}return a;}, 
+		onEditorKey: Ext.emptyFn
+	});
 	
     Ext.ns("Sch");
     Sch.LazyResizable = function (a, b, c, e) {this.addEvents("partialresize");Sch.LazyResizable.superclass.constructor.apply(this, arguments);this.handleOver();this.onMouseDown(this[c], e);};

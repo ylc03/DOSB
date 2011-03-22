@@ -7,7 +7,7 @@ Dosb.ux.FieldCombo = Ext.extend(Ext.form.ComboBox, {
     triggerAction: 'all',
     emptyText:'Select field...',
     selectOnFocus: true,
-	forceSelection: true, 
+    forceSelection: true,
 	
     initComponent : function() {
 		var store = new Ext.data.JsonStore({
