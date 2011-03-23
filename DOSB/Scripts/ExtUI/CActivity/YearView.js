@@ -1,9 +1,7 @@
 /**
  * Rig activity year view & edit
- * @auther Yuan Lichuan & Ali Jassim
- * @email LYuan2@slb.com & AJassim@slb.com
  * @company Completions, Schlumberger, Saudi Arabia
- * @date 20-Mar-2011
+ * @history 23 Mar 2011,	 Yuan Lichuan,		first stable edition
  */
 
 Ext.ns('Dosb', 'Dosb.CActivity');
@@ -194,6 +192,7 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
 
         return new Dosb.CActivity.YearScheduler({
             rowHeight: 25,
+			stripeRows: true,
             showTooltip: false,
             resourceStore: resStore,
             eventStore: eventStore,

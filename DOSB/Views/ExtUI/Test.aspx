@@ -41,12 +41,11 @@
     <script type="text/javascript" src="/Scripts/ExtUI/ux/Dosb.ux.WellField.js"></script>
     <script src="/CompletionActivity/CustomHeaderJS" type="text/javascript"></script>
     <script src="/Scripts/ExtUI/CActivity/custompresents.js" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/CAEditor.js" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/RAEditor.js" type="text/javascript"></script>
-    <script src="/Scripts/ExtUI/CActivity/MonthScheduler.js" type="text/javascript"></script>
+    <script src="/Scripts/ExtUI/CActivity/2CAEditor.js" type="text/javascript"></script>
+    <script src="/Scripts/ExtUI/CActivity/2RAEditor.js" type="text/javascript"></script>
+    <script src="/Scripts/ExtUI/CActivity/2MonthScheduler.js" type="text/javascript"></script>
 
-    <script src="/Scripts/ExtUI/CActivity/caData.js" type="text/javascript"></script>
-	<script src="/Scripts/ExtUI/CActivity/MonthView.js" type="text/javascript" ></script>
+	<script src="/Scripts/ExtUI/CActivity/2MonthView.js" type="text/javascript" ></script>
   <title>DOSB Ext Client</title>
 </head>
 <body>

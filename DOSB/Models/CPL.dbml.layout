@@ -168,31 +168,11 @@
         <classShapeMoniker Id="c667dc30-95db-46f0-9b71-80300af86f2d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 11.298076578776); (3 : 11.298076578776)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.5 : 11.298076578776); (3 : 11.298076578776)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/Role/Role_EmployeeRole" />
       <nodes>
         <classShapeMoniker Id="534ec817-3f96-4b1f-b397-9ca49e8230d4" />
         <classShapeMoniker Id="c667dc30-95db-46f0-9b71-80300af86f2d" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="98d78e5b-b49b-48b4-aaf2-e14a9afeb1ca" absoluteBounds="3.5, 4.5, 2, 2.0822371419270826">
-      <DataClassMoniker Name="/CPLDataContext/CompletionActivity" />
-      <nestedChildShapes>
-        <elementListCompartment Id="5fe9d2cd-9c86-4fb7-b426-25bdaf63fe20" absoluteBounds="3.515, 4.96, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(6.625 : 5.13986328125); (6.04427083333333 : 5.13986328125 : JumpStart); (5.87760416666667 : 5.13986328125 : JumpEnd); (5.5 : 5.13986328125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/CPLDataContext/Assembly/Assembly_CompletionActivity" />
-      <nodes>
-        <classShapeMoniker Id="2063d4a6-6e8e-4a24-81b5-212bfbc57938" />
-        <classShapeMoniker Id="98d78e5b-b49b-48b4-aaf2-e14a9afeb1ca" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.5 : 5.61334757486979); (3.5 : 5.61334757486979)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/CPLDataContext/Company/Company_CompletionActivity" />
-      <nodes>
-        <classShapeMoniker Id="bbbd5305-beaf-4073-a09a-d736745bef07" />
-        <classShapeMoniker Id="98d78e5b-b49b-48b4-aaf2-e14a9afeb1ca" />
       </nodes>
     </associationConnector>
     <classShape Id="578e0be5-54a1-4e81-b5ee-bddd84ecb4c3" absoluteBounds="0.5, 7.375, 2, 2.2465844726562505">
@@ -265,13 +245,6 @@
         <elementListCompartment Id="fdc9a64a-bdf2-464f-b791-bb1849ac7331" absoluteBounds="3.515, 1.835, 1.9700000000000002, 1.68658447265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.5 : 3.62158447265625); (4.5 : 4.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/CPLDataContext/RigActivity/RigActivity_CompletionActivity" />
-      <nodes>
-        <classShapeMoniker Id="e1bf9be2-a415-49ae-8c15-7af80dddc2e8" />
-        <classShapeMoniker Id="98d78e5b-b49b-48b4-aaf2-e14a9afeb1ca" />
-      </nodes>
-    </associationConnector>
     <associationConnector edgePoints="[(6.5 : 0.9374995); (4.5 : 0.9374995); (4.5 : 1.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/CPLDataContext/CompletionType/CompletionType_RigActivity" />
       <nodes>
@@ -299,5 +272,32 @@
         <elementListCompartment Id="e52e7f1c-56a9-4afe-aa57-5fb2e192f3df" absoluteBounds="3.015, 7.835, 1.9700000000000002, 2.67266845703125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="ec2bb1dd-9e08-4f11-a24e-36cf17b060b9" absoluteBounds="3.5, 4.5, 2, 2.0822371419270831">
+      <DataClassMoniker Name="/CPLDataContext/CompletionActivity" />
+      <nestedChildShapes>
+        <elementListCompartment Id="584281ec-e6bb-49b2-946a-253b23e2770a" absoluteBounds="3.515, 4.96, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.625 : 5.13025024414062); (6.04427083333333 : 5.13025024414062 : JumpStart); (5.87760416666667 : 5.13025024414062 : JumpEnd); (5.5 : 5.13025024414062)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CPLDataContext/Assembly/Assembly_CompletionActivity" />
+      <nodes>
+        <classShapeMoniker Id="2063d4a6-6e8e-4a24-81b5-212bfbc57938" />
+        <classShapeMoniker Id="ec2bb1dd-9e08-4f11-a24e-36cf17b060b9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5 : 5.29459757486979); (3.5 : 5.29459757486979)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CPLDataContext/Company/Company_CompletionActivity" />
+      <nodes>
+        <classShapeMoniker Id="bbbd5305-beaf-4073-a09a-d736745bef07" />
+        <classShapeMoniker Id="ec2bb1dd-9e08-4f11-a24e-36cf17b060b9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 3.62158447265625); (4.5 : 4.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/CPLDataContext/RigActivity/RigActivity_CompletionActivity" />
+      <nodes>
+        <classShapeMoniker Id="e1bf9be2-a415-49ae-8c15-7af80dddc2e8" />
+        <classShapeMoniker Id="ec2bb1dd-9e08-4f11-a24e-36cf17b060b9" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

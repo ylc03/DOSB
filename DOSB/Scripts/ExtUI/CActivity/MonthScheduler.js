@@ -1,16 +1,17 @@
-MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
+Ext.ns('Dosb', 'Dosb.CActivity');
+Ext.ns('Sch');
+
+Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
     clicksToEdit: 1,
-    rowHeight : 30,
     snapToIncrement: true,
-    
+    border: true,
+	
     eventRenderer: function (item, resourceRec, tplData, row, col, ds) {
-        var bookingStart = item.get('StartDate');
-        tplData.style = 'background-color:' + item.get('BackgroundColor');
+        tplData.style = 'background-color:' + item.get('BackgroundColor') + '; color:' + item.get('TextColor');
 
         return {
             headerText: item.get('Comment'),
-            footerText: item.get('CompanyName'),
-			textColor: item.get('TextColor')
+            footerText: item.get('CompanyName')
         };
     },
 
@@ -25,7 +26,7 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                     position: 'left',
                     items: [
                         {
-                            iconCls : 'delete',  
+                            iconCls: 'silk-delete',  
                             tooltip: 'delete row',
                             handler: function(scheduler, rowIndex, colIndex) {
 								var store = scheduler.resourceStore;
@@ -70,27 +71,16 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
 
             // Specialized body template with header and footer
             eventBodyTemplate: new Ext.Template(
-                '<div class="sch-event-footer" style="color:{textColor};">{footerText}</div>' +
-                '<div class="sch-event-header" style="color:{textColor};">{headerText}</div>'
+                '<div class="sch-event-footer">{footerText}</div>' +
+                '<div class="sch-event-header">{headerText}</div>'
             ).compile(),
-
-            border: true,
+			
 			// tool bar
             tbar: [
                 {
-                    iconCls: 'icon-prev',
-                    scale: 'medium',
-                    scope : this,
-                    handler: function () {
-                        this.shiftPrevious();
-                    }
-                },
-                '            ',
-                {
-                    id: 'res-save',
+                    id: 'silk-save',
                     text: 'Save',
-					scale: 'medium',
-					iconCls: 'icon-save',
+					iconCls: 'silk-disk',
 					tooltip: 'save all changes',
                     scope : this,
                     handler: function () {
@@ -100,10 +90,9 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                 },
                 '            ',
                 {
-                    id: 'res-add',
+                    id: 'silk-add',
                     text: 'Add',
-					scale: 'medium',
-					iconCls: 'icon-add',
+					iconCls: 'silk-add',
 					tooltip: 'Add a new Activity',
                     scope : this,
                     handler: function () {
@@ -115,11 +104,17 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                 },
                 '->',
                 {
-                    iconCls: 'icon-next',
-                    scale: 'medium',
+                    iconCls: 'silk-arrow-left',
                     scope : this,
                     handler: function () {
-                        this.shiftNext();
+                        //this.shiftPreviousMonth();
+                    }
+                },
+				{
+                    iconCls: 'silk-arrow-right',
+                    scope : this,
+                    handler: function () {
+                        //this.shiftNextMonth();
                     }
                 }
             ],
@@ -137,17 +132,17 @@ MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                     '<dt class="icon-earth">Location</dt><dd>{Comment}&nbsp;</dd>',
                 '</dl>').compile(),
 
-            plugins: [
-                this.editor = new CAEditor({
-                    // Extra config goes here
-                }),
-				
+            plugins:  [
 				this.resourceEditor = new RAEditor({
-				
 				})
             ]
         });
 		
-        MonthScheduler.superclass.initComponent.call(this);
+        Dosb.CActivity.MonthScheduler.superclass.initComponent.call(this);
+			
+		this.editorWindow = new  Dosb.CActivity.CActivityWindow({
+			scheduler: this
+            // Extra config goes here
+		});
     }
 });

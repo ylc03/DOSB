@@ -177,21 +177,6 @@
       <Association Name="Role_EmployeeRole" Member="Role" ThisKey="RoleId" OtherKey="RoleId" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.CompletionActivities" Member="CompletionActivities">
-    <Type Name="CompletionActivity">
-      <Column Name="CompletionActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Association Name="Assembly_CompletionActivity" Member="Assembly" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="Assembly" IsForeignKey="true" />
-      <Association Name="Company_CompletionActivity" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Type="Company" IsForeignKey="true" />
-      <Association Name="RigActivity_CompletionActivity" Member="RigActivity" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="RigActivity" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.vwCompletionActivity" Member="vwCompletionActivities">
     <Type Name="vwCompletionActivity">
       <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
@@ -286,6 +271,21 @@
       <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="WellStatus" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CompletionActivities" Member="CompletionActivities">
+    <Type Name="CompletionActivity">
+      <Column Name="CompletionActivityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Assembly_CompletionActivity" Member="Assembly" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="Assembly" IsForeignKey="true" />
+      <Association Name="Company_CompletionActivity" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Type="Company" IsForeignKey="true" />
+      <Association Name="RigActivity_CompletionActivity" Member="RigActivity" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="RigActivity" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">

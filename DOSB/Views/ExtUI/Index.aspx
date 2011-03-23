@@ -13,6 +13,11 @@
 	
   	<script type="text/javascript" src="/Scripts/ext/adapter/ext/ext-base.js"></script>
   	<script type="text/javascript" src="/Scripts/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="/Scripts/ext/examples/ux/Spinner.js"></script>
+    <script type="text/javascript" src="/Scripts/ext/examples/ux/SpinnerField.js"></script>
+    <script type="text/javascript" src="/Scripts/ext/examples/ux/LockingGridView.js"></script>
+	<script type="text/javascript" src="/Scripts/ExtUI/ux/ext.ux.form.datetime.js"></script>
+
 	<script type="text/javascript" src="/Scripts/ExtUI/ScriptManager.js"></script>
   	<script type="text/javascript" src="/Scripts/ExtUI/application.js"></script>
   <title>DOSB Ext Client</title>

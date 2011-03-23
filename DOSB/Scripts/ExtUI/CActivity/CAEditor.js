@@ -1,13 +1,13 @@
 // A simple preconfigured editor plugin
+Ext.ns('Sch', 'Sch.plugins');
 
-CAEditor = Ext.extend(Sch.plugins.EventEditor, {
+CAEditor = Ext.extend(Ext.Window, {
     height : 180,
     width : 270,
     buttonAlign : 'left',
     
     initComponent : function() {
-        Ext.apply(this, {
-            fieldsPanelConfig : {
+        var fieldsPanelConfig = new Ext.Panel({
                 layout : 'hbox',
                 style:'background:#fff',
                 border : false,
@@ -51,14 +51,11 @@ CAEditor = Ext.extend(Sch.plugins.EventEditor, {
                         ]
                     }
                 ]
-            }
-        });
+            });
+		
+        Ext.apply(this, {items: [fieldsPanelConfig]});
 
         CAEditor.superclass.initComponent.apply(this, arguments);
-		
-		this.startDateField.hide();
-		this.durationField.hide();
-		this.durationLabel.hide();
 		
 		this.RigLabel = new (Ext.form.Label)({
 			y: 10, 
@@ -81,8 +78,8 @@ CAEditor = Ext.extend(Sch.plugins.EventEditor, {
 			text: 'Type'
 		});
 		
-		var titlePanel = this.getComponent(0);
-		titlePanel.add([this.RigLabel, this.WellLabel, this.JobTypeLabel]);
+		//var titlePanel = this.getComponent(0);
+		//titlePanel.add([this.RigLabel, this.WellLabel, this.JobTypeLabel]);
     },
     
     onEventCreated : function(newEventRecord) {
@@ -91,13 +88,13 @@ CAEditor = Ext.extend(Sch.plugins.EventEditor, {
         newEventRecord.set('Comment', '');
     },
 	
-	show : function(rec, pos){
+	show : function(rec){
 		var res = this.scheduler.getResourceByEventRecord(rec);
 		this.RigLabel.setText(res.get("RigName"));
 		this.WellLabel.setText(res.get("WellName"));
 		var idx = Math.floor((rec.get("StartDate") - this.scheduler.getStart())/3600000);
 		this.JobTypeLabel.setText(Dosb.CActivity.MonthViewHeaderData.headers[idx]);
-		CAEditor.superclass.show.apply(this, [rec, pos]);
+		CAEditor.superclass.show.apply(this);
 	},
 	
 	onMouseClick : function(e) {

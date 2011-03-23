@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 using Telerik.Web.Mvc.UI;
 using Telerik.Web.Mvc;
@@ -77,6 +78,85 @@ namespace DOSB.Controllers
                 data = data
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
+        public JsonResult CreateJson(string data)
+        {
+            var caVal = (EditableCompletionActivity)new JavaScriptSerializer().Deserialize<EditableCompletionActivity>(data);
+            CompletionActivity caObj = new CompletionActivity();
+
+            if (caVal.RigActivityId <= 0)
+            {
+                return this.Json(new { success = false, message = "Rig activity must be specified." });
+            }
+
+            //update client
+            if (caVal.AssemblyType == null)
+            {
+                return Json(new { success = false, message = "Assembly must be specified." });
+            }
+
+            if (caVal.CompanyName == null)
+            {
+                return Json(new { success = false, message = "Company must be specified." });
+            }
+
+            if (caObj != null)
+            {
+                EditableCompletionActivity returnVal = updateCARecord(caVal, caObj);
+
+                return this.Json(new { success = true, message = "Record Inserted", data = returnVal });
+            }
+
+            return Json(new { success = false, message = "Unexpected Error" });
+        }
+
+        private EditableCompletionActivity updateCARecord(EditableCompletionActivity caVal, CompletionActivity caObj)
+        {
+            //update rig activity
+            if (caVal.RigActivityId > 0)
+            {
+                caObj.RigActivityId = caVal.RigActivityId;
+            }
+
+            // update assembly type
+            if (caVal.AssemblyType != null)
+            {
+                Assembly asm = store.Assemblies.FirstOrDefault(a => a.Name == caVal.AssemblyType);
+                caObj.Assembly = asm;
+            }
+
+            // update company
+            if (caVal.CompanyName != null)
+            {
+                Company company = store.Companies.FirstOrDefault(c => c.ShortName == caVal.CompanyName);
+                caObj.Company = company;
+            }
+
+            if (caVal.Comment != null)
+            {
+                caObj.Comment = caVal.Comment;
+            }
+
+            store.SubmitChanges();
+
+            IQueryable<EditableCompletionActivity> record = from tbl in store.vwCompletionActivities
+                                                            orderby tbl.AssemblyId
+                                                            select new EditableCompletionActivity
+                                                            {
+                                                                CompletionActivityId = tbl.CompletionActivityId,
+                                                                RigActivityId = tbl.RigActivityId,
+                                                                AssemblyId = tbl.AssemblyId,
+                                                                AssemblyType = tbl.AssemblyType,
+                                                                CompanyName = tbl.CompanyName,
+                                                                Comment = tbl.Comment == null ? "" : tbl.Comment,
+                                                                BackgroundColor = tbl.BackgroundColor,
+                                                                TextColor = tbl.TextColor,
+                                                                StartDate = EditableAssemblyRespository.AssemblyToJSStartTime(tbl.AssemblyId),
+                                                                EndDate = EditableAssemblyRespository.AssemblyToJSEndTime(tbl.AssemblyId),
+                                                            };
+
+            return (EditableCompletionActivity)record.FirstOrDefault();
+        }
+
     }
 }

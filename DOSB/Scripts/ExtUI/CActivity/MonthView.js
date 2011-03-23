@@ -1,30 +1,89 @@
-Ext.ns('DOSB', 'DOSB.CActivity');
+/**
+ * Rig activity year view & edit
+ * @company Completions, Schlumberger, Saudi Arabia
+ * @history 23 Mar 2011,	 Yuan Lichuan,		first stable edition
+ */
 
-Ext.onReady(function () {
-    Ext.QuickTips.init();
+Ext.ns('Sch');
+Ext.ns('Dosb', 'Dosb.CActivity');
 
-    DOSB.CActivity.MonthView.init();
-	
-	Ext.data.DataProxy.addListener('exception', function(proxy, type, action, options, res) {
-		if (type === 'remote') {
-			Ext.Msg.show({
-				title: 'REMOTE EXCEPTION',
-				msg: res.message,
-				icon: Ext.MessageBox.ERROR,
-				buttons: Ext.Msg.OK
-			});
-		}
-	});
-	
-});
+(function() {
+    
+    var myCustomPresets = {
+		assembly2Day: {
+			timeColumnWidth: 60, 
+			displayDateFormat: "G:i", 
+			shiftIncrement: 1, 
+			shiftUnit: Date.DAY, 
+			defaultSpan: Dosb.CActivity.MonthViewHeaderData.upperCount + Dosb.CActivity.MonthViewHeaderData.lowerCount, 
+			timeResolution: {
+				unit: Date.MINUTE, 
+				increment: 15
+			}, 
+			headerConfig: {
+				middle: {
+					unit: Date.HOUR, 
+					//dateFormat: "G:i"
+					renderer : function(start, end, cfg) {
+						var viewStart = Dosb.CActivity.MonthViewHeaderData.start;
+						var one_hour=3600000;
+						var index = Math.floor((start - viewStart)/one_hour);
+                        return Dosb.CActivity.MonthViewHeaderData.headers[index];
+                    }
+				}, 
+				top: {
+					unit: Date.DAY, 
+					//dateFormat: "D d/m"
+					cellGenerator : function(viewStart, viewEnd) {
+                        var cells = [];
+                        
+                        // Simplified scenario, assuming view will always just show one US fiscal year
+                        return [{
+                            start : viewStart,
+                            end : viewStart.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount),
+                            header : 'Upper Completion',
+							align: 'center'
+                        },{
+                            start : viewStart.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount),
+                            end : viewEnd,
+                            header : 'Lower Completion',
+							align : 'center'
+                        }];
+                    }
+				}
+			}
+		}		
+	};
+        
+    var pm = Sch.PresetManager;
 
-DOSB.CActivity.MonthView = {
-    // Bootstrap function
-    init: function () {
+    for (var o in myCustomPresets) {
+        if (myCustomPresets.hasOwnProperty(o)) {
+            pm.registerPreset(o, myCustomPresets[o]);
+        }
+    }
+})();
+ 
+Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
+    frame: false,
+    border: false,
+    layout: 'fit',
+	startDate: '2011-3-1',
+	endDate: '2011-4-1',
+    initComponent: function () {
         this.scheduler = this.createScheduler();
 
         this.initSchedulerEvents();
         this.initStoreEvents();
+		
+        Ext.apply(this, {
+            items: [this.scheduler]
+        });
+
+        this.scheduler.resourceStore.load();
+        this.scheduler.eventStore.load();
+		
+        Dosb.CActivity.MonthView.superclass.initComponent.apply(this, arguments);
     },
 
     onEventContextMenu: function (s, rec, e) {
@@ -34,7 +93,7 @@ DOSB.CActivity.MonthView = {
             s.ctx = new Ext.menu.Menu({
                 items: [{
                     text: 'Delete Job',
-                    iconCls: 'icon-delete',
+                    iconCls: 'silk-delete',
                     handler : function() {
                         s.eventStore.remove(s.ctx.rec);
 						s.eventStore.save();
@@ -62,7 +121,7 @@ DOSB.CActivity.MonthView = {
             s.ctxAddJob = new Ext.menu.Menu({
                 items: [{
                     text: 'Add Job',
-                    iconCls: 'icon-add',
+                    iconCls: 'silk-add',
                     handler : function(e) {
 						var start = s.getStart();
 						var click = s.dbClickData.date;			// date of pos when db clicked
@@ -70,12 +129,15 @@ DOSB.CActivity.MonthView = {
 						var startTimeByHour = Math.floor((click - start)/3600000);
 						var record = s.resourceStore.getAt(rowIndex);
 						var eventRecord = new (s.eventStore.recordType)({
-							ResourceId: record.get("Id"), 
+							ResourceId: record.get("RigActivityId"), 
 							StartDate: new Date(start.getTime() + 3600000*startTimeByHour), 
-							EndDate: new Date(start.getTime() + 3600000*(startTimeByHour+1))});
-						
+							EndDate: new Date(start.getTime() + 3600000*(startTimeByHour+1)),
+							RigName: record.get("RigName"),
+							WellName: record.get("WellName"),
+							AssemblyType: Dosb.CActivity.MonthViewHeaderData.headers[startTimeByHour]});
+							
 						s.onEventCreated(eventRecord);
-						s.editor.show(eventRecord, s.ctxAddJob.getEl());
+						s.editorWindow.show(eventRecord);
 					}
                 }]
             });
@@ -83,11 +145,9 @@ DOSB.CActivity.MonthView = {
         s.ctxAddJob.showAt(pos);
     },
 
-	
-
     // Don't show tooltip if editor is visible
     beforeTooltipShow: function (s, r) {
-		return false;
+		return false; // don't show tooltip
         //return s.editor.collapsed;
     },
 	
@@ -100,17 +160,31 @@ DOSB.CActivity.MonthView = {
 	
     initStoreEvents: function () {
         var s = this.scheduler;
-        s.eventStore.on('update', function (store, bookingRecord, operation) {
-            if (operation !== Ext.data.Record.EDIT && operation !== Ext.data.Record.COMMIT) return;
-			
-			var company = bookingRecord.get("CompanyName");
-			bookingRecord.set("BackgroundColor", Dosb.CActivity.CompanyColor[company].BackgroundColor);
-			bookingRecord.set("TextColor", Dosb.CActivity.CompanyColor[company].TextColor);	
+        s.resourceStore.on({
+            'beforeload': function (store, opt) {
+                store.baseParams.startDate = '2011-3-1';
+                store.baseParams.endDate = '2011-4-1';
+            }
+		});
+		
+		s.eventStore.on({
+			'update': function (store, bookingRecord, operation) {
+				if (operation !== Ext.data.Record.EDIT && operation !== Ext.data.Record.COMMIT) return true;
+				
+				var company = bookingRecord.get("CompanyName");
+				bookingRecord.set("BackgroundColor", Dosb.CActivity.CompanyColor[company].BackgroundColor);
+				bookingRecord.set("TextColor", Dosb.CActivity.CompanyColor[company].TextColor);	
 
-            //s.view.getElementFromEventRecord(bookingRecord).addClass('sch-fake-loading');
-            // Simulate server delay 1.5 seconds
-            //bookingRecord.commit();//.defer(1500, bookingRecord);
-        });
+				//s.view.getElementFromEventRecord(bookingRecord).addClass('sch-fake-loading');
+				// Simulate server delay 1.5 seconds
+				//bookingRecord.commit();//.defer(1500, bookingRecord);
+			},
+            'beforeload': function (store, opt) {
+                store.baseParams.startDate = this.startDate;
+                store.baseParams.endDate = this.endDate;
+				return true;
+            }
+		});
     },
 
     initSchedulerEvents: function () {
@@ -123,17 +197,19 @@ DOSB.CActivity.MonthView = {
             scope : this
         });
 		
-		s.editor.on({
+		
+		s.editorWindow.on({
 			beforecollapse: this.beforeEditorCollapse,
 			scope : this
 		});
+		
     },
 
     createScheduler: function () {
 		// initialize the resource store.
 		var resourceProxy = new Ext.data.HttpProxy({
 			api: {
-				read: '/RigActivity/GetJson',
+				read: '/RigActivity/GetByTimeSpan',
 				create: '/RigActivity/CreateJson',
 				update: '/RigActivity/UpdateJson',
 				destroy: '/RigActivity/DeleteJson'
@@ -141,13 +217,16 @@ DOSB.CActivity.MonthView = {
 		});
 		
 		var resourceReader = new Ext.data.JsonReader({
-				totalProperty: 'total',
-				successProperty: 'success',
-				idProperty: 'RigActivityId',
-				root: 'data',
-				messageProperty: 'message'  // <-- New "messageProperty" meta-data
-			}, [
-            { name: 'Id', mapping: 'RigActivityId' },
+            totalProperty: 'total',
+            successProperty: 'success',
+            idProperty: 'RigActivityId',
+            root: 'data',
+            messageProperty: 'message'  // <-- New "messageProperty" meta-data
+        }, [
+            'RigActivityId',
+			{ name: 'ResourceId', mapping: 'RigId' },
+            { name: 'StartDate', type: 'date', dateFormat: 'Y-m-d' },
+            { name: 'EndDate', type: 'date', dateFormat: 'Y-m-d' },
 			'ClientName',
             'FieldName',
 			'CountryName',
@@ -165,14 +244,12 @@ DOSB.CActivity.MonthView = {
 		});
 
 		var resourceStore = new Ext.data.Store({
-			id: 'RA',
+			id: 'ra',
 			proxy: resourceProxy,
 			reader: resourceReader,
 			writer: resourceWriter,  // <-- plug a DataWriter into the store just as you would a Reader
 			autoSave: false // <-- false would delay executing create, update, destroy requests until specifically told to do so with some [save] buton.
 		});
-
-        resourceStore.load();
 
         // Store holding all the events
 		var eventProxy = new Ext.data.HttpProxy({
@@ -208,31 +285,30 @@ DOSB.CActivity.MonthView = {
 			writeAllFields: false
 		});
 
-		// Typical Store collecting the Proxy, Reader and Writer together.
 		var eventStore = new Ext.data.Store({
-			id: 'CA',
+			id: 'ca',
 			proxy: eventProxy,
 			reader: eventReader,
-			writer: eventWriter,  // <-- plug a DataWriter into the store just as you would a Reader
-			autoSave: false // <-- false would delay executing create, update, destroy requests until specifically told to do so with some [save] buton.
+			writer: eventWriter,
+			autoSave: false
 		});
 		
-        eventStore.load();
-
 		var start = Dosb.CActivity.MonthViewHeaderData.start;
 		
-        return new MonthScheduler({
-			showTooltip: false,
+        return new Dosb.CActivity.MonthScheduler({
+            rowHeight: 30,
+			stripeRows: true,
+            showTooltip: false,
 			loadMask: true,
-            width: 1030,
-            height: 400,
-            renderTo : 'test',
             resourceStore: resourceStore,
-			enableDragCreation: false,
             eventStore: eventStore,
+			enableDragCreation: false,
 			viewPreset: 'assembly2Day',
+			
             startDate: start,
             endDate: start.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount + Dosb.CActivity.MonthViewHeaderData.lowerCount)
         });
     }
-};
+});
+
+Ext.reg('dosb-ca-mview', Dosb.CActivity.MonthView);

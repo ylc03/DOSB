@@ -112,27 +112,40 @@ Ext.onReady(function() {
 		id: 'main-ca-gtview'
 	};
 	
-	menuMapping['ca-mview'] = {
-	    scripts: ['/Scripts/ext/examples/ux/LockingGridView.js',
-				 '/Scripts/ExtUI/ux/LockingColumnHeaderGroup.js',
-				 '/CompletionActivity/MonthViewJS'], 
-		xtype: 'dosb-ca-monthview', 
-		id: 'main-ca-mview'
-	};
-	
 	menuMapping['ca-yview'] = {
-	    scripts: ['/Scripts/ext/examples/ux/Spinner.js',		//ext
-				  '/Scripts/ext/examples/ux/SpinnerField.js',
-				  '/Scripts/ExtUI/ux/ext.ux.form.datetime.js', 	
-				  '/Scripts/Sch/ext-sch-crack.js',				//sch
-				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',	//ux
-				  '/Scripts/ExtUI/CActivity/YearScheduler.js',	//app
-				  '/Scripts/ExtUI/CActivity/YearView.js'],
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/Sch/sch-all.css',
-			  '/Scripts/Sch/app.css'],		  
+			  '/Scripts/Sch/app.css'],		
+	    scripts: ['/Scripts/Sch/ext-sch-crack.js',				//sch
+				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',	//ux
+				  '/Scripts/ExtUI/CActivity/YearScheduler.js',	//app
+				  '/Scripts/ExtUI/CActivity/YearView.js'],  
 		xtype: 'dosb-ca-yview', 
 		id: 'main-ca-yview'
+	};
+	
+	menuMapping['ca-mview'] = {
+		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
+			  '/Scripts/ext/examples/ux/css/LockingGridView.css',
+			  '/Scripts/Sch/sch-all.css',
+			  '/Scripts/Sch/app.css'],		
+	    scripts: ['/Scripts/ExtUI/ux/ext.ux.form.datetime.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.CompanyCombo.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.CompTypeCombo.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.WellTypeCombo.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.RigField.js',
+				 '/Scripts/ExtUI/ux/Dosb.ux.WellField.js',
+				 '/Scripts/Sch/ext-sch-crack.js',
+				 '/CompletionActivity/CustomHeaderJS',
+				 '/Scripts/ExtUI/CActivity/CActivityWindow.js',
+				 '/Scripts/ExtUI/CActivity/RAEditor.js',
+				 '/Scripts/ExtUI/CActivity/MonthScheduler.js',
+				 '/Scripts/ExtUI/CActivity/MonthView.js'], 
+		xtype: 'dosb-ca-mview', 
+		id: 'main-ca-mview'
 	};
 	
 	menuTreePanel.on('click', function(n){

@@ -72,9 +72,6 @@ namespace DOSB.Models
     partial void InsertEmployeeRole(EmployeeRole instance);
     partial void UpdateEmployeeRole(EmployeeRole instance);
     partial void DeleteEmployeeRole(EmployeeRole instance);
-    partial void InsertCompletionActivity(CompletionActivity instance);
-    partial void UpdateCompletionActivity(CompletionActivity instance);
-    partial void DeleteCompletionActivity(CompletionActivity instance);
     partial void InsertClient(Client instance);
     partial void UpdateClient(Client instance);
     partial void DeleteClient(Client instance);
@@ -90,6 +87,9 @@ namespace DOSB.Models
     partial void InsertRigActivity(RigActivity instance);
     partial void UpdateRigActivity(RigActivity instance);
     partial void DeleteRigActivity(RigActivity instance);
+    partial void InsertCompletionActivity(CompletionActivity instance);
+    partial void UpdateCompletionActivity(CompletionActivity instance);
+    partial void DeleteCompletionActivity(CompletionActivity instance);
     #endregion
 		
 		public CPLDataContext() : 
@@ -250,14 +250,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<CompletionActivity> CompletionActivities
-		{
-			get
-			{
-				return this.GetTable<CompletionActivity>();
-			}
-		}
-		
 		public System.Data.Linq.Table<vwCompletionActivity> vwCompletionActivities
 		{
 			get
@@ -319,6 +311,14 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<vwRigActivity>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CompletionActivity> CompletionActivities
+		{
+			get
+			{
+				return this.GetTable<CompletionActivity>();
 			}
 		}
 		
@@ -3829,359 +3829,6 @@ namespace DOSB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CompletionActivities")]
-	public partial class CompletionActivity : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _CompletionActivityId;
-		
-		private int _RigActivityId;
-		
-		private int _CompanyId;
-		
-		private int _AssemblyId;
-		
-		private System.Nullable<System.DateTime> _StartAt;
-		
-		private System.Nullable<System.DateTime> _FinishAt;
-		
-		private string _Comment;
-		
-		private System.Nullable<System.DateTime> _ShowAt;
-		
-		private EntityRef<Assembly> _Assembly;
-		
-		private EntityRef<Company> _Company;
-		
-		private EntityRef<RigActivity> _RigActivity;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCompletionActivityIdChanging(int value);
-    partial void OnCompletionActivityIdChanged();
-    partial void OnRigActivityIdChanging(int value);
-    partial void OnRigActivityIdChanged();
-    partial void OnCompanyIdChanging(int value);
-    partial void OnCompanyIdChanged();
-    partial void OnAssemblyIdChanging(int value);
-    partial void OnAssemblyIdChanged();
-    partial void OnStartAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartAtChanged();
-    partial void OnFinishAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnFinishAtChanged();
-    partial void OnCommentChanging(string value);
-    partial void OnCommentChanged();
-    partial void OnShowAtChanging(System.Nullable<System.DateTime> value);
-    partial void OnShowAtChanged();
-    #endregion
-		
-		public CompletionActivity()
-		{
-			this._Assembly = default(EntityRef<Assembly>);
-			this._Company = default(EntityRef<Company>);
-			this._RigActivity = default(EntityRef<RigActivity>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionActivityId", DbType="Int NOT NULL")]
-		public int CompletionActivityId
-		{
-			get
-			{
-				return this._CompletionActivityId;
-			}
-			set
-			{
-				if ((this._CompletionActivityId != value))
-				{
-					this.OnCompletionActivityIdChanging(value);
-					this.SendPropertyChanging();
-					this._CompletionActivityId = value;
-					this.SendPropertyChanged("CompletionActivityId");
-					this.OnCompletionActivityIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int RigActivityId
-		{
-			get
-			{
-				return this._RigActivityId;
-			}
-			set
-			{
-				if ((this._RigActivityId != value))
-				{
-					if (this._RigActivity.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRigActivityIdChanging(value);
-					this.SendPropertyChanging();
-					this._RigActivityId = value;
-					this.SendPropertyChanged("RigActivityId");
-					this.OnRigActivityIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int CompanyId
-		{
-			get
-			{
-				return this._CompanyId;
-			}
-			set
-			{
-				if ((this._CompanyId != value))
-				{
-					if (this._Company.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCompanyIdChanging(value);
-					this.SendPropertyChanging();
-					this._CompanyId = value;
-					this.SendPropertyChanged("CompanyId");
-					this.OnCompanyIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int AssemblyId
-		{
-			get
-			{
-				return this._AssemblyId;
-			}
-			set
-			{
-				if ((this._AssemblyId != value))
-				{
-					if (this._Assembly.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAssemblyIdChanging(value);
-					this.SendPropertyChanging();
-					this._AssemblyId = value;
-					this.SendPropertyChanged("AssemblyId");
-					this.OnAssemblyIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
-		public System.Nullable<System.DateTime> StartAt
-		{
-			get
-			{
-				return this._StartAt;
-			}
-			set
-			{
-				if ((this._StartAt != value))
-				{
-					this.OnStartAtChanging(value);
-					this.SendPropertyChanging();
-					this._StartAt = value;
-					this.SendPropertyChanged("StartAt");
-					this.OnStartAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
-		public System.Nullable<System.DateTime> FinishAt
-		{
-			get
-			{
-				return this._FinishAt;
-			}
-			set
-			{
-				if ((this._FinishAt != value))
-				{
-					this.OnFinishAtChanging(value);
-					this.SendPropertyChanging();
-					this._FinishAt = value;
-					this.SendPropertyChanged("FinishAt");
-					this.OnFinishAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(50)")]
-		public string Comment
-		{
-			get
-			{
-				return this._Comment;
-			}
-			set
-			{
-				if ((this._Comment != value))
-				{
-					this.OnCommentChanging(value);
-					this.SendPropertyChanging();
-					this._Comment = value;
-					this.SendPropertyChanged("Comment");
-					this.OnCommentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShowAt", DbType="Date")]
-		public System.Nullable<System.DateTime> ShowAt
-		{
-			get
-			{
-				return this._ShowAt;
-			}
-			set
-			{
-				if ((this._ShowAt != value))
-				{
-					this.OnShowAtChanging(value);
-					this.SendPropertyChanging();
-					this._ShowAt = value;
-					this.SendPropertyChanged("ShowAt");
-					this.OnShowAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assembly_CompletionActivity", Storage="_Assembly", ThisKey="AssemblyId", OtherKey="AssemblyId", IsForeignKey=true)]
-		public Assembly Assembly
-		{
-			get
-			{
-				return this._Assembly.Entity;
-			}
-			set
-			{
-				Assembly previousValue = this._Assembly.Entity;
-				if (((previousValue != value) 
-							|| (this._Assembly.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Assembly.Entity = null;
-						previousValue.CompletionActivities.Remove(this);
-					}
-					this._Assembly.Entity = value;
-					if ((value != null))
-					{
-						value.CompletionActivities.Add(this);
-						this._AssemblyId = value.AssemblyId;
-					}
-					else
-					{
-						this._AssemblyId = default(int);
-					}
-					this.SendPropertyChanged("Assembly");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_CompletionActivity", Storage="_Company", ThisKey="CompanyId", OtherKey="CompanyId", IsForeignKey=true)]
-		public Company Company
-		{
-			get
-			{
-				return this._Company.Entity;
-			}
-			set
-			{
-				Company previousValue = this._Company.Entity;
-				if (((previousValue != value) 
-							|| (this._Company.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Company.Entity = null;
-						previousValue.CompletionActivities.Remove(this);
-					}
-					this._Company.Entity = value;
-					if ((value != null))
-					{
-						value.CompletionActivities.Add(this);
-						this._CompanyId = value.CompanyId;
-					}
-					else
-					{
-						this._CompanyId = default(int);
-					}
-					this.SendPropertyChanged("Company");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RigActivity_CompletionActivity", Storage="_RigActivity", ThisKey="RigActivityId", OtherKey="RigActivityId", IsForeignKey=true)]
-		public RigActivity RigActivity
-		{
-			get
-			{
-				return this._RigActivity.Entity;
-			}
-			set
-			{
-				RigActivity previousValue = this._RigActivity.Entity;
-				if (((previousValue != value) 
-							|| (this._RigActivity.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RigActivity.Entity = null;
-						previousValue.CompletionActivities.Remove(this);
-					}
-					this._RigActivity.Entity = value;
-					if ((value != null))
-					{
-						value.CompletionActivities.Add(this);
-						this._RigActivityId = value.RigActivityId;
-					}
-					else
-					{
-						this._RigActivityId = default(int);
-					}
-					this.SendPropertyChanged("RigActivity");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwCompletionActivity")]
 	public partial class vwCompletionActivity
 	{
@@ -5873,6 +5520,359 @@ namespace DOSB.Models
 				{
 					this._Comment = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CompletionActivities")]
+	public partial class CompletionActivity : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CompletionActivityId;
+		
+		private int _RigActivityId;
+		
+		private int _CompanyId;
+		
+		private int _AssemblyId;
+		
+		private System.Nullable<System.DateTime> _StartAt;
+		
+		private System.Nullable<System.DateTime> _FinishAt;
+		
+		private string _Comment;
+		
+		private System.Nullable<System.DateTime> _ShowAt;
+		
+		private EntityRef<Assembly> _Assembly;
+		
+		private EntityRef<Company> _Company;
+		
+		private EntityRef<RigActivity> _RigActivity;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCompletionActivityIdChanging(int value);
+    partial void OnCompletionActivityIdChanged();
+    partial void OnRigActivityIdChanging(int value);
+    partial void OnRigActivityIdChanged();
+    partial void OnCompanyIdChanging(int value);
+    partial void OnCompanyIdChanged();
+    partial void OnAssemblyIdChanging(int value);
+    partial void OnAssemblyIdChanged();
+    partial void OnStartAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartAtChanged();
+    partial void OnFinishAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnFinishAtChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnShowAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnShowAtChanged();
+    #endregion
+		
+		public CompletionActivity()
+		{
+			this._Assembly = default(EntityRef<Assembly>);
+			this._Company = default(EntityRef<Company>);
+			this._RigActivity = default(EntityRef<RigActivity>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionActivityId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CompletionActivityId
+		{
+			get
+			{
+				return this._CompletionActivityId;
+			}
+			set
+			{
+				if ((this._CompletionActivityId != value))
+				{
+					this.OnCompletionActivityIdChanging(value);
+					this.SendPropertyChanging();
+					this._CompletionActivityId = value;
+					this.SendPropertyChanged("CompletionActivityId");
+					this.OnCompletionActivityIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", DbType="Int NOT NULL")]
+		public int RigActivityId
+		{
+			get
+			{
+				return this._RigActivityId;
+			}
+			set
+			{
+				if ((this._RigActivityId != value))
+				{
+					if (this._RigActivity.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRigActivityIdChanging(value);
+					this.SendPropertyChanging();
+					this._RigActivityId = value;
+					this.SendPropertyChanged("RigActivityId");
+					this.OnRigActivityIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyId", DbType="Int NOT NULL")]
+		public int CompanyId
+		{
+			get
+			{
+				return this._CompanyId;
+			}
+			set
+			{
+				if ((this._CompanyId != value))
+				{
+					if (this._Company.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompanyIdChanging(value);
+					this.SendPropertyChanging();
+					this._CompanyId = value;
+					this.SendPropertyChanged("CompanyId");
+					this.OnCompanyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyId", DbType="Int NOT NULL")]
+		public int AssemblyId
+		{
+			get
+			{
+				return this._AssemblyId;
+			}
+			set
+			{
+				if ((this._AssemblyId != value))
+				{
+					if (this._Assembly.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAssemblyIdChanging(value);
+					this.SendPropertyChanging();
+					this._AssemblyId = value;
+					this.SendPropertyChanged("AssemblyId");
+					this.OnAssemblyIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartAt", DbType="Date")]
+		public System.Nullable<System.DateTime> StartAt
+		{
+			get
+			{
+				return this._StartAt;
+			}
+			set
+			{
+				if ((this._StartAt != value))
+				{
+					this.OnStartAtChanging(value);
+					this.SendPropertyChanging();
+					this._StartAt = value;
+					this.SendPropertyChanged("StartAt");
+					this.OnStartAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FinishAt", DbType="Date")]
+		public System.Nullable<System.DateTime> FinishAt
+		{
+			get
+			{
+				return this._FinishAt;
+			}
+			set
+			{
+				if ((this._FinishAt != value))
+				{
+					this.OnFinishAtChanging(value);
+					this.SendPropertyChanging();
+					this._FinishAt = value;
+					this.SendPropertyChanged("FinishAt");
+					this.OnFinishAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(50)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShowAt", DbType="Date")]
+		public System.Nullable<System.DateTime> ShowAt
+		{
+			get
+			{
+				return this._ShowAt;
+			}
+			set
+			{
+				if ((this._ShowAt != value))
+				{
+					this.OnShowAtChanging(value);
+					this.SendPropertyChanging();
+					this._ShowAt = value;
+					this.SendPropertyChanged("ShowAt");
+					this.OnShowAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assembly_CompletionActivity", Storage="_Assembly", ThisKey="AssemblyId", OtherKey="AssemblyId", IsForeignKey=true)]
+		public Assembly Assembly
+		{
+			get
+			{
+				return this._Assembly.Entity;
+			}
+			set
+			{
+				Assembly previousValue = this._Assembly.Entity;
+				if (((previousValue != value) 
+							|| (this._Assembly.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Assembly.Entity = null;
+						previousValue.CompletionActivities.Remove(this);
+					}
+					this._Assembly.Entity = value;
+					if ((value != null))
+					{
+						value.CompletionActivities.Add(this);
+						this._AssemblyId = value.AssemblyId;
+					}
+					else
+					{
+						this._AssemblyId = default(int);
+					}
+					this.SendPropertyChanged("Assembly");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_CompletionActivity", Storage="_Company", ThisKey="CompanyId", OtherKey="CompanyId", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.CompletionActivities.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.CompletionActivities.Add(this);
+						this._CompanyId = value.CompanyId;
+					}
+					else
+					{
+						this._CompanyId = default(int);
+					}
+					this.SendPropertyChanged("Company");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RigActivity_CompletionActivity", Storage="_RigActivity", ThisKey="RigActivityId", OtherKey="RigActivityId", IsForeignKey=true)]
+		public RigActivity RigActivity
+		{
+			get
+			{
+				return this._RigActivity.Entity;
+			}
+			set
+			{
+				RigActivity previousValue = this._RigActivity.Entity;
+				if (((previousValue != value) 
+							|| (this._RigActivity.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RigActivity.Entity = null;
+						previousValue.CompletionActivities.Remove(this);
+					}
+					this._RigActivity.Entity = value;
+					if ((value != null))
+					{
+						value.CompletionActivities.Add(this);
+						this._RigActivityId = value.RigActivityId;
+					}
+					else
+					{
+						this._RigActivityId = default(int);
+					}
+					this.SendPropertyChanged("RigActivity");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

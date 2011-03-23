@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
-/*<script language="javascript">*/ 
 Ext.ns('Dosb', 'Dosb.CActivity');
 
 Dosb.CActivity.MonthViewHeaderData = {
@@ -27,4 +26,3 @@ Dosb.CActivity.CompanyColor = {
 };
 
 Dosb.CActivity.WellStatus = ['Developement', 'W/O', 'Exp.', 'M W/O'];
-/*</script>*/
