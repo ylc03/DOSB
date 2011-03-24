@@ -3,7 +3,7 @@ Ext.ns('Sch', 'Sch.plugins');
 Ext.ns('Dosb', 'Dosb.CActivity');
 
 Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
-    width : 330,
+    width : 300,
 	modal: true,
 	resizable: false,
     closeAction:'hide',
@@ -27,17 +27,13 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 			record.endEdit();
 			if (!record.store) {
 				this.scheduler.eventStore.add(record);
-				this.scheduler.eventStore.save();
-				this.scheduler.eventStore.commitChanges();
 			}
 			this.hide();
 		}
 	}, 
 	
 	onDeleteClick: function () {
-		this.scheduler.eventStore.remove(this.eventRecord);
-		this.scheduler.eventStore.save();
-		this.scheduler.eventStore.commitChanges();
+		this.scheduler.eventStore.remove(this.record);
 		this.hide();
 	}, 
 	
@@ -93,7 +89,7 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
                             fieldLabel : 'Well'
                         }),
 						this.Assembly = new Ext.form.TextField({
-							name: 'AssemblyType',
+							name: 'AssemblyName',
 							disabled: true,
 							width: 120,
 							fieldLabel: 'Assembly'
@@ -110,7 +106,8 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 						this.companyField = new Dosb.ux.CompanyCombo({
 							name: 'CompanyName',
 							width: 120,
-							fieldLabel: 'Company'
+							fieldLabel: 'Company',
+							allowBlank: false
 						}),
                         this.commentField = new Ext.form.TextField({
                             name : 'Comment',
@@ -138,7 +135,7 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 	
     onEventCreated : function(newEventRecord) {
         // Overridden to provide some default values
-        newEventRecord.set('CompanyName', 'Select a company...');
+        newEventRecord.set('CompanyName', '');
         newEventRecord.set('Comment', '');
     },
 	

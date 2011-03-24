@@ -75,22 +75,27 @@ namespace DOSB.Controllers
 
         public JsonResult CreateJson(string data)
         {
-            var fieldVal = (EditableField)new JavaScriptSerializer().Deserialize<EditableField>(data);
-            Field fieldObj = store.Fields.FirstOrDefault(f => f.Name == fieldVal.Name);
-
-            if (fieldObj != null)
+            try
             {
-                return this.Json(new { success = false, message = "Record Exists!"});
+                var fieldVal = (EditableField)new JavaScriptSerializer().Deserialize<EditableField>(data);
+                Field fieldObj = store.Fields.FirstOrDefault(f => f.Name == fieldVal.Name);
+
+                if (fieldObj != null)
+                {
+                    return this.Json(new { success = false, message = "Record Exists!" });
+                }
+                else
+                {
+                    fieldObj = new Field();
+                    EditableField returnVal = updateFieldRecord(fieldVal, fieldObj);
+
+                    return this.Json(new { success = true, message = "Record Inserted", data = returnVal });
+                }
             }
-            else
+            catch (Exception e)
             {
-                fieldObj = new Field();
-                EditableField returnVal = updateFieldRecord(fieldVal, fieldObj);
-
-                return this.Json(new { success = true, message = "Record Inserted", data = returnVal });
+                return Json(new { success = false, message = "Unexpected Error" });
             }
-
-            return Json(new { success = false, message = "Unexpected Error" });
         }
 
         private EditableField updateFieldRecord(EditableField fieldVal, Field fieldObj)

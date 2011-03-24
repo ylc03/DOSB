@@ -226,7 +226,6 @@
     <Content Include="Scripts\ExtUI\CActivity\RAEditor.js" />
     <Content Include="Scripts\ExtUI\CActivity\YearScheduler.js" />
     <Content Include="Scripts\ExtUI\CActivity\YearView.js" />
-    <Content Include="Scripts\ExtUI\CActivity\YVEditor.js" />
     <Content Include="Scripts\ExtUI\Employee\EmployeeForm.js" />
     <Content Include="Scripts\ExtUI\Employee\EmployeeGrid.js" />
     <Content Include="Scripts\ExtUI\ux\ext.ux.form.datetime.js" />

@@ -250,14 +250,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<vwCompletionActivity> vwCompletionActivities
-		{
-			get
-			{
-				return this.GetTable<vwCompletionActivity>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Client> Clients
 		{
 			get
@@ -319,6 +311,14 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<CompletionActivity>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vwCompletionActivity> vwCompletionActivities
+		{
+			get
+			{
+				return this.GetTable<vwCompletionActivity>();
 			}
 		}
 		
@@ -3829,177 +3829,6 @@ namespace DOSB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwCompletionActivity")]
-	public partial class vwCompletionActivity
-	{
-		
-		private string _Comment;
-		
-		private string _CompanyName;
-		
-		private string _BackgroundColor;
-		
-		private string _TextColor;
-		
-		private int _AssemblyId;
-		
-		private string _AssemblyName;
-		
-		private string _AssemblyType;
-		
-		private int _RigActivityId;
-		
-		private int _CompletionActivityId;
-		
-		public vwCompletionActivity()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(50)")]
-		public string Comment
-		{
-			get
-			{
-				return this._Comment;
-			}
-			set
-			{
-				if ((this._Comment != value))
-				{
-					this._Comment = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="VarChar(50)")]
-		public string CompanyName
-		{
-			get
-			{
-				return this._CompanyName;
-			}
-			set
-			{
-				if ((this._CompanyName != value))
-				{
-					this._CompanyName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BackgroundColor", DbType="Char(7)")]
-		public string BackgroundColor
-		{
-			get
-			{
-				return this._BackgroundColor;
-			}
-			set
-			{
-				if ((this._BackgroundColor != value))
-				{
-					this._BackgroundColor = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TextColor", DbType="Char(7)")]
-		public string TextColor
-		{
-			get
-			{
-				return this._TextColor;
-			}
-			set
-			{
-				if ((this._TextColor != value))
-				{
-					this._TextColor = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyId", DbType="Int NOT NULL")]
-		public int AssemblyId
-		{
-			get
-			{
-				return this._AssemblyId;
-			}
-			set
-			{
-				if ((this._AssemblyId != value))
-				{
-					this._AssemblyId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyName", DbType="NVarChar(50)")]
-		public string AssemblyName
-		{
-			get
-			{
-				return this._AssemblyName;
-			}
-			set
-			{
-				if ((this._AssemblyName != value))
-				{
-					this._AssemblyName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyType", DbType="NVarChar(50)")]
-		public string AssemblyType
-		{
-			get
-			{
-				return this._AssemblyType;
-			}
-			set
-			{
-				if ((this._AssemblyType != value))
-				{
-					this._AssemblyType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", DbType="Int NOT NULL")]
-		public int RigActivityId
-		{
-			get
-			{
-				return this._RigActivityId;
-			}
-			set
-			{
-				if ((this._RigActivityId != value))
-				{
-					this._RigActivityId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionActivityId", DbType="Int not NULL")]
-		public int CompletionActivityId
-		{
-			get
-			{
-				return this._CompletionActivityId;
-			}
-			set
-			{
-				if ((this._CompletionActivityId != value))
-				{
-					this._CompletionActivityId = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Clients")]
 	public partial class Client : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5546,6 +5375,8 @@ namespace DOSB.Models
 		
 		private System.Nullable<System.DateTime> _ShowAt;
 		
+		private int _Deleted;
+		
 		private EntityRef<Assembly> _Assembly;
 		
 		private EntityRef<Company> _Company;
@@ -5572,6 +5403,8 @@ namespace DOSB.Models
     partial void OnCommentChanged();
     partial void OnShowAtChanging(System.Nullable<System.DateTime> value);
     partial void OnShowAtChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
     #endregion
 		
 		public CompletionActivity()
@@ -5754,6 +5587,26 @@ namespace DOSB.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assembly_CompletionActivity", Storage="_Assembly", ThisKey="AssemblyId", OtherKey="AssemblyId", IsForeignKey=true)]
 		public Assembly Assembly
 		{
@@ -5873,6 +5726,231 @@ namespace DOSB.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwCompletionActivity")]
+	public partial class vwCompletionActivity
+	{
+		
+		private string _Comment;
+		
+		private string _CompanyName;
+		
+		private string _BackgroundColor;
+		
+		private string _TextColor;
+		
+		private int _AssemblyId;
+		
+		private string _AssemblyName;
+		
+		private string _AssemblyType;
+		
+		private int _RigActivityId;
+		
+		private int _CompletionActivityId;
+		
+		private int _Deleted;
+		
+		private string _WellName;
+		
+		private string _RigName;
+		
+		public vwCompletionActivity()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(50)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="VarChar(50)")]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this._CompanyName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BackgroundColor", DbType="Char(7)")]
+		public string BackgroundColor
+		{
+			get
+			{
+				return this._BackgroundColor;
+			}
+			set
+			{
+				if ((this._BackgroundColor != value))
+				{
+					this._BackgroundColor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TextColor", DbType="Char(7)")]
+		public string TextColor
+		{
+			get
+			{
+				return this._TextColor;
+			}
+			set
+			{
+				if ((this._TextColor != value))
+				{
+					this._TextColor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyId", DbType="Int NOT NULL")]
+		public int AssemblyId
+		{
+			get
+			{
+				return this._AssemblyId;
+			}
+			set
+			{
+				if ((this._AssemblyId != value))
+				{
+					this._AssemblyId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyName", DbType="NVarChar(50)")]
+		public string AssemblyName
+		{
+			get
+			{
+				return this._AssemblyName;
+			}
+			set
+			{
+				if ((this._AssemblyName != value))
+				{
+					this._AssemblyName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AssemblyType", DbType="NVarChar(50)")]
+		public string AssemblyType
+		{
+			get
+			{
+				return this._AssemblyType;
+			}
+			set
+			{
+				if ((this._AssemblyType != value))
+				{
+					this._AssemblyType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigActivityId", DbType="Int NOT NULL")]
+		public int RigActivityId
+		{
+			get
+			{
+				return this._RigActivityId;
+			}
+			set
+			{
+				if ((this._RigActivityId != value))
+				{
+					this._RigActivityId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionActivityId", DbType="Int NOT NULL")]
+		public int CompletionActivityId
+		{
+			get
+			{
+				return this._CompletionActivityId;
+			}
+			set
+			{
+				if ((this._CompletionActivityId != value))
+				{
+					this._CompletionActivityId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this._Deleted = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellName", DbType="NVarChar(50)")]
+		public string WellName
+		{
+			get
+			{
+				return this._WellName;
+			}
+			set
+			{
+				if ((this._WellName != value))
+				{
+					this._WellName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RigName", DbType="VarChar(50)")]
+		public string RigName
+		{
+			get
+			{
+				return this._RigName;
+			}
+			set
+			{
+				if ((this._RigName != value))
+				{
+					this._RigName = value;
+				}
 			}
 		}
 	}

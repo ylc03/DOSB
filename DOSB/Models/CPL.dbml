@@ -177,19 +177,6 @@
       <Association Name="Role_EmployeeRole" Member="Role" ThisKey="RoleId" OtherKey="RoleId" Type="Role" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.vwCompletionActivity" Member="vwCompletionActivities">
-    <Type Name="vwCompletionActivity">
-      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CompanyName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BackgroundColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
-      <Column Name="TextColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
-      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AssemblyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="AssemblyType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CompletionActivityId" Type="System.Int32" DbType="Int not NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.Clients" Member="Clients">
     <Type Name="Client">
       <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -283,9 +270,26 @@
       <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Assembly_CompletionActivity" Member="Assembly" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="Assembly" IsForeignKey="true" />
       <Association Name="Company_CompletionActivity" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Type="Company" IsForeignKey="true" />
       <Association Name="RigActivity_CompletionActivity" Member="RigActivity" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="RigActivity" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwCompletionActivity" Member="vwCompletionActivities">
+    <Type Name="vwCompletionActivity">
+      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BackgroundColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="TextColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssemblyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AssemblyType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompletionActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">

@@ -25,6 +25,9 @@ namespace DOSB.Models.EditableModels
         public int RigActivityId { get; set; }
 
         public string AssemblyType { get; set; }
+        public string AssemblyName { get; set; }
+        public string WellName { get; set; }
+        public string RigName { get; set; }
         public string CompanyName { get; set; }
         public string BackgroundColor { get; set; }
         public string TextColor { get; set; }
@@ -74,6 +77,9 @@ namespace DOSB.Models.EditableRespositories
                                   RigActivityId = tbl.RigActivityId,
                                   AssemblyId = tbl.AssemblyId,
                                   AssemblyType = tbl.AssemblyType,
+                                  AssemblyName = tbl.AssemblyName,
+                                  WellName = tbl.WellName,
+                                  RigName = tbl.RigName,
                                   CompanyName = tbl.CompanyName,
                                   Comment = tbl.Comment == null ? "" : tbl.Comment,
                                   BackgroundColor = tbl.BackgroundColor,

@@ -14,7 +14,9 @@
         if (c.getCount() === 0) {
             b("No scheduler component found");
         }
-        var s = Ext.getCmp(c.elements[0].id), resourceStore = s.getResourceStore(), eventS = s.getEventStore();
+        var s = Ext.getCmp(c.elements[0].id), 
+			resourceStore = s.getResourceStore(), 
+			eventStore = s.getEventStore();
         b("Scheduler view start: " + s.getStart() + ", end: " + s.getEnd());
         if (!s.resourceStore) {
             b("No store configured");
@@ -1729,7 +1731,9 @@ return new (Ext.XTemplate)("<div class=\"sch-clockwrap {cls}\"><div class=\"sch-
         if (c.getCount() === 0) {
             b("No scheduler component found");
         }
-        var s = Ext.getCmp(c.elements[0].id), resourceStore = s.getResourceStore(), eventS = s.getEventStore();
+        var s = Ext.getCmp(c.elements[0].id), 
+			resourceStore = s.getResourceStore(), 
+			eventStore = s.getEventStore();
         b("Scheduler view start: " + s.getStart() + ", end: " + s.getEnd());
         if (!s.resourceStore) {
             b("No store configured");

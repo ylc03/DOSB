@@ -11,7 +11,7 @@ Ext.ns('Dosb', 'Dosb.CActivity');
     
     var myCustomPresets = {
 		assembly2Day: {
-			timeColumnWidth: 60, 
+			timeColumnWidth: 80, 
 			displayDateFormat: "G:i", 
 			shiftIncrement: 1, 
 			shiftUnit: Date.DAY, 
@@ -72,7 +72,11 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 	endDate: '2011-4-1',
     initComponent: function () {
         this.scheduler = this.createScheduler();
-
+		// event editor popup window
+		this.editorWindow = new  Dosb.CActivity.CActivityWindow({
+			scheduler: this.scheduler
+		});
+		
         this.initSchedulerEvents();
         this.initStoreEvents();
 		
@@ -85,6 +89,10 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 		
         Dosb.CActivity.MonthView.superclass.initComponent.apply(this, arguments);
     },
+	
+	onEventDblClick: function (g, rec) {
+		this.editorWindow.show(rec);
+	}, 
 
     onEventContextMenu: function (s, rec, e) {
         e.stopEvent();
@@ -92,7 +100,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
         if (!s.ctx) {
             s.ctx = new Ext.menu.Menu({
                 items: [{
-                    text: 'Delete Job',
+                    text: 'Delete event',
                     iconCls: 'silk-delete',
                     handler : function() {
                         s.eventStore.remove(s.ctx.rec);
@@ -137,8 +145,9 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 							AssemblyType: Dosb.CActivity.MonthViewHeaderData.headers[startTimeByHour]});
 							
 						s.onEventCreated(eventRecord);
-						s.editorWindow.show(eventRecord);
-					}
+						this.editorWindow.show(eventRecord);
+					},
+					scope: this
                 }]
             });
         }
@@ -151,7 +160,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
         //return s.editor.collapsed;
     },
 	
-	beforeEditorCollapse: function (p, a){
+	afterEditorHide: function (p, a){
 		var eventStore = this.scheduler.eventStore;
 		eventStore.save();
 		eventStore.commitChanges();
@@ -164,6 +173,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
             'beforeload': function (store, opt) {
                 store.baseParams.startDate = '2011-3-1';
                 store.baseParams.endDate = '2011-4-1';
+				return true;
             }
 		});
 		
@@ -179,6 +189,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 				// Simulate server delay 1.5 seconds
 				//bookingRecord.commit();//.defer(1500, bookingRecord);
 			},
+			
             'beforeload': function (store, opt) {
                 store.baseParams.startDate = this.startDate;
                 store.baseParams.endDate = this.endDate;
@@ -194,12 +205,14 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
             eventcontextmenu : this.onEventContextMenu, 
             beforetooltipshow : this.beforeTooltipShow, 
 			celldblclick : this.onCellDblClick,
+			eventdblclick : this.onEventDblClick,
             scope : this
         });
 		
 		
-		s.editorWindow.on({
-			beforecollapse: this.beforeEditorCollapse,
+		this.editorWindow.on({
+			hide: this.afterEditorHide,
+			//beforecollapse: this.beforeEditorCollapse,
 			scope : this
 		});
 		
@@ -223,8 +236,8 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
             root: 'data',
             messageProperty: 'message'  // <-- New "messageProperty" meta-data
         }, [
-            'RigActivityId',
-			{ name: 'ResourceId', mapping: 'RigId' },
+			'RigActivityId',
+            { name: 'Id', mapping: 'RigActivityId'},
             { name: 'StartDate', type: 'date', dateFormat: 'Y-m-d' },
             { name: 'EndDate', type: 'date', dateFormat: 'Y-m-d' },
 			'ClientName',
@@ -275,6 +288,9 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 				'AssemblyId',
                 'AssemblyType',
                 'CompanyName',
+				'AssemblyName',
+				'RigName',
+				'WellName',
 				'BackgroundColor',
 				'TextColor',
 				'Comment'		
@@ -303,8 +319,9 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
             resourceStore: resourceStore,
             eventStore: eventStore,
 			enableDragCreation: false,
+			enableEventDragDrop: false,
+			resizeHandles: 'none',
 			viewPreset: 'assembly2Day',
-			
             startDate: start,
             endDate: start.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount + Dosb.CActivity.MonthViewHeaderData.lowerCount)
         });

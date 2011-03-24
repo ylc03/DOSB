@@ -110,6 +110,7 @@ Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                         //this.shiftPreviousMonth();
                     }
                 },
+				'			',
 				{
                     iconCls: 'silk-arrow-right',
                     scope : this,
@@ -121,7 +122,7 @@ Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
 
             onEventCreated : function(newEventRecord) {
                 // Overridden to provide some default values
-                newEventRecord.set('CompanyName', 'Select company...');
+                newEventRecord.set('CompanyName', '');
                 newEventRecord.set('Comment', '');
             },
 
@@ -139,10 +140,5 @@ Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
         });
 		
         Dosb.CActivity.MonthScheduler.superclass.initComponent.call(this);
-			
-		this.editorWindow = new  Dosb.CActivity.CActivityWindow({
-			scheduler: this
-            // Extra config goes here
-		});
     }
 });

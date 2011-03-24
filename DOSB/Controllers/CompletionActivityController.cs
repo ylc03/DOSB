@@ -58,14 +58,44 @@ namespace DOSB.Controllers
             return View(target);
         }
 
-        public ActionResult CustomHeaderJS()
+        public JavaScriptResult CustomHeaderJS()
         {
-            ViewData["upper"] = store.vwUpperCompletionAssemblies.ToList();
-            ViewData["upperCount"] = store.vwUpperCompletionAssemblies.Count();
-            ViewData["lower"] = store.vwLowerCompletionAssemblies.ToList();
-            ViewData["lowerCount"] = store.vwLowerCompletionAssemblies.Count();
-            ViewData["Company"] = EditableCompanyRespository.All().ToList();
-            return View();
+            var upper = store.vwUpperCompletionAssemblies;
+            var lower = store.vwLowerCompletionAssemblies.ToList();
+            var company = EditableCompanyRespository.All().ToList();
+
+            string js = "Ext.ns(\'Dosb\', \'Dosb.CActivity\');\n"
+                      + "Dosb.CActivity.MonthViewHeaderData = {\n"
+                      + "upperCount: " + upper.Count().ToString() + ",\n"
+                      + "lowerCount: " + lower.Count().ToString() + ",\n"
+                      + "start: new Date(" + DateTime.Today.Year.ToString() + "," + (DateTime.Today.Month - 1).ToString() + "," + DateTime.Today.Day.ToString() + "),\n"
+                      + "headers : [\n";
+            foreach (var item in upper)
+            {
+                js += "'" + item.Name + "',\n";
+            }
+            foreach (var item in lower)
+            {
+                js += "'" + item.Name + "'";
+                if (lower.Last() != item)
+                {
+                    js += ",\n";
+                }
+            }
+            js += "]};\n";
+
+            js += "Dosb.CActivity.CompanyColor = {\n";
+            foreach (var item in company)
+            {
+                js += "'" + item.ShortName + "':{'BackgroundColor': '" + item.BackgroundColor + "', 'TextColor': '" + item.TextColor + "'}";
+                if (company.Last() != item)
+                {
+                    js += ",\n";
+                }
+            }
+            js += "};\n";
+            js += "Dosb.CActivity.WellStatus = ['Developement', 'W/O', 'Exp.', 'M W/O'];";
+            return JavaScript(js);
         }
 
         public JsonResult GetJson()
@@ -110,6 +140,20 @@ namespace DOSB.Controllers
             return Json(new { success = false, message = "Unexpected Error" });
         }
 
+        public JsonResult DeleteJson(int data)
+        {
+            CompletionActivity CA = store.CompletionActivities.First(c => c.CompletionActivityId == data);
+
+            if (CA != null)
+            {
+                
+                CA.Deleted = 1;
+                store.SubmitChanges();
+                return Json(new { success = true, message = "Record deleted!" });
+            }
+            return Json(new { success = false, message = "Record not found!" });
+        }
+
         private EditableCompletionActivity updateCARecord(EditableCompletionActivity caVal, CompletionActivity caObj)
         {
             //update rig activity
@@ -140,7 +184,7 @@ namespace DOSB.Controllers
             store.SubmitChanges();
 
             IQueryable<EditableCompletionActivity> record = from tbl in store.vwCompletionActivities
-                                                            orderby tbl.AssemblyId
+                                                            where tbl.CompletionActivityId == caObj.CompletionActivityId
                                                             select new EditableCompletionActivity
                                                             {
                                                                 CompletionActivityId = tbl.CompletionActivityId,
