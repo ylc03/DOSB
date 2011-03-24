@@ -96,10 +96,13 @@ Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
 					tooltip: 'Add a new Activity',
                     scope : this,
                     handler: function () {
-						var record = new (this.resourceStore.recordType)({
-							
-						});
-						this.resourceEditor.show(record);
+						var record = new (this.resourceStore.recordType)({});
+						if (!this.editorWindow){
+							this.editorWindow = new  Dosb.CActivity.RAEditor({
+								scheduler: this
+							});
+						}
+						this.editorWindow.show(record);		
                     }
                 },
                 '->',
@@ -132,13 +135,9 @@ Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
                     '<dt class="icon-task">Task</dt><dd>{CompanyName}</dd>',
                     '<dt class="icon-earth">Location</dt><dd>{Comment}&nbsp;</dd>',
                 '</dl>').compile(),
-
-            plugins:  [
-				this.resourceEditor = new RAEditor({
-				})
-            ]
+			
         });
 		
         Dosb.CActivity.MonthScheduler.superclass.initComponent.call(this);
     }
-});
+})

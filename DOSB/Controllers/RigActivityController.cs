@@ -78,8 +78,8 @@ namespace DOSB.Controllers
         {
             var rigActivityVal = (EditableRigActivity)new JavaScriptSerializer().Deserialize<EditableRigActivity>(data);
             RigActivity rigActivityObj = new RigActivity();
-
-            if (rigActivityVal.RigId <= 0) {
+           
+            if (rigActivityVal.RigId <= 0 && rigActivityVal.RigName == null) {
                 return this.Json(new { success = false, message = "Rig must be specified." });
             }
 
@@ -106,7 +106,17 @@ namespace DOSB.Controllers
             {
                 rigActivityObj.RigId = rigActivityVal.RigId;
             }
-
+            else
+            {
+                Rig rig = store.Rigs.FirstOrDefault(r => r.Name == rigActivityVal.RigName);
+                if (rig == null)
+                {
+                    rig = new Rig();
+                    rig.Name = rigActivityVal.RigName;
+                }
+                rigActivityObj.Rig = rig;
+            }
+            
             Field field = store.Fields.FirstOrDefault(f => f.Name == rigActivityVal.FieldName);
             // update well
             if (rigActivityVal.WellName != null)
@@ -137,16 +147,23 @@ namespace DOSB.Controllers
 
             store.SubmitChanges();
 
-            IQueryable<EditableRigActivity> record = from item in store.vwRigActivities
-                                               where item.RigActivityId == rigActivityObj.RigActivityId
+            IQueryable<EditableRigActivity> record = from tbl in store.vwRigActivities
+                                               where tbl.RigActivityId == rigActivityObj.RigActivityId
                                                select new EditableRigActivity
                                                {
-                                                   RigActivityId = item.RigActivityId,
-                                                   RigId = item.RigId,
-                                                   WellName = item.WellName,
-                                                   FieldName = item.FieldName,
-                                                   StartAt = item.StartAt.HasValue ? item.StartAt.Value : DateTime.Today,
-                                                   FinishAt = item.FinishAt.HasValue ? item.FinishAt.Value: DateTime.Today.AddMonths(1)
+                                                   RigActivityId = tbl.RigActivityId,
+                                                   RigId = tbl.RigId,
+                                                   RigName = tbl.RigName,
+                                                   WellName = tbl.WellName,
+                                                   FieldName = tbl.FieldName,
+                                                   ClientName = tbl.ClientName,
+                                                   CountryName = tbl.CountryName,
+                                                   CompletionTypeName = tbl.CompletionTypeName,
+                                                   WellStatus = tbl.WellStatus,
+                                                   WellTypeName = tbl.WellTypeName,
+                                                   Comment = tbl.Comment,
+                                                   StartAt = tbl.StartAt.HasValue ? tbl.StartAt.Value : DateTime.Today,
+                                                   FinishAt = tbl.FinishAt.HasValue ? tbl.FinishAt.Value : DateTime.Today.AddMonths(1)
                                                };
             return (EditableRigActivity)record.FirstOrDefault();
         }

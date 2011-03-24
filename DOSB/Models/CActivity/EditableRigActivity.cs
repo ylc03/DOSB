@@ -74,7 +74,7 @@ namespace DOSB.Models.EditableRespositories
 
             if (result == null)
             {
-                CPLDataContext store = CPLStore.Instance;
+                CPLDataContext store = new CPLDataContext();
 
                 var dataResults = from tbl in store.vwRigActivities
                                   select new EditableRigActivity
@@ -101,7 +101,7 @@ namespace DOSB.Models.EditableRespositories
 
         public static IQueryable<EditableRigActivity> AllByTimeSpan(DateTime start, DateTime end)
         {
-            CPLDataContext store = CPLStore.Instance;
+            CPLDataContext store = new CPLDataContext();
 
             var dataResults = from tbl in store.fnFilterRigActivity(start, end)
                               select new EditableRigActivity
@@ -159,7 +159,7 @@ namespace DOSB.Models.EditableRespositories
         /// <param name="torque">Editable Activity</param>
         public static void Update(EditableRigActivity activity)
         {
-            CPLDataContext store = CPLStore.Instance;
+            CPLDataContext store = new CPLDataContext();
             RigActivity target = store.RigActivities.First(ra => ra.RigActivityId == activity.RigActivityId);
 
             if (target != null)

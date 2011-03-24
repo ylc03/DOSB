@@ -21,7 +21,7 @@ namespace DOSB.Models.EditableRespositories
                 (IQueryable<EditableCompany>)HttpContext.Current.Session["companies"];
             if (result == null)
             {
-                CPLDataContext store = CPLStore.Instance;
+                CPLDataContext store = new CPLDataContext();
 
                 result = from row in store.Companies
                          select new EditableCompany

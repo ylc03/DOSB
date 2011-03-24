@@ -67,7 +67,7 @@ namespace DOSB.Models.EditableRespositories
         public static IQueryable<EditableCompletionActivity> AllMapToTime()
         {
 
-            CPLDataContext store = CPLStore.Instance;
+            CPLDataContext store = new CPLDataContext();
              
             var dataResults = from tbl in store.vwCompletionActivities
                               orderby tbl.AssemblyId

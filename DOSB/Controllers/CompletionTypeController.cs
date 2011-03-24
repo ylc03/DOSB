@@ -20,7 +20,7 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in CPLStore.Instance.CompletionTypes
+            var data = from item in new CPLDataContext().CompletionTypes
                        select new
                        {
                            CompTypeId = item.CompletionTypeId,

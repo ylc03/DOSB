@@ -20,7 +20,7 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in CPLStore.Instance.WellTypes
+            var data = from item in new CPLDataContext().WellTypes
                        select new
                        {
                            WellTypeId = item.WellTypeId,

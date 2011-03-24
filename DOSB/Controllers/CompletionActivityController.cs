@@ -154,6 +154,21 @@ namespace DOSB.Controllers
             return Json(new { success = false, message = "Record not found!" });
         }
 
+        public JsonResult UpdateJson(string data)
+        {
+            var caVal = (EditableCompletionActivity)new JavaScriptSerializer().Deserialize<EditableCompletionActivity>(data);
+            CompletionActivity caObj = store.CompletionActivities.FirstOrDefault(c => c.CompletionActivityId == caVal.CompletionActivityId);
+
+            if (caObj != null)
+            {
+                EditableCompletionActivity returnVal = updateCARecord(caVal, caObj);
+
+                return this.Json(new { success = true, message = "Record Inserted", data = returnVal });
+            }
+
+            return Json(new { success = false, message = "Unexpected Error" });
+        }
+
         private EditableCompletionActivity updateCARecord(EditableCompletionActivity caVal, CompletionActivity caObj)
         {
             //update rig activity
@@ -189,9 +204,12 @@ namespace DOSB.Controllers
                                                             {
                                                                 CompletionActivityId = tbl.CompletionActivityId,
                                                                 RigActivityId = tbl.RigActivityId,
+                                                                CompanyName = tbl.CompanyName,
                                                                 AssemblyId = tbl.AssemblyId,
                                                                 AssemblyType = tbl.AssemblyType,
-                                                                CompanyName = tbl.CompanyName,
+                                                                AssemblyName = tbl.AssemblyName,
+                                                                WellName = tbl.WellName,
+                                                                RigName = tbl.RigName,
                                                                 Comment = tbl.Comment == null ? "" : tbl.Comment,
                                                                 BackgroundColor = tbl.BackgroundColor,
                                                                 TextColor = tbl.TextColor,

@@ -19,7 +19,11 @@ Dosb.ux.FieldCombo = Ext.extend(Ext.form.ComboBox, {
 			messageProperty: 'message',  // <-- New "messageProperty" meta-data
             fields: [
 			    {name: 'Name', allowBlank: false},
-				'FieldId'
+				'FieldId',
+				'ClientId',
+				'ClientName',
+				'CountryId',
+				'CountryName'
             ]
         });
 		

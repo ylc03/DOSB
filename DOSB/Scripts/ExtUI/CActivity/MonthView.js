@@ -142,7 +142,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 							EndDate: new Date(start.getTime() + 3600000*(startTimeByHour+1)),
 							RigName: record.get("RigName"),
 							WellName: record.get("WellName"),
-							AssemblyType: Dosb.CActivity.MonthViewHeaderData.headers[startTimeByHour]});
+							AssemblyName: Dosb.CActivity.MonthViewHeaderData.headers[startTimeByHour]});
 							
 						s.onEventCreated(eventRecord);
 						this.editorWindow.show(eventRecord);
@@ -215,7 +215,6 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 			//beforecollapse: this.beforeEditorCollapse,
 			scope : this
 		});
-		
     },
 
     createScheduler: function () {
