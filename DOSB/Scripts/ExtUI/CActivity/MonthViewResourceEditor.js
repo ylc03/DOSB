@@ -1,8 +1,6 @@
-// A simple preconfigured editor plugin
-Ext.ns('Sch', 'Sch.plugins');
 Ext.ns('Dosb', 'Dosb.CActivity');
 
-Dosb.CActivity.RAEditor = Ext.extend(Ext.Window, {
+Dosb.CActivity.MonthViewResourceEditor = Ext.extend(Ext.Window, {
     width : 300,
 	modal: true,
 	resizable: false,
@@ -15,12 +13,11 @@ Dosb.CActivity.RAEditor = Ext.extend(Ext.Window, {
 			items: this.buildForm()
 		});
 
-        Dosb.CActivity.RAEditor.superclass.initComponent.apply(this);
+        Dosb.CActivity.MonthViewResourceEditor.superclass.initComponent.apply(this);
 		this.FieldCombo.on('select', this.onFieldNameChange, this);
 		this.RigField.on('select', this.onRigSelect, this);
 		this.on('hide', this.onHide, this);
     },
-	
 	
 	onHide: function() {
 		var store = this.scheduler.resourceStore;
@@ -108,18 +105,18 @@ Dosb.CActivity.RAEditor = Ext.extend(Ext.Window, {
 							xtype: 'datefield',
 							fieldLabel: 'Start Date',
 							name: 'StartDate',
-							id: 'StartDate',
+							//id: 'StartDate',
 							//vtype: 'daterange',
-							width: 100,
-							endDateField: 'EndDate' // id of the end date field
+							width: 100
+							//endDateField: 'EndDate' // id of the end date field
 						},{
 							xtype: 'datefield',
 							fieldLabel: 'End Date',
 							name: 'EndDate',
-							id: 'EndDate',
+							//id: 'EndDate',
 							//vtype: 'daterange',
-							width: 100,
-							startDateField: 'StartDate' // id of the start date field
+							width: 100
+							//startDateField: 'StartDate' // id of the start date field
 						},
 						this.WellStatusCombo = new Ext.form.ComboBox({
 							store: Dosb.CActivity.WellStatus, // fetch from database later
@@ -136,7 +133,6 @@ Dosb.CActivity.RAEditor = Ext.extend(Ext.Window, {
 							width : 100,
 							fieldLabel: 'Comp Type'
 						})		
-						   
 					]
                 },
 				{
@@ -193,7 +189,7 @@ Dosb.CActivity.RAEditor = Ext.extend(Ext.Window, {
 	show : function(rec){
 		this.record = rec;
 		this.formPanel.getForm().loadRecord(rec);
-		Dosb.CActivity.RAEditor.superclass.show.apply(this);
+		Dosb.CActivity.MonthViewResourceEditor.superclass.show.apply(this);
 		
 		if (!rec.store){
 			this.setTitle('Add activity', 'silk-add');

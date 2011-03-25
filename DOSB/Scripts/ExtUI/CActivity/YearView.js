@@ -56,6 +56,29 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
         var s = this.scheduler;
         s.disableEdit();
     },
+	
+	// header double click, jump to month view
+	onHeaderDblClick: function(s, start, end, e){
+	    e.stopEvent();
+
+        if (!s.ctxHeader) {
+            s.ctxHeader = new Ext.menu.Menu({
+                items: [{
+                    text: 'Go to month view',
+                    iconCls: 'silk-page-go',
+                    handler: function () {
+                        Dosb.CActivity.MonthViewHeaderData.StartDate = s.ctxHeader.StartDate;
+						Dosb.CActivity.MonthViewHeaderData.EndDate = s.ctxHeader.EndDate;
+						Dosb.gotoMonthView();
+                    }
+                }]
+            });
+        }
+		
+		s.ctxHeader.StartDate = start.format('Y-m-d');
+		s.ctxHeader.EndDate = end.format('Y-m-d');
+        s.ctxHeader.showAt(e.getXY());	
+	},
 
     // Don't show tooltip if editor is visible
     beforeTooltipShow: function (s, r) {
@@ -104,6 +127,7 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
             beforednd: this.allowModify,
             eventclick: this.onEventClick,
             click: this.onBodyClick,
+			timeheaderdblclick: this.onHeaderDblClick,
             scope: this
         });
     },
@@ -189,6 +213,8 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
             writer: resWriter,  // <-- plug a DataWriter into the store just as you would a Reader
             autoSave: true
         });
+		
+		var now = new Date();
 
         return new Dosb.CActivity.YearScheduler({
             rowHeight: 25,
@@ -202,8 +228,8 @@ Dosb.CActivity.YearView = Ext.extend(Ext.Panel, {
             enableDragCreation: true,
             allowOverlap: false,
             viewPreset: 'monthAndYear',
-            startDate: new Date(2011, 0, 1),
-            endDate: new Date(2012, 0, 1)
+            startDate: new Date(now.format('Y'), 0, 1),
+            endDate: new Date(now.add(Date.YEAR, 1).format('Y'), 0, 1)
         });
     }
 });

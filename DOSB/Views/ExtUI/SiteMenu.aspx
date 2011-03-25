@@ -5,23 +5,22 @@
     expanded: true,
     children:[{
         text:'Fields',
+        iconCls: 'silk-map',
         id:'ca-fields',
-        leaf:true
-    },{
-        text:'Grid View Test',
-        id:'ca-gtview',
-		module: 'dosb-ca-gtview',
         leaf:true
     },{
         text:'Year View',
         id:'ca-yview',
+        iconCls: 'silk-calendar-month',
         leaf:true
     },{
         text:'Month View',
+        iconCls: 'silk-calendar-week',
         id:'ca-mview',
         leaf:true
     },{
         text:'Statistics',
+        iconCls: 'silk-chart-curve',
         id:'ca-stat',
         leaf:true
     }]

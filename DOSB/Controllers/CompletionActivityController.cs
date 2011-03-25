@@ -58,46 +58,6 @@ namespace DOSB.Controllers
             return View(target);
         }
 
-        public JavaScriptResult CustomHeaderJS()
-        {
-            var upper = store.vwUpperCompletionAssemblies;
-            var lower = store.vwLowerCompletionAssemblies.ToList();
-            var company = EditableCompanyRespository.All().ToList();
-
-            string js = "Ext.ns(\'Dosb\', \'Dosb.CActivity\');\n"
-                      + "Dosb.CActivity.MonthViewHeaderData = {\n"
-                      + "upperCount: " + upper.Count().ToString() + ",\n"
-                      + "lowerCount: " + lower.Count().ToString() + ",\n"
-                      + "start: new Date(" + DateTime.Today.Year.ToString() + "," + (DateTime.Today.Month - 1).ToString() + "," + DateTime.Today.Day.ToString() + "),\n"
-                      + "headers : [\n";
-            foreach (var item in upper)
-            {
-                js += "'" + item.Name + "',\n";
-            }
-            foreach (var item in lower)
-            {
-                js += "'" + item.Name + "'";
-                if (lower.Last() != item)
-                {
-                    js += ",\n";
-                }
-            }
-            js += "]};\n";
-
-            js += "Dosb.CActivity.CompanyColor = {\n";
-            foreach (var item in company)
-            {
-                js += "'" + item.ShortName + "':{'BackgroundColor': '" + item.BackgroundColor + "', 'TextColor': '" + item.TextColor + "'}";
-                if (company.Last() != item)
-                {
-                    js += ",\n";
-                }
-            }
-            js += "};\n";
-            js += "Dosb.CActivity.WellStatus = ['Developement', 'W/O', 'Exp.', 'M W/O'];";
-            return JavaScript(js);
-        }
-
         public JsonResult GetJson()
         {
             var data = EditableCompletionActivityRespository.AllMapToTime();
@@ -106,6 +66,19 @@ namespace DOSB.Controllers
                 success = true,
                 message = "All Completion activities",
                 data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetByTimeSpan(DateTime startDate, DateTime endDate)
+        {
+            var data = EditableCompletionActivityRespository.AllByTimeSpan(startDate, endDate);
+
+            return Json(new
+            {
+                total = data.Count(),
+                success = true,
+                message = "Job list returned.",
+                data = data,
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -120,7 +93,7 @@ namespace DOSB.Controllers
             }
 
             //update client
-            if (caVal.AssemblyType == null)
+            if (caVal.AssemblyName == null)
             {
                 return Json(new { success = false, message = "Assembly must be specified." });
             }
@@ -177,23 +150,42 @@ namespace DOSB.Controllers
                 caObj.RigActivityId = caVal.RigActivityId;
             }
 
-            // update assembly type
-            if (caVal.AssemblyType != null)
+            // update assembly
+            // Map time back to Assembly Name
+            if (!String.IsNullOrWhiteSpace(caVal.StartDate) && !String.IsNullOrWhiteSpace(caVal.EndDate))
             {
-                Assembly asm = store.Assemblies.FirstOrDefault(a => a.Name == caVal.AssemblyType);
-                caObj.Assembly = asm;
+                int asmId = EditableAssemblyRespository.StartTimeToAssemblyId(caVal.StartDate);
+                caObj.AssemblyId = asmId;
+                // should not reach here
+                if (asmId == -1)
+                {
+                    Assembly asm = store.Assemblies.FirstOrDefault(a => a.Name == caVal.AssemblyName);
+                    caObj.Assembly = asm;
+                }
             }
 
             // update company
-            if (caVal.CompanyName != null)
+            if (!String.IsNullOrWhiteSpace(caVal.CompanyName))
             {
                 Company company = store.Companies.FirstOrDefault(c => c.ShortName == caVal.CompanyName);
                 caObj.Company = company;
             }
 
-            if (caVal.Comment != null)
+            // update comment
+            if (!String.IsNullOrWhiteSpace(caVal.Comment))
             {
                 caObj.Comment = caVal.Comment;
+            }
+
+            // update time
+            DateTime result;
+            if (!String.IsNullOrWhiteSpace(caVal.JobStartDate) && DateTime.TryParse(caVal.JobStartDate, out result))
+            {
+                caObj.StartAt = result;
+            }
+            if (!String.IsNullOrWhiteSpace(caVal.JobEndDate) && DateTime.TryParse(caVal.JobEndDate, out result))
+            {
+                caObj.FinishAt = result;
             }
 
             store.SubmitChanges();
@@ -213,6 +205,8 @@ namespace DOSB.Controllers
                                                                 Comment = tbl.Comment == null ? "" : tbl.Comment,
                                                                 BackgroundColor = tbl.BackgroundColor,
                                                                 TextColor = tbl.TextColor,
+                                                                StartAt = tbl.StartAt.HasValue ? tbl.StartAt.Value : DateTime.Today,
+                                                                FinishAt = tbl.FinishAt.HasValue ? tbl.FinishAt.Value : DateTime.Today.AddDays(5),
                                                                 StartDate = EditableAssemblyRespository.AssemblyToJSStartTime(tbl.AssemblyId),
                                                                 EndDate = EditableAssemblyRespository.AssemblyToJSEndTime(tbl.AssemblyId),
                                                             };

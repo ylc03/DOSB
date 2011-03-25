@@ -276,6 +276,16 @@
       <Association Name="RigActivity_CompletionActivity" Member="RigActivity" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="RigActivity" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.vwWell" Member="vwWells">
+    <Type Name="vwWell">
+      <Column Name="WellId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FieldId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WellTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.vwCompletionActivity" Member="vwCompletionActivities">
     <Type Name="vwCompletionActivity">
       <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
@@ -290,6 +300,8 @@
       <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">
@@ -319,6 +331,26 @@
       <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="DeskEngId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fnFilterCompletionActivity" Method="fnFilterCompletionActivity" IsComposable="true">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="fnFilterCompletionActivityResult">
+      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BackgroundColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="TextColor" Type="System.String" DbType="Char(7)" CanBeNull="true" />
+      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssemblyName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AssemblyType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RigActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CompletionActivityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WellName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

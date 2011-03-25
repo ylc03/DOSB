@@ -10,6 +10,7 @@ namespace DOSB.Controllers
 {
     public class WellController : Controller
     {
+        CPLDataContext store = new CPLDataContext();
         //
         // GET: /Well/
 
@@ -20,14 +21,15 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in new CPLDataContext().Wells
-                       select new
-                       {
-                           WellId = item.WellId,
-                           Name = item.Name
-                       };
+            var data = from item in store.vwWells
+                       select item;
 
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(new { 
+                total = data.Count(),
+                success = true,
+                message = "Wells listed.",
+                data = data
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

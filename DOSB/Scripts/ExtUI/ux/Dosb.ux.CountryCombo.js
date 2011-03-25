@@ -9,22 +9,11 @@ Dosb.ux.CountryCombo = Ext.extend(Ext.form.ComboBox, {
     emptyText:'Select country...',
     selectOnFocus:true,
 	
-    initComponent : function() {
-		var countryStore = new Ext.data.JsonStore({
-			url: '/Country/GetJson',
-            idProperty: 'CountryId',
-            fields: [
-				'Name',
-				'CountryId',
-            ]
-        });
-		
-		countryStore.load();
-		
+    initComponent : function() {		
         Ext.apply(this, {
 			tpl: '<tpl for="."><div ext:qtip="{Name}" class="x-combo-list-item">{Name}</div></tpl>',
-			store: countryStore,
-			displayField:'Name'
+			store: Ext.StoreMgr.get('country'),
+			displayField: 'Name'
 		});
 		
 		Dosb.ux.CountryCombo.superclass.initComponent.apply(this, arguments);

@@ -3,95 +3,43 @@
  * @company Completions, Schlumberger, Saudi Arabia
  * @history 23 Mar 2011,	 Yuan Lichuan,		first stable edition
  */
-
-Ext.ns('Sch');
 Ext.ns('Dosb', 'Dosb.CActivity');
 
-(function() {
-    
-    var myCustomPresets = {
-		assembly2Day: {
-			timeColumnWidth: 80, 
-			displayDateFormat: "G:i", 
-			shiftIncrement: 1, 
-			shiftUnit: Date.DAY, 
-			defaultSpan: Dosb.CActivity.MonthViewHeaderData.upperCount + Dosb.CActivity.MonthViewHeaderData.lowerCount, 
-			timeResolution: {
-				unit: Date.MINUTE, 
-				increment: 15
-			}, 
-			headerConfig: {
-				middle: {
-					unit: Date.HOUR, 
-					//dateFormat: "G:i"
-					renderer : function(start, end, cfg) {
-						var viewStart = Dosb.CActivity.MonthViewHeaderData.start;
-						var one_hour=3600000;
-						var index = Math.floor((start - viewStart)/one_hour);
-                        return Dosb.CActivity.MonthViewHeaderData.headers[index];
-                    }
-				}, 
-				top: {
-					unit: Date.DAY, 
-					//dateFormat: "D d/m"
-					cellGenerator : function(viewStart, viewEnd) {
-                        var cells = [];
-                        
-                        // Simplified scenario, assuming view will always just show one US fiscal year
-                        return [{
-                            start : viewStart,
-                            end : viewStart.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount),
-                            header : 'Upper Completion',
-							align: 'center'
-                        },{
-                            start : viewStart.add(Date.HOUR, Dosb.CActivity.MonthViewHeaderData.upperCount),
-                            end : viewEnd,
-                            header : 'Lower Completion',
-							align : 'center'
-                        }];
-                    }
-				}
-			}
-		}		
-	};
-        
-    var pm = Sch.PresetManager;
-
-    for (var o in myCustomPresets) {
-        if (myCustomPresets.hasOwnProperty(o)) {
-            pm.registerPreset(o, myCustomPresets[o]);
-        }
-    }
-})();
- 
 Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
     frame: false,
     border: false,
     layout: 'fit',
-	startDate: '2011-3-1',
-	endDate: '2011-4-1',
+	
     initComponent: function () {
-        this.scheduler = this.createScheduler();
+        var s = this.createScheduler();
+		this.scheduler = s;
 		// event editor popup window
-		this.editorWindow = new  Dosb.CActivity.CActivityWindow({
-			scheduler: this.scheduler
+		s.eventEditor = new Dosb.CActivity.MonthViewEventEditor({
+			scheduler: s
+		});
+		// resource editor popup window
+		s.resourceEditor =  new Dosb.CActivity.MonthViewResourceEditor({
+			scheduler: s
 		});
 		
         this.initSchedulerEvents();
         this.initStoreEvents();
 		
         Ext.apply(this, {
-            items: [this.scheduler]
+            items: [s]
         });
-
-        this.scheduler.resourceStore.load();
-        this.scheduler.eventStore.load();
 		
+		var month = Dosb.CActivity.MonthViewHeaderData.StartDate;
+		if (!month) month = (new Date()).format('Y-m-d');
+		s.monthPicker.setValue(month);
+        s.resourceStore.load();
+        s.eventStore.load();
+	
         Dosb.CActivity.MonthView.superclass.initComponent.apply(this, arguments);
     },
 	
 	onEventDblClick: function (g, rec) {
-		this.editorWindow.show(rec);
+		this.scheduler.eventEditor.show(rec);
 	}, 
 
     onEventContextMenu: function (s, rec, e) {
@@ -120,8 +68,9 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 		var s = this.scheduler;
 		var pos = e.getXY();
 		
-		// save data to 
-		s.dbClickData = { date: s.getDateFromXY(pos),
+		// save data to sch
+		s.dbClickData = {
+			date: s.getDateFromXY(pos),
 			rowIndex : rowIndex
 		};
 		
@@ -145,7 +94,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 							AssemblyName: Dosb.CActivity.MonthViewHeaderData.headers[startTimeByHour]});
 							
 						s.onEventCreated(eventRecord);
-						this.editorWindow.show(eventRecord);
+						s.eventEditor.show(eventRecord);
 					},
 					scope: this
                 }]
@@ -153,26 +102,22 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
         }
         s.ctxAddJob.showAt(pos);
     },
-
-    // Don't show tooltip if editor is visible
-    beforeTooltipShow: function (s, r) {
-		return false; // don't show tooltip
-        //return s.editor.collapsed;
-    },
 	
-	afterEditorHide: function (p, a){
-		var eventStore = this.scheduler.eventStore;
-		eventStore.save();
-		eventStore.commitChanges();
-		return true;
+	onCellEdit: function(e)
+	{
+		if (e.field == 'FieldName' && e.value != '(not specified)')
+		{
+			e.record.set('WellName', e.value + '-');
+		}
 	},
 	
     initStoreEvents: function () {
         var s = this.scheduler;
         s.resourceStore.on({
             'beforeload': function (store, opt) {
-                store.baseParams.startDate = '2011-3-1';
-                store.baseParams.endDate = '2011-4-1';
+				var start = s.monthPicker.getValue();
+                store.baseParams.startDate = start.format('Y-n-d');
+                store.baseParams.endDate = start.add(Date.MONTH, 1).format('Y-n-d');
 				return true;
             }
 		});
@@ -191,8 +136,9 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
 			},
 			
             'beforeload': function (store, opt) {
-                store.baseParams.startDate = this.startDate;
-                store.baseParams.endDate = this.endDate;
+				var start = s.monthPicker.getValue();
+                store.baseParams.startDate = start.format('Y-n-d');
+                store.baseParams.endDate = start.add(Date.MONTH, 1).format('Y-n-d');
 				return true;
             }
 		});
@@ -202,19 +148,12 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
         var s = this.scheduler;
 
         s.on({
-            eventcontextmenu : this.onEventContextMenu, 
-            beforetooltipshow : this.beforeTooltipShow, 
+            eventcontextmenu : this.onEventContextMenu,
 			celldblclick : this.onCellDblClick,
 			eventdblclick : this.onEventDblClick,
+			afteredit: this.onCellEdit,
             scope : this
-        });
-		
-		
-		this.editorWindow.on({
-			hide: this.afterEditorHide,
-			//beforecollapse: this.beforeEditorCollapse,
-			scope : this
-		});
+        });	
     },
 
     createScheduler: function () {
@@ -266,7 +205,7 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
         // Store holding all the events
 		var eventProxy = new Ext.data.HttpProxy({
 			api: {
-				read: '/CompletionActivity/GetJson',
+				read: '/CompletionActivity/GetByTimeSpan',
 				create: '/CompletionActivity/CreateJson',
 				update: '/CompletionActivity/UpdateJson',
 				destroy: '/CompletionActivity/DeleteJson'
@@ -283,6 +222,8 @@ Dosb.CActivity.MonthView = Ext.extend(Ext.Panel, {
                 { name: 'ResourceId', mapping: 'RigActivityId' },
                 { name: 'StartDate', type: 'date', dateFormat: 'Y-m-d g:i' },
                 { name: 'EndDate', type: 'date', dateFormat: 'Y-m-d g:i' },
+                { name: 'JobStartDate', type: 'date', dateFormat: 'Y-m-d' },
+                { name: 'JobEndDate', type: 'date', dateFormat: 'Y-m-d' },
 				'CompletionActivityId',
 				'AssemblyId',
                 'AssemblyType',

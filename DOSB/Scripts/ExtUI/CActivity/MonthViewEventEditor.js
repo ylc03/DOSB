@@ -1,8 +1,7 @@
-// A simple preconfigured editor plugin
-Ext.ns('Sch', 'Sch.plugins');
 Ext.ns('Dosb', 'Dosb.CActivity');
+Ext.ns('Sch');
 
-Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
+Dosb.CActivity.MonthViewEventEditor = Ext.extend(Ext.Window, {
     width : 300,
 	modal: true,
 	resizable: false,
@@ -15,8 +14,16 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 			items: this.buildForm()
 		});
 
-        Dosb.CActivity.CActivityWindow.superclass.initComponent.apply(this);
+        Dosb.CActivity.MonthViewEventEditor.superclass.initComponent.apply(this);
+		this.on('hide', this.onHide, this);
     },
+	
+	onHide: function (p, a){
+		var store = this.scheduler.eventStore;
+		store.save();
+		store.commitChanges();
+		return true;
+	},
 	
 	onSaveClick: function () {
 		var	record = this.record, 
@@ -93,7 +100,16 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 							disabled: true,
 							width: 120,
 							fieldLabel: 'Assembly'
-						})	
+						}),
+						{
+							xtype: 'datefield',
+							fieldLabel: 'Job Start Date',
+							name: 'JobStartDate',
+							//id: 'StartDate',
+							//vtype: 'daterange',
+							width: 120
+							//endDateField: 'JobEndDate' // id of the end date field
+						}
 					]
                 },
 				{
@@ -124,7 +140,16 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 						}),
 						this.BackgroundColorField = new Ext.form.Hidden({
 							name: 'TextColor'
-						})		
+						}),
+						{
+							xtype: 'datefield',
+							fieldLabel: 'Job End Date',
+							name: 'JobEndDate',
+							//id: 'StartDate',
+							//vtype: 'daterange',
+							width: 120
+							//endDateField: 'JobEndDate' // id of the end date field
+						}
 					]
                 }
 			]
@@ -142,7 +167,7 @@ Dosb.CActivity.CActivityWindow = Ext.extend(Ext.Window, {
 	show : function(rec){
 		this.record = rec;
 		this.formPanel.getForm().loadRecord(rec);
-		Dosb.CActivity.CActivityWindow.superclass.show.apply(this);
+		Dosb.CActivity.MonthViewEventEditor.superclass.show.apply(this);
 		
 		if (!rec.store){
 			this.setTitle('Add a job', 'silk-add');

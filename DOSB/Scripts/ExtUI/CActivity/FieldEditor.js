@@ -79,7 +79,7 @@ Dosb.CActivity.FieldForm = Ext.extend(Ext.form.FormPanel, {
             handler: this.onCreate,
             scope: this
         }, {
-            text: 'Save',
+            text: 'Update',
             iconCls: 'icon-save',
             handler: this.onUpdate,
             scope: this

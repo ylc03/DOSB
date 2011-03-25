@@ -79,7 +79,6 @@ namespace DOSB.Models.EditableRespositories
 
         public static string AssemblyToJSStartTime(int id)
         {
-            CPLDataContext store = new CPLDataContext();
             int index = EditableAssemblyRespository.orderedId.IndexOf(id);
             DateTime date = DateTime.Today.AddHours(index);
             return date.ToString("yyyy-MM-dd HH:mm");
@@ -87,12 +86,21 @@ namespace DOSB.Models.EditableRespositories
 
         public static string AssemblyToJSEndTime(int id)
         {
-            CPLDataContext store = new CPLDataContext();
             int index = EditableAssemblyRespository.orderedId.IndexOf(id);
             DateTime date = DateTime.Today.AddHours(index+1);
             return date.ToString("yyyy-MM-dd HH:mm");
         }
 
+        public static int StartTimeToAssemblyId(string start)
+        { 
+            DateTime result;
+            int index = -1;
+            if (DateTime.TryParse(start, out result)) 
+            {
+                index = result.Hour;
+            }
+            return orderedId.ElementAt(index);
+        }
     }
 }
 

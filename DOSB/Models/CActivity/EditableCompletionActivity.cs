@@ -32,9 +32,40 @@ namespace DOSB.Models.EditableModels
         public string BackgroundColor { get; set; }
         public string TextColor { get; set; }
         public string Comment { get; set; }
+
+        private DateTime start;
+        public DateTime StartAt
+        {
+            get
+            {
+                return start;
+            }
+            set
+            {
+                start = value;
+                JobStartDate = value.ToString("yyyy-MM-dd");
+            }
+        }
+
+        private DateTime end;
+        public DateTime FinishAt
+        {
+            get
+            {
+                return end;
+            }
+            set
+            {
+                end = value;
+                JobEndDate = value.ToString("yyyy-MM-dd");
+            }
+        }
+        public string JobStartDate { get; set; }
+        public string JobEndDate { get; set; }
+
+        // just for the position in ext-scheduler
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-
     }
 }
 
@@ -86,8 +117,35 @@ namespace DOSB.Models.EditableRespositories
                                   TextColor = tbl.TextColor,
                                   StartDate = EditableAssemblyRespository.AssemblyToJSStartTime(tbl.AssemblyId),
                                   EndDate = EditableAssemblyRespository.AssemblyToJSEndTime(tbl.AssemblyId),
+                                  
                               };
 
+            return dataResults;
+        }
+
+        public static IQueryable<EditableCompletionActivity> AllByTimeSpan(DateTime start, DateTime end)
+        {
+            CPLDataContext store = new CPLDataContext();
+
+            var dataResults = from tbl in store.fnFilterCompletionActivity(start, end)
+                              select new EditableCompletionActivity
+                              {
+                                  CompletionActivityId = tbl.CompletionActivityId,
+                                  RigActivityId = tbl.RigActivityId,
+                                  AssemblyId = tbl.AssemblyId,
+                                  AssemblyType = tbl.AssemblyType,
+                                  AssemblyName = tbl.AssemblyName,
+                                  WellName = tbl.WellName,
+                                  RigName = tbl.RigName,
+                                  CompanyName = tbl.CompanyName,
+                                  Comment = tbl.Comment == null ? "" : tbl.Comment,
+                                  BackgroundColor = tbl.BackgroundColor,
+                                  TextColor = tbl.TextColor,
+                                  StartAt = tbl.StartAt.HasValue ? tbl.StartAt.Value : DateTime.Today,
+                                  FinishAt = tbl.FinishAt.HasValue ? tbl.FinishAt.Value : DateTime.Today.AddDays(5),
+                                  StartDate = EditableAssemblyRespository.AssemblyToJSStartTime(tbl.AssemblyId),
+                                  EndDate = EditableAssemblyRespository.AssemblyToJSEndTime(tbl.AssemblyId)
+                              };
             return dataResults;
         }
     }

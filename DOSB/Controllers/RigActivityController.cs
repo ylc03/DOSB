@@ -60,18 +60,43 @@ namespace DOSB.Controllers
 
         public JsonResult UpdateJson(string data)
         {
-            var rigActivityVal = (EditableRigActivity)new JavaScriptSerializer().Deserialize<EditableRigActivity>(data);
-            RigActivity rigActivityObj = store.RigActivities.FirstOrDefault(ra => ra.RigActivityId == rigActivityVal.RigActivityId);
-
-            if (rigActivityObj != null)
+            try
             {
-                EditableRigActivity returnVal = updateRigActivityRecord(rigActivityVal, rigActivityObj);
+                List<EditableRigActivity> result = new List<EditableRigActivity>();
+                var rigActivityValList = (List<EditableRigActivity>)new JavaScriptSerializer().Deserialize<List<EditableRigActivity>>(data);
+                if (rigActivityValList.Count > 0)
+                {
+                    foreach (var rigActivityVal in rigActivityValList)
+                    {
+                        RigActivity rigActivityObj = store.RigActivities.FirstOrDefault(ra => ra.RigActivityId == rigActivityVal.RigActivityId);
+                        if (rigActivityObj != null)
+                        {
+                            EditableRigActivity returnVal = updateRigActivityRecord(rigActivityVal, rigActivityObj);
+                            result.Add(returnVal);
+                        }
+                    }
+                    return Json(new { success = true, message = "Record Updated!", data = result });
+                }
+                else
+                {
+                    EditableRigActivity rigActivityVal = (EditableRigActivity)new JavaScriptSerializer().Deserialize<EditableRigActivity>(data);
+                    RigActivity rigActivityObj = store.RigActivities.FirstOrDefault(ra => ra.RigActivityId == rigActivityVal.RigActivityId);
 
-                return Json(new { success = true, message = "Record Updated!", data = returnVal });
+                    if (rigActivityObj != null)
+                    {
+                        EditableRigActivity returnVal = updateRigActivityRecord(rigActivityVal, rigActivityObj);
+
+                        return Json(new { success = true, message = "Record Updated!", data = returnVal });
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = "Unexpected Error" });
             }
 
             // error
-            return Json(new { success = false, message = "Unexpected Error" });
+            return Json(new { success = false, message = "Code can never reach here. If you see this message. System is fucked up!!" });
         }
 
         public JsonResult CreateJson(string data)
@@ -101,12 +126,12 @@ namespace DOSB.Controllers
 
         private EditableRigActivity updateRigActivityRecord(EditableRigActivity rigActivityVal, RigActivity rigActivityObj)
         {
-            //update rigActivity name
+            //update rig id
             if (rigActivityVal.RigId > 0)
             {
                 rigActivityObj.RigId = rigActivityVal.RigId;
             }
-            else
+            else if (!String.IsNullOrWhiteSpace(rigActivityVal.RigName))
             {
                 Rig rig = store.Rigs.FirstOrDefault(r => r.Name == rigActivityVal.RigName);
                 if (rig == null)
@@ -117,9 +142,8 @@ namespace DOSB.Controllers
                 rigActivityObj.Rig = rig;
             }
             
-            Field field = store.Fields.FirstOrDefault(f => f.Name == rigActivityVal.FieldName);
             // update well
-            if (rigActivityVal.WellName != null)
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.WellName))
             {
                 Well well = store.Wells.FirstOrDefault(w => w.Name == rigActivityVal.WellName);
                 if (well == null)
@@ -131,18 +155,58 @@ namespace DOSB.Controllers
                 }
                 
                 rigActivityObj.Well = well;
-                rigActivityObj.Well.Field = field;
+            }
+
+            // update field
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.FieldName))
+            {
+                Field field = store.Fields.FirstOrDefault(f => f.Name == rigActivityVal.FieldName);
+                if (field != null)
+                {
+                    rigActivityObj.Well.Field = field;  
+                }
             }
 
             // update time
             DateTime result;
-            if (rigActivityVal.StartDate != null && DateTime.TryParse(rigActivityVal.StartDate, out result))
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.StartDate) && DateTime.TryParse(rigActivityVal.StartDate, out result))
             {
                 rigActivityObj.StartAt = result;
             }
-            if (rigActivityVal.EndDate != null && DateTime.TryParse(rigActivityVal.EndDate, out result))
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.EndDate) && DateTime.TryParse(rigActivityVal.EndDate, out result))
             {
                 rigActivityObj.FinishAt = result;
+            }
+
+            // update well type
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.WellTypeName))
+            {
+                WellType wellType = store.WellTypes.FirstOrDefault(wt => wt.Name == rigActivityVal.WellTypeName);
+                if (wellType == null)
+                {
+                    wellType = new WellType();
+                    wellType.Name = rigActivityVal.WellTypeName;
+                }
+
+                rigActivityObj.Well.WellType = wellType;
+            }
+
+            // update completion type
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.CompletionTypeName))
+            {
+                CompletionType compType = store.CompletionTypes.FirstOrDefault(ct => ct.Name == rigActivityVal.CompletionTypeName);
+                if (compType == null)
+                {
+                    compType = new CompletionType();
+                    compType.Name = rigActivityVal.WellTypeName;
+                }
+                rigActivityObj.CompletionType = compType;
+            }
+
+            // update well status
+            if (!String.IsNullOrWhiteSpace(rigActivityVal.WellStatus))
+            {
+                rigActivityObj.Well.Status = rigActivityVal.WellStatus;
             }
 
             store.SubmitChanges();

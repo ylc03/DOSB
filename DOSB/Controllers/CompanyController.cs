@@ -15,7 +15,14 @@ namespace DOSB.Controllers
 
         public ActionResult GetJson()
         {
-            return Json(EditableCompanyRespository.All(), JsonRequestBehavior.AllowGet);
+            var data = EditableCompanyRespository.All();
+
+            return Json(new { 
+                total = data.Count(),
+                success = true,
+                message = "Company listed.",
+                data = data
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }

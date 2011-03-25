@@ -1,4 +1,5 @@
 Ext.ns('Dosb', 'Dosb.CActivity');
+Ext.ns('Sch');
 
 Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
     clicksToEdit: 1,
@@ -32,7 +33,7 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
 
         // disable Edit
         this.disableEdit();
-        this.fieldNameCombo.on('select', this.onFieldNameChange, this);
+        this.fieldNameCombo.on('change', this.onFieldNameChange, this);
     },
 
     // disable editing event, enable editing rig
@@ -63,8 +64,8 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
         this.ifDisableEdit = false;
     },
 
-    onFieldNameChange: function (combo, rec, index) {
-        var fieldName = rec.get('Name');
+    onFieldNameChange: function (combo, newVal, oldVal) {
+        var fieldName = newVal;
         if (fieldName == '(Not Specified)') return;
         this.wellNameEdit.setValue(fieldName + '-');
         this.wellNameEdit.focus();
@@ -74,7 +75,7 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
         this.stopEditing();
 
         var name = this.rigNameEdit.getValue();
-        if (name == '') return;
+        if (name === '') return;
 
         var index = this.resourceStore.findExact('Name', name);
         if (index >= 0) {
@@ -110,8 +111,8 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
     buildColumns: function () {
         var columns = [
                 { header: 'Rig', sortable: true, width: 80, dataIndex: 'Name' },
-                { header: 'Sales', sortable: true, width: 120, dataIndex: 'Type', editor: new Ext.form.ComboBox({
-                    store: ['Sales', 'Developer', 'Marketing', 'Product manager'],
+                { header: 'Desk Eng', sortable: true, width: 120, dataIndex: 'Type', editor: new Ext.form.ComboBox({
+                    store: ['The', 'List', 'Is', 'To', 'Be', 'Added', 'Soon!'],
                     typeAhead: true,
                     forceSelection: true,
                     triggerAction: 'all',

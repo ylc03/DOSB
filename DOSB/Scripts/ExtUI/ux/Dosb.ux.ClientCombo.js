@@ -7,22 +7,12 @@ Dosb.ux.ClientCombo = Ext.extend(Ext.form.ComboBox, {
     triggerAction: 'all',
     emptyText:'Select client...',
     selectOnFocus:true,
+	forceSelection: true,
 	
     initComponent : function() {
-		var clientStore = new Ext.data.JsonStore({
-			url: '/Client/GetJson',
-            idProperty: 'CountryId',
-            fields: [
-				'Name',
-				'ClientId',
-            ]
-        });
-		
-		clientStore.load();
-		
         Ext.apply(this, {
 			tpl: '<tpl for="."><div ext:qtip="{Name}" class="x-combo-list-item">{Name}</div></tpl>',
-			store: clientStore,
+			store: Ext.StoreMgr.get('client'),
 			displayField:'Name'
 		});
 		

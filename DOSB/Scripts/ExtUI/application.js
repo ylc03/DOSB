@@ -9,6 +9,8 @@
 */
 
 Ext.BLANK_IMAGE_URL = '/Scripts/ext/resources/images/default/s.gif';
+Ext.chart.Chart.CHART_URL = '/Scripts/ext/resources/charts.swf';
+
 Ext.ns('Dosb');
 
 /*
@@ -106,17 +108,12 @@ Ext.onReady(function() {
 		id: 'main-ca-fields'
 	};
 	
-	menuMapping['ca-gtview'] = {
-		scripts:'/Scripts/ExtUI/CActivity/GridViewTest.js', 
-		xtype: 'dosb-ca-gtview', 
-		id: 'main-ca-gtview'
-	};
-	
 	menuMapping['ca-yview'] = {
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/Sch/sch-all.css',
 			  '/Scripts/Sch/app.css'],		
 	    scripts: ['/Scripts/Sch/ext-sch-crack.js',				//sch
+				  '/Scripts/ExtUI/store/Field.js',
 				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',	//ux
 				  '/Scripts/ExtUI/CActivity/YearScheduler.js',	//app
 				  '/Scripts/ExtUI/CActivity/YearView.js'],  
@@ -124,12 +121,32 @@ Ext.onReady(function() {
 		id: 'main-ca-yview'
 	};
 	
+	menuMapping['ca-stat'] = {
+		css: [],		
+	    scripts: ['/Scripts/ExtUI/CActivity/Statistics.js'],  
+		xtype: 'dosb-ca-stat', 
+		id: 'main-ca-stat'
+	};
+	
 	menuMapping['ca-mview'] = {
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/ext/examples/ux/css/LockingGridView.css',
 			  '/Scripts/Sch/sch-all.css',
 			  '/Scripts/Sch/app.css'],		
-	    scripts: ['/Scripts/ExtUI/ux/ext.ux.form.datetime.js',
+	    scripts: [
+				 // data store
+				 '/Scripts/ExtUI/store/Client.js',
+				 '/Scripts/ExtUI/store/Country.js',
+				 '/Scripts/ExtUI/store/Company.js',
+				 '/Scripts/ExtUI/store/Field.js',
+				 '/Scripts/ExtUI/store/Rig.js',
+				 '/Scripts/ExtUI/store/Well.js',
+				 '/Scripts/ExtUI/store/WellType.js',
+				 '/Scripts/ExtUI/store/CompletionType.js',
+				 '/Scripts/ExtUI/store/WellStatus.js',
+				 // ui helper
+				 '/Scripts/ExtUI/ux/ext.ux.form.datetime.js',
+				 '/Scripts/ExtUI/ux/ext.ux.monthpicker.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.CompanyCombo.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
@@ -138,11 +155,12 @@ Ext.onReady(function() {
 				 '/Scripts/ExtUI/ux/Dosb.ux.WellTypeCombo.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.RigField.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.WellField.js',
+				 // application
 				 '/Scripts/Sch/ext-sch-crack.js',
-				 '/CompletionActivity/CustomHeaderJS',
-				 '/Scripts/ExtUI/CActivity/CActivityWindow.js',
-				 '/Scripts/ExtUI/CActivity/RAEditor.js',
 				 '/Scripts/ExtUI/CActivity/MonthScheduler.js',
+				 '/Scripts/ExtUI/CActivity/MonthViewResourceEditor.js',
+				 '/Scripts/ExtUI/CActivity/MonthViewEventEditor.js',
+				 '/Scripts/ExtUI/CActivity/MonthViewPreset.js',
 				 '/Scripts/ExtUI/CActivity/MonthView.js'], 
 		xtype: 'dosb-ca-mview', 
 		id: 'main-ca-mview'
@@ -167,7 +185,21 @@ Ext.onReady(function() {
 			});
     	}
     });
-
+	
+	Dosb.gotoMonthView = function(){
+		treeData = menuMapping['ca-mview'];
+		ScriptMgr.loadCss(treeData.css);
+		ScriptMgr.addAsScript({
+			 scripts : treeData.scripts,
+			 callback : function() {
+				var mainPanel = Ext.getCmp('main-panel');
+				mainPanel.removeAll();
+				var panel = {xtype: treeData.xtype, id: treeData.id}
+				mainPanel.add(panel);
+				mainPanel.doLayout();
+			 }
+		});
+	};
 }); // eo function onReady
- 
+
 // eof

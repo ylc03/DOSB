@@ -67,6 +67,7 @@
 .silk-calendar-edit { background-image: url(fam/calendar_edit.png) !important; background-repeat: no-repeat; }
 .silk-clock-red { background-image: url(fam/clock_red.png) !important; background-repeat: no-repeat; }
 .silk-chart-line{ background-image: url(fam/chart_line.png) !important; background-repeat: no-repeat; }
+.silk-chart-curve{ background-image: url(fam/chart_curve.png) !important; background-repeat: no-repeat; }
 .silk-chart-organisation{ background-image: url(fam/chart_organisation.png) !important; background-repeat: no-repeat; }
 .silk-cog { background-image: url(fam/cog.png) !important; background-repeat: no-repeat; }
 
@@ -140,6 +141,8 @@
 .silk-package-go { background-image: url(fam/package_go.png) !important; background-repeat: no-repeat; }
 .silk-page { background-image: url(fam/page.png) !important; background-repeat: no-repeat; }
 .silk-page-go { background-image: url(fam/page_go.png) !important; background-repeat: no-repeat; }
+.silk-page-add { background-image: url(fam/page_add.png) !important; background-repeat: no-repeat; }
+.silk-page-delete { background-image: url(fam/page_delete.png) !important; background-repeat: no-repeat; }
 .silk-page-edit { background-image: url(fam/page_edit.png) !important; background-repeat: no-repeat; }
 .silk-page-code { background-image: url(fam/page_code.png) !important; background-repeat: no-repeat; }
 .silk-page-white { background-image: url(fam/page_white.png) !important; background-repeat: no-repeat; }

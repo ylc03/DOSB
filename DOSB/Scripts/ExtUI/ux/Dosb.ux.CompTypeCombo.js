@@ -7,23 +7,12 @@ Dosb.ux.CompTypeCombo = Ext.extend(Ext.form.ComboBox, {
     triggerAction: 'all',
     emptyText:'Select type...',
     selectOnFocus:true,
+	forceSelection: true,
 	
     initComponent : function() {
-		var store = new Ext.data.JsonStore({
-			url: '/CompletionType/GetJson',
-            idProperty: 'CompTypeId',
-            fields: [
-				{ name: 'attr', mapping: 'Name' },
-				'Name',
-				'CompTypeId',
-            ]
-        });
-		
-		store.load();
-		
         Ext.apply(this, {
 			tpl: '<tpl for="."><div ext:qtip="{Name}" class="x-combo-list-item">{Name}</div></tpl>',
-			store: store,
+			store: Ext.StoreMgr.get('completion-type'),
 			displayField:'Name'
 		});
 		

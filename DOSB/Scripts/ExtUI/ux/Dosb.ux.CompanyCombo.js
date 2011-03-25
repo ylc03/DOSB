@@ -7,26 +7,12 @@ Dosb.ux.CompanyCombo = Ext.extend(Ext.form.ComboBox, {
     triggerAction: 'all',
     emptyText:'Select company...',
     selectOnFocus:true,
+	forceSelection: true,
 	
     initComponent : function() {
-		var companyStore = new Ext.data.JsonStore({
-			url: '/Company/GetJson',
-            idProperty: 'CompanyId',
-            fields: [
-				{ name: 'attr', mapping: 'ShortName' },
-				'CompanyId',
-				'ShortName',
-				'FullName',
-				'BackgroundColor',
-				'TextColor'
-            ]
-        });
-		
-		companyStore.load();
-		
         Ext.apply(this, {
 			tpl: '<tpl for="."><div ext:qtip="{FullName}" class="x-combo-list-item">{ShortName}</div></tpl>',
-			store: companyStore,
+			store: Ext.StoreMgr.get('company'),
 			displayField:'ShortName'
 		});
 		
