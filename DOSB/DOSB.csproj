@@ -255,6 +255,7 @@
     <Content Include="Views\ExtUI\Test2.aspx" />
     <Content Include="Views\ExtUI\YearViewTest.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Home\Index2.aspx" />
     <Content Include="Views\Material\Index.aspx" />
     <Content Include="Views\PressureTestLog\Details.aspx" />
     <Content Include="Views\PressureTestLog\Index.aspx" />

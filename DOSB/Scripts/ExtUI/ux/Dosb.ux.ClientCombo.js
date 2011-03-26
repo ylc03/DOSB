@@ -1,4 +1,4 @@
-Ext.ns('Dosb', 'Dosb.ux')
+Ext.ns('Dosb', 'Dosb.ux');
 
 Dosb.ux.ClientCombo = Ext.extend(Ext.form.ComboBox, {
 	fieldLabel : 'Client',

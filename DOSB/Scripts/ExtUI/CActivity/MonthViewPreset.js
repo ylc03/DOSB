@@ -7,6 +7,7 @@
  * 
  */
  Ext.ns('Sch');
+ Ext.ns('Dosb', 'Dosb.CActivity', 'Dosb.CActivity.MonthViewHeaderData');
 
 (function() {
     
@@ -55,12 +56,10 @@
 			}
 		}		
 	};
-        
-    var pm = Sch.PresetManager;
 
     for (var o in myCustomPresets) {
         if (myCustomPresets.hasOwnProperty(o)) {
-            pm.registerPreset(o, myCustomPresets[o]);
+            Sch.PresetManager.registerPreset(o, myCustomPresets[o]);
         }
     }
 })();

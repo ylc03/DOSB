@@ -101,7 +101,11 @@ Ext.onReady(function() {
 	var menuMapping = new Array();
 	
 	menuMapping['ca-fields'] = {
-		scripts: ['/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
+		css: [],
+		scripts: [
+				  '/Scripts/ExtUI/store/Client.js',
+				  '/Scripts/ExtUI/store/Country.js',
+				  '/Scripts/ExtUI/ux/Dosb.ux.ClientCombo.js',
 				  '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',
 				  '/Scripts/ExtUI/CActivity/FieldEditor.js'], 
 		xtype: 'dosb-ca-feditor', 
@@ -112,8 +116,7 @@ Ext.onReady(function() {
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/Sch/sch-all.css',
 			  '/Scripts/Sch/app.css'],		
-	    scripts: ['/Scripts/Sch/ext-sch-crack.js',				//sch
-				  '/Scripts/ExtUI/store/Field.js',
+	    scripts: ['/Scripts/ExtUI/store/Field.js',
 				  '/Scripts/ExtUI/ux/Dosb.ux.FieldCombo.js',	//ux
 				  '/Scripts/ExtUI/CActivity/YearScheduler.js',	//app
 				  '/Scripts/ExtUI/CActivity/YearView.js'],  
@@ -145,7 +148,6 @@ Ext.onReady(function() {
 				 '/Scripts/ExtUI/store/CompletionType.js',
 				 '/Scripts/ExtUI/store/WellStatus.js',
 				 // ui helper
-				 '/Scripts/ExtUI/ux/ext.ux.form.datetime.js',
 				 '/Scripts/ExtUI/ux/ext.ux.monthpicker.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.CompanyCombo.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.CountryCombo.js',
@@ -156,11 +158,9 @@ Ext.onReady(function() {
 				 '/Scripts/ExtUI/ux/Dosb.ux.RigField.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.WellField.js',
 				 // application
-				 '/Scripts/Sch/ext-sch-crack.js',
 				 '/Scripts/ExtUI/CActivity/MonthScheduler.js',
 				 '/Scripts/ExtUI/CActivity/MonthViewResourceEditor.js',
 				 '/Scripts/ExtUI/CActivity/MonthViewEventEditor.js',
-				 '/Scripts/ExtUI/CActivity/MonthViewPreset.js',
 				 '/Scripts/ExtUI/CActivity/MonthView.js'], 
 		xtype: 'dosb-ca-mview', 
 		id: 'main-ca-mview'

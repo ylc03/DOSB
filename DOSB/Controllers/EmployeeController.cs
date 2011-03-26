@@ -186,7 +186,7 @@ namespace DOSB.Controllers
                 {
                     employee.PersonalMobile = (string)employeeEntry.Properties["personalMobile"][0];
                 }
-                string businessCategory = (string)employeeEntry.Properties["businessCategory"][0];
+               /* string businessCategory = (string)employeeEntry.Properties["businessCategory"][0];
                 try
                 {
                     Segment subSegment = storeDB.Segments.Single(s => s.BusinessCategory == businessCategory);
@@ -199,7 +199,7 @@ namespace DOSB.Controllers
                 {
                     ViewData["ldap_message"] = "This LDAP is not RMC, CC or SMS";
                     return false;
-                }
+                }*/
             }
             catch (System.Runtime.InteropServices.COMException ne)
             {

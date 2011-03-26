@@ -1,6 +1,6 @@
 Ext.ux.MonthPickerPlugin = function(config) {
     Ext.apply(this, config);
-}
+};
 
 Ext.ux.MonthPickerPlugin.prototype = {
     init: function(picker) {
@@ -44,8 +44,8 @@ Ext.ux.MonthPickerPlugin.prototype = {
                     p.mun(p.monthPicker, 'click', p.onMonthClick, p);
                     p.mun(p.monthPicker, 'dblclick', p.onMonthDblClick, p);
                 } else {
-                    p.monthPicker.un('click', p.onMonthClick)
-                    p.monthPicker.un('dblclick', p.onMonthDblClick)
+                    p.monthPicker.un('click', p.onMonthClick);
+                    p.monthPicker.un('dblclick', p.onMonthDblClick);
                 }
                 p.onMonthClick = p.onMonthClick.createSequence(this.pickerClick, this);
                 p.onMonthDblClick = p.onMonthDblClick.createSequence(this.pickerDblclick, this);

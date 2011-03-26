@@ -5,6 +5,7 @@
 *.suo
 *.pdb
 *.pidb
+*.bak
 
 DOSB/App_Data/Attachments
 DOSB/Scripts/ext

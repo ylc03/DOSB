@@ -1,4 +1,5 @@
 Ext.ns('Dosb', 'Dosb.CActivity');
+Ext.ns('Sch');
 
 Dosb.CActivity.MonthScheduler = Ext.extend(Sch.SchedulerPanel, {
     clicksToEdit: 1,

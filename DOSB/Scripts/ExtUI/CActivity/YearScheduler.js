@@ -7,7 +7,7 @@ Dosb.CActivity.YearScheduler = Ext.extend(Sch.SchedulerPanel, {
 
     eventRenderer: function (item, resourceRec, tplData, row, col, ds) {
         //tplData.cls = 'evt-' + resource.get('Category');
-        tplData.style = row % 2 === 1 ? 'background-color:lightgray' : '';
+        tplData.style = row % 2 == 1 ? 'background-color:lightgray' : '';
         return {
             well: item.get('WellName')
         };
