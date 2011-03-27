@@ -17,6 +17,9 @@ namespace DOSB.Controllers
 
         public ActionResult Index()
         {
+            // redirect to log on page
+            if (User.Identity.IsAuthenticated == false) return RedirectToAction("LogOnAjax", "Account");
+
             ViewData["upperCount"] = store.vwUpperCompletionAssemblies.Count();
             ViewData["upper"] = store.vwUpperCompletionAssemblies.ToList();
             ViewData["lowerCount"] = store.vwLowerCompletionAssemblies.Count();

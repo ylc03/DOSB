@@ -73,7 +73,7 @@ namespace DOSB.Controllers
         {
             FormsService.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogOnAjax", "Account");
         }
 
         // **************************************
@@ -151,5 +151,41 @@ namespace DOSB.Controllers
             return View();
         }
 
+        public ActionResult LogOnAjax()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public JsonResult LogOnAjax(LogOnModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (MembershipService.ValidateUser(model.UserName, model.Password))
+                {
+                    FormsService.SignIn(model.UserName, model.RememberMe);
+                    return Json(new 
+                    { 
+                        success = true,
+                        url = "/"
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        error = new { 
+                            UserName = "LDAP Alias",
+                            Password = "LDAP password"
+                        },
+                        msg = "Wrong LDAP alias or password."
+                    });
+                }
+            }
+
+            return Json(new {success = false, message = "Unknown Error. Please Refresh the page." });
+        }
     }
 }

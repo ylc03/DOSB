@@ -158,9 +158,9 @@ Ext.onReady(function() {
 				 '/Scripts/ExtUI/ux/Dosb.ux.RigField.js',
 				 '/Scripts/ExtUI/ux/Dosb.ux.WellField.js',
 				 // application
-				 '/Scripts/ExtUI/CActivity/MonthScheduler.js',
 				 '/Scripts/ExtUI/CActivity/MonthViewResourceEditor.js',
 				 '/Scripts/ExtUI/CActivity/MonthViewEventEditor.js',
+				 '/Scripts/ExtUI/CActivity/MonthScheduler.js', 
 				 '/Scripts/ExtUI/CActivity/MonthView.js'], 
 		xtype: 'dosb-ca-mview', 
 		id: 'main-ca-mview'

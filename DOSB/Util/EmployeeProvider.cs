@@ -169,12 +169,13 @@ namespace DOSB.Util
             try
             {
                 var employee = storeDB.Employees.First(e => e.LDAP == username);
+                // validate against LDAP
+                return true;
             }
             catch (Exception e)
             {
                 return false;
             }
-            return true;
         }
     }
 }

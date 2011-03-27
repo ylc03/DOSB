@@ -54,5 +54,18 @@ Dosb.CActivity.CompanyColor = {
 Dosb.CActivity.WellStatus = ['Developement', 'W/O', 'Exp.', 'M W/O'];   
     </script>
 </head>
-<body></body>
+<body>
+    <!-- Template used for Feed Items -->
+    <div id="header" style="display:none;">
+        <div style="float: right;">
+            <span>Welcome</span>
+            <span><%: this.User.Identity.Name %></span>
+
+            <span>Logon As</span>
+            <span><%: this.User.Identity.AuthenticationType %></span>
+
+            <span><a href="/Account/LogOff">LogOut</a></span>
+        </div>
+    </div>
+</body>
 </html>

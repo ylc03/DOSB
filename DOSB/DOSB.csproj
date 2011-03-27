@@ -242,6 +242,7 @@
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />
+    <Content Include="Views\Account\LogOnAjax.aspx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\CompletionActivity\CustomHeaderJS.aspx" />
     <Content Include="Views\CompletionActivity\Index.aspx" />
