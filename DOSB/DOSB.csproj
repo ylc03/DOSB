@@ -82,6 +82,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CompletionActivityController.cs" />
     <Compile Include="Controllers\CompletionTypeController.cs" />
+    <Compile Include="Controllers\AssemblyController.cs" />
     <Compile Include="Controllers\WellController.cs" />
     <Compile Include="Controllers\RigController.cs" />
     <Compile Include="Controllers\WellTypeController.cs" />
@@ -243,6 +244,7 @@
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\LogOnAjax.aspx" />
+    <Content Include="Views\Account\LogOnInfo.ascx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\CompletionActivity\CustomHeaderJS.aspx" />
     <Content Include="Views\CompletionActivity\Index.aspx" />

@@ -187,5 +187,10 @@ namespace DOSB.Controllers
 
             return Json(new {success = false, message = "Unknown Error. Please Refresh the page." });
         }
+
+        public ActionResult LogOnInfo()
+        {
+            return View();
+        }
     }
 }

@@ -36,14 +36,6 @@
       <Association Name="WellType_Well" Member="Wells" ThisKey="WellTypeId" OtherKey="TypeId" Type="Well" />
     </Type>
   </Table>
-  <Table Name="dbo.Assemblies" Member="Assemblies">
-    <Type Name="Assembly">
-      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Assembly_CompletionActivity" Member="CompletionActivities" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="CompletionActivity" />
-    </Type>
-  </Table>
   <Table Name="dbo.vwLowerCompletionAssembly" Member="vwLowerCompletionAssemblies">
     <Type Name="vwLowerCompletionAssembly">
       <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
@@ -271,9 +263,9 @@
       <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="ShowAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Assembly_CompletionActivity" Member="Assembly" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="Assembly" IsForeignKey="true" />
       <Association Name="Company_CompletionActivity" Member="Company" ThisKey="CompanyId" OtherKey="CompanyId" Type="Company" IsForeignKey="true" />
       <Association Name="RigActivity_CompletionActivity" Member="RigActivity" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="RigActivity" IsForeignKey="true" />
+      <Association Name="Assembly_CompletionActivity" Member="Assembly" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="Assembly" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.vwWell" Member="vwWells">
@@ -302,6 +294,16 @@
       <Column Name="RigName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="StartAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="FinishAt" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Assemblies" Member="Assemblies">
+    <Type Name="Assembly">
+      <Column Name="AssemblyId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Hidden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Assembly_CompletionActivity" Member="CompletionActivities" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="CompletionActivity" />
     </Type>
   </Table>
   <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">

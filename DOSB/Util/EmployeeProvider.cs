@@ -95,7 +95,23 @@ namespace DOSB.Util
 
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            CPLDataContext store = new CPLDataContext();
+            Employee emp = store.Employees.FirstOrDefault(e => e.LDAP == username);
+            if (emp == null) return null;
+            MembershipUser user = new MembershipUser("EmployeeProvider", 
+                                                     emp.LDAP, 
+                                                     emp.EmployeeId, 
+                                                     emp.LDAP+"@slb.com",
+                                                     "",
+                                                     "",
+                                                     true,
+                                                     false,
+                                                     DateTime.Now,
+                                                     DateTime.Now,
+                                                     DateTime.Now,
+                                                     DateTime.Now,
+                                                     DateTime.Now);
+            return user;
         }
 
         public override string GetUserNameByEmail(string email)

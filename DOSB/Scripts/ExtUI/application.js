@@ -56,14 +56,11 @@ Ext.onReady(function() {
     // Go ahead and create the TreePanel now so that we can use it below
     var menuTreePanel = new Ext.tree.TreePanel({
     	id: 'menu-tree-panel',
-    	title: 'Menu',
-        region:'west',
-        split: true,
-        width: 225,
-        minSize: 175,
-        maxSize: 400,
-        collapsible: true,
+    	//title: 'Menu',
+        region:'center',
         autoScroll: true,
+		border: true,
+		frame: false,
         
         // tree-specific configs:
         rootVisible: false,
@@ -78,6 +75,15 @@ Ext.onReady(function() {
         root: new Ext.tree.AsyncTreeNode()
     });
 	
+	var logonInfoPanel = new Ext.Panel({
+		id: 'logon-info',
+		region: 'north',
+		border: true,
+		frame: false,
+		height: 100,
+		autoLoad: '/Account/LogOnInfo'
+	});
+	
 	var mainPanel = new Ext.Panel({
 	    region: 'center',
 		border: false,
@@ -91,8 +97,20 @@ Ext.onReady(function() {
 			xtype: 'box',
 			region: 'north',
 			height: 50
+		},{
+			xtype: 'panel',
+			layout: 'border',
+			region: 'west',
+			split: true,
+			width: 225,
+			minSize: 175,
+			maxSize: 400,
+			collapsible: true,	
+			items: [
+				logonInfoPanel,
+				menuTreePanel
+			]
 		},
-			menuTreePanel,
 			mainPanel
 		],
         renderTo: Ext.getBody()
@@ -110,6 +128,13 @@ Ext.onReady(function() {
 				  '/Scripts/ExtUI/CActivity/FieldEditor.js'], 
 		xtype: 'dosb-ca-feditor', 
 		id: 'main-ca-fields'
+	};
+	
+	menuMapping['ca-assembly'] = {
+		css: [],
+		scripts: ['/Scripts/ExtUI/CActivity/AssemblyEditor.js'], 
+		xtype: 'dosb-ca-asmeditor', 
+		id: 'main-ca-assembly'
 	};
 	
 	menuMapping['ca-yview'] = {

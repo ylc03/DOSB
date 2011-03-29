@@ -2,14 +2,6 @@
  * Some of the examples make use of the Silk icon set by Mark James http://www.famfamfam.com/lab/icons/silk/
  *
  */
-
-body {
-	font-family:helvetica,tahoma,verdana,sans-serif;
-	padding:20px;
-    padding-top:32px;
-    font-size:13px;
-}
-
 .sch-event-endsoutside
 {
 	-moz-border-radius-topright:0 !important;

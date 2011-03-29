@@ -25,7 +25,7 @@
   <title>DOSB Ext Client</title>
 
     <script type="text/javascript" language="javascript">
- Ext.ns('Dosb', 'Dosb.CActivity');
+Ext.ns('Dosb', 'Dosb.CActivity');
 
 Dosb.CActivity.MonthViewHeaderData = {
     upperCount: <%: ViewData["upperCount"] %>,

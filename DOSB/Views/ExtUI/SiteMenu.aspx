@@ -9,6 +9,11 @@
         id:'ca-fields',
         leaf:true
     },{
+        text:'Job Types',
+        iconCls: 'silk-map',
+        id:'ca-assembly',
+        leaf:true
+    },{
         text:'Year View',
         id:'ca-yview',
         iconCls: 'silk-calendar-month',
