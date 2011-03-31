@@ -83,6 +83,7 @@
     <Compile Include="Controllers\CompletionActivityController.cs" />
     <Compile Include="Controllers\CompletionTypeController.cs" />
     <Compile Include="Controllers\AssemblyController.cs" />
+    <Compile Include="Controllers\WellStatusController.cs" />
     <Compile Include="Controllers\WellController.cs" />
     <Compile Include="Controllers\RigController.cs" />
     <Compile Include="Controllers\WellTypeController.cs" />

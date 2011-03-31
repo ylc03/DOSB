@@ -137,6 +137,13 @@ Ext.onReady(function() {
 		id: 'main-ca-assembly'
 	};
 	
+	menuMapping['ca-wellinfo'] = {
+		css: [],
+		scripts: ['/Scripts/ExtUI/CActivity/WellInfoEditor.js'], 
+		xtype: 'dosb-ca-wellinfo', 
+		id: 'main-ca-wellinfo'
+	};
+	
 	menuMapping['ca-yview'] = {
 		css: ['/Scripts/ext/examples/ux/css/Spinner.css',
 			  '/Scripts/Sch/sch-all.css',

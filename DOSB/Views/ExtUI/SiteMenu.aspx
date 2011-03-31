@@ -14,6 +14,11 @@
         id:'ca-assembly',
         leaf:true
     },{
+        text:'Well Informations',
+        iconCls: 'silk-map',
+        id:'ca-wellinfo',
+        leaf:true
+    },{
         text:'Year View',
         id:'ca-yview',
         iconCls: 'silk-calendar-month',

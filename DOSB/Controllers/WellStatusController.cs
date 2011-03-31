@@ -9,7 +9,7 @@ using DOSB.Models;
 
 namespace DOSB.Controllers
 {
-    public class WellTypeController : Controller
+    public class WellStatusController : Controller
     {
         CPLDataContext store = new CPLDataContext();
         //
@@ -22,10 +22,10 @@ namespace DOSB.Controllers
 
         public JsonResult GetJson()
         {
-            var data = from item in store.WellTypes
+            var data = from item in store.WellStatus
                        select new
                        {
-                           WellTypeId = item.WellTypeId,
+                           WellStatusId = item.WellStatusId,
                            Name = item.Name
                        };
             return Json(new
@@ -40,11 +40,11 @@ namespace DOSB.Controllers
 
         public JsonResult DeleteJson(int data)
         {
-            WellType wellType = store.WellTypes.First(w => w.WellTypeId == data);
+            WellStatus status = store.WellStatus.First(s => s.WellStatusId == data);
 
-            if (wellType != null)
+            if (status != null)
             {
-                wellType.Deleted = 1;
+                status.Deleted = 1;
                 store.SubmitChanges();
                 return Json(new { success = true, message = "Record deleted!" });
             }
@@ -53,12 +53,12 @@ namespace DOSB.Controllers
 
         public JsonResult UpdateJson(string data)
         {
-            var wellTypeVal = (WellType)new JavaScriptSerializer().Deserialize<WellType>(data);
-            WellType wellTypeObj = store.WellTypes.FirstOrDefault(w => w.WellTypeId == wellTypeVal.WellTypeId);
+            var statusVal = (WellStatus)new JavaScriptSerializer().Deserialize<WellStatus>(data);
+            WellStatus statusObj = store.WellStatus.FirstOrDefault(s => s.WellStatusId == statusVal.WellStatusId);
 
-            if (wellTypeObj != null)
+            if (statusObj != null)
             {
-                var returnVal = updateWellTypeRecord(wellTypeVal, wellTypeObj);
+                var returnVal = updateStatusRecord(statusVal, statusObj);
 
                 return Json(new { success = true, message = "Record Updated!", data = returnVal });
             }
@@ -71,17 +71,17 @@ namespace DOSB.Controllers
         {
             try
             {
-                var wellTypeVal = (WellType)new JavaScriptSerializer().Deserialize<WellType>(data);
-                WellType wellTypeObj = store.WellTypes.FirstOrDefault(w => w.Name == wellTypeVal.Name);
+                var statusVal = (WellStatus)new JavaScriptSerializer().Deserialize<WellStatus>(data);
+                WellStatus statusObj = store.WellStatus.FirstOrDefault(f => f.Name == statusVal.Name);
 
-                if (wellTypeObj != null)
+                if (statusObj != null)
                 {
                     return this.Json(new { success = false, message = "Record Exists!" });
                 }
                 else
                 {
-                    wellTypeObj = new WellType();
-                    var returnVal = updateWellTypeRecord(wellTypeVal, wellTypeObj);
+                    statusObj = new WellStatus();
+                    var returnVal = updateStatusRecord(statusVal, statusObj);
 
                     return this.Json(new { success = true, message = "Record Inserted", data = returnVal });
                 }
@@ -92,25 +92,26 @@ namespace DOSB.Controllers
             }
         }
 
-        private Object updateWellTypeRecord(WellType wellTypeVal, WellType wellTypeObj)
+        private Object updateStatusRecord(WellStatus statusVal, WellStatus statusObj)
         {
             //update field name
-            if (wellTypeVal.Name != null)
+            if (statusVal.Name != null)
             {
-                wellTypeObj.Name = wellTypeVal.Name;
+                statusObj.Name = statusVal.Name;
             }
 
-
+           
             store.SubmitChanges();
 
-            IQueryable<Object> record = from item in store.WellTypes
-                                        where item.WellTypeId == wellTypeObj.WellTypeId
-                                        select new
-                                        {
-                                            WellTypeId = item.WellTypeId,
-                                            Name = item.Name
-                                        };
+            IQueryable<Object> record = from item in store.WellStatus
+                                               where item.WellStatusId == statusObj.WellStatusId
+                                               select new
+                                               {
+                                                   WellStatusId = item.WellStatusId,
+                                                   Name = item.Name
+                                               };
             return record.FirstOrDefault();
         }
+
     }
 }

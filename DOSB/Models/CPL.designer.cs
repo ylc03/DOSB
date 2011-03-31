@@ -33,15 +33,9 @@ namespace DOSB.Models
     partial void InsertCompany(Company instance);
     partial void UpdateCompany(Company instance);
     partial void DeleteCompany(Company instance);
-    partial void InsertCompletionType(CompletionType instance);
-    partial void UpdateCompletionType(CompletionType instance);
-    partial void DeleteCompletionType(CompletionType instance);
     partial void InsertWell(Well instance);
     partial void UpdateWell(Well instance);
     partial void DeleteWell(Well instance);
-    partial void InsertWellType(WellType instance);
-    partial void UpdateWellType(WellType instance);
-    partial void DeleteWellType(WellType instance);
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
@@ -90,6 +84,15 @@ namespace DOSB.Models
     partial void InsertAssembly(Assembly instance);
     partial void UpdateAssembly(Assembly instance);
     partial void DeleteAssembly(Assembly instance);
+    partial void InsertCompletionType(CompletionType instance);
+    partial void UpdateCompletionType(CompletionType instance);
+    partial void DeleteCompletionType(CompletionType instance);
+    partial void InsertWellType(WellType instance);
+    partial void UpdateWellType(WellType instance);
+    partial void DeleteWellType(WellType instance);
+    partial void InsertWellStatus(WellStatus instance);
+    partial void UpdateWellStatus(WellStatus instance);
+    partial void DeleteWellStatus(WellStatus instance);
     #endregion
 		
 		public CPLDataContext() : 
@@ -130,27 +133,11 @@ namespace DOSB.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<CompletionType> CompletionTypes
-		{
-			get
-			{
-				return this.GetTable<CompletionType>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Well> Wells
 		{
 			get
 			{
 				return this.GetTable<Well>();
-			}
-		}
-		
-		public System.Data.Linq.Table<WellType> WellTypes
-		{
-			get
-			{
-				return this.GetTable<WellType>();
 			}
 		}
 		
@@ -327,6 +314,30 @@ namespace DOSB.Models
 			get
 			{
 				return this.GetTable<Assembly>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CompletionType> CompletionTypes
+		{
+			get
+			{
+				return this.GetTable<CompletionType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<WellType> WellTypes
+		{
+			get
+			{
+				return this.GetTable<WellType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<WellStatus> WellStatus
+		{
+			get
+			{
+				return this.GetTable<WellStatus>();
 			}
 		}
 		
@@ -535,120 +546,6 @@ namespace DOSB.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CompletionTypes")]
-	public partial class CompletionType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _CompletionTypeId;
-		
-		private string _Name;
-		
-		private EntitySet<RigActivity> _RigActivities;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCompletionTypeIdChanging(int value);
-    partial void OnCompletionTypeIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public CompletionType()
-		{
-			this._RigActivities = new EntitySet<RigActivity>(new Action<RigActivity>(this.attach_RigActivities), new Action<RigActivity>(this.detach_RigActivities));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CompletionTypeId
-		{
-			get
-			{
-				return this._CompletionTypeId;
-			}
-			set
-			{
-				if ((this._CompletionTypeId != value))
-				{
-					this.OnCompletionTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._CompletionTypeId = value;
-					this.SendPropertyChanged("CompletionTypeId");
-					this.OnCompletionTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_RigActivities", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId")]
-		public EntitySet<RigActivity> RigActivities
-		{
-			get
-			{
-				return this._RigActivities;
-			}
-			set
-			{
-				this._RigActivities.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_RigActivities(RigActivity entity)
-		{
-			this.SendPropertyChanging();
-			entity.CompletionType = this;
-		}
-		
-		private void detach_RigActivities(RigActivity entity)
-		{
-			this.SendPropertyChanging();
-			entity.CompletionType = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Wells")]
 	public partial class Well : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -667,9 +564,9 @@ namespace DOSB.Models
 		
 		private EntitySet<RigActivity> _RigActivities;
 		
-		private EntityRef<WellType> _WellType;
-		
 		private EntityRef<Field> _Field;
+		
+		private EntityRef<WellType> _WellType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -690,8 +587,8 @@ namespace DOSB.Models
 		public Well()
 		{
 			this._RigActivities = new EntitySet<RigActivity>(new Action<RigActivity>(this.attach_RigActivities), new Action<RigActivity>(this.detach_RigActivities));
-			this._WellType = default(EntityRef<WellType>);
 			this._Field = default(EntityRef<Field>);
+			this._WellType = default(EntityRef<WellType>);
 			OnCreated();
 		}
 		
@@ -816,40 +713,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WellType_Well", Storage="_WellType", ThisKey="TypeId", OtherKey="WellTypeId", IsForeignKey=true)]
-		public WellType WellType
-		{
-			get
-			{
-				return this._WellType.Entity;
-			}
-			set
-			{
-				WellType previousValue = this._WellType.Entity;
-				if (((previousValue != value) 
-							|| (this._WellType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._WellType.Entity = null;
-						previousValue.Wells.Remove(this);
-					}
-					this._WellType.Entity = value;
-					if ((value != null))
-					{
-						value.Wells.Add(this);
-						this._TypeId = value.WellTypeId;
-					}
-					else
-					{
-						this._TypeId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("WellType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Field_Well", Storage="_Field", ThisKey="FieldId", OtherKey="FieldId", IsForeignKey=true)]
 		public Field Field
 		{
@@ -884,6 +747,40 @@ namespace DOSB.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WellType_Well", Storage="_WellType", ThisKey="TypeId", OtherKey="WellTypeId", IsForeignKey=true)]
+		public WellType WellType
+		{
+			get
+			{
+				return this._WellType.Entity;
+			}
+			set
+			{
+				WellType previousValue = this._WellType.Entity;
+				if (((previousValue != value) 
+							|| (this._WellType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._WellType.Entity = null;
+						previousValue.Wells.Remove(this);
+					}
+					this._WellType.Entity = value;
+					if ((value != null))
+					{
+						value.Wells.Add(this);
+						this._TypeId = value.WellTypeId;
+					}
+					else
+					{
+						this._TypeId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("WellType");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -914,120 +811,6 @@ namespace DOSB.Models
 		{
 			this.SendPropertyChanging();
 			entity.Well = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WellTypes")]
-	public partial class WellType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _WellTypeId;
-		
-		private string _Name;
-		
-		private EntitySet<Well> _Wells;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnWellTypeIdChanging(int value);
-    partial void OnWellTypeIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public WellType()
-		{
-			this._Wells = new EntitySet<Well>(new Action<Well>(this.attach_Wells), new Action<Well>(this.detach_Wells));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int WellTypeId
-		{
-			get
-			{
-				return this._WellTypeId;
-			}
-			set
-			{
-				if ((this._WellTypeId != value))
-				{
-					this.OnWellTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._WellTypeId = value;
-					this.SendPropertyChanged("WellTypeId");
-					this.OnWellTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WellType_Well", Storage="_Wells", ThisKey="WellTypeId", OtherKey="TypeId")]
-		public EntitySet<Well> Wells
-		{
-			get
-			{
-				return this._Wells;
-			}
-			set
-			{
-				this._Wells.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Wells(Well entity)
-		{
-			this.SendPropertyChanging();
-			entity.WellType = this;
-		}
-		
-		private void detach_Wells(Well entity)
-		{
-			this.SendPropertyChanging();
-			entity.WellType = null;
 		}
 	}
 	
@@ -4571,11 +4354,11 @@ namespace DOSB.Models
 		
 		private EntitySet<CompletionActivity> _CompletionActivities;
 		
-		private EntityRef<CompletionType> _CompletionType;
-		
 		private EntityRef<Rig> _Rig;
 		
 		private EntityRef<Well> _Well;
+		
+		private EntityRef<CompletionType> _CompletionType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4604,9 +4387,9 @@ namespace DOSB.Models
 		public RigActivity()
 		{
 			this._CompletionActivities = new EntitySet<CompletionActivity>(new Action<CompletionActivity>(this.attach_CompletionActivities), new Action<CompletionActivity>(this.detach_CompletionActivities));
-			this._CompletionType = default(EntityRef<CompletionType>);
 			this._Rig = default(EntityRef<Rig>);
 			this._Well = default(EntityRef<Well>);
+			this._CompletionType = default(EntityRef<CompletionType>);
 			OnCreated();
 		}
 		
@@ -4815,40 +4598,6 @@ namespace DOSB.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_CompletionType", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId", IsForeignKey=true)]
-		public CompletionType CompletionType
-		{
-			get
-			{
-				return this._CompletionType.Entity;
-			}
-			set
-			{
-				CompletionType previousValue = this._CompletionType.Entity;
-				if (((previousValue != value) 
-							|| (this._CompletionType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CompletionType.Entity = null;
-						previousValue.RigActivities.Remove(this);
-					}
-					this._CompletionType.Entity = value;
-					if ((value != null))
-					{
-						value.RigActivities.Add(this);
-						this._CompletionTypeId = value.CompletionTypeId;
-					}
-					else
-					{
-						this._CompletionTypeId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("CompletionType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Rig_RigActivity", Storage="_Rig", ThisKey="RigId", OtherKey="RigId", IsForeignKey=true)]
 		public Rig Rig
 		{
@@ -4913,6 +4662,40 @@ namespace DOSB.Models
 						this._WellId = default(int);
 					}
 					this.SendPropertyChanged("Well");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_CompletionType", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId", IsForeignKey=true)]
+		public CompletionType CompletionType
+		{
+			get
+			{
+				return this._CompletionType.Entity;
+			}
+			set
+			{
+				CompletionType previousValue = this._CompletionType.Entity;
+				if (((previousValue != value) 
+							|| (this._CompletionType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CompletionType.Entity = null;
+						previousValue.RigActivities.Remove(this);
+					}
+					this._CompletionType.Entity = value;
+					if ((value != null))
+					{
+						value.RigActivities.Add(this);
+						this._CompletionTypeId = value.CompletionTypeId;
+					}
+					else
+					{
+						this._CompletionTypeId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("CompletionType");
 				}
 			}
 		}
@@ -6167,6 +5950,392 @@ namespace DOSB.Models
 		{
 			this.SendPropertyChanging();
 			entity.Assembly = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CompletionTypes")]
+	public partial class CompletionType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CompletionTypeId;
+		
+		private string _Name;
+		
+		private int _Deleted;
+		
+		private EntitySet<RigActivity> _RigActivities;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCompletionTypeIdChanging(int value);
+    partial void OnCompletionTypeIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
+    #endregion
+		
+		public CompletionType()
+		{
+			this._RigActivities = new EntitySet<RigActivity>(new Action<RigActivity>(this.attach_RigActivities), new Action<RigActivity>(this.detach_RigActivities));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompletionTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CompletionTypeId
+		{
+			get
+			{
+				return this._CompletionTypeId;
+			}
+			set
+			{
+				if ((this._CompletionTypeId != value))
+				{
+					this.OnCompletionTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._CompletionTypeId = value;
+					this.SendPropertyChanged("CompletionTypeId");
+					this.OnCompletionTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CompletionType_RigActivity", Storage="_RigActivities", ThisKey="CompletionTypeId", OtherKey="CompletionTypeId")]
+		public EntitySet<RigActivity> RigActivities
+		{
+			get
+			{
+				return this._RigActivities;
+			}
+			set
+			{
+				this._RigActivities.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_RigActivities(RigActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.CompletionType = this;
+		}
+		
+		private void detach_RigActivities(RigActivity entity)
+		{
+			this.SendPropertyChanging();
+			entity.CompletionType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WellTypes")]
+	public partial class WellType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _WellTypeId;
+		
+		private string _Name;
+		
+		private int _Deleted;
+		
+		private EntitySet<Well> _Wells;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnWellTypeIdChanging(int value);
+    partial void OnWellTypeIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
+    #endregion
+		
+		public WellType()
+		{
+			this._Wells = new EntitySet<Well>(new Action<Well>(this.attach_Wells), new Action<Well>(this.detach_Wells));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int WellTypeId
+		{
+			get
+			{
+				return this._WellTypeId;
+			}
+			set
+			{
+				if ((this._WellTypeId != value))
+				{
+					this.OnWellTypeIdChanging(value);
+					this.SendPropertyChanging();
+					this._WellTypeId = value;
+					this.SendPropertyChanged("WellTypeId");
+					this.OnWellTypeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WellType_Well", Storage="_Wells", ThisKey="WellTypeId", OtherKey="TypeId")]
+		public EntitySet<Well> Wells
+		{
+			get
+			{
+				return this._Wells;
+			}
+			set
+			{
+				this._Wells.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Wells(Well entity)
+		{
+			this.SendPropertyChanging();
+			entity.WellType = this;
+		}
+		
+		private void detach_Wells(Well entity)
+		{
+			this.SendPropertyChanging();
+			entity.WellType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WellStatus")]
+	public partial class WellStatus : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _WellStatusId;
+		
+		private string _Name;
+		
+		private int _Deleted;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnWellStatusIdChanging(int value);
+    partial void OnWellStatusIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnDeletedChanging(int value);
+    partial void OnDeletedChanged();
+    #endregion
+		
+		public WellStatus()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WellStatusId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int WellStatusId
+		{
+			get
+			{
+				return this._WellStatusId;
+			}
+			set
+			{
+				if ((this._WellStatusId != value))
+				{
+					this.OnWellStatusIdChanging(value);
+					this.SendPropertyChanging();
+					this._WellStatusId = value;
+					this.SendPropertyChanged("WellStatusId");
+					this.OnWellStatusIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Deleted", DbType="Int NOT NULL")]
+		public int Deleted
+		{
+			get
+			{
+				return this._Deleted;
+			}
+			set
+			{
+				if ((this._Deleted != value))
+				{
+					this.OnDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._Deleted = value;
+					this.SendPropertyChanged("Deleted");
+					this.OnDeletedChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	

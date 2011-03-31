@@ -10,13 +10,6 @@
       <Association Name="Company_CompletionActivity" Member="CompletionActivities" ThisKey="CompanyId" OtherKey="CompanyId" Type="CompletionActivity" />
     </Type>
   </Table>
-  <Table Name="dbo.CompletionTypes" Member="CompletionTypes">
-    <Type Name="CompletionType">
-      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="CompletionType_RigActivity" Member="RigActivities" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="RigActivity" />
-    </Type>
-  </Table>
   <Table Name="dbo.Wells" Member="Wells">
     <Type Name="Well">
       <Column Name="WellId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -25,15 +18,8 @@
       <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Well_RigActivity" Member="RigActivities" ThisKey="WellId" OtherKey="WellId" Type="RigActivity" />
-      <Association Name="WellType_Well" Member="WellType" ThisKey="TypeId" OtherKey="WellTypeId" Type="WellType" IsForeignKey="true" />
       <Association Name="Field_Well" Member="Field" ThisKey="FieldId" OtherKey="FieldId" Type="Field" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.WellTypes" Member="WellTypes">
-    <Type Name="WellType">
-      <Column Name="WellTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="WellType_Well" Member="Wells" ThisKey="WellTypeId" OtherKey="TypeId" Type="Well" />
+      <Association Name="WellType_Well" Member="WellType" ThisKey="TypeId" OtherKey="WellTypeId" Type="WellType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.vwLowerCompletionAssembly" Member="vwLowerCompletionAssemblies">
@@ -228,9 +214,9 @@
       <Column Name="Comment" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="RigActivity_CompletionActivity" Member="CompletionActivities" ThisKey="RigActivityId" OtherKey="RigActivityId" Type="CompletionActivity" />
-      <Association Name="CompletionType_RigActivity" Member="CompletionType" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="CompletionType" IsForeignKey="true" />
       <Association Name="Rig_RigActivity" Member="Rig" ThisKey="RigId" OtherKey="RigId" Type="Rig" IsForeignKey="true" />
       <Association Name="Well_RigActivity" Member="Well" ThisKey="WellId" OtherKey="WellId" Type="Well" IsForeignKey="true" />
+      <Association Name="CompletionType_RigActivity" Member="CompletionType" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="CompletionType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.vwRigActivity" Member="vwRigActivities">
@@ -304,6 +290,29 @@
       <Column Name="Hidden" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Assembly_CompletionActivity" Member="CompletionActivities" ThisKey="AssemblyId" OtherKey="AssemblyId" Type="CompletionActivity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CompletionTypes" Member="CompletionTypes">
+    <Type Name="CompletionType">
+      <Column Name="CompletionTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="CompletionType_RigActivity" Member="RigActivities" ThisKey="CompletionTypeId" OtherKey="CompletionTypeId" Type="RigActivity" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WellTypes" Member="WellTypes">
+    <Type Name="WellType">
+      <Column Name="WellTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WellType_Well" Member="Wells" ThisKey="WellTypeId" OtherKey="TypeId" Type="Well" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WellStatus" Member="WellStatus">
+    <Type Name="WellStatus">
+      <Column Name="WellStatusId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Deleted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.fnFilterRigActivity" Method="fnFilterRigActivity" IsComposable="true">

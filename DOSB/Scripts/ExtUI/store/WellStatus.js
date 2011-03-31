@@ -1,12 +1,16 @@
 
 // define the well status store.
 (function(){
-	var a = new Ext.data.ArrayStore({
-		storeId: 'well-status',
+	var store = new Ext.data.JsonStore({
+		autoLoad: true,
+		url: '/WellStatus/GetJson',
+        idProperty: 'WellStatusId',
+		totalProperty: 'total',
+		successProperty: 'success',
+		root: 'data',
         fields: [
-		'Name',
-		'Short'
-		],
-		data: [['Developement', 'Dev.'], ['Workover', 'W/O'], ['Exploration', 'Exp.'], ['ML Workover', 'ML W/O']]
+			'WellStatusId',
+			'Name'
+        ]
     });
 })();
