@@ -196,7 +196,15 @@ Ext.onReady(function() {
 				 '/Scripts/ExtUI/CActivity/MonthView.js'], 
 		xtype: 'dosb-ca-mview', 
 		id: 'main-ca-mview'
-	};
+    };
+
+    menuMapping['emp-admin-org'] = {
+        css: [],
+        scripts: ['/Scripts/ExtUI/Employee/Admin/EmployeeOrg.js'],
+        xtype: 'dosb-emp-admin-org',
+        id: 'main-emp-admin-org'
+    };
+	
 	
 	menuTreePanel.on('click', function(n){
     	var sn = this.selModel.selNode || {}; // selNode is null on initial selection

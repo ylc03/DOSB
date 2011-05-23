@@ -79,16 +79,41 @@
 	expanded: true,
     children:[{
         text:'Employee List',
-        id:'emp-ls',
-        leaf:true
-    },{
-        text:'Role List',
-        id:'role-ls',
+        id:'emp-list',
         leaf:true
     },{
         text:'Employee Certificates',
         id:'emp-cert',
         leaf:true
+    },{
+        text:'Employee Skill',
+        id:'emp-skill',
+        leaf:true
+    },{
+        text:'Admin',
+        id:'emp-admin',
+        expanded:false,
+        children:[{
+            text:'Organization',
+            id:'emp-admin-org',
+            leaf:true   
+        },{
+            text:'Role',
+            id:'emp-admin-role',
+            leaf:true   
+        },{
+            text:'Status',
+            id:'emp-admin-status',
+            leaf:true   
+        },{
+            text:'Certificate',
+            id:'emp-admin-cert',
+            leaf:true
+        },{
+            text:'Skill',
+            id:'emp-admin-skill',
+            leaf:true
+        }]
     }]
 },{
     text:'Material',
