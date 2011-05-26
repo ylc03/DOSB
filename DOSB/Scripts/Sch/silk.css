@@ -22,6 +22,7 @@
 .silk-arrow-left { background-image: url(fam/arrow_left.png) !important; background-repeat: no-repeat; }
 .silk-arrow-right { background-image: url(fam/arrow_right.png) !important; background-repeat: no-repeat; }
 .silk-arrow-redo { background-image: url(fam/arrow_redo.png) !important; background-repeat: no-repeat; }
+.silk-arrow-refresh { background-image: url(fam/arrow_refresh.png) !important; background-repeat: no-repeat; }
 .silk-arrow-right-medium { background-image: url(fam/other/iconRightMedium.gif) !important; background-repeat: no-repeat; }
 .silk-asterisk-orange { background-image: url(fam/asterisk_orange.png) !important; background-repeat: no-repeat; }
 .silk-bell { background-image: url(fam/bell.png) !important; background-repeat: no-repeat; }
@@ -76,6 +77,9 @@
 .silk-comments { background-image: url(fam/comments.png) !important; background-repeat: no-repeat; }
 .silk-creditcards { background-image: url(fam/creditcards.png) !important; background-repeat: no-repeat; }
 .silk-cross { background-image: url(fam/cross.png) !important; background-repeat: no-repeat; }
+.silk-organisation { background-image: url(fam/chart_organisation.png) !important; background-repeat: no-repeat; }
+.silk-organisation-add { background-image: url(fam/chart_organisation_add.png) !important; background-repeat: no-repeat; }
+.silk-organisation-delete { background-image: url(fam/chart_organisation_delete.png) !important; background-repeat: no-repeat; }
 .silk-database { background-image: url(fam/database.png) !important; background-repeat: no-repeat; }
 .silk-database-go { background-image: url(fam/database_go.png) !important; background-repeat: no-repeat; }
 .silk-database-save { background-image: url(fam/database_save.png) !important; background-repeat: no-repeat; }

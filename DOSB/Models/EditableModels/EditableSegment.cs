@@ -20,16 +20,26 @@ namespace DOSB.Models.EditableModels
 
         public string FullName { get; set; }
 
+        public string Path 
+        { 
+            get 
+            {
+                CPLDataContext store = new CPLDataContext();
+                Segment seg = store.Segments.FirstOrDefault(s => s.SegmentId == this.SegmentId);
+
+                string path = "/";
+                while (seg.Parent != null)
+                {
+                    path = "/" + seg.Parent.Name + path;
+                    seg = seg.Parent;
+                }
+
+                return path;
+            }
+        }
+
         public string BusinessCategory { get; set; }
 
         public int ParentId { get; set; }
-
-        public bool HasChildren
-        {
-            get
-            {
-                return EditableSegmentRespository.Children(this.SegmentId).Count() > 0;
-            }
-        }
     }
 }

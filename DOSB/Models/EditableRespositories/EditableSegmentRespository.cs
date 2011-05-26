@@ -19,11 +19,14 @@ namespace DOSB.Models.EditableRespositories
         {
             IQueryable<EditableSegment> result =
                 (IQueryable<EditableSegment>)HttpContext.Current.Session["segments"];
+
+            EditableSegmentRespository.Clean();
+
             if (result == null)
             {
                 CPLDataContext store = new CPLDataContext();
 
-                var res = from r in store.Segments
+                result = from r in store.Segments
                           select new EditableSegment
                           {
                               SegmentId = r.SegmentId,
@@ -44,7 +47,7 @@ namespace DOSB.Models.EditableRespositories
             CPLDataContext store = new CPLDataContext();
 
             var res = from r in store.Segments
-                      where r.ParentId == 0
+                      where r.ParentId == 8
                       select new EditableSegment
                       {
                           SegmentId = r.SegmentId,
@@ -97,7 +100,7 @@ namespace DOSB.Models.EditableRespositories
 
         public static IQueryable<EditableSegment> Children(int id)
         {
-            if (id == 0)
+            if (id == 0 || id == 8)
             {
                 return EditableSegmentRespository.Roots();
             }
@@ -116,6 +119,19 @@ namespace DOSB.Models.EditableRespositories
                       };
 
             return res;
+        }
+
+        public static void Clean()
+        { 
+            CPLDataContext store = new CPLDataContext();
+            foreach (var s in store.Segments)
+            {
+                if (s.ParentId != 0 && s.Parent == null)
+                {
+                    store.Segments.DeleteOnSubmit(s);
+                }
+            }
+            store.SubmitChanges();
         }
     }
 }

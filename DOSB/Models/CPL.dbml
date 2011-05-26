@@ -54,7 +54,7 @@
       <Column Name="BusinessCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Segment_Segment" Member="Segments" ThisKey="SegmentId" OtherKey="ParentId" Type="Segment" />
       <Association Name="Segment_Employee" Member="Employees" ThisKey="SegmentId" OtherKey="SegmentId" Type="Employee" />
-      <Association Name="Segment_Segment" Member="Segment1" ThisKey="ParentId" OtherKey="SegmentId" Type="Segment" IsForeignKey="true" />
+      <Association Name="Segment_Segment" Member="Parent" Storage="_Segment1" ThisKey="ParentId" OtherKey="SegmentId" Type="Segment" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.WorkshopAssignment" Member="WorkshopAssignments">

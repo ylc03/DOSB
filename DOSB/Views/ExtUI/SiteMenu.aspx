@@ -94,7 +94,8 @@
         id:'emp-admin',
         expanded:false,
         children:[{
-            text:'Organization',
+            text:'Organisation',
+            iconCls: 'silk-organisation',
             id:'emp-admin-org',
             leaf:true   
         },{

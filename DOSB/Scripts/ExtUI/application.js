@@ -1,3 +1,6 @@
+/// <reference path="../ext/adapter/ext/ext-base.js" />
+/// <reference path="../ext/ext-all-debug.js" />
+/// <reference path="../Sch/ext-sch-crack.js" />
 /**
 * DOSB
 *
@@ -7,7 +10,6 @@
 * @date      5. March 2011
 * @version   $Id$
 */
-
 Ext.BLANK_IMAGE_URL = '/Scripts/ext/resources/images/default/s.gif';
 Ext.chart.Chart.CHART_URL = '/Scripts/ext/resources/charts.swf';
 
@@ -200,7 +202,10 @@ Ext.onReady(function() {
 
     menuMapping['emp-admin-org'] = {
         css: [],
-        scripts: ['/Scripts/ExtUI/Employee/Admin/EmployeeOrg.js'],
+        scripts: [
+                '/Scripts/ExtUI/store/Segment.js',
+                '/Scripts/ExtUI/Employee/Admin/EmployeeOrg.js'
+                ],
         xtype: 'dosb-emp-admin-org',
         id: 'main-emp-admin-org'
     };
@@ -216,7 +221,7 @@ Ext.onReady(function() {
 			     scripts : treeData.scripts,
 			     callback : function() {
 					var mainPanel = Ext.getCmp('main-panel');
-					mainPanel.removeAll();
+					mainPanel.removeAll(true);
 			        var panel = {xtype: treeData.xtype, id: treeData.id}
 					mainPanel.add(panel);
 					mainPanel.doLayout();
@@ -233,7 +238,7 @@ Ext.onReady(function() {
 			 scripts : treeData.scripts,
 			 callback : function() {
 				var mainPanel = Ext.getCmp('main-panel');
-				mainPanel.removeAll();
+				mainPanel.removeAll(true);
 				var panel = {xtype: treeData.xtype, id: treeData.id}
 				mainPanel.add(panel);
 				mainPanel.doLayout();
